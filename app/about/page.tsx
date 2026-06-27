@@ -42,13 +42,22 @@ export default function AboutPage() {
         }
       />
 
-      {/* ── Photo (warm treatment) — seam for a real portrait. */}
-      <section className="container-content py-8 sm:py-12">
+      {/* ── Warm human accent: ONE amber divider, right under the hero so warmth
+          enters early on this warm surface (G3.2). A divider is sanctioned amber
+          usage (G2.4) and it gives the previously empty hero-to-photo space
+          intent rather than dead air (G6.1). */}
+      <div className="container-content pt-2 pb-10 sm:pt-4">
         <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-amber/40">
-            <div className="aspect-[16/7] w-full bg-paper" />
-            {/* Warm amber wash on the photo, per the warm-page treatment. */}
-            <div className="absolute inset-0 bg-amber/10" aria-hidden />
+          <span className="block h-px w-16 bg-amber" aria-hidden />
+        </Reveal>
+      </div>
+
+      {/* ── Photo (warm treatment) — seam for a real portrait. Paper-dominant
+          (G3.2); the thin amber frame is the photo's warmth (G2.5), no fill. */}
+      <section className="container-content pb-8 sm:pb-12">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-3xl border border-amber/40 bg-paper">
+            <div className="aspect-[16/7] w-full" />
             <p className="absolute bottom-6 left-6 text-small text-ink/45">
               Portrait mounts here (warm treatment).
             </p>
@@ -92,7 +101,7 @@ export default function AboutPage() {
       {/* ── Mentorship thread. */}
       <section className="container-content py-16 sm:py-24">
         <Reveal>
-          <div className="rounded-3xl border border-amber/40 bg-paper p-10 sm:p-16">
+          <div className="rounded-3xl border border-ink/10 bg-paper p-10 sm:p-16">
             <p className="kicker text-amber">The mentorship thread</p>
             <p className="mt-6 max-w-3xl font-serif text-h2 font-light leading-snug text-ink">
               The people I work with should leave better than the project found them.
