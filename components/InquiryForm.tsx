@@ -59,7 +59,7 @@ export default function InquiryForm({
     );
   }
 
-  const labelCls = `block text-small font-medium ${dark ? "text-paper/80" : "text-ink/75"}`;
+  const labelCls = `block text-small font-medium ${dark ? "text-paper/80" : "text-ink"}`;
   const inputCls = `mt-2 w-full rounded-lg border px-4 py-3 text-body outline-none transition-colors duration-300 ease-calm ${
     dark
       ? "border-paper/20 bg-paper/5 text-paper placeholder:text-paper/35 focus:border-amber"

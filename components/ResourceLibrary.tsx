@@ -63,7 +63,7 @@ export default function ResourceLibrary({ resources }: { resources: Resource[] }
               <h3 className="mt-4 font-serif text-h2 font-light text-ink transition-colors duration-300 ease-calm group-hover:text-blue-lift">
                 {r.title}
               </h3>
-              <p className="mt-3 flex-1 text-small text-ink/70">{r.summary}</p>
+              <p className="mt-3 flex-1 text-small text-ink">{r.summary}</p>
               <span className="mt-6 inline-flex items-center gap-2 text-small text-link">
                 View
                 <span className="transition-transform duration-300 ease-calm group-hover:translate-x-1">
@@ -110,7 +110,7 @@ function FilterRow({
               className={`rounded-full border px-4 py-1.5 text-small transition-colors duration-300 ease-calm ${
                 active
                   ? "border-signature bg-signature text-paper"
-                  : "border-ink/15 text-ink/70 hover:border-blue-lift hover:text-blue-lift"
+                  : "border-ink/15 text-ink hover:border-blue-lift hover:text-blue-lift"
               }`}
             >
               {opt === "all" ? "All" : opt}

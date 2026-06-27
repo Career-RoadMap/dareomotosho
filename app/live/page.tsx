@@ -43,7 +43,7 @@ export default function LivePage() {
                       </h3>
                       <p className="mt-1 text-small text-ink/55">{s.level}</p>
                     </div>
-                    <p className="text-small text-ink/70">
+                    <p className="text-small text-ink">
                       {s.day} · {s.time} · {s.cadence}
                     </p>
                   </div>
@@ -74,7 +74,7 @@ export default function LivePage() {
       <section className="container-content py-16 sm:py-24">
         <Reveal>
           <h2 className="font-serif text-h2 font-light text-ink">The podcast</h2>
-          <p className="mt-3 max-w-prose text-body text-ink/70">
+          <p className="mt-3 max-w-prose text-body text-ink">
             Conversations at the seam of engineering and the business — each with a
             designed deck.
           </p>
@@ -92,7 +92,7 @@ export default function LivePage() {
                 {ep.title}
               </h3>
               <p className="mt-2 text-small text-ink/55">{ep.guest}</p>
-              <p className="mt-4 text-small text-ink/70">{ep.summary}</p>
+              <p className="mt-4 text-small text-ink">{ep.summary}</p>
             </Reveal>
           ))}
         </ul>

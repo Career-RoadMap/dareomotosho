@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 48" role="img" aria-label="Docker">
+  <!-- PLACEHOLDER wordmark — replace with the official Docker logo asset. -->
+  <rect x="0.5" y="0.5" width="179" height="47" rx="10" fill="none" stroke="#0F1B2D" stroke-opacity="0.12"/>
+  <circle cx="24" cy="24" r="7" fill="none" stroke="#0F1B2D" stroke-opacity="0.35" stroke-width="1.5"/>
+  <text x="42" y="29" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="15" font-weight="500" letter-spacing="0.2" fill="#0F1B2D">Docker</text>
+</svg>

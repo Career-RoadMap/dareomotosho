@@ -24,7 +24,7 @@ export default function BioLengths({ bios }: { bios: BioLength[] }) {
               className={`rounded-full border px-4 py-1.5 text-small transition-colors duration-300 ease-calm ${
                 isActive
                   ? "border-amber bg-amber text-ink"
-                  : "border-ink/15 text-ink/70 hover:border-blue-lift hover:text-blue-lift"
+                  : "border-ink/15 text-ink hover:border-blue-lift hover:text-blue-lift"
               }`}
             >
               {bio.label}
@@ -35,7 +35,7 @@ export default function BioLengths({ bios }: { bios: BioLength[] }) {
 
       <p
         key={active}
-        className="mt-8 max-w-prose text-body text-ink/80 animate-fade-in"
+        className="mt-8 max-w-prose text-body text-ink animate-fade-in"
       >
         {bios[active].text}
       </p>

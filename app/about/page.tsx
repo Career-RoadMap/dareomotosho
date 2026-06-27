@@ -73,7 +73,7 @@ export default function AboutPage() {
             The tool was never the hard part. The judgment is — knowing which system to
             build, and why, given the business you're in.
           </p>
-          <p className="mt-8 max-w-2xl text-body text-ink/70">
+          <p className="mt-8 max-w-2xl text-body text-ink">
             Most engineers are taught to optimize the tool. Almost none are taught that
             every system they build is a business decision in disguise. Closing that gap
             — in myself, in teams, in newcomers — is the whole of the work.
@@ -92,7 +92,7 @@ export default function AboutPage() {
           {philosophy.map((p, i) => (
             <Reveal key={p.title} delay={i * 100}>
               <h3 className="font-serif text-h2 font-light text-signature">{p.title}</h3>
-              <p className="mt-4 text-body text-ink/70">{p.body}</p>
+              <p className="mt-4 text-body text-ink">{p.body}</p>
             </Reveal>
           ))}
         </div>
@@ -106,7 +106,7 @@ export default function AboutPage() {
             <p className="mt-6 max-w-3xl font-serif text-h2 font-light leading-snug text-ink">
               The people I work with should leave better than the project found them.
             </p>
-            <p className="mt-6 max-w-2xl text-body text-ink/70">
+            <p className="mt-6 max-w-2xl text-body text-ink">
               Mentorship runs through everything — the classes, the advisory, the daily
               work. Raising judgment, not just shipping output, is the part I'm proudest
               of and the part that outlasts any one system.

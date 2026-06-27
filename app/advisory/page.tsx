@@ -46,7 +46,7 @@ export default function AdvisoryPage() {
           {outcomes.map((o, i) => (
             <Reveal as="div" key={o.title} delay={i * 90} className="bg-paper p-8 sm:p-10">
               <h2 className="font-serif text-h2 font-light text-signature">{o.title}</h2>
-              <p className="mt-4 text-body text-ink/70">{o.body}</p>
+              <p className="mt-4 text-body text-ink">{o.body}</p>
             </Reveal>
           ))}
         </div>
@@ -76,7 +76,7 @@ export default function AdvisoryPage() {
             <h2 className="font-serif text-h1 font-light text-signature">
               Start a conversation.
             </h2>
-            <p className="mt-6 max-w-prose text-body text-ink/70">
+            <p className="mt-6 max-w-prose text-body text-ink">
               A few lines on your situation and the outcome you're after is plenty. I
               read every inquiry personally.
             </p>

@@ -96,6 +96,28 @@
   }
 }
 
+/* ── Toolkit marquee ───────────────────────────────────────────────────
+   A continuous, unhurried roll of tool logos. The track is duplicated, so
+   translating one half-width loops seamlessly. Linear (constant speed) is
+   intentional for an infinite loop — easing would stutter at the seam.
+   Slow enough to read as calm, not flashy; pauses on hover. */
+.marquee-track {
+  animation: marquee 48s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 /* ── Respect prefers-reduced-motion everywhere ─────────────────────────
    Disable/curtail all reveal + transition motion; content shows at rest. */
 @media (prefers-reduced-motion: reduce) {

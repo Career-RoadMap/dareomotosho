@@ -37,7 +37,7 @@ export default function FaqPage() {
         <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
           <Reveal>
             <h2 className="font-serif text-h2 font-light text-ink">Ask a question</h2>
-            <p className="mt-5 max-w-prose text-body text-ink/70">
+            <p className="mt-5 max-w-prose text-body text-ink">
               If something's missing, ask it here. I can't promise a personal reply to
               every one, but the most common ones get added above.
             </p>

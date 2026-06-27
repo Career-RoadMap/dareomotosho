@@ -89,7 +89,7 @@ export default function StartHerePage() {
                   <h3 className="font-serif text-h2 font-light text-ink">
                     {item.title}
                   </h3>
-                  <p className="mt-3 max-w-prose text-body text-ink/70">{item.body}</p>
+                  <p className="mt-3 max-w-prose text-body text-ink">{item.body}</p>
                 </div>
               </div>
             </Reveal>
@@ -101,7 +101,7 @@ export default function StartHerePage() {
       <section className="container-content py-16 sm:py-20">
         <Reveal>
           <h2 className="font-serif text-h2 font-light text-ink">Free to start</h2>
-          <p className="mt-3 max-w-prose text-body text-ink/70">
+          <p className="mt-3 max-w-prose text-body text-ink">
             Downloads to keep, no email wall. Take what's useful.
           </p>
         </Reveal>
@@ -110,7 +110,7 @@ export default function StartHerePage() {
             <Reveal as="div" key={r.slug} delay={i * 100} className="bg-paper p-8">
               <p className="kicker text-blue-lift">{r.type}</p>
               <h3 className="mt-4 font-serif text-xl font-medium text-ink">{r.title}</h3>
-              <p className="mt-3 text-small text-ink/70">{r.summary}</p>
+              <p className="mt-3 text-small text-ink">{r.summary}</p>
               <a
                 href={`/resources/${r.slug}`}
                 className="link-quiet mt-6 inline-block text-small"
@@ -128,7 +128,7 @@ export default function StartHerePage() {
           {whyExplainers.map((w, i) => (
             <Reveal key={w.title} delay={i * 90}>
               <h3 className="font-serif text-h2 font-light text-signature">{w.title}</h3>
-              <p className="mt-4 text-body text-ink/70">{w.body}</p>
+              <p className="mt-4 text-body text-ink">{w.body}</p>
             </Reveal>
           ))}
         </div>
@@ -142,7 +142,7 @@ export default function StartHerePage() {
             <p className="mt-6 max-w-3xl font-serif text-h1 font-light leading-tight text-ink">
               AI is very good at the tool. It's far weaker at the judgment.
             </p>
-            <p className="mt-6 max-w-2xl text-body text-ink/70">
+            <p className="mt-6 max-w-2xl text-body text-ink">
               Knowing which system to build, and why, given the business you're in —
               that's the part worth learning, and the part that lasts. Start there and
               you start ahead.
@@ -157,7 +157,7 @@ export default function StartHerePage() {
           <h2 className="mx-auto max-w-2xl font-serif text-h1 font-light text-ink">
             The best first step is a live class.
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-body text-ink/70">
+          <p className="mx-auto mt-5 max-w-xl text-body text-ink">
             Come with questions. Leave with a direction.
           </p>
           <div className="mt-10">

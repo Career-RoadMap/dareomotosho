@@ -4,7 +4,7 @@
  */
 
 export const brand = {
-  name: "Your Name",
+  name: "Dare Omotosho",
   byline: "Builder · Mentor · Boardroom Translator",
   oneLine:
     "A translator between the technical floor and the boardroom, who builds the systems that connect them.",

@@ -43,7 +43,7 @@ export default function SpeakingPage() {
                 <h3 className="mt-4 font-serif text-h2 font-light text-ink">
                   {t.title}
                 </h3>
-                <p className="mt-4 max-w-prose text-body text-ink/70">{t.body}</p>
+                <p className="mt-4 max-w-prose text-body text-ink">{t.body}</p>
               </article>
             </Reveal>
           ))}
@@ -81,7 +81,7 @@ export default function SpeakingPage() {
         <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
           <Reveal>
             <h2 className="font-serif text-h1 font-light text-signature">Book me.</h2>
-            <p className="mt-6 max-w-prose text-body text-ink/70">
+            <p className="mt-6 max-w-prose text-body text-ink">
               Tell me about the event and the audience. I'll reply with fit, a tailored
               angle, and logistics.
             </p>

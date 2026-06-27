@@ -2,21 +2,15 @@ import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import Button from "@/components/Button";
-import CountUp from "@/components/CountUp";
-import { capabilities, outcomes } from "@/lib/content";
+import FlipCard from "@/components/FlipCard";
+import LogoMarquee from "@/components/LogoMarquee";
+import { capabilities, outcomes, toolkitNote } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "I build systems for businesses — cloud architecture that serves the P&L, security matched to real risk, delivery at the speed the business needs.",
+    "I build systems for businesses — cloud architecture that serves the P&L, security matched to real risk, and delivery pipelines that move at the speed the business needs.",
 };
-
-/** Split a metric into number + suffix for an optional dignified count-up. */
-function parseMetric(metric: string): { num: number; suffix: string } | null {
-  const match = metric.match(/^(\d+)(\D*)$/);
-  if (!match) return null;
-  return { num: Number(match[1]), suffix: match[2] };
-}
 
 export default function WorkPage() {
   return (
@@ -28,71 +22,33 @@ export default function WorkPage() {
         intro={
           <p>
             I build systems for businesses — cloud architecture that serves the P&amp;L,
-            security matched to real risk, and delivery at the speed the business needs.
+            security matched to real risk, and delivery pipelines that move at the speed
+            the business needs. Every system below started as a business decision, not
+            just a technical one.
           </p>
         }
       />
 
-      {/* ── Featured cases — outcome-led, one at a time, metric prominent. */}
+      {/* ── Featured cases — heading only; click each to flip and read the detail. */}
       <section className="container-content py-12 sm:py-16">
-        <div className="space-y-6">
-          {outcomes.map((o) => {
-            const parsed = parseMetric(o.metric);
-            const hero = o.hero;
-            return (
-              <Reveal key={o.title}>
-                <article
-                  className={`grid gap-8 rounded-3xl p-8 sm:grid-cols-[minmax(0,0.9fr)_1.4fr] sm:p-12 lg:p-16 ${
-                    hero
-                      ? "bg-signature text-paper"
-                      : "border border-ink/10 bg-paper text-ink"
-                  }`}
-                >
-                  <div>
-                    <p
-                      className={`kicker ${hero ? "text-amber" : "text-blue-lift"}`}
-                    >
-                      {hero ? "Hero proof" : "Outcome"}
-                    </p>
-                    <p
-                      className={`mt-5 font-serif font-light leading-none ${
-                        hero ? "text-paper text-display" : "text-signature text-h1"
-                      }`}
-                    >
-                      {parsed ? (
-                        <CountUp value={parsed.num} suffix={parsed.suffix} />
-                      ) : (
-                        o.metric
-                      )}
-                    </p>
-                    <p
-                      className={`mt-4 text-small ${
-                        hero ? "text-paper/65" : "text-ink/55"
-                      }`}
-                    >
-                      {o.metricLabel}
-                    </p>
-                  </div>
-                  <div className="sm:self-center">
-                    <h2
-                      className={`font-serif text-h2 font-light leading-tight ${
-                        hero ? "text-paper" : "text-ink"
-                      }`}
-                    >
-                      {o.title}
-                    </h2>
-                    <p
-                      className={`mt-5 max-w-prose text-body ${
-                        hero ? "text-paper/75" : "text-ink/70"
-                      }`}
-                    >
-                      {o.body}
-                    </p>
-                  </div>
-                </article>
-              </Reveal>
-            );
-          })}
+        <Reveal>
+          <p className="text-small text-ink/55">
+            Each card shows the outcome —{" "}
+            <span className="text-amber">click to flip</span> and read how it was built.
+          </p>
+        </Reveal>
+        <div className="mt-8 grid gap-6 sm:grid-cols-2">
+          {outcomes.map((o) => (
+            <Reveal key={o.title} className={o.hero ? "sm:col-span-2" : undefined}>
+              <FlipCard
+                metric={o.metric}
+                metricLabel={o.metricLabel}
+                title={o.title}
+                body={o.body}
+                hero={o.hero}
+              />
+            </Reveal>
+          ))}
         </div>
       </section>
 
@@ -103,14 +59,27 @@ export default function WorkPage() {
             How the work holds together
           </h2>
         </Reveal>
-        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-2">
           {capabilities.map((c, i) => (
-            <Reveal as="div" key={c.title} delay={i * 80} className="bg-paper p-8">
+            <Reveal as="div" key={c.title} delay={i * 80} className="bg-paper p-8 sm:p-10">
               <h3 className="font-serif text-xl font-medium text-ink">{c.title}</h3>
-              <p className="mt-4 text-small text-ink/70">{c.body}</p>
+              <p className="mt-4 text-small text-ink">{c.body}</p>
             </Reveal>
           ))}
         </div>
+      </section>
+
+      {/* ── The toolkit — note + a continuously rolling logo marquee. */}
+      <section className="py-12 sm:py-16">
+        <div className="container-content">
+          <Reveal>
+            <p className="kicker text-amber">The toolkit</p>
+            <p className="mt-5 max-w-2xl text-body text-ink">{toolkitNote}</p>
+          </Reveal>
+        </div>
+        <Reveal className="mt-12">
+          <LogoMarquee />
+        </Reveal>
       </section>
 
       {/* ── Close CTA → Advisory / Contact. */}
