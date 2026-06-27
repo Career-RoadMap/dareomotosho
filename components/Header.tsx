@@ -37,7 +37,7 @@ export default function Header() {
       <div className="container-content flex items-center justify-between gap-6 py-4">
         {/* Name only */}
         <Link href="/" className="group flex items-center leading-none" aria-label="Home">
-          <span className="font-serif text-xl font-medium tracking-tight text-ink transition-colors duration-300 ease-calm group-hover:text-blue-lift">
+          <span className="font-serif text-xl font-medium tracking-tight text-ink transition-colors duration-300 ease-calm group-hover:text-amber">
             {brand.name}
           </span>
         </Link>
@@ -52,7 +52,7 @@ export default function Header() {
                   <Link
                     href={item.href}
                     aria-current={active ? "page" : undefined}
-                    className={`link-quiet text-small ${
+                    className={`link-amber text-small ${
                       active ? "text-signature" : "text-ink"
                     }`}
                   >
@@ -111,7 +111,7 @@ export default function Header() {
                     href={item.href}
                     aria-current={active ? "page" : undefined}
                     tabIndex={open ? undefined : -1}
-                    className={`block rounded-md px-3 py-2.5 text-body transition-colors duration-300 ease-calm hover:bg-ink/[0.03] hover:text-blue-lift ${
+                    className={`block rounded-md px-3 py-2.5 text-body transition-colors duration-300 ease-calm hover:bg-ink/[0.03] hover:text-amber ${
                       active ? "text-signature" : "text-ink"
                     }`}
                   >

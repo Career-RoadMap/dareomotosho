@@ -68,7 +68,7 @@ export default function Footer() {
             <ul className="mt-5 space-y-3 text-body">
               {nav.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="link-quiet !text-paper">
+                  <Link href={item.href} className="link-amber !text-paper">
                     {item.label}
                   </Link>
                 </li>

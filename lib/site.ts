@@ -20,7 +20,6 @@ export const nav: NavItem[] = [
   { href: "/work", label: "Work" },
   { href: "/start-here", label: "Start Here" },
   { href: "/resources", label: "Resources" },
-  { href: "/live", label: "Live" },
   { href: "/speaking", label: "Speaking" },
   { href: "/advisory", label: "Advisory" },
   { href: "/about", label: "About" },

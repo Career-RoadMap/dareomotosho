@@ -8,7 +8,7 @@ type FlipCardProps = {
   metricLabel: string;
   title: string;
   body: string;
-  /** Hero proof gets the deep Signature Blue surface. */
+  /** Hero proof gets the deep Signature Blue front surface. */
   hero?: boolean;
 };
 
@@ -20,8 +20,9 @@ function parseMetric(metric: string): { num: number; suffix: string } | null {
 }
 
 /**
- * Featured case card. The front shows only the heading + metric; a calm,
- * eased click flip reveals the detail on the back. Keyboard-operable (it is a
+ * Featured case card. The front shows only the heading + metric, centered; a
+ * calm, eased click flip reveals the detail on a SOLID-color back. Hovering
+ * (before any click) rings the card in amber. Keyboard-operable (it is a
  * button); the flip is curtailed to an instant under prefers-reduced-motion.
  */
 export default function FlipCard({
@@ -34,47 +35,49 @@ export default function FlipCard({
   const [flipped, setFlipped] = useState(false);
   const parsed = parseMetric(metric);
 
+  // Both faces: centered content, clipped to the rounded border so nothing
+  // ever spills past the box.
   const faceBase =
-    "absolute inset-0 flex flex-col rounded-3xl p-8 sm:p-12 [backface-visibility:hidden]";
-  const surface = hero
+    "absolute inset-0 flex flex-col items-center justify-center gap-3 overflow-hidden rounded-3xl p-8 text-center [backface-visibility:hidden]";
+  const frontSurface = hero
     ? "bg-signature text-paper"
     : "border border-ink/10 bg-paper text-ink";
+  // Flipped side is a solid fill (no border), distinct from the front.
+  const backSurface = hero ? "bg-ink text-paper" : "bg-signature text-paper";
 
   return (
-    <div className="h-full [perspective:1800px]">
+    <div className="group h-full rounded-3xl transition-shadow duration-300 ease-calm [perspective:1800px] hover:ring-2 hover:ring-amber">
       <button
         type="button"
         onClick={() => setFlipped((v) => !v)}
         aria-pressed={flipped}
         aria-label={`${title} — ${flipped ? "hide" : "show"} detail`}
-        className="group relative block h-full min-h-[20rem] w-full text-left transition-transform duration-700 ease-calm [transform-style:preserve-3d] sm:min-h-[18rem]"
+        className="relative block h-full min-h-[24rem] w-full transition-transform duration-700 ease-calm [transform-style:preserve-3d]"
         style={{ transform: flipped ? "rotateY(180deg)" : undefined }}
       >
-        {/* Front — heading only. */}
-        <span className={`${faceBase} ${surface}`}>
+        {/* Front — heading only, centered. */}
+        <span className={`${faceBase} ${frontSurface}`}>
           <span className={`kicker ${hero ? "text-amber" : "text-blue-lift"}`}>
             {hero ? "Hero proof" : "Outcome"}
           </span>
           <span
-            className={`mt-5 font-serif font-light leading-none ${
+            className={`font-serif font-light leading-none ${
               hero ? "text-paper text-display" : "text-signature text-h1"
             }`}
           >
             {parsed ? <CountUp value={parsed.num} suffix={parsed.suffix} /> : metric}
           </span>
-          <span
-            className={`mt-3 text-small ${hero ? "text-paper/65" : "text-ink/55"}`}
-          >
+          <span className={`text-small ${hero ? "text-paper/65" : "text-ink/55"}`}>
             {metricLabel}
           </span>
           <span
-            className={`mt-auto pt-8 font-serif text-h2 font-light leading-tight ${
+            className={`mt-1 max-w-[24rem] font-serif text-xl font-light leading-tight ${
               hero ? "text-paper" : "text-ink"
             }`}
           >
             {title}
           </span>
-          <span className="mt-6 inline-flex items-center gap-2 text-small text-amber">
+          <span className="mt-1 inline-flex items-center gap-2 text-small text-amber">
             Read the story
             <span className="transition-transform duration-300 ease-calm group-hover:translate-x-1">
               ↻
@@ -82,29 +85,17 @@ export default function FlipCard({
           </span>
         </span>
 
-        {/* Back — the detail, revealed on flip. */}
-        <span
-          className={`${faceBase} ${surface} justify-between [transform:rotateY(180deg)]`}
-        >
-          <span
-            className={`font-serif text-xl font-light leading-tight ${
-              hero ? "text-paper" : "text-signature"
-            }`}
-          >
+        {/* Back — solid color, the detail centered. */}
+        <span className={`${faceBase} ${backSurface} [transform:rotateY(180deg)]`}>
+          <span className="max-w-[24rem] font-serif text-xl font-light leading-tight text-paper">
             {title}
           </span>
-          <span
-            className={`mt-4 flex-1 overflow-y-auto text-small leading-relaxed ${
-              hero ? "text-paper/85" : "text-ink"
-            }`}
-          >
+          <span className="max-w-[34rem] text-small leading-relaxed text-paper/85">
             {body}
           </span>
-          <span className="mt-6 inline-flex items-center gap-2 text-small text-amber">
+          <span className="mt-1 inline-flex items-center gap-2 text-small text-amber">
             Back
-            <span className="transition-transform duration-300 ease-calm group-hover:-translate-x-1">
-              ↺
-            </span>
+            <span>↺</span>
           </span>
         </span>
       </button>

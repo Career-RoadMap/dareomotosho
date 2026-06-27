@@ -58,6 +58,21 @@
     @apply scale-x-100;
   }
 
+  /* Name link — turns amber on hover, with a matching amber underline draw. */
+  .link-amber {
+    @apply relative transition-colors duration-300 ease-calm;
+  }
+  .link-amber:hover {
+    @apply text-amber;
+  }
+  .link-amber::after {
+    content: "";
+    @apply absolute left-0 -bottom-0.5 h-px w-full origin-left scale-x-0 bg-amber transition-transform duration-300 ease-calm;
+  }
+  .link-amber:hover::after {
+    @apply scale-x-100;
+  }
+
   .container-content {
     @apply mx-auto w-full max-w-content px-6 sm:px-8 lg:px-12;
   }

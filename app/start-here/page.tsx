@@ -151,18 +151,18 @@ export default function StartHerePage() {
         </Reveal>
       </section>
 
-      {/* ── CTA → live class. */}
+      {/* ── CTA → the library. */}
       <section className="container-content py-16 sm:py-24">
         <Reveal className="text-center">
           <h2 className="mx-auto max-w-2xl font-serif text-h1 font-light text-ink">
-            The best first step is a live class.
+            The best first step is the starter path.
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-body text-ink">
             Come with questions. Leave with a direction.
           </p>
           <div className="mt-10">
-            <Button href="/live" variant="accent">
-              Join a live class
+            <Button href="/resources" variant="accent">
+              Browse the library
             </Button>
           </div>
         </Reveal>

@@ -4,6 +4,7 @@ import Reveal from "@/components/Reveal";
 import Button from "@/components/Button";
 import BioLengths from "@/components/BioLengths";
 import { bios } from "@/lib/content";
+import { brand } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
@@ -42,27 +43,27 @@ export default function AboutPage() {
         }
       />
 
-      {/* ── Warm human accent: ONE amber divider, right under the hero so warmth
-          enters early on this warm surface (G3.2). A divider is sanctioned amber
-          usage (G2.4) and it gives the previously empty hero-to-photo space
-          intent rather than dead air (G6.1). */}
-      <div className="container-content pt-2 pb-10 sm:pt-4">
-        <Reveal>
-          <span className="block h-px w-16 bg-amber" aria-hidden />
-        </Reveal>
-      </div>
-
-      {/* ── Photo (warm treatment) — seam for a real portrait. Paper-dominant
-          (G3.2); the thin amber frame is the photo's warmth (G2.5), no fill. */}
-      <section className="container-content pb-8 sm:pb-12">
-        <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-amber/40 bg-paper">
-            <div className="aspect-[16/7] w-full" />
-            <p className="absolute bottom-6 left-6 text-small text-ink/45">
-              Portrait mounts here (warm treatment).
+      {/* ── The bridge — the brand line in full, paired with a professional
+          portrait placeholder (warm treatment; swap for a real photo). The
+          thin amber frame is the photo's warmth (G2.5), no fill. */}
+      <section className="container-content pt-2 pb-12 sm:pt-4 sm:pb-16">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
+          <Reveal>
+            <span className="block h-px w-16 bg-amber" aria-hidden />
+            <p className="mt-8 max-w-2xl font-serif text-h2 font-light leading-snug text-ink">
+              {brand.oneLine}
             </p>
-          </div>
-        </Reveal>
+          </Reveal>
+          <Reveal delay={120}>
+            <div className="relative mx-auto w-full max-w-sm overflow-hidden rounded-3xl border border-amber/40 bg-paper">
+              <div className="aspect-[4/5] w-full" />
+              <span className="kicker absolute left-6 top-6 text-amber">Photo</span>
+              <p className="absolute bottom-6 left-6 text-small text-ink/45">
+                Professional photo mounts here.
+              </p>
+            </div>
+          </Reveal>
+        </div>
       </section>
 
       {/* ── The thesis. */}

@@ -2,7 +2,8 @@ import Link from "next/link";
 import Button from "@/components/Button";
 import Reveal from "@/components/Reveal";
 import EmailCapture from "@/components/EmailCapture";
-import { resources, schedule } from "@/lib/content";
+import { resources } from "@/lib/content";
+import { social } from "@/lib/site";
 
 const doors = [
   {
@@ -24,7 +25,6 @@ const doors = [
 
 export default function HomePage() {
   const latestResource = resources[0];
-  const nextClass = schedule[0];
 
   return (
     <>
@@ -133,12 +133,12 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      {/* ── Latest strip — newest resource · latest video · next class. */}
+      {/* ── Latest strip — newest resource · latest video. */}
       <section className="container-content py-16 sm:py-24">
         <Reveal>
           <h2 className="font-serif text-h2 font-light text-ink">The latest</h2>
         </Reveal>
-        <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 md:grid-cols-3">
+        <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 md:grid-cols-2">
           <Reveal as="div" className="bg-paper p-8">
             <p className="kicker text-blue-lift">Newest resource</p>
             <h3 className="mt-5 font-serif text-h2 font-light text-ink">
@@ -158,24 +158,16 @@ export default function HomePage() {
             {/* Seam: live YouTube fetch mounts here. */}
             <div className="mt-5 aspect-video w-full rounded-lg border border-ink/10 bg-ink/[0.04]" />
             <p className="mt-4 text-small text-ink/60">
-              The newest episode loads here once the channel feed is wired.
+              The newest video loads here once the channel feed is wired.
             </p>
-            <Link href="/live" className="link-quiet mt-6 inline-block text-small">
-              All episodes
-            </Link>
-          </Reveal>
-
-          <Reveal as="div" delay={240} className="bg-paper p-8">
-            <p className="kicker text-blue-lift">Next live class</p>
-            <h3 className="mt-5 font-serif text-h2 font-light text-ink">
-              {nextClass.title}
-            </h3>
-            <p className="mt-4 text-small text-ink">
-              {nextClass.day} · {nextClass.time} · {nextClass.cadence}
-            </p>
-            <Link href="/live" className="link-quiet mt-6 inline-block text-small">
-              Reserve a seat
-            </Link>
+            <a
+              href={social.youtube}
+              target="_blank"
+              rel="noreferrer"
+              className="link-quiet mt-6 inline-block text-small"
+            >
+              Visit the channel
+            </a>
           </Reveal>
         </div>
       </section>
