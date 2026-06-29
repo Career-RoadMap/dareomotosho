@@ -50,7 +50,7 @@ export default async function ResourceDetailPage({
         <h1 className="mt-6 font-serif text-h1 font-light text-signature">
           {resource.title}
         </h1>
-        <p className="mt-6 max-w-prose text-body text-ink/75">{resource.summary}</p>
+        <p className="mt-6 max-w-prose text-body text-ink">{resource.summary}</p>
       </Reveal>
 
       {/* ── Download — seam for an R2 (or other) signed URL. */}

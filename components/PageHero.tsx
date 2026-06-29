@@ -26,7 +26,7 @@ export default function PageHero({ kicker, title, intro, tone = "cool" }: PageHe
         </h1>
         {intro ? (
           <div
-            className="mt-8 max-w-prose text-body text-ink/75 animate-fade-up"
+            className="mt-8 max-w-prose text-body text-ink animate-fade-up"
             style={{ animationDelay: "150ms" }}
           >
             {intro}

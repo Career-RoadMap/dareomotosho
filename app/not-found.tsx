@@ -7,7 +7,7 @@ export default function NotFound() {
       <h1 className="mt-6 font-serif text-h1 font-light text-signature">
         This page wandered off.
       </h1>
-      <p className="mt-5 max-w-md text-body text-ink/70">
+      <p className="mt-5 max-w-md text-body text-ink">
         The link may be old, or the page may have moved. Let's get you back to
         something useful.
       </p>

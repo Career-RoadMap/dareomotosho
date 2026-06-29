@@ -58,6 +58,21 @@
     @apply scale-x-100;
   }
 
+  /* Name link — turns amber on hover, with a matching amber underline draw. */
+  .link-amber {
+    @apply relative transition-colors duration-300 ease-calm;
+  }
+  .link-amber:hover {
+    @apply text-amber;
+  }
+  .link-amber::after {
+    content: "";
+    @apply absolute left-0 -bottom-0.5 h-px w-full origin-left scale-x-0 bg-amber transition-transform duration-300 ease-calm;
+  }
+  .link-amber:hover::after {
+    @apply scale-x-100;
+  }
+
   .container-content {
     @apply mx-auto w-full max-w-content px-6 sm:px-8 lg:px-12;
   }
@@ -93,6 +108,28 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* ── Toolkit marquee ───────────────────────────────────────────────────
+   A continuous, unhurried roll of tool logos. The track is duplicated, so
+   translating one half-width loops seamlessly. Linear (constant speed) is
+   intentional for an infinite loop — easing would stutter at the seam.
+   Slow enough to read as calm, not flashy; pauses on hover. */
+.marquee-track {
+  animation: marquee 48s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
 

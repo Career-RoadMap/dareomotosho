@@ -40,7 +40,7 @@ export default function FaqList({ items }: { items: FaqItem[] }) {
               }`}
             >
               <div className="overflow-hidden">
-                <p className="max-w-prose pb-6 text-body text-ink/70">{item.answer}</p>
+                <p className="max-w-prose pb-6 text-body text-ink">{item.answer}</p>
               </div>
             </div>
           </li>

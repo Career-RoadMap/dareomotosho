@@ -2,7 +2,8 @@ import Link from "next/link";
 import Button from "@/components/Button";
 import Reveal from "@/components/Reveal";
 import EmailCapture from "@/components/EmailCapture";
-import { resources, schedule } from "@/lib/content";
+import { resources } from "@/lib/content";
+import { social } from "@/lib/site";
 
 const doors = [
   {
@@ -24,20 +25,24 @@ const doors = [
 
 export default function HomePage() {
   const latestResource = resources[0];
-  const nextClass = schedule[0];
 
   return (
     <>
       {/* ── HERO — Paper-dominant, light, max whitespace. The signature moment. */}
-      <section className="container-content pt-24 pb-20 sm:pt-32 sm:pb-28 lg:pt-40">
+      <section className="container-content pt-24 pb-12 sm:pt-32 sm:pb-16 lg:pt-40">
         <div className="max-w-4xl">
-          <p className="kicker animate-fade-in">Builder · Mentor · Boardroom Translator</p>
-          <h1 className="mt-8 font-serif text-display font-light text-ink animate-hero-rise">
+          <h1 className="font-serif text-display font-light text-ink animate-hero-rise">
             The tool is the easy part.{" "}
             <span className="text-signature">The judgment is the job.</span>
           </h1>
+          {/* One amber accent for the balanced home hero — a quiet warm highlight. */}
+          <span
+            className="mt-10 block h-px w-16 bg-amber animate-fade-up"
+            style={{ animationDelay: "160ms" }}
+            aria-hidden
+          />
           <p
-            className="mt-10 max-w-2xl text-body text-ink/75 animate-fade-up"
+            className="mt-8 max-w-2xl text-body text-ink animate-fade-up"
             style={{ animationDelay: "200ms" }}
           >
             A translator between the technical floor and the boardroom, who builds the
@@ -50,6 +55,21 @@ export default function HomePage() {
             <Button href="/work">See what I build</Button>
           </div>
         </div>
+      </section>
+
+      {/* ── Picture banner — placeholder for a landing banner image. Paper-
+          dominant with a thin amber frame as the single warm highlight. Swap
+          the inner box for the real image (next/image) at integration time. */}
+      <section className="container-content pb-16 sm:pb-20">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-3xl border border-amber/40 bg-paper">
+            <div className="aspect-[21/9] w-full" />
+            <span className="kicker absolute left-6 top-6 text-amber">Banner</span>
+            <p className="absolute bottom-6 left-6 text-small text-ink/45">
+              Banner image mounts here.
+            </p>
+          </div>
+        </Reveal>
       </section>
 
       {/* ── Three audience doors — gentle staggered fade-in on scroll. */}
@@ -65,7 +85,7 @@ export default function HomePage() {
                 <span className="mt-5 font-serif text-h2 font-light text-ink transition-colors duration-300 ease-calm group-hover:text-blue-lift">
                   {door.label}
                 </span>
-                <span className="mt-4 text-body text-ink/70">{door.body}</span>
+                <span className="mt-4 text-body text-ink">{door.body}</span>
                 <span className="mt-8 inline-flex items-center gap-2 text-small text-link">
                   Enter
                   <span className="transition-transform duration-300 ease-calm group-hover:translate-x-1">
@@ -113,18 +133,18 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      {/* ── Latest strip — newest resource · latest video · next class. */}
+      {/* ── Latest strip — newest resource · latest video. */}
       <section className="container-content py-16 sm:py-24">
         <Reveal>
           <h2 className="font-serif text-h2 font-light text-ink">The latest</h2>
         </Reveal>
-        <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 md:grid-cols-3">
+        <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 md:grid-cols-2">
           <Reveal as="div" className="bg-paper p-8">
             <p className="kicker text-blue-lift">Newest resource</p>
             <h3 className="mt-5 font-serif text-h2 font-light text-ink">
               {latestResource.title}
             </h3>
-            <p className="mt-4 text-small text-ink/70">{latestResource.summary}</p>
+            <p className="mt-4 text-small text-ink">{latestResource.summary}</p>
             <Link
               href={`/resources/${latestResource.slug}`}
               className="link-quiet mt-6 inline-block text-small"
@@ -138,24 +158,16 @@ export default function HomePage() {
             {/* Seam: live YouTube fetch mounts here. */}
             <div className="mt-5 aspect-video w-full rounded-lg border border-ink/10 bg-ink/[0.04]" />
             <p className="mt-4 text-small text-ink/60">
-              The newest episode loads here once the channel feed is wired.
+              The newest video loads here once the channel feed is wired.
             </p>
-            <Link href="/live" className="link-quiet mt-6 inline-block text-small">
-              All episodes
-            </Link>
-          </Reveal>
-
-          <Reveal as="div" delay={240} className="bg-paper p-8">
-            <p className="kicker text-blue-lift">Next live class</p>
-            <h3 className="mt-5 font-serif text-h2 font-light text-ink">
-              {nextClass.title}
-            </h3>
-            <p className="mt-4 text-small text-ink/70">
-              {nextClass.day} · {nextClass.time} · {nextClass.cadence}
-            </p>
-            <Link href="/live" className="link-quiet mt-6 inline-block text-small">
-              Reserve a seat
-            </Link>
+            <a
+              href={social.youtube}
+              target="_blank"
+              rel="noreferrer"
+              className="link-quiet mt-6 inline-block text-small"
+            >
+              Visit the channel
+            </a>
           </Reveal>
         </div>
       </section>

@@ -104,26 +104,26 @@ export const outcomes: Outcome[] = [
     metric: "40%",
     metricLabel: "cloud spend reduced",
     title: "Cut cloud spend 40% — with zero performance cost.",
-    body: "Re-architected what was billed, not just what was used. The bill came down; the experience didn't move. The savings were a business decision, not a tuning trick.",
+    body: "A multi-cloud environment was quietly bleeding budget. By treating cost as an architectural decision rather than a finance problem — careful spend analysis, budgeting controls, and structural changes — I reclaimed 40% of the monthly cloud bill while holding application performance flat. Proof that the right trade-off serves the business and the system.",
     hero: true,
   },
   {
     metric: "90%",
     metricLabel: "faster to ship",
     title: "Shipped features 90% faster.",
-    body: "Removed the friction between idea and production — pipelines, environments, and ownership redrawn so speed became the default, not a heroic exception.",
+    body: "Release cycles were a bottleneck between the team and its customers. I designed and implemented a fast continuous integration, delivery, and deployment pipeline that cut the time to push feature changes and publish to production by 90% — turning deployment from a constraint into a competitive speed.",
   },
   {
-    metric: "15+",
+    metric: "30+",
     metricLabel: "products delivered",
-    title: "Architected multi-cloud delivery for 15+ products.",
-    body: "One coherent delivery model across providers — portability where it paid for itself, and a single way of working that scaled past any one team.",
+    title: "Architected multi-cloud delivery for 30+ products.",
+    body: "Thirty-plus software products needed seamless delivery, deployment, and integration across clouds. I architected the multi-cloud solutions that made that possible — ensuring each product reached customers reliably, and that the architecture served business value, not just technical elegance.",
   },
   {
     metric: "CLS",
     metricLabel: "built from scratch",
     title: "Built a central logging system from scratch.",
-    body: "Ingestion, retention, and access designed around the questions the business actually asks in an incident — so the answer is minutes away, not hours.",
+    body: "Working with internal teams, I built a proprietary Central Logging System (CLS) — a system that gave developers unified visibility and made operations seamless. A concrete artifact, built to solve a real operational gap.",
   },
 ];
 
@@ -132,26 +132,83 @@ export type Capability = {
   body: string;
 };
 
+/** Grouped capabilities — real, but better together than as separate cases. */
 export const capabilities: Capability[] = [
   {
-    title: "Security & access by design",
-    body: "Controls matched to real risk, built in from the first diagram — not bolted on after the audit.",
+    title: "Security & access, by design.",
+    body: "I improve the security of products, cloud services, and infrastructure through well-designed security systems built on industry-standard tools and best practices — including strict identity and access management across all services and infrastructure. The outcome isn't just safety; it's customer trust and higher product value.",
   },
   {
-    title: "Advisory at the decision table",
-    body: "Sitting where the trade-offs are made, translating technical reality into the language of the P&L.",
+    title: "Advisory at the decision table.",
+    body: "I provide expert guidance in stakeholder meetings on solution implementation and migration — for internal projects and 10+ external customers — focused on the same question every time: how does this maximize profit or reduce cost?",
   },
   {
-    title: "Monitoring, logging & strategic infra",
-    body: "The systems that tell you the truth about your systems — and the infrastructure choices that age well.",
+    title: "Monitoring, logging, and strategic infrastructure.",
+    body: "I implement infrastructure, monitoring, and logging strategically — not as afterthoughts, but as the things that maximize a product's value to its customers.",
   },
   {
-    title: "Leadership through mentorship",
-    body: "Raising judgment, not just throughput. The people stay better than the project found them.",
+    title: "Leadership through mentorship.",
+    body: "I led the Cloud and Support team — mentoring engineers and steering the department toward service delivery aligned with company goals.",
+  },
+];
+
+/** Closing note for the toolkit section, which is rendered as a moving marquee. */
+export const toolkitNote =
+  "Industry-recognized tools and services in service of value-driven solutions: compute, databases, messaging, caching, networking, monitoring and logging, work collaboration, office suites. The tools are the easy part — the judgment about which to use, and why, is the work.";
+
+export type Tool = {
+  name: string;
+  /** Placeholder wordmark in /public/logos — swap for the official logo asset. */
+  logo: string;
+};
+
+/** The moving toolkit marquee. Logos are placeholders to replace with real ones. */
+export const toolkit: Tool[] = [
+  { name: "Grafana", logo: "/logos/grafana.svg" },
+  { name: "AWS", logo: "/logos/aws.svg" },
+  { name: "DigitalOcean", logo: "/logos/digitalocean.svg" },
+  { name: "Google Cloud", logo: "/logos/google-cloud.svg" },
+  { name: "Terraform", logo: "/logos/terraform.svg" },
+  { name: "Kubernetes", logo: "/logos/kubernetes.svg" },
+  { name: "Docker", logo: "/logos/docker.svg" },
+  { name: "Prometheus", logo: "/logos/prometheus.svg" },
+  { name: "Redis", logo: "/logos/redis.svg" },
+  { name: "PostgreSQL", logo: "/logos/postgresql.svg" },
+  { name: "ClickUp", logo: "/logos/clickup.svg" },
+  { name: "Excel", logo: "/logos/excel.svg" },
+];
+
+export type Diagram = {
+  src: string;
+  title: string;
+  caption: string;
+};
+
+/**
+ * Designed architecture diagrams — shown as an in-place gallery on /work.
+ * Placeholders live in /public/diagrams; swap each for a real exported diagram
+ * (and add more entries here — the gallery handles any number).
+ */
+export const diagrams: Diagram[] = [
+  {
+    src: "/diagrams/diagram-1.svg",
+    title: "Multi-cloud delivery",
+    caption: "One delivery model spanning providers, drawn for portability and reliability.",
   },
   {
-    title: "The toolkit",
-    body: "Deep, current, and quietly fluent across the stack — but always in service of the decision, never the demo.",
+    src: "/diagrams/diagram-2.svg",
+    title: "Central logging system",
+    caption: "Ingestion, retention, and access designed around the questions an incident asks.",
+  },
+  {
+    src: "/diagrams/diagram-3.svg",
+    title: "Cost-aware architecture",
+    caption: "Where cost is a design input — the structure that held performance while the bill fell.",
+  },
+  {
+    src: "/diagrams/diagram-4.svg",
+    title: "Secure access design",
+    caption: "Identity and access modeled from the first diagram, sized to real risk.",
   },
 ];
 
