@@ -3,7 +3,7 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import Button from "@/components/Button";
 import BioLengths from "@/components/BioLengths";
-import { bioClose, bioPersonal, bioStory, bios } from "@/lib/content";
+import { bioCloseText, bioPersonal, bioRoles, bioStory, bios } from "@/lib/content";
 import { brand } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -50,15 +50,19 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── The story — the bio narrative, paragraph by paragraph. */}
+      {/* ── The story — the bio narrative, set in a box. */}
       <section className="container-content py-12 sm:py-16">
-        <div className="max-w-prose space-y-6">
-          {bioStory.map((para, i) => (
-            <Reveal key={i} delay={i * 80}>
-              <p className="text-body text-ink">{para}</p>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal>
+          <div className="mx-auto max-w-3xl rounded-3xl border border-ink/10 bg-paper p-8 sm:p-12">
+            <div className="space-y-6">
+              {bioStory.map((para, i) => (
+                <p key={i} className="text-body text-ink">
+                  {para}
+                </p>
+              ))}
+            </div>
+          </div>
+        </Reveal>
       </section>
 
       {/* ── Off the cloud — a warm, human aside. */}
@@ -73,12 +77,24 @@ export default function AboutPage() {
         </Reveal>
       </section>
 
-      {/* ── Closing statement. */}
+      {/* ── Closing — the three roles set apart, then the statement. */}
       <section className="container-content py-16 sm:py-24">
         <Reveal>
-          <p className="mx-auto max-w-3xl text-center font-serif text-h1 font-light leading-tight text-signature">
-            {bioClose}
-          </p>
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-serif text-h1 font-light leading-none text-signature">
+              {bioRoles.map((role, i) => (
+                <span key={role} className="inline-flex items-center gap-x-5">
+                  {i > 0 ? (
+                    <span className="text-amber" aria-hidden>
+                      ·
+                    </span>
+                  ) : null}
+                  {role}
+                </span>
+              ))}
+            </div>
+            <p className="mx-auto mt-8 max-w-2xl text-body text-ink">{bioCloseText}</p>
+          </div>
         </Reveal>
       </section>
 

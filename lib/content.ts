@@ -458,6 +458,7 @@ export const bioStory: string[] = [
 export const bioPersonal =
   "Off the cloud, you'll find me behind a drum kit, or deep in a business or psychology book chasing an idea worth building on.";
 
-/** The closing line for /about. */
-export const bioClose =
-  "Builder. Mentor. Boardroom translator. I build the systems that connect the technical floor to the boardroom — and I grow the people who'll stand in both.";
+/** The closing for /about — three roles set apart from the statement. */
+export const bioRoles = ["Builder", "Mentor", "Boardroom translator"];
+export const bioCloseText =
+  "I build the systems that connect the technical floor to the boardroom — and I grow the people who'll stand in both.";
