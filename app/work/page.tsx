@@ -7,6 +7,7 @@ import FlipTile from "@/components/FlipTile";
 import Converge from "@/components/Converge";
 import LogoMarquee from "@/components/LogoMarquee";
 import DiagramGallery from "@/components/DiagramGallery";
+import TierBackdrop from "@/components/TierBackdrop";
 import { diagrams, tiers, toolkitNote, workClose } from "@/lib/content";
 
 /** Corner each grid tile converges from, in 2×2 order. */
@@ -34,14 +35,20 @@ export default function WorkPage() {
         }
       />
 
-      {/* ── Tiers — each heading flips to its detail; the 2×2 grid converges in. */}
-      {tiers.map((tier) => {
+      {/* ── Tiers — each heading flips to its detail; the 2×2 grid converges in.
+          A subtle parallax backdrop fades in per tier to underline its message. */}
+      {tiers.map((tier, ti) => {
         const hero = tier.items.find((i) => i.hero);
         const feature = tier.items.find((i) => i.feature);
         const grid = tier.items.filter((i) => !i.hero && !i.feature);
 
         return (
-          <section key={tier.kicker} className="container-content py-12 sm:py-20">
+          <section
+            key={tier.kicker}
+            className="relative isolate overflow-hidden py-12 sm:py-20"
+          >
+            <TierBackdrop src={tier.backdrop} align={ti % 2 === 0 ? "right" : "left"} />
+            <div className="container-content">
             <Reveal>
               <h2 className="font-serif text-h1 font-light text-signature">
                 {tier.name}
@@ -98,6 +105,7 @@ export default function WorkPage() {
                     </Reveal>
                   ))}
               </ul>
+            </div>
             </div>
           </section>
         );
