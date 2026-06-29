@@ -102,8 +102,7 @@ export default function HomePage() {
       <section className="container-content py-24 sm:py-32">
         <Reveal>
           <p className="mx-auto max-w-3xl text-center font-serif text-h2 font-light leading-snug text-ink">
-            Most engineers optimize the tool. Almost none are taught that every system
-            they build is a{" "}
+            Most engineers optimize the tool. But every system they build is a{" "}
             <span className="text-signature">business decision in disguise.</span>
           </p>
         </Reveal>

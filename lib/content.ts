@@ -284,34 +284,16 @@ export type Diagram = {
  */
 export const diagrams: Diagram[] = [
   {
-    src: "/diagrams/diagram-1.svg",
-    title: "Application architecture",
+    src: "/diagrams/STEP%20Architectural%20Diagram-Devices.drawio.png",
+    title: "Edge to API",
     caption:
-      "A Vendure storefront on an EC2 Docker instance, fronted by Route 53 and wired to Aurora MySQL, Agora, Google Maps, SNS, social auth, S3, and Paystack.",
+      "CloudFront fronting a VPC public subnet — the web tier through to API Gateway, with S3 serving assets.",
   },
   {
-    src: "/diagrams/diagram-2.svg",
-    title: "Environments & CI",
+    src: "/diagrams/3.0%20finished%20ARCHITECTURE.png",
+    title: "The full architecture",
     caption:
-      "A VPC across two availability zones — staging and production EC2 behind a web-server proxy, with S3, SNS, ECS, and Git-driven automation.",
-  },
-  {
-    src: "/diagrams/diagram-3.svg",
-    title: "Observability",
-    caption:
-      "Lambda and API Gateway metrics into CloudWatch, with Prometheus on EKS scraping data and Grafana visualizing it.",
-  },
-  {
-    src: "/diagrams/diagram-4.svg",
-    title: "Continuous delivery",
-    caption:
-      "Docker Hub auto-builds and redeploys containers on every push to master from the team's GitHub repositories.",
-  },
-  {
-    src: "/diagrams/diagram-5.svg",
-    title: "Scale & resilience",
-    caption:
-      "A CDN and load balancer fronting containerized app instances on Kubernetes, backed by replicated Postgres with backups and firewall isolation.",
+      "CloudFront and routing into EC2 compute on AWS — backed by S3, DynamoDB, a Redis cache, and Terraform-managed infrastructure.",
   },
 ];
 
