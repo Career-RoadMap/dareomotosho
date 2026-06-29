@@ -7,15 +7,15 @@ import FlipTile from "@/components/FlipTile";
 import Converge from "@/components/Converge";
 import LogoMarquee from "@/components/LogoMarquee";
 import DiagramGallery from "@/components/DiagramGallery";
-import { capabilities, diagrams, outcomes, toolkitNote } from "@/lib/content";
+import { diagrams, tiers, toolkitNote, workClose } from "@/lib/content";
 
-/** Corner each capability tile converges from, in 2×2 grid order. */
+/** Corner each grid tile converges from, in 2×2 order. */
 const corners = ["tl", "tr", "bl", "br"] as const;
 
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "I build systems for businesses — cloud architecture that serves the P&L, security matched to real risk, and delivery pipelines that move at the speed the business needs.",
+    "Outcome-led, building-first. Cloud architecture that serves the P&L, security matched to real risk, delivery at the speed the business needs.",
 };
 
 export default function WorkPage() {
@@ -28,35 +28,65 @@ export default function WorkPage() {
         intro={
           <p>
             I build systems for businesses — cloud architecture that serves the P&amp;L,
-            security matched to real risk, and delivery pipelines that move at the speed
-            the business needs. Every system below started as a business decision, not
-            just a technical one.
+            security matched to real risk, and delivery at the speed the business needs.
+            Every system below started as a business decision, not just a technical one.
           </p>
         }
       />
 
-      {/* ── Featured cases — heading only; click each to flip and read the detail. */}
-      <section className="container-content py-12 sm:py-16">
-        <Reveal>
-          <p className="text-small text-ink/55">
-            Each card shows the outcome —{" "}
-            <span className="text-amber">click to flip</span> and read how it was built.
-          </p>
-        </Reveal>
-        <div className="mt-8 grid gap-6 sm:grid-cols-2">
-          {outcomes.map((o) => (
-            <Reveal key={o.title} className={o.hero ? "sm:col-span-2" : undefined}>
-              <FlipCard
-                metric={o.metric}
-                metricLabel={o.metricLabel}
-                title={o.title}
-                body={o.body}
-                hero={o.hero}
-              />
+      {/* ── Tiers — each heading flips to its detail; the 2×2 grid converges in. */}
+      {tiers.map((tier) => {
+        const hero = tier.items.find((i) => i.hero);
+        const feature = tier.items.find((i) => i.feature);
+        const grid = tier.items.filter((i) => !i.hero && !i.feature);
+
+        return (
+          <section key={tier.kicker} className="container-content py-12 sm:py-20">
+            <Reveal>
+              <p className="kicker text-amber">{tier.kicker}</p>
+              <h2 className="mt-4 font-serif text-h1 font-light text-signature">
+                {tier.name}
+              </h2>
+              <p className="mt-3 max-w-2xl text-body text-ink">{tier.tagline}</p>
             </Reveal>
-          ))}
-        </div>
-      </section>
+
+            {/* Lead item — big-number hero card, or a full-width feature tile. */}
+            {hero && (
+              <Reveal className="mt-10">
+                <FlipCard
+                  metric={hero.metric ?? ""}
+                  metricLabel={hero.metricLabel ?? ""}
+                  title={hero.title}
+                  body={hero.body}
+                  hero
+                />
+              </Reveal>
+            )}
+            {feature && (
+              <Reveal className="mt-10">
+                <FlipTile title={feature.title} body={feature.body} />
+              </Reveal>
+            )}
+
+            {/* The rest — flip tiles converging from their corners. */}
+            <div className="mt-6 grid gap-6 sm:grid-cols-2">
+              {grid.map((item, i) => (
+                <Converge key={item.title} from={corners[i % corners.length]}>
+                  <FlipTile title={item.title} body={item.body} />
+                </Converge>
+              ))}
+            </div>
+
+            {/* Capabilities line for the tier. */}
+            <Reveal className="mt-8">
+              <div className="rounded-2xl border border-ink/10 bg-paper p-6 sm:p-8">
+                <p className="kicker text-blue-lift">Capabilities</p>
+                <p className="mt-3 text-small text-ink">{tier.capabilities}</p>
+              </div>
+            </Reveal>
+          </section>
+        );
+      })}
 
       {/* ── Architecture diagrams — an in-place gallery; click to view larger. */}
       <section className="container-content py-12 sm:py-16">
@@ -73,26 +103,6 @@ export default function WorkPage() {
         <Reveal className="mt-10">
           <DiagramGallery diagrams={diagrams} />
         </Reveal>
-      </section>
-
-      {/* ── How the work holds together — flip tiles that converge into place. */}
-      <section className="container-content py-20 sm:py-28">
-        <Reveal>
-          <h2 className="font-serif text-h2 font-light text-signature">
-            How the work holds together
-          </h2>
-          <p className="mt-3 text-small text-ink/55">
-            The heading first —{" "}
-            <span className="text-amber">click any tile to flip</span> for the detail.
-          </p>
-        </Reveal>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2">
-          {capabilities.map((c, i) => (
-            <Converge key={c.title} from={corners[i % corners.length]}>
-              <FlipTile title={c.title} body={c.body} />
-            </Converge>
-          ))}
-        </div>
       </section>
 
       {/* ── The toolkit — note + a continuously rolling logo marquee. */}
@@ -113,7 +123,7 @@ export default function WorkPage() {
         <Reveal>
           <div className="rounded-3xl border border-ink/10 bg-paper p-10 text-center sm:p-16">
             <h2 className="mx-auto max-w-2xl font-serif text-h1 font-light text-signature">
-              If your systems should be serving the business better, let's talk.
+              {workClose}
             </h2>
             <div className="mt-10 flex flex-wrap justify-center gap-4">
               <Button href="/advisory">Explore advisory</Button>
