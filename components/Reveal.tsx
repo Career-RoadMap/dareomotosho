@@ -4,17 +4,20 @@ import { useEffect, useRef, useState, type ElementType, type ReactNode } from "r
 
 type RevealProps = {
   children: ReactNode;
-  /** Stagger delay in ms — audience doors etc. arrive a beat after the last. */
+  /** Stagger delay in ms. */
   delay?: number;
-  /** Render as a different element (e.g. "li", "section"). Defaults to div. */
   as?: ElementType;
   className?: string;
 };
 
 /**
- * Scroll-reveal: content gently fades up as it's reached, ONCE.
- * The default motion of the whole site. Honors prefers-reduced-motion
- * (the observer still un-hides, but the CSS transition is curtailed there).
+ * Scroll-reveal: content gently fades up as it's reached, once.
+ *
+ * Crucially, content renders VISIBLE and aligned by default (in the SSR HTML
+ * and on first paint). Only elements that are below the fold at load are
+ * hidden — off-screen, so there's no flash — and then eased in on scroll.
+ * That keeps the first impression of every page clean and aligned while the
+ * motion still plays as you scroll. Honors prefers-reduced-motion.
  */
 export default function Reveal({
   children,
@@ -23,30 +26,31 @@ export default function Reveal({
   className = "",
 }: RevealProps) {
   const ref = useRef<HTMLElement | null>(null);
-  const [visible, setVisible] = useState(false);
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
+    if (typeof IntersectionObserver === "undefined") return; // stays visible
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    // If the browser doesn't support IO, just show the content.
-    if (typeof IntersectionObserver === "undefined") {
-      setVisible(true);
-      return;
-    }
+    const vh = window.innerHeight || 0;
+    // Already in (or near) view at load → leave visible; never scatter on entry.
+    if (node.getBoundingClientRect().top < vh * 0.92) return;
 
+    // Below the fold → hide (off-screen) and reveal on scroll.
+    setHidden(true);
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            setVisible(true);
-            observer.unobserve(entry.target); // fire once
+            setHidden(false);
+            observer.unobserve(entry.target);
           }
         }
       },
       { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
     );
-
     observer.observe(node);
     return () => observer.disconnect();
   }, []);
@@ -54,8 +58,10 @@ export default function Reveal({
   return (
     <Tag
       ref={ref}
-      className={`reveal ${visible ? "is-visible" : ""} ${className}`}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      className={`transition-all duration-700 ease-calm ${
+        hidden ? "translate-y-10 opacity-0" : "translate-y-0 opacity-100"
+      } ${className}`}
     >
       {children}
     </Tag>

@@ -30,20 +30,20 @@ export default function Converge({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
+  // Visible (aligned) by default so first paint never scatters; only hide and
+  // animate tiles that are below the fold at load.
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
+    if (typeof IntersectionObserver === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const reduce =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce || typeof IntersectionObserver === "undefined") {
-      setVisible(true);
-      return;
-    }
+    const vh = window.innerHeight || 0;
+    if (node.getBoundingClientRect().top < vh * 0.92) return; // in view → stay shown
 
+    setVisible(false);
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {

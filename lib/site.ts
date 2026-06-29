@@ -10,6 +10,10 @@ export const brand = {
     "A translator between the technical floor and the boardroom, who builds the systems that connect them.",
 } as const;
 
+/** Landing-page banner image. Swap /public/banner.svg for the real artwork
+ * (update the path/extension here if the file name differs). */
+export const bannerSrc = "/banner.svg";
+
 export type NavItem = {
   href: string;
   label: string;

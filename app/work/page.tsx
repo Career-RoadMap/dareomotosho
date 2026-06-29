@@ -99,7 +99,7 @@ export default function WorkPage() {
                   .filter(Boolean)
                   .map((cap, i) => (
                     <Reveal as="li" key={cap} delay={i * 90}>
-                      <span className="inline-block rounded-full border border-ink/15 bg-paper px-4 py-2 text-small text-ink transition-colors duration-300 ease-calm hover:border-amber hover:text-signature">
+                      <span className="inline-block rounded-full bg-signature px-4 py-2 text-small text-paper transition-colors duration-300 ease-calm hover:bg-blue-lift">
                         {cap}
                       </span>
                     </Reveal>

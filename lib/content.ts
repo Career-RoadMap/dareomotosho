@@ -284,13 +284,13 @@ export type Diagram = {
  */
 export const diagrams: Diagram[] = [
   {
-    src: "/diagrams/STEP%20Architectural%20Diagram-Devices.drawio.png",
+    src: "/diagrams/edge-to-api.png",
     title: "Edge to API",
     caption:
       "CloudFront fronting a VPC public subnet — the web tier through to API Gateway, with S3 serving assets.",
   },
   {
-    src: "/diagrams/3.0%20finished%20ARCHITECTURE.png",
+    src: "/diagrams/full-architecture.png",
     title: "The full architecture",
     caption:
       "CloudFront and routing into EC2 compute on AWS — backed by S3, DynamoDB, a Redis cache, and Terraform-managed infrastructure.",

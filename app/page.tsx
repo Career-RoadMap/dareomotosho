@@ -3,7 +3,7 @@ import Button from "@/components/Button";
 import Reveal from "@/components/Reveal";
 import EmailCapture from "@/components/EmailCapture";
 import { resources } from "@/lib/content";
-import { social } from "@/lib/site";
+import { bannerSrc, brand, social } from "@/lib/site";
 
 const doors = [
   {
@@ -28,8 +28,23 @@ export default function HomePage() {
 
   return (
     <>
+      {/* ── BANNER — the first display. Full-bleed deep image band with the
+          byline in Paper. Swap /public/banner.svg for the real artwork. */}
+      <section className="relative h-[40vh] min-h-[280px] w-full overflow-hidden bg-ink">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={bannerSrc}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover animate-fade-in"
+        />
+        <div className="container-content relative flex h-full items-end pb-8 sm:pb-10">
+          <p className="kicker text-paper/80">{brand.byline}</p>
+        </div>
+        <span className="absolute inset-x-0 bottom-0 h-px bg-amber/50" aria-hidden />
+      </section>
+
       {/* ── HERO — Paper-dominant, light, max whitespace. The signature moment. */}
-      <section className="container-content pt-24 pb-12 sm:pt-32 sm:pb-16 lg:pt-40">
+      <section className="container-content pt-16 pb-12 sm:pt-24 sm:pb-16 lg:pt-28">
         <div className="max-w-4xl">
           <h1 className="font-serif text-display font-light text-ink animate-hero-rise">
             The tool is the easy part.{" "}
@@ -55,21 +70,6 @@ export default function HomePage() {
             <Button href="/work">See what I build</Button>
           </div>
         </div>
-      </section>
-
-      {/* ── Picture banner — placeholder for a landing banner image. Paper-
-          dominant with a thin amber frame as the single warm highlight. Swap
-          the inner box for the real image (next/image) at integration time. */}
-      <section className="container-content pb-16 sm:pb-20">
-        <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-amber/40 bg-paper">
-            <div className="aspect-[21/9] w-full" />
-            <span className="kicker absolute left-6 top-6 text-amber">Banner</span>
-            <p className="absolute bottom-6 left-6 text-small text-ink/45">
-              Banner image mounts here.
-            </p>
-          </div>
-        </Reveal>
       </section>
 
       {/* ── Three audience doors — gentle staggered fade-in on scroll. */}
