@@ -202,52 +202,70 @@ export type Diagram = {
  */
 export const diagrams: Diagram[] = [
   {
-    src: "/diagrams/architecture-3-0.png",
-    title: "Platform 3.0 Architecture",
+    src: "/diagrams/the-cached-edge.png",
+    title: "The Cached Edge",
     caption:
-      "The full system redesign — service mesh, multi-region routing, and a zero-downtime migration path drawn end-to-end.",
+      "CloudFront at the edge into AWS compute — backed by S3, DynamoDB, a Redis cache, and Terraform-managed infrastructure for low-latency reads.",
   },
   {
-    src: "/diagrams/ci-cd-filmhouse.png",
-    title: "CI/CD for Filmhouse",
+    src: "/diagrams/multi-region-resilience.jpg",
+    title: "Multi-Region Resilience",
     caption:
-      "Build, test, and deploy pipeline designed for a media platform — trunk-based flow with staged promotion and rollback gates.",
+      "Dual-region VPCs behind a security layer and DNS — NGINX-fronted containers, per-region backups and snapshots, and a redundant database tier.",
   },
   {
-    src: "/diagrams/filmhouse-deployment.png",
-    title: "Filmhouse Deployment Architecture",
+    src: "/diagrams/firewalled-kubernetes.png",
+    title: "Firewalled Kubernetes Delivery",
     caption:
-      "Infrastructure blueprint for Filmhouse — load-balanced compute, managed DB tier, CDN edge, and monitoring hooks.",
+      "CDN to load balancer into a Kubernetes pod fleet — public and internal firewall rules around storage, a Postgres primary, replica, and backup.",
   },
   {
-    src: "/diagrams/fusion-architecture.jpg",
-    title: "Fusion Project Architecture",
+    src: "/diagrams/auto-scaled-frontend.jpg",
+    title: "Auto-Scaled Frontend Estate",
     caption:
-      "Multi-service blueprint for the Fusion platform — event-driven integration layer connecting four internal domains.",
+      "WAF and CDN into an auto-scaling group of containerised frontends — API server, database, plus monitoring, logging, and CI/CD wired through.",
   },
   {
-    src: "/diagrams/monolith-security.jpg",
-    title: "Monolith FI Security Blueprint",
+    src: "/diagrams/staging-to-production.jpg",
+    title: "Staging to Production",
     caption:
-      "Security posture mapping for a financial-services monolith — threat model, control boundaries, and remediation priorities.",
+      "One VPC carrying staging and production across availability zones — containerised EC2, a shared S3 store, ECS registry, and automated promotion.",
   },
   {
-    src: "/diagrams/prometheus-grafana.png",
-    title: "Observability Pipeline",
+    src: "/diagrams/mobile-commerce-platform.jpg",
+    title: "Mobile Commerce Platform",
     caption:
-      "Prometheus scrape targets through to Grafana dashboards via CloudWatch — unified metrics for a hybrid workload.",
+      "A containerised app server fronting Aurora MySQL — chat, maps, notifications, auth, object storage, and payments composed as managed services.",
   },
   {
-    src: "/diagrams/reach-architecture.png",
-    title: "Reach Architecture — Phase 1",
+    src: "/diagrams/observability-pipeline.png",
+    title: "The Observability Pipeline",
     caption:
-      "First-phase design for the Reach platform — lightweight and deployable, with clear seams for phase-2 growth.",
+      "Lambda and API Gateway emitting metrics to CloudWatch, with Prometheus on EKS collecting and forwarding to Grafana — one pane over the workload.",
   },
   {
-    src: "/diagrams/step-architecture.png",
-    title: "STEP Device Architecture",
+    src: "/diagrams/defense-in-depth.jpg",
+    title: "Defense in Depth",
     caption:
-      "Distributed device coordination diagram — edge-to-cloud data flow and the control plane for STEP hardware.",
+      "SSL and endpoint security into a rules layer and middleware — encryption keys, an ORM boundary, and a standing vulnerability scan over the estate.",
+  },
+  {
+    src: "/diagrams/push-to-deploy.png",
+    title: "Push to Deploy",
+    caption:
+      "Webhook-driven delivery — a push to the main branch triggers Docker Hub and rolls a fresh container onto the server, no hands on the box.",
+  },
+  {
+    src: "/diagrams/split-tier-estate.png",
+    title: "Split-Tier API Estate",
+    caption:
+      "Two servers split by responsibility — firewalled APIs behind web servers, talking over HTTPS, each with its own database for clean isolation.",
+  },
+  {
+    src: "/diagrams/single-region-vpc.png",
+    title: "Single-Region VPC Foundation",
+    caption:
+      "A clean starting point — CloudFront into a public-subnet web tier and API Gateway, with S3 serving assets. Room to grow without a rewrite.",
   },
 ];
 

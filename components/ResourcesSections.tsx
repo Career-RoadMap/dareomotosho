@@ -2,19 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { entryTypeMeta, levelLabels, type Entry } from "@/lib/library";
+import { entryTypeMeta, levelLabels, type Entry, type EntryType } from "@/lib/library";
 import { supabase } from "@/lib/supabase";
-
-type SectionType = "case_study" | "user_question";
-
-const SECTIONS: SectionType[] = ["case_study", "user_question"];
 
 export default function ResourcesSections({ initial }: { initial: Entry[] }) {
   const [entries, setEntries] = useState<Entry[]>(initial);
-  const [open, setOpen] = useState<Record<SectionType, boolean>>({
-    case_study: true,
-    user_question: true,
-  });
 
   // Live: fold in newly published entries.
   useEffect(() => {
@@ -41,92 +33,111 @@ export default function ResourcesSections({ initial }: { initial: Entry[] }) {
     };
   }, []);
 
-  const toggle = (type: SectionType) =>
-    setOpen((prev) => ({ ...prev, [type]: !prev[type] }));
+  const byType = (type: EntryType) =>
+    entries.filter((e) => e.type === type && e.published !== false);
 
   return (
-    <div className="space-y-4">
-      {SECTIONS.map((type) => {
-        const items = entries.filter(
-          (e) => e.type === type && e.published !== false,
-        );
-        const meta = entryTypeMeta[type];
-        const isOpen = open[type];
+    <div className="space-y-16">
+      {/* ── Case Studies. */}
+      <Group
+        id="case-studies"
+        label={entryTypeMeta.case_study.label}
+        blurb={entryTypeMeta.case_study.blurb}
+        items={byType("case_study")}
+      />
 
-        return (
-          <div
-            key={type}
-            className="overflow-hidden rounded-2xl border border-ink/10"
-          >
-            {/* Dropdown header */}
-            <button
-              type="button"
-              onClick={() => toggle(type)}
-              aria-expanded={isOpen}
-              className="flex w-full items-center justify-between gap-4 bg-paper px-8 py-6 text-left transition-colors duration-300 ease-calm hover:bg-paper/60"
-            >
-              <div>
-                <h2 className="font-serif text-h2 font-light text-signature">
-                  {meta.label}
-                </h2>
-                <p className="mt-1 text-small text-ink/55">{meta.blurb}</p>
-              </div>
-              <div className="flex shrink-0 items-center gap-3">
-                <span className="text-small text-ink/40">{items.length}</span>
-                <span
-                  className={`block h-4 w-4 transition-transform duration-300 ease-calm text-ink/40 ${isOpen ? "rotate-180" : ""}`}
-                  aria-hidden
-                >
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M3 6l5 5 5-5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-              </div>
-            </button>
-
-            {/* Entries grid */}
-            {isOpen && (
-              <div className="border-t border-ink/10">
-                {items.length === 0 ? (
-                  <p className="px-8 py-10 text-small text-ink/50">
-                    Nothing published yet — check back soon.
-                  </p>
-                ) : (
-                  <ul className="grid gap-px bg-ink/10 sm:grid-cols-2">
-                    {items.map((e) => (
-                      <li key={e.id}>
-                        <Link
-                          href={`/resources/${e.slug}`}
-                          className="group flex h-full flex-col bg-paper p-8 transition-colors duration-300 ease-calm hover:bg-paper/60"
-                        >
-                          <div className="flex items-center gap-3 text-small text-ink/50">
-                            <span className="kicker text-blue-lift">{e.topic}</span>
-                            <span aria-hidden>·</span>
-                            <span>{levelLabels[e.level] ?? e.level}</span>
-                          </div>
-                          <h3 className="mt-4 font-serif text-xl font-medium text-ink transition-colors duration-300 ease-calm group-hover:text-blue-lift">
-                            {e.title}
-                          </h3>
-                          <p className="mt-3 flex-1 text-small text-ink">{e.summary}</p>
-                          {e.asker ? (
-                            <p className="mt-4 text-small italic text-ink/50">{e.asker}</p>
-                          ) : null}
-                          <span className="mt-6 inline-flex items-center gap-2 text-small text-link">
-                            Read
-                            <span className="transition-transform duration-300 ease-calm group-hover:translate-x-1">
-                              →
-                            </span>
-                          </span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            )}
-          </div>
-        );
-      })}
+      {/* ── Community Questions — FAQs + Course Questions. */}
+      <section id="community" className="scroll-mt-24">
+        <h2 className="font-serif text-h1 font-light text-signature">
+          Community Questions
+        </h2>
+        <p className="mt-2 max-w-prose text-body text-ink/70">
+          What people ask most — questions from visitors, and the questions that
+          come up again and again inside the courses.
+        </p>
+        <div className="mt-10 space-y-14">
+          <Group
+            id="faqs"
+            label={entryTypeMeta.user_question.label}
+            blurb={entryTypeMeta.user_question.blurb}
+            items={byType("user_question")}
+            sub
+          />
+          <Group
+            id="course-questions"
+            label={entryTypeMeta.course_qa.label}
+            blurb={entryTypeMeta.course_qa.blurb}
+            items={byType("course_qa")}
+            sub
+          />
+        </div>
+      </section>
     </div>
+  );
+}
+
+function Group({
+  id,
+  label,
+  blurb,
+  items,
+  sub = false,
+}: {
+  id: string;
+  label: string;
+  blurb: string;
+  items: Entry[];
+  sub?: boolean;
+}) {
+  return (
+    <section id={id} className="scroll-mt-24">
+      <div className="flex items-baseline justify-between gap-4">
+        <h3
+          className={`font-serif font-light text-signature ${
+            sub ? "text-h2" : "text-h1"
+          }`}
+        >
+          {label}
+        </h3>
+        <span className="text-small text-ink/45">{items.length}</span>
+      </div>
+      <p className="mt-2 max-w-prose text-small text-ink/70">{blurb}</p>
+
+      {items.length === 0 ? (
+        <p className="mt-6 text-small text-ink/50">
+          Nothing published here yet — check back soon.
+        </p>
+      ) : (
+        <ul className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-2">
+          {items.map((e) => (
+            <li key={e.id}>
+              <Link
+                href={`/resources/${e.slug}`}
+                className="group flex h-full flex-col bg-paper p-8 transition-colors duration-300 ease-calm hover:bg-paper/60"
+              >
+                <div className="flex items-center gap-3 text-small text-ink/50">
+                  <span className="kicker text-blue-lift">{e.topic}</span>
+                  <span aria-hidden>·</span>
+                  <span>{levelLabels[e.level] ?? e.level}</span>
+                </div>
+                <h4 className="mt-4 font-serif text-xl font-medium text-ink transition-colors duration-300 ease-calm group-hover:text-blue-lift">
+                  {e.title}
+                </h4>
+                <p className="mt-3 flex-1 text-small text-ink">{e.summary}</p>
+                {e.asker ? (
+                  <p className="mt-4 text-small italic text-ink/50">{e.asker}</p>
+                ) : null}
+                <span className="mt-6 inline-flex items-center gap-2 text-small text-link">
+                  Read
+                  <span className="transition-transform duration-300 ease-calm group-hover:translate-x-1">
+                    →
+                  </span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }

@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/PageHero";
+import PageBanner from "@/components/PageBanner";
 import Reveal from "@/components/Reveal";
+import Button from "@/components/Button";
 import InquiryForm from "@/components/InquiryForm";
 import { talkTopics, episodes, outcomes } from "@/lib/content";
+import { pageBanners } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Speaking",
+  title: "Speaking Engagement",
   description:
     "Conferences book opinions, not résumés. A point of view, bookable talk topics, and the work that backs them.",
 };
@@ -15,9 +17,9 @@ export default function SpeakingPage() {
 
   return (
     <>
-      <PageHero
-        kicker="Speaking"
-        tone="cool"
+      <PageBanner
+        image={pageBanners.speaking}
+        kicker="Speaking Engagement"
         title="Conferences book opinions, not résumés."
         intro={
           <p>
@@ -26,7 +28,9 @@ export default function SpeakingPage() {
             That's the talk under all the talks.
           </p>
         }
-      />
+      >
+        <Button href="#book">Book a talk</Button>
+      </PageBanner>
 
       {/* ── Bookable talk topics — one at a time. */}
       <section className="container-content py-12 sm:py-16">
@@ -77,7 +81,7 @@ export default function SpeakingPage() {
       </section>
 
       {/* ── Book me. */}
-      <section className="container-content py-12 sm:py-16">
+      <section id="book" className="container-content scroll-mt-20 py-12 sm:py-16">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
           <Reveal>
             <h2 className="font-serif text-h1 font-light text-signature">Book me.</h2>

@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Button from "@/components/Button";
 import Reveal from "@/components/Reveal";
+import PageBanner from "@/components/PageBanner";
 import EmailCapture from "@/components/EmailCapture";
 import { seedEntries } from "@/lib/library";
-import { bannerSrc, brand, social } from "@/lib/site";
+import { pageBanners, brand, social } from "@/lib/site";
 
 const doors = [
   {
@@ -28,48 +29,21 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ── HERO BANNER — full-viewport. Banner image as background; all hero
-          content visible above the fold, no scroll required. */}
-      <section className="relative flex min-h-[calc(100svh-4rem)] w-full items-center overflow-hidden bg-ink">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={bannerSrc}
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover opacity-45 animate-fade-in"
-        />
-        {/* Gradient ensures text legibility over any image. */}
-        <div className="absolute inset-0 bg-gradient-to-br from-ink/95 via-ink/80 to-ink/50" />
-        <span className="absolute inset-x-0 bottom-0 h-px bg-amber/50" aria-hidden />
-
-        <div className="container-content relative z-10 py-20 sm:py-24">
-          <p className="kicker text-paper/60 animate-fade-up">{brand.byline}</p>
-          <h1 className="mt-6 max-w-4xl font-serif text-display font-light text-paper animate-hero-rise">
-            The tool{" "}
-            <span className="text-amber">is the easy part.</span>{" "}
-            The{" "}
-            <span className="text-amber">judgment</span>
-            {" "}is the job.
-          </h1>
-          <span
-            className="mt-10 block h-px w-16 bg-amber animate-fade-up"
-            style={{ animationDelay: "160ms" }}
-            aria-hidden
-          />
-          <p
-            className="mt-8 max-w-2xl text-body text-paper/75 animate-fade-up"
-            style={{ animationDelay: "200ms" }}
-          >
-            A translator between the technical floor and the boardroom, who builds the
-            systems that connect them.
-          </p>
-          <div
-            className="mt-12 animate-fade-up"
-            style={{ animationDelay: "320ms" }}
-          >
-            <Button href="/work">See what I build</Button>
-          </div>
-        </div>
-      </section>
+      {/* ── HERO BANNER — full-viewport, landing-style. Placeholder banner art
+          sits behind the headline; all key content lands above the fold. */}
+      <PageBanner
+        image={pageBanners.home}
+        kicker={brand.byline}
+        title={
+          <>
+            The tool <span className="text-amber">is the easy part.</span> The{" "}
+            <span className="text-amber">judgment</span> is the job.
+          </>
+        }
+        intro={<p>{brand.oneLine}</p>}
+      >
+        <Button href="/work">See what I build</Button>
+      </PageBanner>
 
       {/* ── Three audience doors — gentle staggered fade-in on scroll. */}
       <section className="container-content py-16 sm:py-20">

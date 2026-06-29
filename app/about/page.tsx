@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/PageHero";
+import PageBanner from "@/components/PageBanner";
 import Reveal from "@/components/Reveal";
 import Button from "@/components/Button";
 import BioLengths from "@/components/BioLengths";
 import { bioCloseText, bioPersonal, bioRoles, bioStory, bios } from "@/lib/content";
-import { brand } from "@/lib/site";
+import { aboutPortrait, brand, pageBanners } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
@@ -15,9 +15,9 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <PageHero
+      <PageBanner
+        image={pageBanners.about}
         kicker="About"
-        tone="warm"
         title="I work at the seam between engineering and the business."
         intro={
           <p>
@@ -26,28 +26,27 @@ export default function AboutPage() {
             business-aligned systems, and translating each room to the other.
           </p>
         }
+        figure={
+          <div className="relative mx-auto w-full max-w-sm overflow-hidden rounded-3xl border border-amber/50 shadow-2xl shadow-ink/60 ring-1 ring-paper/10">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={aboutPortrait}
+              alt="Dare Omotosho"
+              className="aspect-[4/5] w-full object-cover"
+            />
+            <span className="kicker absolute left-5 top-5 text-amber">Dare Omotosho</span>
+          </div>
+        }
       />
 
-      {/* ── The bridge — the brand line in full, paired with a professional
-          portrait placeholder (warm treatment; swap for a real photo). */}
-      <section className="container-content pt-2 pb-12 sm:pt-4 sm:pb-16">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
-          <Reveal>
-            <span className="block h-px w-16 bg-amber" aria-hidden />
-            <p className="mt-8 max-w-2xl font-serif text-h2 font-light leading-snug text-ink">
-              {brand.oneLine}
-            </p>
-          </Reveal>
-          <Reveal delay={120}>
-            <div className="relative mx-auto w-full max-w-sm overflow-hidden rounded-3xl border border-amber/40 bg-paper">
-              <div className="aspect-[4/5] w-full" />
-              <span className="kicker absolute left-6 top-6 text-amber">Photo</span>
-              <p className="absolute bottom-6 left-6 text-small text-ink/45">
-                Professional photo mounts here.
-              </p>
-            </div>
-          </Reveal>
-        </div>
+      {/* ── The bridge — the brand line in full, given room to breathe. */}
+      <section className="container-content pt-12 pb-12 sm:pt-16 sm:pb-16">
+        <Reveal>
+          <span className="block h-px w-16 bg-amber" aria-hidden />
+          <p className="mt-8 max-w-3xl font-serif text-h1 font-light leading-snug text-ink">
+            {brand.oneLine}
+          </p>
+        </Reveal>
       </section>
 
       {/* ── The story — the bio narrative, set in a box. */}

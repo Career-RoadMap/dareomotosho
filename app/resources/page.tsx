@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/PageHero";
+import PageBanner from "@/components/PageBanner";
 import Reveal from "@/components/Reveal";
 import ResourcesSections from "@/components/ResourcesSections";
 import AskQuestion from "@/components/AskQuestion";
+import Button from "@/components/Button";
 import { getEntries } from "@/lib/library";
+import { pageBanners } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Resources",
@@ -19,20 +21,27 @@ export default async function ResourcesPage() {
 
   return (
     <>
-      <PageHero
+      <PageBanner
+        image={pageBanners.resources}
         kicker="Library"
-        tone="cool"
         title="The content library."
         intro={
           <p>
             Case studies showing how real systems were reasoned about, and
-            questions from the community — answered in the open. New content
-            appears live.
+            community questions — FAQs and course questions — answered in the
+            open. New content appears live.
           </p>
         }
-      />
+      >
+        <div className="flex flex-wrap gap-4">
+          <Button href="#case-studies">Case Studies</Button>
+          <Button href="#community" variant="accent">
+            Community Questions
+          </Button>
+        </div>
+      </PageBanner>
 
-      <section className="container-content pb-16">
+      <section className="container-content py-16 sm:py-20">
         <Reveal>
           <ResourcesSections initial={entries} />
         </Reveal>

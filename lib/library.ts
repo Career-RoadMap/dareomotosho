@@ -45,16 +45,16 @@ export const entryTypeMeta: Record<
   { label: string; blurb: string }
 > = {
   course_qa: {
-    label: "Course Q&A",
+    label: "Course Questions",
     blurb: "Answers to the questions learners actually ask, drawn from the courses.",
   },
   case_study: {
-    label: "Case studies",
+    label: "Case Studies",
     blurb: "How real systems were reasoned about — the decision, not just the diagram.",
   },
   user_question: {
-    label: "From the community",
-    blurb: "Questions submitted by visitors, answered in the open.",
+    label: "FAQs",
+    blurb: "Questions visitors send in most often, answered in the open.",
   },
 };
 

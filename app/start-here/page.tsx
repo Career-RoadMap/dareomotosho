@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/PageHero";
+import PageBanner from "@/components/PageBanner";
 import Reveal from "@/components/Reveal";
 import Button from "@/components/Button";
-import { entryTypeMeta, seedEntries } from "@/lib/library";
+import { entryTypeMeta, getEntries } from "@/lib/library";
+import { pageBanners } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Start Here",
+  title: "Learn",
   description:
-    "New to cloud? Start at the beginning, in order — a guided route with free starter resources, not a dump of links.",
+    "New to cloud? Start at the beginning, in order — a guided route with the latest resources, not a dump of links.",
 };
+
+// Reflect the latest published resources when Supabase is configured.
+export const dynamic = "force-dynamic";
 
 const learningOrder = [
   {
@@ -53,24 +57,26 @@ const whyExplainers = [
   },
 ];
 
-export default function StartHerePage() {
-  const starters = seedEntries.filter((e) => e.level === "newcomer").slice(0, 3);
-  const starterPool = starters.length > 0 ? starters : seedEntries.slice(0, 3);
+export default async function StartHerePage() {
+  // The three most recently published resources, fetched live.
+  const latest = (await getEntries()).slice(0, 3);
 
   return (
     <>
-      <PageHero
+      <PageBanner
+        image={pageBanners.learn}
         kicker="New to cloud"
-        tone="warm"
         title="Start at the beginning. In order."
         intro={
           <p>
-            Not a pile of links — a route. We'll go step by step, the free starter
+            Not a pile of links — a route. We'll go step by step, the latest
             resources are yours, and you don't need a background to begin. You need a
             direction.
           </p>
         }
-      />
+      >
+        <Button href="/resources">Browse the library</Button>
+      </PageBanner>
 
       {/* ── Guided learning order. */}
       <section className="container-content py-12 sm:py-16">
@@ -96,16 +102,17 @@ export default function StartHerePage() {
         </ol>
       </section>
 
-      {/* ── Free starter resources. */}
+      {/* ── Latest resources — the three most recently uploaded, fetched live. */}
       <section className="container-content py-16 sm:py-20">
         <Reveal>
-          <h2 className="font-serif text-h2 font-light text-ink">Free to start</h2>
+          <h2 className="font-serif text-h2 font-light text-ink">Latest resources</h2>
           <p className="mt-3 max-w-prose text-body text-ink">
-            Answers from the library, no email wall. Take what's useful.
+            The three newest answers from the library, no email wall. Take what's
+            useful.
           </p>
         </Reveal>
         <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-3">
-          {starterPool.map((r, i) => (
+          {latest.map((r, i) => (
             <Reveal as="div" key={r.slug} delay={i * 100} className="bg-paper p-8">
               <p className="kicker text-blue-lift">{entryTypeMeta[r.type].label}</p>
               <h3 className="mt-4 font-serif text-xl font-medium text-ink">{r.title}</h3>

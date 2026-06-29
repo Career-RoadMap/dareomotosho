@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/PageHero";
+import PageBanner from "@/components/PageBanner";
 import Reveal from "@/components/Reveal";
 import Button from "@/components/Button";
 import FlipCard from "@/components/FlipCard";
@@ -9,6 +9,7 @@ import LogoMarquee from "@/components/LogoMarquee";
 import DiagramGallery from "@/components/DiagramGallery";
 import TierBackdrop from "@/components/TierBackdrop";
 import { diagrams, tiers, toolkitNote, workClose } from "@/lib/content";
+import { pageBanners } from "@/lib/site";
 
 /** Corner each grid tile converges from, in 2×2 order. */
 const corners = ["tl", "tr", "bl", "br"] as const;
@@ -22,9 +23,9 @@ export const metadata: Metadata = {
 export default function WorkPage() {
   return (
     <>
-      <PageHero
+      <PageBanner
+        image={pageBanners.work}
         kicker="What I build"
-        tone="cool"
         title="Systems for the business, not just the stack."
         intro={
           <p>
@@ -33,7 +34,14 @@ export default function WorkPage() {
             Every system below started as a business decision, not just a technical one.
           </p>
         }
-      />
+      >
+        <div className="flex flex-wrap gap-4">
+          <Button href="#architecture">See the architecture</Button>
+          <Button href="/advisory" variant="accent">
+            Work with me
+          </Button>
+        </div>
+      </PageBanner>
 
       {/* ── Tiers — each heading flips to its detail; the 2×2 grid converges in.
           A subtle parallax backdrop fades in per tier to underline its message. */}
@@ -111,21 +119,29 @@ export default function WorkPage() {
         );
       })}
 
-      {/* ── Architecture diagrams — an in-place gallery; click to view larger. */}
-      <section className="container-content py-12 sm:py-16">
-        <Reveal>
-          <p className="kicker text-amber">Selected architecture</p>
-          <h2 className="mt-5 max-w-2xl font-serif text-h2 font-light text-signature">
-            The diagrams behind the decisions.
-          </h2>
-          <p className="mt-3 max-w-prose text-small text-ink">
-            A rolling look at designed architecture. They switch on their own —
-            click any one to view it larger.
-          </p>
-        </Reveal>
-        <Reveal className="mt-10">
-          <DiagramGallery diagrams={diagrams} />
-        </Reveal>
+      {/* ── Architecture diagrams — a dark Signature band so the work pops off
+          the Paper. An in-place gallery; click any one to view it larger. */}
+      <section
+        id="architecture"
+        className="scroll-mt-20 bg-ink py-16 sm:py-24"
+      >
+        <div className="container-content">
+          <Reveal>
+            <p className="kicker text-amber">Selected architecture</p>
+            <h2 className="mt-5 max-w-2xl font-serif text-h1 font-light text-paper">
+              The diagrams behind the decisions.
+            </h2>
+            <p className="mt-4 max-w-prose text-body text-paper/70">
+              A rolling look at designed architecture — real systems, drawn end to
+              end. They switch on their own; click any one to view it larger.
+            </p>
+          </Reveal>
+          <Reveal className="mt-12">
+            <div className="rounded-3xl border border-amber/30 bg-paper p-4 shadow-2xl shadow-ink/40 sm:p-6">
+              <DiagramGallery diagrams={diagrams} />
+            </div>
+          </Reveal>
+        </div>
       </section>
 
       {/* ── The toolkit — note + a continuously rolling logo marquee. */}
