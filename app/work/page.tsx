@@ -3,8 +3,14 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import Button from "@/components/Button";
 import FlipCard from "@/components/FlipCard";
+import FlipTile from "@/components/FlipTile";
+import Converge from "@/components/Converge";
 import LogoMarquee from "@/components/LogoMarquee";
-import { capabilities, outcomes, toolkitNote } from "@/lib/content";
+import DiagramGallery from "@/components/DiagramGallery";
+import { capabilities, diagrams, outcomes, toolkitNote } from "@/lib/content";
+
+/** Corner each capability tile converges from, in 2×2 grid order. */
+const corners = ["tl", "tr", "bl", "br"] as const;
 
 export const metadata: Metadata = {
   title: "Work",
@@ -52,19 +58,39 @@ export default function WorkPage() {
         </div>
       </section>
 
-      {/* ── Capabilities strip — grouped, lighter. */}
+      {/* ── Architecture diagrams — an in-place gallery; click to view larger. */}
+      <section className="container-content py-12 sm:py-16">
+        <Reveal>
+          <p className="kicker text-amber">Selected architecture</p>
+          <h2 className="mt-5 max-w-2xl font-serif text-h2 font-light text-signature">
+            The diagrams behind the decisions.
+          </h2>
+          <p className="mt-3 max-w-prose text-small text-ink">
+            A rolling look at designed architecture. They switch on their own —
+            click any one to view it larger.
+          </p>
+        </Reveal>
+        <Reveal className="mt-10">
+          <DiagramGallery diagrams={diagrams} />
+        </Reveal>
+      </section>
+
+      {/* ── How the work holds together — flip tiles that converge into place. */}
       <section className="container-content py-20 sm:py-28">
         <Reveal>
           <h2 className="font-serif text-h2 font-light text-signature">
             How the work holds together
           </h2>
+          <p className="mt-3 text-small text-ink/55">
+            The heading first —{" "}
+            <span className="text-amber">click any tile to flip</span> for the detail.
+          </p>
         </Reveal>
-        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-2">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2">
           {capabilities.map((c, i) => (
-            <Reveal as="div" key={c.title} delay={i * 80} className="bg-paper p-8 sm:p-10">
-              <h3 className="font-serif text-xl font-medium text-ink">{c.title}</h3>
-              <p className="mt-4 text-small text-ink">{c.body}</p>
-            </Reveal>
+            <Converge key={c.title} from={corners[i % corners.length]}>
+              <FlipTile title={c.title} body={c.body} />
+            </Converge>
           ))}
         </div>
       </section>

@@ -178,6 +178,40 @@ export const toolkit: Tool[] = [
   { name: "Excel", logo: "/logos/excel.svg" },
 ];
 
+export type Diagram = {
+  src: string;
+  title: string;
+  caption: string;
+};
+
+/**
+ * Designed architecture diagrams — shown as an in-place gallery on /work.
+ * Placeholders live in /public/diagrams; swap each for a real exported diagram
+ * (and add more entries here — the gallery handles any number).
+ */
+export const diagrams: Diagram[] = [
+  {
+    src: "/diagrams/diagram-1.svg",
+    title: "Multi-cloud delivery",
+    caption: "One delivery model spanning providers, drawn for portability and reliability.",
+  },
+  {
+    src: "/diagrams/diagram-2.svg",
+    title: "Central logging system",
+    caption: "Ingestion, retention, and access designed around the questions an incident asks.",
+  },
+  {
+    src: "/diagrams/diagram-3.svg",
+    title: "Cost-aware architecture",
+    caption: "Where cost is a design input — the structure that held performance while the bill fell.",
+  },
+  {
+    src: "/diagrams/diagram-4.svg",
+    title: "Secure access design",
+    caption: "Identity and access modeled from the first diagram, sized to real risk.",
+  },
+];
+
 export type ClassSession = {
   title: string;
   day: string;

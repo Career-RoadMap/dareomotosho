@@ -57,9 +57,7 @@ export default function FlipCard({
       >
         {/* Front — heading only, centered. */}
         <span className={`${faceBase} ${frontSurface}`}>
-          <span className={`kicker ${hero ? "text-amber" : "text-blue-lift"}`}>
-            {hero ? "Hero proof" : "Outcome"}
-          </span>
+          {!hero && <span className="kicker text-blue-lift">Outcome</span>}
           <span
             className={`font-serif font-light leading-none ${
               hero ? "text-paper text-display" : "text-signature text-h1"
