@@ -2,7 +2,7 @@ import Link from "next/link";
 import Button from "@/components/Button";
 import Reveal from "@/components/Reveal";
 import EmailCapture from "@/components/EmailCapture";
-import { resources } from "@/lib/content";
+import { seedEntries } from "@/lib/library";
 import { bannerSrc, brand, social } from "@/lib/site";
 
 const doors = [
@@ -24,7 +24,7 @@ const doors = [
 ];
 
 export default function HomePage() {
-  const latestResource = resources[0];
+  const latestResource = seedEntries[0];
 
   return (
     <>

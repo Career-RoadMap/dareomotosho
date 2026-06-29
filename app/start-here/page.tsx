@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import Button from "@/components/Button";
-import { resources } from "@/lib/content";
+import { entryTypeMeta, seedEntries } from "@/lib/library";
 
 export const metadata: Metadata = {
   title: "Start Here",
@@ -54,9 +54,8 @@ const whyExplainers = [
 ];
 
 export default function StartHerePage() {
-  const starters = resources.filter((r) => r.level === "Newcomer").slice(0, 3);
-  const starterPool =
-    starters.length > 0 ? starters : resources.slice(0, 3);
+  const starters = seedEntries.filter((e) => e.level === "newcomer").slice(0, 3);
+  const starterPool = starters.length > 0 ? starters : seedEntries.slice(0, 3);
 
   return (
     <>
@@ -102,20 +101,20 @@ export default function StartHerePage() {
         <Reveal>
           <h2 className="font-serif text-h2 font-light text-ink">Free to start</h2>
           <p className="mt-3 max-w-prose text-body text-ink">
-            Downloads to keep, no email wall. Take what's useful.
+            Answers from the library, no email wall. Take what's useful.
           </p>
         </Reveal>
         <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-3">
           {starterPool.map((r, i) => (
             <Reveal as="div" key={r.slug} delay={i * 100} className="bg-paper p-8">
-              <p className="kicker text-blue-lift">{r.type}</p>
+              <p className="kicker text-blue-lift">{entryTypeMeta[r.type].label}</p>
               <h3 className="mt-4 font-serif text-xl font-medium text-ink">{r.title}</h3>
               <p className="mt-3 text-small text-ink">{r.summary}</p>
               <a
                 href={`/resources/${r.slug}`}
                 className="link-quiet mt-6 inline-block text-small"
               >
-                Open
+                Read
               </a>
             </Reveal>
           ))}
