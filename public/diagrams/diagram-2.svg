@@ -1,21 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-label="Central logging system">
-  <!-- PLACEHOLDER architecture diagram — replace with a real exported diagram. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-label="Environments & CI">
+  <!-- PLACEHOLDER — replace with the real exported diagram (diagram-2.svg). -->
   <rect width="1280" height="720" fill="#F7F5F0"/>
-  <g fill="none" stroke="#1E3A5F" stroke-width="2" stroke-opacity="0.55">
-    <rect x="120" y="110" width="240" height="120" rx="12"/>
-    <rect x="520" y="110" width="240" height="120" rx="12"/>
-    <rect x="920" y="110" width="240" height="120" rx="12"/>
-    <rect x="320" y="380" width="240" height="120" rx="12"/>
-    <rect x="720" y="380" width="240" height="120" rx="12"/>
-    <path d="M360 170 H520 M760 170 H920 M240 230 V440 H320 M1040 230 V440 H960 M560 440 H720"/>
+  <g fill="none" stroke="#1E3A5F" stroke-width="2" stroke-opacity="0.5">
+    <rect x="120" y="120" width="220" height="110" rx="12"/>
+    <rect x="530" y="120" width="220" height="110" rx="12"/>
+    <rect x="940" y="120" width="220" height="110" rx="12"/>
+    <rect x="325" y="370" width="220" height="110" rx="12"/>
+    <rect x="735" y="370" width="220" height="110" rx="12"/>
+    <path d="M340 175 H530 M750 175 H940 M230 230 V425 H325 M1050 230 V425 H955 M545 425 H735"/>
   </g>
-  <g fill="#1E3A5F" fill-opacity="0.5" font-family="Inter, system-ui, sans-serif" font-size="20">
-    <text x="150" y="175">Edge / CDN</text>
-    <text x="550" y="175">API gateway</text>
-    <text x="950" y="175">Services</text>
-    <text x="350" y="445">Data store</text>
-    <text x="750" y="445">Logging (CLS)</text>
-  </g>
-  <circle cx="1180" cy="620" r="34" fill="none" stroke="#E0A951" stroke-width="3"/>
-  <text x="80" y="660" font-family="Inter, system-ui, sans-serif" font-size="34" font-weight="500" fill="#0F1B2D">Central logging system</text>
+  <circle cx="1180" cy="610" r="30" fill="none" stroke="#E0A951" stroke-width="3"/>
+  <text x="80" y="650" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="500" fill="#0F1B2D">Environments & CI</text>
+  <text x="80" y="685" font-family="Inter, system-ui, sans-serif" font-size="18" fill="#0F1B2D" fill-opacity="0.5">Placeholder — swap for the real export</text>
 </svg>

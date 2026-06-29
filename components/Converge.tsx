@@ -5,10 +5,10 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 type Corner = "tl" | "tr" | "bl" | "br";
 
 const offset: Record<Corner, string> = {
-  tl: "-translate-x-12 -translate-y-12",
-  tr: "translate-x-12 -translate-y-12",
-  bl: "-translate-x-12 translate-y-12",
-  br: "translate-x-12 translate-y-12",
+  tl: "-translate-x-24 -translate-y-20",
+  tr: "translate-x-24 -translate-y-20",
+  bl: "-translate-x-24 translate-y-20",
+  br: "translate-x-24 translate-y-20",
 };
 
 /**
@@ -20,10 +20,13 @@ const offset: Record<Corner, string> = {
 export default function Converge({
   children,
   from = "tl",
+  delay = 0,
   className = "",
 }: {
   children: ReactNode;
   from?: Corner;
+  /** Stagger delay in ms so tiles arrive one after another, visibly. */
+  delay?: number;
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -59,8 +62,11 @@ export default function Converge({
   return (
     <div
       ref={ref}
-      className={`h-full transition-all duration-700 ease-calm ${
-        visible ? "translate-x-0 translate-y-0 opacity-100" : `opacity-0 ${offset[from]}`
+      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      className={`h-full transition-all duration-[800ms] ease-calm ${
+        visible
+          ? "translate-x-0 translate-y-0 scale-100 opacity-100"
+          : `scale-95 opacity-0 ${offset[from]}`
       } ${className}`}
     >
       {children}

@@ -281,23 +281,33 @@ export type Diagram = {
 export const diagrams: Diagram[] = [
   {
     src: "/diagrams/diagram-1.svg",
-    title: "Multi-cloud delivery",
-    caption: "One delivery model spanning providers, drawn for portability and reliability.",
+    title: "Application architecture",
+    caption:
+      "A Vendure storefront on an EC2 Docker instance, fronted by Route 53 and wired to Aurora MySQL, Agora, Google Maps, SNS, social auth, S3, and Paystack.",
   },
   {
     src: "/diagrams/diagram-2.svg",
-    title: "Central logging system",
-    caption: "Ingestion, retention, and access designed around the questions an incident asks.",
+    title: "Environments & CI",
+    caption:
+      "A VPC across two availability zones — staging and production EC2 behind a web-server proxy, with S3, SNS, ECS, and Git-driven automation.",
   },
   {
     src: "/diagrams/diagram-3.svg",
-    title: "Cost-aware architecture",
-    caption: "Where cost is a design input — the structure that held performance while the bill fell.",
+    title: "Observability",
+    caption:
+      "Lambda and API Gateway metrics into CloudWatch, with Prometheus on EKS scraping data and Grafana visualizing it.",
   },
   {
     src: "/diagrams/diagram-4.svg",
-    title: "Secure access design",
-    caption: "Identity and access modeled from the first diagram, sized to real risk.",
+    title: "Continuous delivery",
+    caption:
+      "Docker Hub auto-builds and redeploys containers on every push to master from the team's GitHub repositories.",
+  },
+  {
+    src: "/diagrams/diagram-5.svg",
+    title: "Scale & resilience",
+    caption:
+      "A CDN and load balancer fronting containerized app instances on Kubernetes, backed by replicated Postgres with backups and firewall isolation.",
   },
 ];
 

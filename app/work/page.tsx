@@ -43,8 +43,7 @@ export default function WorkPage() {
         return (
           <section key={tier.kicker} className="container-content py-12 sm:py-20">
             <Reveal>
-              <p className="kicker text-amber">{tier.kicker}</p>
-              <h2 className="mt-4 font-serif text-h1 font-light text-signature">
+              <h2 className="font-serif text-h1 font-light text-signature">
                 {tier.name}
               </h2>
               <p className="mt-3 max-w-2xl text-body text-ink">{tier.tagline}</p>
@@ -68,22 +67,38 @@ export default function WorkPage() {
               </Reveal>
             )}
 
-            {/* The rest — flip tiles converging from their corners. */}
+            {/* The rest — flip tiles converging from their corners, staggered. */}
             <div className="mt-6 grid gap-6 sm:grid-cols-2">
               {grid.map((item, i) => (
-                <Converge key={item.title} from={corners[i % corners.length]}>
+                <Converge
+                  key={item.title}
+                  from={corners[i % corners.length]}
+                  delay={i * 120}
+                >
                   <FlipTile title={item.title} body={item.body} />
                 </Converge>
               ))}
             </div>
 
-            {/* Capabilities line for the tier. */}
-            <Reveal className="mt-8">
-              <div className="rounded-2xl border border-ink/10 bg-paper p-6 sm:p-8">
-                <p className="kicker text-blue-lift">Capabilities</p>
-                <p className="mt-3 text-small text-ink">{tier.capabilities}</p>
-              </div>
-            </Reveal>
+            {/* Capabilities — a chip cloud; each pill fades up in sequence. */}
+            <div className="mt-10">
+              <Reveal>
+                <p className="kicker text-blue-lift">Also in the kit</p>
+              </Reveal>
+              <ul className="mt-5 flex flex-wrap gap-2.5">
+                {tier.capabilities
+                  .split("·")
+                  .map((c) => c.trim().replace(/\.$/, ""))
+                  .filter(Boolean)
+                  .map((cap, i) => (
+                    <Reveal as="li" key={cap} delay={i * 90}>
+                      <span className="inline-block rounded-full border border-ink/15 bg-paper px-4 py-2 text-small text-ink transition-colors duration-300 ease-calm hover:border-amber hover:text-signature">
+                        {cap}
+                      </span>
+                    </Reveal>
+                  ))}
+              </ul>
+            </div>
           </section>
         );
       })}
