@@ -10,9 +10,8 @@ export const brand = {
     "A translator between the technical floor and the boardroom, who builds the systems that connect them.",
 } as const;
 
-/** Landing-page banner image. Swap /public/banner.svg for the real artwork
- * (update the path/extension here if the file name differs). */
-export const bannerSrc = "/banner.svg";
+/** Landing-page banner image. */
+export const bannerSrc = "/diagrams/oja-lagos.jpg";
 
 export type NavItem = {
   href: string;
@@ -22,7 +21,7 @@ export type NavItem = {
 /** NAV order is intentional — a "build-first ascent." Do not reorder casually. */
 export const nav: NavItem[] = [
   { href: "/work", label: "Work" },
-  { href: "/start-here", label: "Start Here" },
+  { href: "/start-here", label: "Learn" },
   { href: "/resources", label: "Resources" },
   { href: "/speaking", label: "Speaking" },
   { href: "/advisory", label: "Advisory" },

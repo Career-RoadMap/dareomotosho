@@ -202,16 +202,52 @@ export type Diagram = {
  */
 export const diagrams: Diagram[] = [
   {
-    src: "/diagrams/edge-to-api.png",
-    title: "Edge to API",
+    src: "/diagrams/architecture-3-0.png",
+    title: "Platform 3.0 Architecture",
     caption:
-      "CloudFront fronting a VPC public subnet — the web tier through to API Gateway, with S3 serving assets.",
+      "The full system redesign — service mesh, multi-region routing, and a zero-downtime migration path drawn end-to-end.",
   },
   {
-    src: "/diagrams/full-architecture.png",
-    title: "The full architecture",
+    src: "/diagrams/ci-cd-filmhouse.png",
+    title: "CI/CD for Filmhouse",
     caption:
-      "CloudFront and routing into EC2 compute on AWS — backed by S3, DynamoDB, a Redis cache, and Terraform-managed infrastructure.",
+      "Build, test, and deploy pipeline designed for a media platform — trunk-based flow with staged promotion and rollback gates.",
+  },
+  {
+    src: "/diagrams/filmhouse-deployment.png",
+    title: "Filmhouse Deployment Architecture",
+    caption:
+      "Infrastructure blueprint for Filmhouse — load-balanced compute, managed DB tier, CDN edge, and monitoring hooks.",
+  },
+  {
+    src: "/diagrams/fusion-architecture.jpg",
+    title: "Fusion Project Architecture",
+    caption:
+      "Multi-service blueprint for the Fusion platform — event-driven integration layer connecting four internal domains.",
+  },
+  {
+    src: "/diagrams/monolith-security.jpg",
+    title: "Monolith FI Security Blueprint",
+    caption:
+      "Security posture mapping for a financial-services monolith — threat model, control boundaries, and remediation priorities.",
+  },
+  {
+    src: "/diagrams/prometheus-grafana.png",
+    title: "Observability Pipeline",
+    caption:
+      "Prometheus scrape targets through to Grafana dashboards via CloudWatch — unified metrics for a hybrid workload.",
+  },
+  {
+    src: "/diagrams/reach-architecture.png",
+    title: "Reach Architecture — Phase 1",
+    caption:
+      "First-phase design for the Reach platform — lightweight and deployable, with clear seams for phase-2 growth.",
+  },
+  {
+    src: "/diagrams/step-architecture.png",
+    title: "STEP Device Architecture",
+    caption:
+      "Distributed device coordination diagram — edge-to-cloud data flow and the control plane for STEP hardware.",
   },
 ];
 

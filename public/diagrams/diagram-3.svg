@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-label="Cost-aware architecture">
+  <!-- PLACEHOLDER architecture diagram — replace with a real exported diagram. -->
+  <rect width="1280" height="720" fill="#F7F5F0"/>
+  <g fill="none" stroke="#1E3A5F" stroke-width="2" stroke-opacity="0.55">
+    <rect x="120" y="110" width="240" height="120" rx="12"/>
+    <rect x="520" y="110" width="240" height="120" rx="12"/>
+    <rect x="920" y="110" width="240" height="120" rx="12"/>
+    <rect x="320" y="380" width="240" height="120" rx="12"/>
+    <rect x="720" y="380" width="240" height="120" rx="12"/>
+    <path d="M360 170 H520 M760 170 H920 M240 230 V440 H320 M1040 230 V440 H960 M560 440 H720"/>
+  </g>
+  <g fill="#1E3A5F" fill-opacity="0.5" font-family="Inter, system-ui, sans-serif" font-size="20">
+    <text x="150" y="175">Edge / CDN</text>
+    <text x="550" y="175">API gateway</text>
+    <text x="950" y="175">Services</text>
+    <text x="350" y="445">Data store</text>
+    <text x="750" y="445">Logging (CLS)</text>
+  </g>
+  <circle cx="1180" cy="620" r="34" fill="none" stroke="#E0A951" stroke-width="3"/>
+  <text x="80" y="660" font-family="Inter, system-ui, sans-serif" font-size="34" font-weight="500" fill="#0F1B2D">Cost-aware architecture</text>
+</svg>

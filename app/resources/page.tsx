@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
-import LibraryBrowser from "@/components/LibraryBrowser";
+import ResourcesSections from "@/components/ResourcesSections";
 import AskQuestion from "@/components/AskQuestion";
 import { getEntries } from "@/lib/library";
 
 export const metadata: Metadata = {
   title: "Resources",
   description:
-    "A content library of course Q&A, case studies, and community questions — filter by topic and level to find what fits.",
+    "Case studies and community questions — real decisions and real answers, open for everyone.",
 };
 
 // Always reflect the live library when Supabase is configured.
@@ -25,16 +25,16 @@ export default async function ResourcesPage() {
         title="The content library."
         intro={
           <p>
-            Course Q&amp;A, case studies, and questions from the community — read
-            them here, filter by topic and level, and join the conversation. New
-            answers and discussion appear live.
+            Case studies showing how real systems were reasoned about, and
+            questions from the community — answered in the open. New content
+            appears live.
           </p>
         }
       />
 
       <section className="container-content pb-16">
         <Reveal>
-          <LibraryBrowser initial={entries} />
+          <ResourcesSections initial={entries} />
         </Reveal>
       </section>
 

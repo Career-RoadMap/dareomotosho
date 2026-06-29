@@ -28,36 +28,35 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ── BANNER — the first display. Full-bleed deep image band with the
-          byline in Paper. Swap /public/banner.svg for the real artwork. */}
-      <section className="relative h-[40vh] min-h-[280px] w-full overflow-hidden bg-ink">
+      {/* ── HERO BANNER — full-viewport. Banner image as background; all hero
+          content visible above the fold, no scroll required. */}
+      <section className="relative flex min-h-[calc(100svh-4rem)] w-full items-center overflow-hidden bg-ink">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={bannerSrc}
           alt=""
-          className="absolute inset-0 h-full w-full object-cover animate-fade-in"
+          className="absolute inset-0 h-full w-full object-cover opacity-45 animate-fade-in"
         />
-        <div className="container-content relative flex h-full items-end pb-8 sm:pb-10">
-          <p className="kicker text-paper/80">{brand.byline}</p>
-        </div>
+        {/* Gradient ensures text legibility over any image. */}
+        <div className="absolute inset-0 bg-gradient-to-br from-ink/95 via-ink/80 to-ink/50" />
         <span className="absolute inset-x-0 bottom-0 h-px bg-amber/50" aria-hidden />
-      </section>
 
-      {/* ── HERO — Paper-dominant, light, max whitespace. The signature moment. */}
-      <section className="container-content pt-16 pb-12 sm:pt-24 sm:pb-16 lg:pt-28">
-        <div className="max-w-4xl">
-          <h1 className="font-serif text-display font-light text-ink animate-hero-rise">
-            The tool is the easy part.{" "}
-            <span className="text-signature">The judgment is the job.</span>
+        <div className="container-content relative z-10 py-20 sm:py-24">
+          <p className="kicker text-paper/60 animate-fade-up">{brand.byline}</p>
+          <h1 className="mt-6 max-w-4xl font-serif text-display font-light text-paper animate-hero-rise">
+            The tool{" "}
+            <span className="text-amber">is the easy part.</span>{" "}
+            The{" "}
+            <span className="text-amber">judgment</span>
+            {" "}is the job.
           </h1>
-          {/* One amber accent for the balanced home hero — a quiet warm highlight. */}
           <span
             className="mt-10 block h-px w-16 bg-amber animate-fade-up"
             style={{ animationDelay: "160ms" }}
             aria-hidden
           />
           <p
-            className="mt-8 max-w-2xl text-body text-ink animate-fade-up"
+            className="mt-8 max-w-2xl text-body text-paper/75 animate-fade-up"
             style={{ animationDelay: "200ms" }}
           >
             A translator between the technical floor and the boardroom, who builds the
