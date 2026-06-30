@@ -164,6 +164,27 @@
   }
 }
 
+/* ── Community Questions ticker ─────────────────────────────────────────
+   Portrait sidebar that scrolls its questions vertically. The list is
+   duplicated, so translating up one full set loops seamlessly. Pauses on
+   hover; speed is set per-instance via --ticker-duration. */
+.ticker-track {
+  animation: ticker-scroll var(--ticker-duration, 30s) linear infinite;
+}
+
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
 /* ── Respect prefers-reduced-motion everywhere ─────────────────────────
    Disable/curtail all reveal + transition motion; content shows at rest. */
 @media (prefers-reduced-motion: reduce) {
@@ -186,5 +207,11 @@
 
   .page-enter {
     animation: none;
+  }
+
+  /* Keep the questions ticker at rest (the list becomes a scrollable column). */
+  .ticker-track {
+    animation: none;
+    transform: none;
   }
 }

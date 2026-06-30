@@ -48,14 +48,8 @@ export const nav: NavItem[] = [
     label: "Resources",
     children: [
       { href: "/resources#case-studies", label: "Case Studies" },
-      {
-        href: "/resources#community",
-        label: "Community Questions",
-        children: [
-          { href: "/resources#faqs", label: "FAQs" },
-          { href: "/resources#course-questions", label: "Interview Prep" },
-        ],
-      },
+      { href: "/resources#community", label: "Community Questions" },
+      { href: "/resources#course-questions", label: "Interview Prep" },
     ],
   },
   { href: "/speaking", label: "Speaking" },

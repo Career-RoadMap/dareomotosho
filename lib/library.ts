@@ -53,8 +53,8 @@ export const entryTypeMeta: Record<
     blurb: "How real systems were reasoned about, the decision, not just the diagram.",
   },
   user_question: {
-    label: "FAQs",
-    blurb: "Questions visitors send in most often, answered in the open.",
+    label: "Community Questions",
+    blurb: "Questions visitors send in, answered in the open. New ones appear here live once reviewed.",
   },
 };
 

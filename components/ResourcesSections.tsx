@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { entryTypeMeta, levelLabels, topicLabel, type Entry, type EntryType } from "@/lib/library";
 import { supabase } from "@/lib/supabase";
+import QuestionTicker from "./QuestionTicker";
 
 export default function ResourcesSections({ initial }: { initial: Entry[] }) {
   const [entries, setEntries] = useState<Entry[]>(initial);
@@ -46,21 +47,28 @@ export default function ResourcesSections({ initial }: { initial: Entry[] }) {
         items={byType("case_study")}
       />
 
-      {/* ── FAQs + Interview Prep (the #community anchor still lands here). */}
-      <div id="community" className="scroll-mt-24 space-y-16">
-        <Group
-          id="faqs"
-          label={entryTypeMeta.user_question.label}
-          blurb={entryTypeMeta.user_question.blurb}
-          items={byType("user_question")}
-        />
-        <Group
-          id="course-questions"
-          label={entryTypeMeta.course_qa.label}
-          blurb={entryTypeMeta.course_qa.blurb}
-          items={byType("course_qa")}
-        />
-      </div>
+      {/* ── Interview Prep. */}
+      <Group
+        id="course-questions"
+        label={entryTypeMeta.course_qa.label}
+        blurb={entryTypeMeta.course_qa.blurb}
+        items={byType("course_qa")}
+      />
+
+      {/* ── Community Questions, a portrait sidebar that auto-scrolls live. */}
+      <section id="community" className="scroll-mt-24">
+        <div className="grid items-start gap-10 lg:grid-cols-[1fr_0.8fr]">
+          <div>
+            <h3 className="font-serif text-h1 font-light text-signature">
+              {entryTypeMeta.user_question.label}
+            </h3>
+            <p className="mt-3 max-w-prose text-body text-ink/70">
+              {entryTypeMeta.user_question.blurb}
+            </p>
+          </div>
+          <QuestionTicker items={byType("user_question")} />
+        </div>
+      </section>
     </div>
   );
 }
