@@ -39,5 +39,8 @@ jobs:
       - name: Seed Supabase
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          # Service-role key bypasses RLS so the seeder can write published rows.
+          # Used only here in CI — never expose it to the browser.
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: node scripts/seed.js
