@@ -1,0 +1,40 @@
+name: Seed Supabase
+
+# Auto-seed the Supabase `entries` table from the content folders on every
+# push to main. The seed script skips anything already in the table, so
+# re-runs are safe and idempotent.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+# Read-only checkout is all we need.
+permissions:
+  contents: read
+
+# Don't let two seed runs race each other.
+concurrency:
+  group: seed-supabase-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Seed Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: node scripts/seed.js

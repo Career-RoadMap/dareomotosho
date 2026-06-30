@@ -1,33 +1,30 @@
 /* eslint-disable */
 /**
- * seed-local.js — local folders → Supabase content seeder
+ * scripts/seed.js — content folders → Supabase seeder (CI-friendly)
  * ------------------------------------------------------------------
- * Same pipeline as seed.js, but the source is local folders instead of
- * Google Drive. Reads docs from three folders, auto-labels each entry
- * (type by folder, topic + level by content), builds title / body /
- * summary / asker, SKIPS anything already in the table (by slug), and
- * inserts the rest into the Supabase `entries` table.
+ * Reads docs from the content folders, auto-labels each entry (type by
+ * folder, topic + level + summary by content), inserts into the Supabase
+ * `entries` table, and SKIPS anything already present (by slug). Designed
+ * to run unattended in GitHub Actions on every push to main.
  *
- * Run locally:
+ * Credentials come from the environment (GitHub secrets) — nothing is
+ * hardcoded:
+ *     SUPABASE_URL, SUPABASE_ANON_KEY
  *
- *   npm install @supabase/supabase-js   # Node 18+ (global fetch)
- *   # optional, only if your docs are .docx:
- *   npm install mammoth
+ * Source folders (type is inferred from the folder name, so both
+ * "case-studies" and "case studies" work):
+ *     case studies / case-studies      → case_study
+ *     course-qa / content Q&A          → course_qa
+ *     user questions / user-questions  → user_question
  *
- *   node seed-local.js                  # extract + insert (skips dupes)
- *   node seed-local.js --dry-run        # print, don't insert
+ * The content base dir is auto-detected as ./content or ./contents
+ * (override with CONTENT_DIR). Supported files: .docx, .odt, .md,
+ * .markdown, .txt, .text, .html, .htm.
  *
- * Source folders (override the base with CONTENT_DIR):
- *   <CONTENT_DIR>/case-studies     → type: case_study
- *   <CONTENT_DIR>/course-qa        → type: course_qa
- *   <CONTENT_DIR>/user-questions   → type: user_question
- *
- * CONTENT_DIR defaults to ./contents. To match the absolute paths you
- * mentioned (/contents/...), run:  CONTENT_DIR=/contents node seed-local.js
- *
- * Supported file types: .md .markdown .txt .text .html .htm, and .docx
- * (only if the optional `mammoth` package is installed). Other files are
- * skipped with a notice.
+ * Local use:
+ *     npm install
+ *     SUPABASE_URL=... SUPABASE_ANON_KEY=... node scripts/seed.js
+ *     node scripts/seed.js --dry-run        # parse + label, no insert
  */
 
 const fs = require("fs");
@@ -35,23 +32,26 @@ const path = require("path");
 const { createClient } = require("@supabase/supabase-js");
 
 // ── CONFIG ────────────────────────────────────────────────────────
-const SUPABASE_URL =
-  process.env.SUPABASE_URL || "https://dvirmugurowkamnylbus.supabase.co";
-const SUPABASE_ANON_KEY =
-  process.env.SUPABASE_ANON_KEY ||
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2aXJtdWd1cm93a2FtbnlsYnVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3NjYzODgsImV4cCI6MjA5ODM0MjM4OH0.BtxTv3VLrxv8WZJuRALFcZLMP1xNtGgd8PyradIx6AE";
+const SUPABASE_URL = process.env.SUPABASE_URL || "";
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || "";
 
 const DRY_RUN = process.argv.includes("--dry-run");
-const PUBLISHED = true; // inserted rows are live; flip to false to stage for review
+const PUBLISHED = true; // inserted rows are live; set false to stage for review
 
-const CONTENT_DIR = process.env.CONTENT_DIR || path.resolve("contents");
+const TEXT_EXT = new Set([".md", ".markdown", ".txt", ".text", ".html", ".htm"]);
 
-/**
- * Map a subfolder NAME to an entry type by keyword, so naming variations all
- * resolve correctly: "case-studies" / "case studies" → case_study,
- * "user questions" → user_question, "course-qa" / "content Q&A" → course_qa.
- * Order matters: check case → user → course/q&a.
- */
+/** Resolve the content base dir: explicit override, else ./content or ./contents. */
+function resolveContentDir() {
+  if (process.env.CONTENT_DIR) return path.resolve(process.env.CONTENT_DIR);
+  for (const c of ["content", "contents"]) {
+    const p = path.resolve(c);
+    if (fs.existsSync(p)) return p;
+  }
+  return path.resolve("content");
+}
+const CONTENT_DIR = resolveContentDir();
+
+/** Map a subfolder name → entry type. Order matters: case → user → course/q&a. */
 function classifyFolderType(name) {
   const n = name.toLowerCase();
   if (/case/.test(n)) return "case_study";
@@ -60,7 +60,6 @@ function classifyFolderType(name) {
   return null;
 }
 
-/** Discover seedable subfolders under the content dir. */
 function discoverFolders(baseDir) {
   let dirs = [];
   try {
@@ -69,13 +68,11 @@ function discoverFolders(baseDir) {
     return [];
   }
   return dirs
-    .map((d) => ({ name: d.name, dir: d.name, type: classifyFolderType(d.name) }))
+    .map((d) => ({ name: d.name, type: classifyFolderType(d.name) }))
     .filter((f) => f.type);
 }
 
-const TEXT_EXT = new Set([".md", ".markdown", ".txt", ".text", ".html", ".htm"]);
-
-// ── AUTO-LABELLING RULES (identical to seed.js) ───────────────────
+// ── AUTO-LABELLING RULES ──────────────────────────────────────────
 const TOPIC_RULES = [
   { topic: "cloud", patterns: [/\bcloud\b/gi, /\bAWS\b/gi, /\bcost(s|ing)?\b/gi, /\barchitecture\b/gi] },
   { topic: "cybersecurity", patterns: [/\bsecurity\b/gi, /\bIAM\b/gi, /\bcyber ?security\b/gi, /\bbreach(es|ed)?\b/gi] },
@@ -107,7 +104,7 @@ function classify(text, rules, key, fallback) {
 const classifyTopic = (text) => classify(text, TOPIC_RULES, "topic", "cloud");
 const classifyLevel = (text) => classify(text, LEVEL_RULES, "level", "practitioner");
 
-// ── TEXT HELPERS (identical to seed.js) ───────────────────────────
+// ── TEXT HELPERS ──────────────────────────────────────────────────
 function words(str) {
   return str.trim().split(/\s+/).filter(Boolean);
 }
@@ -217,31 +214,83 @@ function slugify(str) {
   );
 }
 
-// ── LOCAL FILE READING ────────────────────────────────────────────
+// ── FILE READERS ──────────────────────────────────────────────────
 let mammoth = null;
 try {
-  mammoth = require("mammoth"); // optional, for .docx
-} catch (_) {
-  /* not installed — .docx files will be skipped with a notice */
+  mammoth = require("mammoth"); // .docx
+} catch (_) {}
+let AdmZip = null;
+try {
+  AdmZip = require("adm-zip"); // .odt
+} catch (_) {}
+
+function decodeEntities(s) {
+  return s
+    .replace(/&apos;/gi, "'")
+    .replace(/&quot;/gi, '"')
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(parseInt(n, 10)))
+    .replace(/&amp;/gi, "&");
 }
 
 function stripHtml(html) {
-  return html
-    .replace(/<script[\s\S]*?<\/script>/gi, "")
-    .replace(/<style[\s\S]*?<\/style>/gi, "")
-    .replace(/<\/(p|div|h[1-6]|li|br|tr)>/gi, "\n")
-    .replace(/<[^>]+>/g, "")
-    .replace(/&nbsp;/gi, " ")
-    .replace(/&amp;/gi, "&")
-    .replace(/&lt;/gi, "<")
-    .replace(/&gt;/gi, ">")
-    .replace(/&#39;|&apos;/gi, "'")
-    .replace(/&quot;/gi, '"')
+  return decodeEntities(
+    html
+      .replace(/<script[\s\S]*?<\/script>/gi, "")
+      .replace(/<style[\s\S]*?<\/style>/gi, "")
+      .replace(/<\/(p|div|h[1-6]|li|br|tr)>/gi, "\n")
+      .replace(/<[^>]+>/g, ""),
+  )
     .replace(/\n{3,}/g, "\n\n")
     .trim();
 }
 
-/** Recursively list readable doc files under a directory. */
+/** ODF (.odt) text: paragraphs/headings become newlines, then strip XML. */
+function odtXmlToText(xml) {
+  return decodeEntities(
+    xml
+      .replace(/<text:line-break\s*\/>/gi, "\n")
+      .replace(/<text:tab\s*\/>/gi, "\t")
+      .replace(/<\/text:(p|h)>/gi, "\n")
+      .replace(/<[^>]+>/g, ""),
+  )
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+async function readDocFile(file) {
+  const ext = path.extname(file).toLowerCase();
+
+  if (TEXT_EXT.has(ext)) {
+    const raw = fs.readFileSync(file, "utf8").replace(/^﻿/, "").replace(/\r\n/g, "\n");
+    return ext === ".html" || ext === ".htm" ? stripHtml(raw) : raw.trim();
+  }
+  if (ext === ".docx") {
+    if (!mammoth) {
+      console.warn(`   • ${path.basename(file)} is .docx — install "mammoth". Skipped.`);
+      return null;
+    }
+    const { value } = await mammoth.extractRawText({ path: file });
+    return (value || "").replace(/\r\n/g, "\n").trim();
+  }
+  if (ext === ".odt") {
+    if (!AdmZip) {
+      console.warn(`   • ${path.basename(file)} is .odt — install "adm-zip". Skipped.`);
+      return null;
+    }
+    const entry = new AdmZip(file).getEntry("content.xml");
+    if (!entry) {
+      console.warn(`   • ${path.basename(file)} has no content.xml — skipped.`);
+      return null;
+    }
+    return odtXmlToText(entry.getData().toString("utf8"));
+  }
+  console.warn(`   • ${path.basename(file)} (${ext || "no ext"}) is unsupported — skipped.`);
+  return null;
+}
+
+/** Recursively list files under a directory. */
 function walk(dir) {
   const out = [];
   let items = [];
@@ -256,25 +305,6 @@ function walk(dir) {
     else out.push(full);
   }
   return out;
-}
-
-/** Read a file to plain text, or return null if unsupported/unreadable. */
-async function readDocFile(file) {
-  const ext = path.extname(file).toLowerCase();
-  if (TEXT_EXT.has(ext)) {
-    const raw = fs.readFileSync(file, "utf8").replace(/^﻿/, "").replace(/\r\n/g, "\n");
-    return ext === ".html" || ext === ".htm" ? stripHtml(raw) : raw.trim();
-  }
-  if (ext === ".docx") {
-    if (!mammoth) {
-      console.warn(`   • ${path.basename(file)} is .docx — run "npm install mammoth" to import it. Skipped.`);
-      return null;
-    }
-    const { value } = await mammoth.extractRawText({ path: file });
-    return (value || "").replace(/\r\n/g, "\n").trim();
-  }
-  console.warn(`   • ${path.basename(file)} (${ext || "no ext"}) is unsupported — skipped.`);
-  return null;
 }
 
 // ── BUILD ─────────────────────────────────────────────────────────
@@ -303,46 +333,58 @@ function buildEntry({ fileName, type, body }) {
 
 // ── MAIN ──────────────────────────────────────────────────────────
 async function main() {
-  console.log(`\nLocal folders → Supabase seeder ${DRY_RUN ? "(DRY RUN)" : ""}`);
-  console.log(`Content dir: ${CONTENT_DIR}\n`);
+  console.log(`\nContent → Supabase seeder ${DRY_RUN ? "(DRY RUN)" : ""}`);
+  console.log(`Content dir: ${CONTENT_DIR}`);
 
   if (!fs.existsSync(CONTENT_DIR)) {
     console.error(`✗ Content dir not found: ${CONTENT_DIR}`);
-    console.error(`  Set CONTENT_DIR to the folder that holds case-studies/, course-qa/, user-questions/.`);
     process.exit(1);
   }
-
-  // Pull existing slugs up front so we can skip duplicates (skips when not in DRY_RUN
-  // or whenever Supabase is reachable).
-  let existingSlugs = new Set();
-  let supabase = null;
-  try {
-    supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    const { data, error } = await supabase.from("entries").select("slug");
-    if (error) throw error;
-    existingSlugs = new Set((data || []).map((r) => r.slug));
-    console.log(`Found ${existingSlugs.size} existing row(s) in "entries" — these slugs will be skipped.\n`);
-  } catch (e) {
-    console.warn(`! Could not read existing slugs (${e.message}). Will rely on in-run de-dupe only.\n`);
+  if (!DRY_RUN && (!SUPABASE_URL || !SUPABASE_ANON_KEY)) {
+    console.error(
+      "✗ Missing SUPABASE_URL / SUPABASE_ANON_KEY.\n" +
+        "  In GitHub Actions add them as repository secrets; locally export them\n" +
+        "  before running, or use --dry-run to parse without inserting.",
+    );
+    process.exit(1);
   }
 
   const folders = discoverFolders(CONTENT_DIR);
   if (folders.length === 0) {
     console.error(`✗ No recognisable content subfolders under ${CONTENT_DIR}.`);
-    console.error(`  Expected folders whose names imply case studies, course Q&A, or user questions.`);
     process.exit(1);
   }
+
+  // Pull existing slugs so duplicates are skipped.
+  let existingSlugs = new Set();
+  let supabase = null;
+  if (SUPABASE_URL && SUPABASE_ANON_KEY) {
+    try {
+      supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      const { data, error } = await supabase.from("entries").select("slug");
+      if (error) throw error;
+      existingSlugs = new Set((data || []).map((r) => r.slug));
+      console.log(`Existing rows: ${existingSlugs.size} (their slugs will be skipped).`);
+    } catch (e) {
+      if (!DRY_RUN) {
+        console.error(`✗ Could not read existing slugs: ${e.message}`);
+        process.exit(1);
+      }
+      console.warn(`! Could not read existing slugs (${e.message}). In-run de-dupe only.`);
+    }
+  }
+  console.log("");
 
   const entries = [];
   const usedSlugs = new Set();
   let skipped = 0;
 
   for (const folder of folders) {
-    const dir = path.join(CONTENT_DIR, folder.dir);
+    const dir = path.join(CONTENT_DIR, folder.name);
     console.log(`📁 ${folder.name} → ${folder.type} — ${dir}`);
     const files = walk(dir);
     if (files.length === 0) {
-      console.warn(`   ! No files found in ${folder.dir}/.`);
+      console.warn(`   ! No files found.`);
       continue;
     }
 
@@ -354,15 +396,13 @@ async function main() {
         console.error(`   ✗ ${path.basename(file)}: ${e.message}`);
         continue;
       }
-      if (!body) continue; // unsupported or empty (already logged)
-      if (!body.trim()) {
-        console.warn(`   • ${path.basename(file)} is empty — skipped.`);
+      if (!body || !body.trim()) {
+        if (body !== null) console.warn(`   • ${path.basename(file)} is empty — skipped.`);
         continue;
       }
 
       const entry = buildEntry({ fileName: path.basename(file), type: folder.type, body });
 
-      // skip duplicates: already in DB, or already collected this run (same slug)
       if (existingSlugs.has(entry.slug)) {
         console.log(`   ↺ ${entry.title}  [already in the table — skipped]`);
         skipped++;
@@ -374,7 +414,6 @@ async function main() {
         continue;
       }
       usedSlugs.add(entry.slug);
-
       entries.push(entry);
       console.log(
         `   ✓ ${entry.title}  [topic:${entry.topic} · level:${entry.level}` +
@@ -387,26 +426,25 @@ async function main() {
     `\nPrepared ${entries.length} new entr${entries.length === 1 ? "y" : "ies"}` +
       `${skipped ? `, skipped ${skipped} duplicate(s)` : ""}.`,
   );
-  if (entries.length === 0) return;
-
-  if (DRY_RUN) {
-    console.log("\n--- DRY RUN: rows that would be inserted ---");
-    console.dir(
-      entries.map((e) => ({ ...e, body: e.body.slice(0, 120) + "…" })),
-      { depth: null, maxArrayLength: null },
-    );
+  if (entries.length === 0) {
+    console.log("Nothing to insert. Done.");
     return;
   }
 
-  if (!supabase) supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  const { data, error } = await supabase.from("entries").insert(entries).select("id,slug");
+  if (DRY_RUN) {
+    console.log("\n--- DRY RUN: rows that would be inserted ---");
+    for (const e of entries) {
+      console.log(`• [${e.type}] ${e.title} (slug:${e.slug}, topic:${e.topic}, level:${e.level})`);
+    }
+    return;
+  }
 
+  const { data, error } = await supabase.from("entries").insert(entries).select("id,slug");
   if (error) {
     console.error("\n✗ Insert failed:", error.message);
     console.error(
-      "  If the error mentions RLS, insert with the service-role key or add an\n" +
-        "  insert policy. If it mentions a duplicate slug, that row already exists —\n" +
-        "  re-run; existing slugs are skipped automatically.",
+      "  If it mentions RLS, add an insert policy or use the service-role key.\n" +
+        "  If it mentions a duplicate slug, that row exists — re-run; dupes are skipped.",
     );
     process.exit(1);
   }
