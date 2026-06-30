@@ -9,7 +9,7 @@ import { pageBanners } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Speaking Engagement",
   description:
-    "Conferences book opinions, not résumés. A point of view, bookable talk topics, and the work that backs them.",
+    "Talks rooted in systems I've actually built. A point of view, bookable talk topics, and the work that backs them.",
 };
 
 export default function SpeakingPage() {
@@ -20,7 +20,7 @@ export default function SpeakingPage() {
       <PageBanner
         image={pageBanners.speaking}
         kicker="Speaking Engagement"
-        title="Conferences book opinions, not résumés."
+        title="Talks rooted in systems I've actually built."
         intro={
           <p>
             So here's the opinion: every system an engineer builds is a business
@@ -38,6 +38,9 @@ export default function SpeakingPage() {
           <h2 className="font-serif text-h2 font-light text-signature">
             Talks I'll bring to your stage
           </h2>
+          <p className="mt-3 max-w-prose text-body text-ink/70">
+            Speaking from the floor, not just the stage.
+          </p>
         </Reveal>
         <div className="mt-10 space-y-4">
           {talkTopics.map((t, i) => (
