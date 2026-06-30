@@ -34,25 +34,37 @@ export default function Reveal({
     if (typeof IntersectionObserver === "undefined") return; // stays visible
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const vh = window.innerHeight || 0;
-    // Already in (or near) view at load → leave visible; never scatter on entry.
-    if (node.getBoundingClientRect().top < vh * 0.92) return;
+    // Defer the layout read (getBoundingClientRect forces a synchronous
+    // reflow) to the next frame. On navigation a page mounts many Reveals at
+    // once; doing this off the commit's critical path keeps that work out of
+    // the long task that the interaction is waiting on, which lowers INP. The
+    // measured element is off-screen until shown, so there's no visible flash.
+    let observer: IntersectionObserver | undefined;
+    const raf = requestAnimationFrame(() => {
+      const vh = window.innerHeight || 0;
+      // Already in (or near) view at load → leave visible; never scatter on entry.
+      if (node.getBoundingClientRect().top < vh * 0.92) return;
 
-    // Below the fold → hide (off-screen) and reveal on scroll.
-    setHidden(true);
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setHidden(false);
-            observer.unobserve(entry.target);
+      // Below the fold → hide (off-screen) and reveal on scroll.
+      setHidden(true);
+      observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              setHidden(false);
+              observer?.unobserve(entry.target);
+            }
           }
-        }
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
+      );
+      observer.observe(node);
+    });
+
+    return () => {
+      cancelAnimationFrame(raf);
+      observer?.disconnect();
+    };
   }, []);
 
   return (

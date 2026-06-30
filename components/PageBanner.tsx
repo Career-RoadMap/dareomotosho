@@ -40,7 +40,7 @@ export default function PageBanner({
       <div className="absolute inset-0 bg-gradient-to-br from-ink/95 via-ink/80 to-ink/55" />
       <span className="absolute inset-x-0 bottom-0 h-px bg-amber/50" aria-hidden />
 
-      <div className="container-content relative z-10 py-20 sm:py-24">
+      <div className="container-content relative z-10 py-14 sm:py-20">
         {figure ? (
           <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
             <div>
@@ -91,7 +91,7 @@ function Copy({
         </div>
       ) : null}
       {children ? (
-        <div className="mt-12 animate-fade-up" style={{ animationDelay: "320ms" }}>
+        <div className="mt-8 sm:mt-10 animate-fade-up" style={{ animationDelay: "320ms" }}>
           {children}
         </div>
       ) : null}
