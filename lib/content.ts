@@ -32,10 +32,10 @@ export const outcomes: Outcome[] = [
     body: "Designed a fast continuous integration, delivery, and deployment pipeline — cutting the time to push feature changes to production by 90%. Deployment went from bottleneck to competitive speed.",
   },
   {
-    metric: "15+",
+    metric: "30+",
     metricLabel: "products delivered",
-    title: "Architected multi-cloud delivery for 15+ products.",
-    body: "Built the multi-cloud solutions that gave 15+ software products seamless delivery, deployment, and integration — architecture in service of business value, not just technical elegance.",
+    title: "Architected multi-cloud delivery for 30+ products.",
+    body: "Built the multi-cloud solutions that gave 30+ software products seamless delivery, deployment, and integration — architecture in service of business value, not just technical elegance.",
   },
   {
     metric: "CLS",
@@ -85,8 +85,8 @@ export const tiers: Tier[] = [
         body: "Designed a fast continuous integration, delivery, and deployment pipeline — cutting the time to push feature changes to production by 90%. Deployment went from bottleneck to competitive speed.",
       },
       {
-        title: "Architected multi-cloud delivery for 15+ products.",
-        body: "Built the multi-cloud solutions that gave 15+ software products seamless delivery, deployment, and integration — architecture in service of business value, not just technical elegance.",
+        title: "Architected multi-cloud delivery for 30+ products.",
+        body: "Built the multi-cloud solutions that gave 30+ software products seamless delivery, deployment, and integration — architecture in service of business value, not just technical elegance.",
       },
       {
         title: "Built a central logging system (CLS) from scratch.",
