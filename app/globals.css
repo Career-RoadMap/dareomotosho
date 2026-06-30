@@ -126,9 +126,12 @@
   transform: translateY(0) scale(1);
 }
 
-/* Page-transition wrapper (template.tsx), soft dissolve, never a hard cut. */
+/* Page-transition wrapper (template.tsx), soft dissolve, never a hard cut.
+   Uses fill-mode `backwards` (not `both`) so no transform lingers after the
+   animation — a retained transform would break `position: sticky` for any
+   descendant (e.g. the Community Questions side banner). */
 .page-enter {
-  animation: page-dissolve 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: page-dissolve 600ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 
 @keyframes page-dissolve {

@@ -41,10 +41,10 @@ export default async function ResourcesPage() {
         </div>
       </PageBanner>
 
+      {/* No Reveal wrapper here: its transform would break the sticky
+          Community Questions side banner inside ResourcesSections. */}
       <section className="container-content py-16 sm:py-20">
-        <Reveal>
-          <ResourcesSections initial={entries} />
-        </Reveal>
+        <ResourcesSections initial={entries} />
       </section>
 
       {/* ── Ask a question, submitted to the library, pending review. */}

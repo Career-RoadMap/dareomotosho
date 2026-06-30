@@ -38,37 +38,37 @@ export default function ResourcesSections({ initial }: { initial: Entry[] }) {
     entries.filter((e) => e.type === type && e.published !== false);
 
   return (
-    <div className="space-y-16">
-      {/* ── Case Studies. */}
-      <Group
-        id="case-studies"
-        label={entryTypeMeta.case_study.label}
-        blurb={entryTypeMeta.case_study.blurb}
-        items={byType("case_study")}
-      />
+    <div className="grid items-start gap-10 lg:grid-cols-[1fr_19rem] xl:grid-cols-[1fr_21rem] xl:gap-14">
+      {/* ── Main column: Case Studies + Interview Prep. */}
+      <div className="min-w-0 space-y-16">
+        <Group
+          id="case-studies"
+          label={entryTypeMeta.case_study.label}
+          blurb={entryTypeMeta.case_study.blurb}
+          items={byType("case_study")}
+        />
+        <Group
+          id="course-questions"
+          label={entryTypeMeta.course_qa.label}
+          blurb={entryTypeMeta.course_qa.blurb}
+          items={byType("course_qa")}
+        />
+      </div>
 
-      {/* ── Interview Prep. */}
-      <Group
-        id="course-questions"
-        label={entryTypeMeta.course_qa.label}
-        blurb={entryTypeMeta.course_qa.blurb}
-        items={byType("course_qa")}
-      />
-
-      {/* ── Community Questions, a portrait sidebar that auto-scrolls live. */}
-      <section id="community" className="scroll-mt-24">
-        <div className="grid items-start gap-10 lg:grid-cols-[1fr_0.8fr]">
-          <div>
-            <h3 className="font-serif text-h1 font-light text-signature">
-              {entryTypeMeta.user_question.label}
-            </h3>
-            <p className="mt-3 max-w-prose text-body text-ink/70">
-              {entryTypeMeta.user_question.blurb}
-            </p>
-          </div>
-          <QuestionTicker items={byType("user_question")} />
+      {/* ── Community Questions: a live news banner running alongside the
+          library. Sticks in view on desktop; drops below on mobile. */}
+      <aside id="community" className="scroll-mt-24 lg:sticky lg:top-24">
+        <div className="mb-4 flex items-center gap-2">
+          <span className="relative flex h-2 w-2" aria-hidden>
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber/70" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-amber" />
+          </span>
+          <p className="kicker text-blue-lift">
+            {entryTypeMeta.user_question.label}
+          </p>
         </div>
-      </section>
+        <QuestionTicker items={byType("user_question")} />
+      </aside>
     </div>
   );
 }
