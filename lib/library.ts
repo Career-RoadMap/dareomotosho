@@ -169,7 +169,18 @@ export async function getEntries(): Promise<Entry[]> {
       .select("*")
       .eq("published", true)
       .order("created_at", { ascending: false });
-    if (!error && data) return data as Entry[];
+    if (error) {
+      console.error("[getEntries] Supabase read failed:", error.message);
+    } else if (data) {
+      if (data.length === 0) {
+        console.warn(
+          "[getEntries] Supabase returned 0 published entries. If the table " +
+            "has published rows, the anon SELECT is likely blocked by RLS — " +
+            "apply supabase/migrations/0003_entries_read_policy.sql.",
+        );
+      }
+      return data as Entry[];
+    }
   }
   return seedEntries.filter((e) => e.published);
 }
