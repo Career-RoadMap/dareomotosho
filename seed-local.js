@@ -46,12 +46,32 @@ const PUBLISHED = true; // inserted rows are live; flip to false to stage for re
 
 const CONTENT_DIR = process.env.CONTENT_DIR || path.resolve("contents");
 
-/** subfolder → entry type. */
-const FOLDERS = [
-  { name: "Case Studies", dir: "case-studies", type: "case_study" },
-  { name: "Course Q&A", dir: "course-qa", type: "course_qa" },
-  { name: "User Questions", dir: "user-questions", type: "user_question" },
-];
+/**
+ * Map a subfolder NAME to an entry type by keyword, so naming variations all
+ * resolve correctly: "case-studies" / "case studies" → case_study,
+ * "user questions" → user_question, "course-qa" / "content Q&A" → course_qa.
+ * Order matters: check case → user → course/q&a.
+ */
+function classifyFolderType(name) {
+  const n = name.toLowerCase();
+  if (/case/.test(n)) return "case_study";
+  if (/user/.test(n)) return "user_question";
+  if (/q\s*&?\s*a|qa\b|course|content/.test(n)) return "course_qa";
+  return null;
+}
+
+/** Discover seedable subfolders under the content dir. */
+function discoverFolders(baseDir) {
+  let dirs = [];
+  try {
+    dirs = fs.readdirSync(baseDir, { withFileTypes: true }).filter((d) => d.isDirectory());
+  } catch (_) {
+    return [];
+  }
+  return dirs
+    .map((d) => ({ name: d.name, dir: d.name, type: classifyFolderType(d.name) }))
+    .filter((f) => f.type);
+}
 
 const TEXT_EXT = new Set([".md", ".markdown", ".txt", ".text", ".html", ".htm"]);
 
@@ -306,13 +326,20 @@ async function main() {
     console.warn(`! Could not read existing slugs (${e.message}). Will rely on in-run de-dupe only.\n`);
   }
 
+  const folders = discoverFolders(CONTENT_DIR);
+  if (folders.length === 0) {
+    console.error(`✗ No recognisable content subfolders under ${CONTENT_DIR}.`);
+    console.error(`  Expected folders whose names imply case studies, course Q&A, or user questions.`);
+    process.exit(1);
+  }
+
   const entries = [];
   const usedSlugs = new Set();
   let skipped = 0;
 
-  for (const folder of FOLDERS) {
+  for (const folder of folders) {
     const dir = path.join(CONTENT_DIR, folder.dir);
-    console.log(`📁 ${folder.name} (${folder.type}) — ${dir}`);
+    console.log(`📁 ${folder.name} → ${folder.type} — ${dir}`);
     const files = walk(dir);
     if (files.length === 0) {
       console.warn(`   ! No files found in ${folder.dir}/.`);
