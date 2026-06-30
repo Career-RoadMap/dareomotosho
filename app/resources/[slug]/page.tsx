@@ -5,7 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Reveal from "@/components/Reveal";
 import EntryInteractions from "@/components/EntryInteractions";
-import { entryTypeMeta, getEntry, levelLabels } from "@/lib/library";
+import { entryTypeMeta, getEntry, levelLabels, topicLabel } from "@/lib/library";
 
 type Params = { slug: string };
 
@@ -45,7 +45,7 @@ export default async function EntryPage({
             {entryTypeMeta[entry.type].label}
           </span>
           <span aria-hidden>·</span>
-          <span>{entry.topic}</span>
+          <span>{topicLabel(entry.topic)}</span>
           <span aria-hidden>·</span>
           <span>{levelLabels[entry.level] ?? entry.level}</span>
         </div>

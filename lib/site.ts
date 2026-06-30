@@ -53,7 +53,7 @@ export const nav: NavItem[] = [
         label: "Community Questions",
         children: [
           { href: "/resources#faqs", label: "FAQs" },
-          { href: "/resources#course-questions", label: "Course Questions" },
+          { href: "/resources#course-questions", label: "Interview Prep" },
         ],
       },
     ],

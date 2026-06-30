@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { entryTypeMeta, levelLabels, type Entry, type EntryType } from "@/lib/library";
+import { entryTypeMeta, levelLabels, topicLabel, type Entry, type EntryType } from "@/lib/library";
 import { supabase } from "@/lib/supabase";
 
 export default function ResourcesSections({ initial }: { initial: Entry[] }) {
@@ -46,32 +46,21 @@ export default function ResourcesSections({ initial }: { initial: Entry[] }) {
         items={byType("case_study")}
       />
 
-      {/* ── Community Questions, FAQs + Course Questions. */}
-      <section id="community" className="scroll-mt-24">
-        <h2 className="font-serif text-h1 font-light text-signature">
-          Community Questions
-        </h2>
-        <p className="mt-2 max-w-prose text-body text-ink/70">
-          What people ask most, questions from visitors, and the questions that
-          come up again and again inside the courses.
-        </p>
-        <div className="mt-10 space-y-14">
-          <Group
-            id="faqs"
-            label={entryTypeMeta.user_question.label}
-            blurb={entryTypeMeta.user_question.blurb}
-            items={byType("user_question")}
-            sub
-          />
-          <Group
-            id="course-questions"
-            label={entryTypeMeta.course_qa.label}
-            blurb={entryTypeMeta.course_qa.blurb}
-            items={byType("course_qa")}
-            sub
-          />
-        </div>
-      </section>
+      {/* ── FAQs + Interview Prep (the #community anchor still lands here). */}
+      <div id="community" className="scroll-mt-24 space-y-16">
+        <Group
+          id="faqs"
+          label={entryTypeMeta.user_question.label}
+          blurb={entryTypeMeta.user_question.blurb}
+          items={byType("user_question")}
+        />
+        <Group
+          id="course-questions"
+          label={entryTypeMeta.course_qa.label}
+          blurb={entryTypeMeta.course_qa.blurb}
+          items={byType("course_qa")}
+        />
+      </div>
     </div>
   );
 }
@@ -116,7 +105,7 @@ function Group({
                 className="group flex h-full flex-col bg-paper p-8 transition-colors duration-300 ease-calm hover:bg-paper/60"
               >
                 <div className="flex items-center gap-3 text-small text-ink/50">
-                  <span className="kicker text-blue-lift">{e.topic}</span>
+                  <span className="kicker text-blue-lift">{topicLabel(e.topic)}</span>
                   <span aria-hidden>·</span>
                   <span>{levelLabels[e.level] ?? e.level}</span>
                 </div>
@@ -128,7 +117,7 @@ function Group({
                   <p className="mt-4 text-small italic text-ink/50">{e.asker}</p>
                 ) : null}
                 <span className="mt-6 inline-flex items-center gap-2 text-small text-link">
-                  Read
+                  Continue Reading
                   <span className="transition-transform duration-300 ease-calm group-hover:translate-x-1">
                     →
                   </span>

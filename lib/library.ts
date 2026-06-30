@@ -45,8 +45,8 @@ export const entryTypeMeta: Record<
   { label: string; blurb: string }
 > = {
   course_qa: {
-    label: "Course Questions",
-    blurb: "Answers to the questions learners actually ask, drawn from the courses.",
+    label: "Interview Prep",
+    blurb: "Common interview questions and how to think about answering them, drawn from the courses.",
   },
   case_study: {
     label: "Case Studies",
@@ -63,6 +63,26 @@ export const levelLabels: Record<string, string> = {
   practitioner: "Practitioner",
   executive: "Executive",
 };
+
+/** Display labels for topics. The seeder emits ai_era; seed data uses ai-era. */
+export const topicLabels: Record<string, string> = {
+  cloud: "Cloud",
+  cybersecurity: "Cybersecurity",
+  ai_era: "AI",
+  "ai-era": "AI",
+  ai: "AI",
+  cost: "Cost",
+};
+
+/** Human label for a topic, with a sensible Title-Case fallback. */
+export function topicLabel(topic: string): string {
+  const key = (topic || "").toLowerCase();
+  return (
+    topicLabels[topic] ??
+    topicLabels[key] ??
+    key.replace(/[_-]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+  );
+}
 
 const now = "2026-06-01T00:00:00.000Z";
 
