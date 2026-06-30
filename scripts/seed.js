@@ -137,7 +137,10 @@ function clampWords(str, max) {
   return w.slice(0, max).join(" ").replace(/[,;:.\s]+$/, "") + "…";
 }
 
-/** Case-study summary: extractive 150–200 word challenge → decision → outcome. */
+/** Max words for every content-library summary. */
+const SUMMARY_MAX_WORDS = 100;
+
+/** Case-study summary: extractive challenge → decision → outcome, ≤100 words. */
 function summariseCaseStudy(body) {
   const SIGNAL =
     /\b(challenge|problem|situation|issue|context|decision|decided|chose|approach|solution|strateg|outcome|result|impact|saved|reduced|increased|grew|cut|achiev|deliver)\b/i;
@@ -151,7 +154,7 @@ function summariseCaseStudy(body) {
     seen.add(allSentences[0]);
   }
   for (const s of allSentences) {
-    if (words(picked.join(" ")).length >= 190) break;
+    if (words(picked.join(" ")).length >= SUMMARY_MAX_WORDS) break;
     if (seen.has(s)) continue;
     if (SIGNAL.test(s)) {
       picked.push(s);
@@ -159,24 +162,24 @@ function summariseCaseStudy(body) {
     }
   }
   for (const s of allSentences) {
-    if (words(picked.join(" ")).length >= 150) break;
+    if (words(picked.join(" ")).length >= SUMMARY_MAX_WORDS) break;
     if (seen.has(s)) continue;
     picked.push(s);
     seen.add(s);
   }
   const summary = picked.join(" ").replace(/\s+/g, " ").trim();
-  return clampWords(summary, 200);
+  return clampWords(summary, SUMMARY_MAX_WORDS);
 }
 
-/** Q&A / question summary: first paragraph, normalised to 100–150 words. */
+/** Q&A / question summary: first paragraph(s), capped at 100 words. */
 function summariseFirstParagraph(body) {
   const paras = paragraphs(body);
   let summary = paras[0] || body;
   let i = 1;
-  while (words(summary).length < 100 && i < paras.length) {
+  while (words(summary).length < SUMMARY_MAX_WORDS && i < paras.length) {
     summary += " " + paras[i++];
   }
-  return clampWords(summary, 150);
+  return clampWords(summary, SUMMARY_MAX_WORDS);
 }
 
 /** Pull an attributed name if the doc carries one; otherwise null. */

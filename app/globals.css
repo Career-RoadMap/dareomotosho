@@ -77,15 +77,20 @@
     @apply mx-auto w-full max-w-content px-6 sm:px-8 lg:px-12;
   }
 
-  /* Long-form Markdown rendered in the content library. */
+  /* Long-form Markdown rendered in the content library. Headings are
+     highlighted with an amber band/rule for fast scanning, and paragraphs
+     (e.g. a question, then its answer) are spaced apart for easy reading. */
   .prose-entry h2 {
-    @apply mt-10 font-serif text-h2 font-light text-signature;
+    @apply mt-12 mb-4 rounded-md border-l-4 border-amber bg-amber/10 py-2 pl-4 pr-3 font-serif text-h2 font-light text-signature;
   }
   .prose-entry h3 {
-    @apply mt-8 font-serif text-xl font-medium text-ink;
+    @apply mt-9 mb-3 border-l-2 border-amber/70 pl-3 font-serif text-xl font-medium text-signature;
   }
   .prose-entry p {
-    @apply text-body text-ink;
+    @apply text-body leading-relaxed text-ink;
+  }
+  .prose-entry p + p {
+    @apply mt-5;
   }
   .prose-entry strong {
     @apply font-medium text-signature;
@@ -159,6 +164,27 @@
   }
 }
 
+/* ── Community Questions ticker ─────────────────────────────────────────
+   Portrait sidebar that scrolls its questions vertically. The list is
+   duplicated, so translating up one full set loops seamlessly. Pauses on
+   hover; speed is set per-instance via --ticker-duration. */
+.ticker-track {
+  animation: ticker-scroll var(--ticker-duration, 30s) linear infinite;
+}
+
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
 /* ── Respect prefers-reduced-motion everywhere ─────────────────────────
    Disable/curtail all reveal + transition motion; content shows at rest. */
 @media (prefers-reduced-motion: reduce) {
@@ -181,5 +207,11 @@
 
   .page-enter {
     animation: none;
+  }
+
+  /* Keep the questions ticker at rest (the list becomes a scrollable column). */
+  .ticker-track {
+    animation: none;
+    transform: none;
   }
 }

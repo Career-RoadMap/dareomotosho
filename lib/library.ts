@@ -45,16 +45,16 @@ export const entryTypeMeta: Record<
   { label: string; blurb: string }
 > = {
   course_qa: {
-    label: "Course Questions",
-    blurb: "Answers to the questions learners actually ask, drawn from the courses.",
+    label: "Interview Prep",
+    blurb: "Common interview questions and how to think about answering them, drawn from the courses.",
   },
   case_study: {
     label: "Case Studies",
     blurb: "How real systems were reasoned about, the decision, not just the diagram.",
   },
   user_question: {
-    label: "FAQs",
-    blurb: "Questions visitors send in most often, answered in the open.",
+    label: "Community Questions",
+    blurb: "Questions visitors send in, answered in the open. New ones appear here live once reviewed.",
   },
 };
 
@@ -63,6 +63,26 @@ export const levelLabels: Record<string, string> = {
   practitioner: "Practitioner",
   executive: "Executive",
 };
+
+/** Display labels for topics. The seeder emits ai_era; seed data uses ai-era. */
+export const topicLabels: Record<string, string> = {
+  cloud: "Cloud",
+  cybersecurity: "Cybersecurity",
+  ai_era: "AI",
+  "ai-era": "AI",
+  ai: "AI",
+  cost: "Cost",
+};
+
+/** Human label for a topic, with a sensible Title-Case fallback. */
+export function topicLabel(topic: string): string {
+  const key = (topic || "").toLowerCase();
+  return (
+    topicLabels[topic] ??
+    topicLabels[key] ??
+    key.replace(/[_-]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+  );
+}
 
 const now = "2026-06-01T00:00:00.000Z";
 
@@ -169,7 +189,18 @@ export async function getEntries(): Promise<Entry[]> {
       .select("*")
       .eq("published", true)
       .order("created_at", { ascending: false });
-    if (!error && data) return data as Entry[];
+    if (error) {
+      console.error("[getEntries] Supabase read failed:", error.message);
+    } else if (data) {
+      if (data.length === 0) {
+        console.warn(
+          "[getEntries] Supabase returned 0 published entries. If the table " +
+            "has published rows, the anon SELECT is likely blocked by RLS — " +
+            "apply supabase/migrations/0003_entries_read_policy.sql.",
+        );
+      }
+      return data as Entry[];
+    }
   }
   return seedEntries.filter((e) => e.published);
 }
