@@ -4,7 +4,7 @@ type PageBannerProps = {
   /** Background banner image (placeholder until the real artwork is dropped in). */
   image: string;
   imageAlt?: string;
-  kicker: string;
+  kicker?: string;
   title: ReactNode;
   intro?: ReactNode;
   /** Key info / CTAs surfaced above the fold, under the intro. */
@@ -14,7 +14,7 @@ type PageBannerProps = {
 };
 
 /**
- * Full-bleed page banner — the landing-style opening every section now uses.
+ * Full-bleed page banner, the landing-style opening every section now uses.
  * A deep Ink band carries the (placeholder) banner image behind the headline,
  * sized so the key information lands above the fold without scrolling. An amber
  * hairline closes the band; a gradient keeps Paper-toned copy legible over any
@@ -66,14 +66,16 @@ function Copy({
   intro,
   children,
 }: {
-  kicker: string;
+  kicker?: string;
   title: ReactNode;
   intro?: ReactNode;
   children?: ReactNode;
 }) {
   return (
     <>
-      <p className="kicker text-amber animate-fade-up">{kicker}</p>
+      {kicker ? (
+        <p className="kicker text-amber animate-fade-up">{kicker}</p>
+      ) : null}
       <h1 className="mt-6 max-w-4xl font-serif text-display font-light text-paper animate-hero-rise">
         {title}
       </h1>

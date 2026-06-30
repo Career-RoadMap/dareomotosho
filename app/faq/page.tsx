@@ -19,7 +19,7 @@ export default function FaqPage() {
         title="Questions, answered."
         intro={
           <p>
-            The things people ask most. Don't see yours? Send it along at the bottom —
+            The things people ask most. Don't see yours? Send it along at the bottom,
             good questions often become new answers here.
           </p>
         }

@@ -12,7 +12,7 @@ type ButtonProps = {
 
 /**
  * Link-styled button. Primary = Signature Blue. Accent = the single amber
- * emphasis (use SPARINGLY — at most one prominent amber element per region).
+ * emphasis (use SPARINGLY, at most one prominent amber element per region).
  * Soft corners on interactive elements; quiet, eased hover to Blue-lift.
  */
 const base =

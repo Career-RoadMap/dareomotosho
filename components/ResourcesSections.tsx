@@ -46,13 +46,13 @@ export default function ResourcesSections({ initial }: { initial: Entry[] }) {
         items={byType("case_study")}
       />
 
-      {/* ── Community Questions — FAQs + Course Questions. */}
+      {/* ── Community Questions, FAQs + Course Questions. */}
       <section id="community" className="scroll-mt-24">
         <h2 className="font-serif text-h1 font-light text-signature">
           Community Questions
         </h2>
         <p className="mt-2 max-w-prose text-body text-ink/70">
-          What people ask most — questions from visitors, and the questions that
+          What people ask most, questions from visitors, and the questions that
           come up again and again inside the courses.
         </p>
         <div className="mt-10 space-y-14">
@@ -105,7 +105,7 @@ function Group({
 
       {items.length === 0 ? (
         <p className="mt-6 text-small text-ink/50">
-          Nothing published here yet — check back soon.
+          Nothing published here yet, check back soon.
         </p>
       ) : (
         <ul className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-2">

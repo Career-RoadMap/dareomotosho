@@ -33,14 +33,14 @@
     @apply bg-signature text-paper;
   }
 
-  /* Quiet, considered focus — shifts to Blue-lift, never harsh. */
+  /* Quiet, considered focus, shifts to Blue-lift, never harsh. */
   :focus-visible {
     @apply outline-none ring-2 ring-link ring-offset-2 ring-offset-background rounded-sm;
   }
 }
 
 @layer components {
-  /* Small-caps kicker / label — Inter, slightly open tracking. */
+  /* Small-caps kicker / label, Inter, slightly open tracking. */
   .kicker {
     @apply font-sans text-small uppercase tracking-kicker text-signature/70;
     font-weight: 500;
@@ -58,7 +58,7 @@
     @apply scale-x-100;
   }
 
-  /* Name link — turns amber on hover, with a matching amber underline draw. */
+  /* Name link, turns amber on hover, with a matching amber underline draw. */
   .link-amber {
     @apply relative transition-colors duration-300 ease-calm;
   }
@@ -121,7 +121,7 @@
   transform: translateY(0) scale(1);
 }
 
-/* Page-transition wrapper (template.tsx) — soft dissolve, never a hard cut. */
+/* Page-transition wrapper (template.tsx), soft dissolve, never a hard cut. */
 .page-enter {
   animation: page-dissolve 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -140,7 +140,7 @@
 /* ── Toolkit marquee ───────────────────────────────────────────────────
    A continuous, unhurried roll of tool logos. The track is duplicated, so
    translating one half-width loops seamlessly. Linear (constant speed) is
-   intentional for an infinite loop — easing would stutter at the seam.
+   intentional for an infinite loop, easing would stutter at the seam.
    Slow enough to read as calm, not flashy; pauses on hover. */
 .marquee-track {
   animation: marquee 48s linear infinite;

@@ -29,7 +29,7 @@ export default function WorkPage() {
         title="Systems for the business, not just the stack."
         intro={
           <p>
-            I build systems for businesses — cloud architecture that serves the P&amp;L,
+            I build systems for businesses, cloud architecture that serves the P&amp;L,
             security matched to real risk, and delivery at the speed the business needs.
             Every system below started as a business decision, not just a technical one.
           </p>
@@ -43,7 +43,7 @@ export default function WorkPage() {
         </div>
       </PageBanner>
 
-      {/* ── Tiers — each heading flips to its detail; the 2×2 grid converges in.
+      {/* ── Tiers, each heading flips to its detail; the 2×2 grid converges in.
           A subtle parallax backdrop fades in per tier to underline its message. */}
       {tiers.map((tier, ti) => {
         const hero = tier.items.find((i) => i.hero);
@@ -64,7 +64,7 @@ export default function WorkPage() {
               <p className="mt-3 max-w-2xl text-body text-ink">{tier.tagline}</p>
             </Reveal>
 
-            {/* Lead item — big-number hero card, or a full-width feature tile. */}
+            {/* Lead item, big-number hero card, or a full-width feature tile. */}
             {hero && (
               <Reveal className="mt-10">
                 <FlipCard
@@ -82,7 +82,7 @@ export default function WorkPage() {
               </Reveal>
             )}
 
-            {/* The rest — flip tiles converging from their corners, staggered. */}
+            {/* The rest, flip tiles converging from their corners, staggered. */}
             <div className="mt-6 grid gap-6 sm:grid-cols-2">
               {grid.map((item, i) => (
                 <Converge
@@ -95,7 +95,7 @@ export default function WorkPage() {
               ))}
             </div>
 
-            {/* Capabilities — a chip cloud; each pill fades up in sequence. */}
+            {/* Capabilities, a chip cloud; each pill fades up in sequence. */}
             <div className="mt-10">
               <Reveal>
                 <p className="kicker text-blue-lift">Also in the kit</p>
@@ -119,7 +119,7 @@ export default function WorkPage() {
         );
       })}
 
-      {/* ── Architecture diagrams — a dark Signature band so the work pops off
+      {/* ── Architecture diagrams, a dark Signature band so the work pops off
           the Paper. An in-place gallery; click any one to view it larger. */}
       <section
         id="architecture"
@@ -132,7 +132,7 @@ export default function WorkPage() {
               The diagrams behind the decisions.
             </h2>
             <p className="mt-4 max-w-prose text-body text-paper/70">
-              A rolling look at designed architecture — real systems, drawn end to
+              A rolling look at designed architecture, real systems, drawn end to
               end. They switch on their own; click any one to view it larger.
             </p>
           </Reveal>
@@ -144,7 +144,7 @@ export default function WorkPage() {
         </div>
       </section>
 
-      {/* ── The toolkit — note + a continuously rolling logo marquee. */}
+      {/* ── The toolkit, note + a continuously rolling logo marquee. */}
       <section className="py-12 sm:py-16">
         <div className="container-content">
           <Reveal>

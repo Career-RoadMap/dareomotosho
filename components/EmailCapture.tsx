@@ -11,7 +11,7 @@ type EmailCaptureProps = {
 };
 
 /**
- * Email capture. UI only — wire `onSubmit` to your provider (Supabase, etc.)
+ * Email capture. UI only, wire `onSubmit` to your provider (Supabase, etc.)
  * at integration time. This is a deliberate seam: it validates and reflects
  * state, but does not post anywhere yet.
  */
@@ -48,7 +48,7 @@ export default function EmailCapture({
           className={`mt-6 text-body ${dark ? "text-amber" : "text-signature"}`}
           role="status"
         >
-          Thank you — you're on the list.
+          Thank you, you're on the list.
         </p>
       ) : (
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">

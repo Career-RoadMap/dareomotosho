@@ -46,7 +46,7 @@ export default function AskQuestion() {
   if (done) {
     return (
       <p className="text-body text-signature" role="status">
-        Thank you — your question is in. Once reviewed, it'll appear in the
+        Thank you, your question is in. Once reviewed, it'll appear in the
         library for everyone.
       </p>
     );

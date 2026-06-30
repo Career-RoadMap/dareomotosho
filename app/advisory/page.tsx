@@ -8,13 +8,13 @@ import { pageBanners } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Advisory",
   description:
-    "Helping teams and leaders build business-aligned judgment — outcomes, not hours.",
+    "Helping teams and leaders build business-aligned judgment, outcomes, not hours.",
 };
 
 const outcomes = [
   {
     title: "Decisions that hold up",
-    body: "Architecture and spend choices your team can defend at the table — and live with a year later.",
+    body: "Architecture and spend choices your team can defend at the table, and live with a year later.",
   },
   {
     title: "Judgment that compounds",
@@ -35,7 +35,7 @@ export default function AdvisoryPage() {
         title="Judgment, built into the team."
         intro={
           <p>
-            I help teams and leaders build business-aligned judgment — the ability to
+            I help teams and leaders build business-aligned judgment, the ability to
             see the decision inside the system, and to make it well. The goal isn't to
             be needed twice. It's to leave the judgment behind.
           </p>
@@ -62,7 +62,7 @@ export default function AdvisoryPage() {
           <div className="rounded-3xl bg-ink p-10 text-paper sm:p-16">
             <p className="kicker text-amber">How I work</p>
             <p className="mt-6 max-w-3xl font-serif text-h1 font-light leading-tight text-paper">
-              Engaged where the trade-offs are made — quietly, and with the people who
+              Engaged where the trade-offs are made, quietly, and with the people who
               have to own the call.
             </p>
             <p className="mt-8 max-w-2xl text-body text-paper/70">
@@ -88,7 +88,7 @@ export default function AdvisoryPage() {
           <Reveal>
             <InquiryForm
               submitLabel="Send advisory inquiry"
-              subject="New advisory inquiry — dareomotosho.com"
+              subject="New advisory inquiry, dareomotosho.com"
             />
           </Reveal>
         </div>

@@ -118,7 +118,7 @@ export default function EntryInteractions({ entryId }: { entryId: string }) {
       <ul className="mt-8 space-y-5">
         {comments.length === 0 && !pending ? (
           <li className="text-small text-ink/55">
-            No comments yet — be the first to add one.
+            No comments yet, be the first to add one.
           </li>
         ) : null}
         {comments.map((c) => (

@@ -20,7 +20,7 @@ export default function Header() {
     setOpen(false);
   }, [pathname]);
 
-  // Let Escape close the mobile menu — a quiet, expected courtesy.
+  // Let Escape close the mobile menu, a quiet, expected courtesy.
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -45,7 +45,7 @@ export default function Header() {
           </span>
         </Link>
 
-        {/* Desktop nav — inline titles, with hover/focus dropdowns. */}
+        {/* Desktop nav, inline titles, with hover/focus dropdowns. */}
         <nav className="hidden lg:block" aria-label="Primary">
           <ul className="flex items-center gap-7">
             {nav.map((item) => {
@@ -86,7 +86,7 @@ export default function Header() {
                     </span>
                   </Link>
 
-                  {/* Dropdown panel — opens on hover or keyboard focus. */}
+                  {/* Dropdown panel, opens on hover or keyboard focus. */}
                   <div className="invisible absolute right-0 top-full pt-3 opacity-0 transition-all duration-200 ease-calm group-hover/nav:visible group-hover/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:opacity-100">
                     <ul className="w-60 overflow-hidden rounded-2xl border border-ink/10 bg-paper p-2 shadow-xl shadow-ink/10">
                       {item.children.map((child) => (
@@ -129,7 +129,7 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile nav — slow eased disclosure, children indented inline. */}
+      {/* Mobile nav, slow eased disclosure, children indented inline. */}
       <nav
         id="mobile-nav"
         aria-label="Primary"
@@ -174,7 +174,7 @@ export default function Header() {
   );
 }
 
-/** A desktop dropdown row — renders a nested submenu when the item has children. */
+/** A desktop dropdown row, renders a nested submenu when the item has children. */
 function DropdownItem({ item }: { item: NavItem }) {
   if (!item.children) {
     return (
@@ -212,7 +212,7 @@ function DropdownItem({ item }: { item: NavItem }) {
   );
 }
 
-/** A mobile child row — supports one nested level (Community Questions). */
+/** A mobile child row, supports one nested level (Community Questions). */
 function MobileChild({ item, open }: { item: NavItem; open: boolean }) {
   return (
     <li>

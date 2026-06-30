@@ -9,7 +9,7 @@ import type { Diagram } from "@/lib/content";
  * place (gentle auto-advance, paused on hover), with prev/next and dot
  * controls. Clicking opens a lightbox to view them larger like a photo
  * gallery, with keyboard navigation. Auto-advance is disabled under
- * prefers-reduced-motion. Images are placeholders — swap in real diagrams.
+ * prefers-reduced-motion. Images are placeholders, swap in real diagrams.
  */
 export default function DiagramGallery({ diagrams }: { diagrams: Diagram[] }) {
   const count = diagrams.length;
@@ -26,7 +26,7 @@ export default function DiagramGallery({ diagrams }: { diagrams: Diagram[] }) {
     [count],
   );
 
-  // Gentle auto-advance — paused on hover, in the lightbox, or reduced motion.
+  // Gentle auto-advance, paused on hover, in the lightbox, or reduced motion.
   useEffect(() => {
     if (paused || lightbox || count <= 1) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -58,7 +58,7 @@ export default function DiagramGallery({ diagrams }: { diagrams: Diagram[] }) {
 
   return (
     <div>
-      {/* In-place viewer — click to open the lightbox. */}
+      {/* In-place viewer, click to open the lightbox. */}
       <div
         className="relative"
         onMouseEnter={() => setPaused(true)}
@@ -135,7 +135,7 @@ export default function DiagramGallery({ diagrams }: { diagrams: Diagram[] }) {
         )}
       </div>
 
-      {/* Lightbox — view larger, like a photo gallery. Portalled to <body> so
+      {/* Lightbox, view larger, like a photo gallery. Portalled to <body> so
           it escapes the page-transition transform and covers the full viewport. */}
       {lightbox &&
         mounted &&
@@ -144,7 +144,7 @@ export default function DiagramGallery({ diagrams }: { diagrams: Diagram[] }) {
           className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/90 p-4 sm:p-10 animate-fade-in"
           role="dialog"
           aria-modal="true"
-          aria-label={`${current.title} — diagram ${index + 1} of ${count}`}
+          aria-label={`${current.title}, diagram ${index + 1} of ${count}`}
           onClick={() => setLightbox(false)}
         >
           <button
@@ -193,7 +193,7 @@ export default function DiagramGallery({ diagrams }: { diagrams: Diagram[] }) {
           )}
 
           <p className="absolute inset-x-0 bottom-6 mx-auto max-w-2xl px-6 text-center text-small text-paper/80">
-            <span className="text-paper">{current.title}</span> — {current.caption}
+            <span className="text-paper">{current.title}</span>, {current.caption}
           </p>
         </div>,
           document.body,

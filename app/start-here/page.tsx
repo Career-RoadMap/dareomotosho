@@ -8,7 +8,7 @@ import { pageBanners } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Learn",
   description:
-    "New to cloud? Start at the beginning, in order — a guided route with the latest resources, not a dump of links.",
+    "New to cloud? Start at the beginning, in order, a guided route with the latest resources, not a dump of links.",
 };
 
 // Reflect the latest published resources when Supabase is configured.
@@ -18,7 +18,7 @@ const learningOrder = [
   {
     step: "01",
     title: "Get your bearings",
-    body: "What the cloud actually is, in plain language — and the handful of ideas everything else rests on.",
+    body: "What the cloud actually is, in plain language, and the handful of ideas everything else rests on.",
   },
   {
     step: "02",
@@ -45,7 +45,7 @@ const learningOrder = [
 const whyExplainers = [
   {
     title: "Why cost",
-    body: "Because the bill is where engineering meets the business most directly — and where good judgment shows up first.",
+    body: "Because the bill is where engineering meets the business most directly, and where good judgment shows up first.",
   },
   {
     title: "Why security",
@@ -69,7 +69,7 @@ export default async function StartHerePage() {
         title="Start at the beginning. In order."
         intro={
           <p>
-            Not a pile of links — a route. We'll go step by step, the latest
+            Not a pile of links, a route. We'll go step by step, the latest
             resources are yours, and you don't need a background to begin. You need a
             direction.
           </p>
@@ -102,7 +102,7 @@ export default async function StartHerePage() {
         </ol>
       </section>
 
-      {/* ── Latest resources — the three most recently uploaded, fetched live. */}
+      {/* ── Latest resources, the three most recently uploaded, fetched live. */}
       <section className="container-content py-16 sm:py-20">
         <Reveal>
           <h2 className="font-serif text-h2 font-light text-ink">Latest resources</h2>
@@ -149,7 +149,7 @@ export default async function StartHerePage() {
               AI is very good at the tool. It's far weaker at the judgment.
             </p>
             <p className="mt-6 max-w-2xl text-body text-ink">
-              Knowing which system to build, and why, given the business you're in —
+              Knowing which system to build, and why, given the business you're in,
               that's the part worth learning, and the part that lasts. Start there and
               you start ahead.
             </p>

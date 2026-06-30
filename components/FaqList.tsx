@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { FaqItem } from "@/lib/content";
 
 /**
- * FAQ accordion. Functional page — answers fade in on expand, no decorative
+ * FAQ accordion. Functional page, answers fade in on expand, no decorative
  * motion. Built on native disclosure semantics for accessibility.
  */
 export default function FaqList({ items }: { items: FaqItem[] }) {

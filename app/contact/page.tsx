@@ -18,7 +18,7 @@ export default function ContactPage() {
         title="Let's talk."
         intro={
           <p>
-            General questions, advisory and consulting inquiries, or just a hello — it
+            General questions, advisory and consulting inquiries, or just a hello, it
             all arrives in the same place, and I read it personally.
           </p>
         }
@@ -54,7 +54,7 @@ export default function ContactPage() {
           <Reveal>
             <InquiryForm
               submitLabel="Send message"
-              subject="New contact message — dareomotosho.com"
+              subject="New contact message, dareomotosho.com"
               fields={[
                 { name: "name", label: "Your name", required: true, placeholder: "Jane Doe" },
                 { name: "email", label: "Email", type: "email", required: true, placeholder: "you@example.com" },
