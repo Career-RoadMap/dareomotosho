@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { contactEmail } from "@/lib/site";
+import { contactEmail, formSubmitAlias } from "@/lib/site";
 
 type Field = {
   name: string;
@@ -23,10 +23,10 @@ type InquiryFormProps = {
 /**
  * Submissions are delivered to {@link contactEmail} via FormSubmit
  * (https://formsubmit.co) — a no-backend relay, so no API keys are needed.
- * NOTE: the very first submission triggers a one-time activation email from
- * FormSubmit; click its link once and every later submission lands silently.
+ * The endpoint uses the activated alias rather than the naked address so the
+ * email stays out of the client bundle.
  */
-const FORM_ENDPOINT = `https://formsubmit.co/ajax/${contactEmail}`;
+const FORM_ENDPOINT = `https://formsubmit.co/ajax/${formSubmitAlias}`;
 
 const defaultFields: Field[] = [
   { name: "name", label: "Your name", required: true, placeholder: "Jane Doe" },

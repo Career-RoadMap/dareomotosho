@@ -66,6 +66,13 @@ export const nav: NavItem[] = [
 /** Where booking + inquiry form submissions are delivered. */
 export const contactEmail = "darelekan46@gmail.com";
 
+/**
+ * FormSubmit alias for {@link contactEmail}. Using the alias instead of the
+ * naked address keeps the email out of the client bundle (less scraping/spam).
+ * Issued by FormSubmit on activation; regenerate it there if it ever changes.
+ */
+export const formSubmitAlias = "1875ebb7d8771afd337e8fc5cd8ee770";
+
 export const social = {
   youtube: "https://www.youtube.com/@DareOmotosho",
   x: "https://x.com/your-handle",
