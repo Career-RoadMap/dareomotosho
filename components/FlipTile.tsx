@@ -25,11 +25,11 @@ export default function FlipTile({ title, body }: FlipTileProps) {
         type="button"
         onClick={() => setFlipped((v) => !v)}
         aria-pressed={flipped}
-        aria-label={`${title} — ${flipped ? "hide" : "show"} detail`}
+        aria-label={`${title}, ${flipped ? "hide" : "show"} detail`}
         className="relative block h-full min-h-[15rem] w-full transition-transform duration-700 ease-calm [transform-style:preserve-3d]"
         style={{ transform: flipped ? "rotateY(180deg)" : undefined }}
       >
-        {/* Front — heading only. */}
+        {/* Front, heading only. */}
         <span className={`${faceBase} border border-ink/10 bg-paper text-ink`}>
           <span className="max-w-[20rem] font-serif text-xl font-medium leading-tight text-ink">
             {title}
@@ -42,7 +42,7 @@ export default function FlipTile({ title, body }: FlipTileProps) {
           </span>
         </span>
 
-        {/* Back — solid Signature Blue, the explanation centered. */}
+        {/* Back, solid Signature Blue, the explanation centered. */}
         <span
           className={`${faceBase} bg-signature text-paper [transform:rotateY(180deg)]`}
         >

@@ -1,7 +1,7 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 /**
- * Supabase client — shared by server reads and client realtime.
+ * Supabase client, shared by server reads and client realtime.
  *
  * Reads NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY. When those
  * aren't set, `supabase` is null and the library falls back to local seed

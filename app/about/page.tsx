@@ -9,7 +9,7 @@ import { aboutPortrait, brand, pageBanners } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "I work at the seam between engineering and the business — building business-aligned systems, and growing the people who'll stand in both rooms.",
+    "I work at the seam between engineering and the business, building business-aligned systems, and growing the people who'll stand in both rooms.",
 };
 
 export default function AboutPage() {
@@ -22,7 +22,7 @@ export default function AboutPage() {
         intro={
           <p>
             Two rooms rarely speak the same language: the technical floor and the
-            boardroom. I've spent my career in the doorway between them — building
+            boardroom. I've spent my career in the doorway between them, building
             business-aligned systems, and translating each room to the other.
           </p>
         }
@@ -39,7 +39,7 @@ export default function AboutPage() {
         }
       />
 
-      {/* ── The bridge — the brand line in full, given room to breathe. */}
+      {/* ── The bridge, the brand line in full, given room to breathe. */}
       <section className="container-content pt-12 pb-12 sm:pt-16 sm:pb-16">
         <Reveal>
           <span className="block h-px w-16 bg-amber" aria-hidden />
@@ -49,7 +49,7 @@ export default function AboutPage() {
         </Reveal>
       </section>
 
-      {/* ── The story — the bio narrative, set in a box. */}
+      {/* ── The story, the bio narrative, set in a box. */}
       <section className="container-content py-12 sm:py-16">
         <Reveal>
           <div className="mx-auto max-w-3xl rounded-3xl border border-ink/10 bg-paper p-8 sm:p-12">
@@ -64,7 +64,7 @@ export default function AboutPage() {
         </Reveal>
       </section>
 
-      {/* ── Off the cloud — a warm, human aside. */}
+      {/* ── Off the cloud, a warm, human aside. */}
       <section className="container-content py-12 sm:py-16">
         <Reveal>
           <div className="rounded-3xl border border-amber/40 bg-paper p-8 sm:p-12">
@@ -76,7 +76,7 @@ export default function AboutPage() {
         </Reveal>
       </section>
 
-      {/* ── Closing — the three roles set apart, then the statement. */}
+      {/* ── Closing, the three roles set apart, then the statement. */}
       <section className="container-content py-16 sm:py-24">
         <Reveal>
           <div className="mx-auto max-w-3xl text-center">
@@ -102,7 +102,7 @@ export default function AboutPage() {
         <Reveal>
           <h2 className="font-serif text-h2 font-light text-ink">Grab a bio</h2>
           <p className="mt-3 text-small text-ink/60">
-            Take whichever length you need — for an intro, a profile, or the press kit.
+            Take whichever length you need, for an intro, a profile, or the press kit.
           </p>
           <div className="mt-8">
             <BioLengths bios={bios} />

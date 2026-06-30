@@ -4,7 +4,7 @@ import EmailCapture from "./EmailCapture";
 
 /**
  * Footer: the anchor weight of the page. Deep Signature Blue with Paper text.
- * Carries the social-feed area (YouTube primary — wire feeds at integration
+ * Carries the social-feed area (YouTube primary, wire feeds at integration
  * time), a persistent email capture, and the Tier-1 byline.
  */
 export default function Footer() {
@@ -16,7 +16,7 @@ export default function Footer() {
           <EmailCapture
             tone="dark"
             label="Stay close to the work."
-            hint="The newest resource, the next live class, the latest episode — quietly, when there's something worth your time."
+            hint="The newest resource, the next live class, the latest episode, quietly, when there's something worth your time."
           />
           <p className="kicker mt-12 text-paper/55">{brand.byline}</p>
         </div>
@@ -33,7 +33,7 @@ export default function Footer() {
                   rel="noreferrer"
                   className="link-quiet !text-paper"
                 >
-                  YouTube — the main channel
+                  YouTube
                 </a>
               </li>
               <li>

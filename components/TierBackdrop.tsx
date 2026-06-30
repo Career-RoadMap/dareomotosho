@@ -10,7 +10,7 @@ type TierBackdropProps = {
 
 /**
  * A subtle section backdrop that fades in as the tier is reached and drifts
- * slightly slower than the page as you scroll (gentle parallax) — understated
+ * slightly slower than the page as you scroll (gentle parallax), understated
  * depth that reinforces the section's message, never a loud billboard.
  *
  * Kept very low opacity so warm Paper still dominates and the strict palette

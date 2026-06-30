@@ -50,7 +50,7 @@ export const entryTypeMeta: Record<
   },
   case_study: {
     label: "Case Studies",
-    blurb: "How real systems were reasoned about — the decision, not just the diagram.",
+    blurb: "How real systems were reasoned about, the decision, not just the diagram.",
   },
   user_question: {
     label: "FAQs",
@@ -66,7 +66,7 @@ export const levelLabels: Record<string, string> = {
 
 const now = "2026-06-01T00:00:00.000Z";
 
-/** Seed content — served when Supabase isn't configured. */
+/** Seed content, served when Supabase isn't configured. */
 export const seedEntries: Entry[] = [
   {
     id: "seed-1",
@@ -74,7 +74,7 @@ export const seedEntries: Entry[] = [
     type: "course_qa",
     title: "What actually drives a cloud bill?",
     summary:
-      "The handful of decisions that move 80% of the number — and why most of them are architectural, not financial.",
+      "The handful of decisions that move 80% of the number, and why most of them are architectural, not financial.",
     body: "Most cloud bills are dominated by a few line items: compute you left running, data you moved across boundaries, and storage tiers you never revisited.\n\n**The move:** treat cost as a design input. Right-size before you optimize, put a budget alarm on every account, and re-architect what is *billed*, not just what is *used*. That's how you cut spend without touching performance.",
     topic: "cost",
     level: "practitioner",
@@ -89,8 +89,8 @@ export const seedEntries: Entry[] = [
     type: "course_qa",
     title: "How do I right-size security to real risk?",
     summary:
-      "A way to pick controls that fit the threat you actually face — not the one a vendor slide says you should fear.",
-    body: "Start from the asset and the adversary, not the checklist. Ask: what would it cost the business if this were breached, and who realistically would try?\n\nThen match controls to that answer — strict IAM and least privilege first, because identity is where most real incidents begin.",
+      "A way to pick controls that fit the threat you actually face, not the one a vendor slide says you should fear.",
+    body: "Start from the asset and the adversary, not the checklist. Ask: what would it cost the business if this were breached, and who realistically would try?\n\nThen match controls to that answer, strict IAM and least privilege first, because identity is where most real incidents begin.",
     topic: "cybersecurity",
     level: "practitioner",
     asker: null,
@@ -104,7 +104,7 @@ export const seedEntries: Entry[] = [
     type: "case_study",
     title: "Cutting cloud spend 40% with zero performance cost",
     summary:
-      "A multi-cloud environment quietly bleeding budget — and the structural changes that reclaimed it.",
+      "A multi-cloud environment quietly bleeding budget, and the structural changes that reclaimed it.",
     body: "## The situation\nA multi-cloud environment was over-provisioned and billed for capacity it never used.\n\n## The decision\nWe treated cost as an architectural problem: careful spend analysis, budget controls per account, and structural changes to what was provisioned.\n\n## The outcome\n40% of the monthly bill reclaimed, application performance held flat. The savings were a business decision, not a tuning trick.",
     topic: "cloud",
     level: "executive",
@@ -120,7 +120,7 @@ export const seedEntries: Entry[] = [
     title: "Building a central logging system from scratch",
     summary:
       "Designing observability around the questions an incident actually asks.",
-    body: "## The gap\nDevelopers had no unified visibility; every incident started with a scavenger hunt.\n\n## The build\nA proprietary Central Logging System — ingestion, retention, and access designed around the questions teams ask under pressure.\n\n## The result\nAnswers in minutes, not hours, and operations that finally felt seamless.",
+    body: "## The gap\nDevelopers had no unified visibility; every incident started with a scavenger hunt.\n\n## The build\nA proprietary Central Logging System, ingestion, retention, and access designed around the questions teams ask under pressure.\n\n## The result\nAnswers in minutes, not hours, and operations that finally felt seamless.",
     topic: "cloud",
     level: "practitioner",
     asker: null,
@@ -134,7 +134,7 @@ export const seedEntries: Entry[] = [
     type: "user_question",
     title: "Will AI make cloud skills obsolete?",
     summary: "The honest answer, and where the durable edge actually is.",
-    body: "AI is very good at running the tools. It's far weaker at the judgment — knowing *which* system to build, and why, given the business you're in.\n\nThat judgment is the part worth building, and it's the part that lasts. Learn the tools, but invest in the thinking.",
+    body: "AI is very good at running the tools. It's far weaker at the judgment, knowing *which* system to build, and why, given the business you're in.\n\nThat judgment is the part worth building, and it's the part that lasts. Learn the tools, but invest in the thinking.",
     topic: "ai-era",
     level: "newcomer",
     asker: "asked by a learner",
@@ -146,7 +146,7 @@ export const seedEntries: Entry[] = [
     id: "seed-6",
     slug: "where-should-a-newcomer-start",
     type: "user_question",
-    title: "I'm new to cloud — where should I start?",
+    title: "I'm new to cloud, where should I start?",
     summary: "A route, not a pile of links.",
     body: "Start with one real thing, end to end: stand up a small service, read its bill, and add the smallest sensible security. Confidence comes from shipping, not from reading.\n\nThe Start Here path lays out the order.",
     topic: "cloud",

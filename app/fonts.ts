@@ -1,7 +1,7 @@
 import { Fraunces, Inter } from "next/font/google";
 
 /**
- * Headlines / display — Fraunces, a warm "soft serif".
+ * Headlines / display, Fraunces, a warm "soft serif".
  * Restrained weights only (Light + Medium). Optical sizing on for display.
  */
 export const fraunces = Fraunces({
@@ -12,7 +12,7 @@ export const fraunces = Fraunces({
 });
 
 /**
- * Body / UI / labels — Inter. Clean, neutral, gets out of the way.
+ * Body / UI / labels, Inter. Clean, neutral, gets out of the way.
  * Regular + one emphasis weight (Medium).
  */
 export const inter = Inter({

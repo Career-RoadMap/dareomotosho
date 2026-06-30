@@ -7,13 +7,13 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: `${brand.name} — ${brand.byline}`,
+    default: `${brand.name}, ${brand.byline}`,
     template: `%s · ${brand.name}`,
   },
   description: brand.oneLine,
   metadataBase: new URL("https://example.com"),
   openGraph: {
-    title: `${brand.name} — ${brand.byline}`,
+    title: `${brand.name}, ${brand.byline}`,
     description: brand.oneLine,
     type: "website",
   },

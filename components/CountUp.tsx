@@ -10,7 +10,7 @@ type CountUpProps = {
 };
 
 /**
- * Slow, dignified count-up — fires once when scrolled into view.
+ * Slow, dignified count-up, fires once when scrolled into view.
  * Deliberately unhurried (~1.4s ease-out). Under prefers-reduced-motion it
  * skips straight to the final value (no animation).
  */
@@ -39,7 +39,7 @@ export default function CountUp({ value, suffix = "", className = "" }: CountUpP
           const start = performance.now();
           const tick = (now: number) => {
             const t = Math.min((now - start) / duration, 1);
-            // ease-out cubic — slows as it lands, never overshoots.
+            // ease-out cubic, slows as it lands, never overshoots.
             const eased = 1 - Math.pow(1 - t, 3);
             setDisplay(Math.round(eased * value));
             if (t < 1) raf = requestAnimationFrame(tick);

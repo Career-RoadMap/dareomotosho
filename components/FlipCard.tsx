@@ -51,11 +51,11 @@ export default function FlipCard({
         type="button"
         onClick={() => setFlipped((v) => !v)}
         aria-pressed={flipped}
-        aria-label={`${title} — ${flipped ? "hide" : "show"} detail`}
+        aria-label={`${title}, ${flipped ? "hide" : "show"} detail`}
         className="relative block h-full min-h-[24rem] w-full transition-transform duration-700 ease-calm [transform-style:preserve-3d]"
         style={{ transform: flipped ? "rotateY(180deg)" : undefined }}
       >
-        {/* Front — heading only, centered. */}
+        {/* Front, heading only, centered. */}
         <span className={`${faceBase} ${frontSurface}`}>
           {!hero && <span className="kicker text-blue-lift">Outcome</span>}
           <span
@@ -83,7 +83,7 @@ export default function FlipCard({
           </span>
         </span>
 
-        {/* Back — solid color, the detail centered. */}
+        {/* Back, solid color, the detail centered. */}
         <span className={`${faceBase} ${backSurface} [transform:rotateY(180deg)]`}>
           <span className="max-w-[24rem] font-serif text-xl font-light leading-tight text-paper">
             {title}

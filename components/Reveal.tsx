@@ -15,7 +15,7 @@ type RevealProps = {
  *
  * Crucially, content renders VISIBLE and aligned by default (in the SSR HTML
  * and on first paint). Only elements that are below the fold at load are
- * hidden — off-screen, so there's no flash — and then eased in on scroll.
+ * hidden, off-screen, so there's no flash, and then eased in on scroll.
  * That keeps the first impression of every page clean and aligned while the
  * motion still plays as you scroll. Honors prefers-reduced-motion.
  */

@@ -9,7 +9,10 @@
  *
  * Credentials come from the environment (GitHub secrets) — nothing is
  * hardcoded:
- *     SUPABASE_URL, SUPABASE_ANON_KEY
+ *     SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+ * The service-role key is required to insert published rows (the anon key is
+ * blocked by row-level security). SUPABASE_ANON_KEY is accepted as a fallback
+ * but cannot seed published content.
  *
  * Source folders (type is inferred from the folder name, so both
  * "case-studies" and "case studies" work):
@@ -23,7 +26,7 @@
  *
  * Local use:
  *     npm install
- *     SUPABASE_URL=... SUPABASE_ANON_KEY=... node scripts/seed.js
+ *     SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... node scripts/seed.js
  *     node scripts/seed.js --dry-run        # parse + label, no insert
  */
 
@@ -33,7 +36,13 @@ const { createClient } = require("@supabase/supabase-js");
 
 // ── CONFIG ────────────────────────────────────────────────────────
 const SUPABASE_URL = process.env.SUPABASE_URL || "";
+// The seeder writes published rows, which RLS forbids for the public anon key
+// (see supabase/migrations: the only anon insert policy is unpublished
+// user_questions). Prefer the service-role key, which bypasses RLS — it is only
+// ever used here, server-side in CI, and must never be exposed to the browser.
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || "";
+const SUPABASE_KEY = SUPABASE_SERVICE_ROLE_KEY || SUPABASE_ANON_KEY;
 
 const DRY_RUN = process.argv.includes("--dry-run");
 const PUBLISHED = true; // inserted rows are live; set false to stage for review
@@ -340,13 +349,21 @@ async function main() {
     console.error(`✗ Content dir not found: ${CONTENT_DIR}`);
     process.exit(1);
   }
-  if (!DRY_RUN && (!SUPABASE_URL || !SUPABASE_ANON_KEY)) {
+  if (!DRY_RUN && (!SUPABASE_URL || !SUPABASE_KEY)) {
     console.error(
-      "✗ Missing SUPABASE_URL / SUPABASE_ANON_KEY.\n" +
-        "  In GitHub Actions add them as repository secrets; locally export them\n" +
-        "  before running, or use --dry-run to parse without inserting.",
+      "✗ Missing SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY.\n" +
+        "  Inserting published rows needs the service-role key (the anon key is\n" +
+        "  blocked by row-level security). In GitHub Actions add them as repository\n" +
+        "  secrets; locally export them before running, or use --dry-run to parse\n" +
+        "  without inserting.",
     );
     process.exit(1);
+  }
+  if (!DRY_RUN && !SUPABASE_SERVICE_ROLE_KEY) {
+    console.warn(
+      "! Using the anon key. Inserting published rows will likely fail RLS —\n" +
+        "  set SUPABASE_SERVICE_ROLE_KEY to seed.",
+    );
   }
 
   const folders = discoverFolders(CONTENT_DIR);
@@ -358,9 +375,11 @@ async function main() {
   // Pull existing slugs so duplicates are skipped.
   let existingSlugs = new Set();
   let supabase = null;
-  if (SUPABASE_URL && SUPABASE_ANON_KEY) {
+  if (SUPABASE_URL && SUPABASE_KEY) {
     try {
-      supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
+        auth: { persistSession: false, autoRefreshToken: false },
+      });
       const { data, error } = await supabase.from("entries").select("slug");
       if (error) throw error;
       existingSlugs = new Set((data || []).map((r) => r.slug));

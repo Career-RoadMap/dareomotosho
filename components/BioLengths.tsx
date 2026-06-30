@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { BioLength } from "@/lib/content";
 
 /**
- * Bio in three lengths — embed-short / medium / press-long.
+ * Bio in three lengths, embed-short / medium / press-long.
  * A quiet toggle; the chosen bio fades in. Warm page, gentle motion only.
  */
 export default function BioLengths({ bios }: { bios: BioLength[] }) {

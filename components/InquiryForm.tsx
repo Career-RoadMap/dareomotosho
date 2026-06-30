@@ -22,7 +22,7 @@ type InquiryFormProps = {
 
 /**
  * Submissions are delivered to {@link contactEmail} via FormSubmit
- * (https://formsubmit.co) — a no-backend relay, so no API keys are needed.
+ * (https://formsubmit.co), a no-backend relay, so no API keys are needed.
  * The endpoint uses the activated alias rather than the naked address so the
  * email stays out of the client bundle.
  */
@@ -42,7 +42,7 @@ const defaultFields: Field[] = [
 ];
 
 /**
- * Generic inquiry form. UI only — a clear seam for form submission
+ * Generic inquiry form. UI only, a clear seam for form submission
  * (Supabase / email / CRM) to be wired later. Validates and reflects state.
  */
 export default function InquiryForm({
@@ -88,7 +88,7 @@ export default function InquiryForm({
         className={`text-body ${dark ? "text-amber" : "text-signature"}`}
         role="status"
       >
-        Thank you — your note is in. I read these personally and will reply soon.
+        Thank you, your note is in. I read these personally and will reply soon.
       </p>
     );
   }
@@ -102,7 +102,7 @@ export default function InquiryForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Honeypot — bots fill this; humans never see it. FormSubmit drops it. */}
+      {/* Honeypot, bots fill this; humans never see it. FormSubmit drops it. */}
       <input
         type="text"
         name="_honey"

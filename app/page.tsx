@@ -9,17 +9,17 @@ import { pageBanners, brand, social } from "@/lib/site";
 const doors = [
   {
     href: "/start-here",
-    label: "New to Cloud",
-    body: "Start at the beginning, in order. A route, not a pile of links.",
+    label: "Start Learning",
+    body: "Cloud powers the modern internet, and it's learnable from zero. An ordered path that turns the fundamentals into real, job-ready skill.",
   },
   {
     href: "/work",
     label: "Engineers & Teams",
-    body: "Systems built for the business — and the judgment behind them.",
+    body: "Systems built for the business, and the judgment behind them.",
   },
   {
     href: "/speaking",
-    label: "Leaders & Speaking",
+    label: "Speaking engagements",
     body: "Opinions worth booking, and advisory at the decision table.",
   },
 ];
@@ -29,11 +29,10 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ── HERO BANNER — full-viewport, landing-style. Placeholder banner art
+      {/* ── HERO BANNER, full-viewport, landing-style. Placeholder banner art
           sits behind the headline; all key content lands above the fold. */}
       <PageBanner
         image={pageBanners.home}
-        kicker={brand.byline}
         title={
           <>
             The tool <span className="text-amber">is the easy part.</span> The{" "}
@@ -45,7 +44,7 @@ export default function HomePage() {
         <Button href="/work">See what I build</Button>
       </PageBanner>
 
-      {/* ── Three audience doors — gentle staggered fade-in on scroll. */}
+      {/* ── Three audience doors, gentle staggered fade-in on scroll. */}
       <section className="container-content py-16 sm:py-20">
         <ul className="grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-3">
           {doors.map((door, i) => (
@@ -54,8 +53,7 @@ export default function HomePage() {
                 href={door.href}
                 className="group flex h-full flex-col bg-paper p-8 transition-colors duration-300 ease-calm hover:bg-paper/60 sm:p-10"
               >
-                <span className="kicker text-blue-lift">Door {i + 1}</span>
-                <span className="mt-5 font-serif text-h2 font-light text-ink transition-colors duration-300 ease-calm group-hover:text-blue-lift">
+                <span className="font-serif text-h2 font-light text-ink transition-colors duration-300 ease-calm group-hover:text-blue-lift">
                   {door.label}
                 </span>
                 <span className="mt-4 text-body text-ink">{door.body}</span>
@@ -71,7 +69,7 @@ export default function HomePage() {
         </ul>
       </section>
 
-      {/* ── POV line — quiet feature, lots of air. */}
+      {/* ── POV line, quiet feature, lots of air. */}
       <section className="container-content py-24 sm:py-32">
         <Reveal>
           <p className="mx-auto max-w-3xl text-center font-serif text-h2 font-light leading-snug text-ink">
@@ -81,7 +79,7 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      {/* ── Featured proof — the "40%". Slow fade as it lands. */}
+      {/* ── Featured proof, the "40%". Slow fade as it lands. */}
       <section className="container-content py-16 sm:py-24">
         <Reveal>
           <div className="rounded-3xl bg-signature px-8 py-16 text-paper sm:px-16 sm:py-24">
@@ -90,7 +88,7 @@ export default function HomePage() {
               40%
             </p>
             <p className="mt-6 max-w-2xl font-serif text-h1 font-light leading-tight text-paper">
-              Cut cloud spend 40% — with zero performance cost.
+              Cut cloud spend 40%, with zero performance cost.
             </p>
             <p className="mt-8 max-w-xl text-body text-paper/70">
               The bill came down; the experience didn't move. Savings as a business
@@ -105,7 +103,7 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      {/* ── Latest strip — newest resource · latest video. */}
+      {/* ── Latest strip, newest resource · latest video. */}
       <section className="container-content py-16 sm:py-24">
         <Reveal>
           <h2 className="font-serif text-h2 font-light text-ink">The latest</h2>
@@ -144,7 +142,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Email capture — prominent, repeated. */}
+      {/* ── Email capture, prominent, repeated. */}
       <section className="container-content py-20 sm:py-28">
         <Reveal className="flex flex-col items-start gap-4">
           <EmailCapture />

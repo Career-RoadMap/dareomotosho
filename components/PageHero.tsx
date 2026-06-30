@@ -9,7 +9,7 @@ type PageHeroProps = {
 };
 
 /**
- * Inner-page hero. Large Fraunces headline with ample whitespace —
+ * Inner-page hero. Large Fraunces headline with ample whitespace,
  * one idea per region, in type form. Animates up gently on load.
  */
 export default function PageHero({ kicker, title, intro, tone = "cool" }: PageHeroProps) {

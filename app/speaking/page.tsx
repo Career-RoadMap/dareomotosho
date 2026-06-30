@@ -24,7 +24,7 @@ export default function SpeakingPage() {
         intro={
           <p>
             So here's the opinion: every system an engineer builds is a business
-            decision in disguise — and the industry trains almost no one to see it.
+            decision in disguise, and the industry trains almost no one to see it.
             That's the talk under all the talks.
           </p>
         }
@@ -32,7 +32,7 @@ export default function SpeakingPage() {
         <Button href="#book">Book a talk</Button>
       </PageBanner>
 
-      {/* ── Bookable talk topics — one at a time. */}
+      {/* ── Bookable talk topics, one at a time. */}
       <section className="container-content py-12 sm:py-16">
         <Reveal>
           <h2 className="font-serif text-h2 font-light text-signature">
@@ -57,7 +57,7 @@ export default function SpeakingPage() {
         </div>
       </section>
 
-      {/* ── Proof — built work + podcast + decks. */}
+      {/* ── Proof, built work + podcast + decks. */}
       <section className="container-content py-16 sm:py-24">
         <Reveal>
           <div className="rounded-3xl bg-signature p-10 text-paper sm:p-16">
@@ -76,7 +76,7 @@ export default function SpeakingPage() {
               ))}
             </div>
             <p className="mt-12 max-w-2xl text-body text-paper/70">
-              Plus {episodes.length}+ podcast conversations and designed decks — the
+              Plus {episodes.length}+ podcast conversations and designed decks, the
               material is current, lived, and yours to vet before you book.
             </p>
           </div>
@@ -96,7 +96,7 @@ export default function SpeakingPage() {
           <Reveal>
             <InquiryForm
               submitLabel="Send booking inquiry"
-              subject="New speaking booking — dareomotosho.com"
+              subject="New speaking booking, dareomotosho.com"
               fields={[
                 { name: "name", label: "Your name", required: true, placeholder: "Jane Doe" },
                 { name: "email", label: "Email", type: "email", required: true, placeholder: "you@event.com" },
