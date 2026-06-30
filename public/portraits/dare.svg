@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="Portrait placeholder">
+  <rect width="800" height="1000" fill="#F7F5F0"/>
+  <rect x="20" y="20" width="760" height="960" fill="none" stroke="#E0A951" stroke-opacity="0.6" stroke-width="3"/>
+  <circle cx="400" cy="400" r="150" fill="#1E3A5F" fill-opacity="0.12"/>
+  <path d="M250 760c0-110 67-190 150-190s150 80 150 190" fill="#1E3A5F" fill-opacity="0.12"/>
+  <text x="400" y="900" text-anchor="middle" font-family="Georgia, serif" font-size="34" fill="#1E3A5F">Dare Omotosho</text>
+  <text x="400" y="945" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#0F1B2D" fill-opacity="0.5">Replace public/portraits/dare.svg</text>
+</svg>

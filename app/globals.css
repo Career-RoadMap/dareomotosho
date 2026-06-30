@@ -76,6 +76,32 @@
   .container-content {
     @apply mx-auto w-full max-w-content px-6 sm:px-8 lg:px-12;
   }
+
+  /* Long-form Markdown rendered in the content library. */
+  .prose-entry h2 {
+    @apply mt-10 font-serif text-h2 font-light text-signature;
+  }
+  .prose-entry h3 {
+    @apply mt-8 font-serif text-xl font-medium text-ink;
+  }
+  .prose-entry p {
+    @apply text-body text-ink;
+  }
+  .prose-entry strong {
+    @apply font-medium text-signature;
+  }
+  .prose-entry a {
+    @apply text-link underline underline-offset-2;
+  }
+  .prose-entry ul {
+    @apply list-disc space-y-2 pl-6 text-body text-ink;
+  }
+  .prose-entry ol {
+    @apply list-decimal space-y-2 pl-6 text-body text-ink;
+  }
+  .prose-entry code {
+    @apply rounded bg-ink/[0.06] px-1.5 py-0.5 text-[0.9em];
+  }
 }
 
 /* ── Scroll-reveal motion ──────────────────────────────────────────────
@@ -83,16 +109,16 @@
    it's reached. The .is-visible class is added by the Reveal observer. */
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(38px) scale(0.97);
   transition:
-    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 800ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
 
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 /* Page-transition wrapper (template.tsx) — soft dissolve, never a hard cut. */

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" fill="none" aria-hidden="true">
+  <!-- PLACEHOLDER backdrop — swap for a real (desaturated) image if you like. -->
+  <g stroke="#1E3A5F" stroke-width="2" stroke-linecap="round">
+    <rect x="120" y="120" width="200" height="120" rx="16"/>
+    <rect x="520" y="60" width="200" height="120" rx="16"/>
+    <rect x="900" y="160" width="200" height="120" rx="16"/>
+    <rect x="320" y="430" width="200" height="120" rx="16"/>
+    <rect x="760" y="500" width="200" height="120" rx="16"/>
+    <path d="M320 180 H520 M720 120 H900 M220 240 V490 H320 M620 180 V500 H760 M520 490 H760"/>
+    <circle cx="220" cy="180" r="8"/><circle cx="620" cy="120" r="8"/>
+    <circle cx="1000" cy="220" r="8"/><circle cx="420" cy="490" r="8"/>
+    <circle cx="860" cy="560" r="8"/>
+  </g>
+  <g stroke="#1E3A5F" stroke-width="1.5" opacity="0.6">
+    <circle cx="600" cy="410" r="300"/>
+    <circle cx="600" cy="410" r="220"/>
+  </g>
+</svg>

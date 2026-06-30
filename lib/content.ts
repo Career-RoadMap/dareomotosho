@@ -7,88 +7,6 @@
  */
 
 export type Level = "Newcomer" | "Practitioner" | "Architect";
-export type ResourceType = "Guide" | "Checklist" | "Template" | "Talk" | "Deck";
-
-export type Resource = {
-  slug: string;
-  title: string;
-  summary: string;
-  topic: string;
-  level: Level;
-  type: ResourceType;
-  /** Wire to an R2 (or other object-store) signed URL at integration time. */
-  downloadUrl: string | null;
-  updated: string;
-};
-
-export const resources: Resource[] = [
-  {
-    slug: "cloud-cost-first-principles",
-    title: "Cloud Cost from First Principles",
-    summary:
-      "A short field guide to reading a cloud bill like a P&L — where the money actually goes, and the handful of decisions that move it.",
-    topic: "Cost",
-    level: "Practitioner",
-    type: "Guide",
-    downloadUrl: null,
-    updated: "2026-05-18",
-  },
-  {
-    slug: "security-matched-to-risk",
-    title: "Security Matched to Real Risk",
-    summary:
-      "A checklist for right-sizing controls to the threat you actually face — not the one a vendor slide says you should fear.",
-    topic: "Security",
-    level: "Practitioner",
-    type: "Checklist",
-    downloadUrl: null,
-    updated: "2026-04-02",
-  },
-  {
-    slug: "new-to-cloud-starter",
-    title: "New to Cloud — The Starter Path",
-    summary:
-      "The ordered first steps. Not a dump of links — a route. Begin here if the words 'VPC' and 'IAM' still feel like fog.",
-    topic: "Foundations",
-    level: "Newcomer",
-    type: "Guide",
-    downloadUrl: null,
-    updated: "2026-06-10",
-  },
-  {
-    slug: "central-logging-blueprint",
-    title: "Central Logging System — A Blueprint",
-    summary:
-      "How a central logging system (CLS) is structured from scratch: ingestion, retention, access, and the questions it must answer.",
-    topic: "Infra",
-    level: "Architect",
-    type: "Template",
-    downloadUrl: null,
-    updated: "2026-03-21",
-  },
-  {
-    slug: "the-business-case-template",
-    title: "The Business-Case Template for Engineers",
-    summary:
-      "A one-page frame for turning a technical proposal into a decision a leader can make. Translate the floor to the boardroom.",
-    topic: "Judgment",
-    level: "Practitioner",
-    type: "Template",
-    downloadUrl: null,
-    updated: "2026-02-14",
-  },
-  {
-    slug: "delivery-speed-without-chaos",
-    title: "Delivery Speed Without the Chaos",
-    summary:
-      "What actually let a team ship features 90% faster — and the guardrails that kept the speed from becoming debt.",
-    topic: "Delivery",
-    level: "Architect",
-    type: "Guide",
-    downloadUrl: null,
-    updated: "2026-01-30",
-  },
-];
 
 export type Outcome = {
   metric: string;
@@ -98,34 +16,127 @@ export type Outcome = {
   hero?: boolean;
 };
 
-/** Outcome-led, headline-first. Metric is the protagonist. */
+/** Outcome-led, headline-first. Metric is the protagonist. (Feeds /speaking.) */
 export const outcomes: Outcome[] = [
   {
     metric: "40%",
     metricLabel: "cloud spend reduced",
     title: "Cut cloud spend 40% — with zero performance cost.",
-    body: "A multi-cloud environment was quietly bleeding budget. By treating cost as an architectural decision rather than a finance problem — careful spend analysis, budgeting controls, and structural changes — I reclaimed 40% of the monthly cloud bill while holding application performance flat. Proof that the right trade-off serves the business and the system.",
+    body: "Re-architected what was billed, not just what was used. The bill came down; the experience didn't move. The savings were a business decision, not a tuning trick.",
     hero: true,
   },
   {
     metric: "90%",
     metricLabel: "faster to ship",
     title: "Shipped features 90% faster.",
-    body: "Release cycles were a bottleneck between the team and its customers. I designed and implemented a fast continuous integration, delivery, and deployment pipeline that cut the time to push feature changes and publish to production by 90% — turning deployment from a constraint into a competitive speed.",
+    body: "Designed a fast continuous integration, delivery, and deployment pipeline — cutting the time to push feature changes to production by 90%. Deployment went from bottleneck to competitive speed.",
   },
   {
-    metric: "30+",
+    metric: "15+",
     metricLabel: "products delivered",
-    title: "Architected multi-cloud delivery for 30+ products.",
-    body: "Thirty-plus software products needed seamless delivery, deployment, and integration across clouds. I architected the multi-cloud solutions that made that possible — ensuring each product reached customers reliably, and that the architecture served business value, not just technical elegance.",
+    title: "Architected multi-cloud delivery for 15+ products.",
+    body: "Built the multi-cloud solutions that gave 15+ software products seamless delivery, deployment, and integration — architecture in service of business value, not just technical elegance.",
   },
   {
     metric: "CLS",
     metricLabel: "built from scratch",
-    title: "Built a central logging system from scratch.",
-    body: "Working with internal teams, I built a proprietary Central Logging System (CLS) — a system that gave developers unified visibility and made operations seamless. A concrete artifact, built to solve a real operational gap.",
+    title: "Built a central logging system (CLS) from scratch.",
+    body: "A proprietary system giving developers unified visibility and seamless operations — a concrete artifact built to close a real operational gap.",
   },
 ];
+
+export type TierItem = {
+  title: string;
+  body: string;
+  metric?: string;
+  metricLabel?: string;
+  /** Big-number FlipCard, full width. */
+  hero?: boolean;
+  /** Full-width FlipTile (a lead item without a single headline metric). */
+  feature?: boolean;
+};
+
+export type Tier = {
+  kicker: string;
+  name: string;
+  tagline: string;
+  items: TierItem[];
+  capabilities: string;
+  /** Subtle parallax backdrop in /public/backgrounds — swap for a real image. */
+  backdrop: string;
+};
+
+/** /work — outcome-led, building-first. Two tiers, every metric defensible. */
+export const tiers: Tier[] = [
+  {
+    kicker: "Tier 1",
+    name: "Systems built for business",
+    tagline: "Commercial engineering. The foundation everything else stands on.",
+    items: [
+      {
+        hero: true,
+        metric: "40%",
+        metricLabel: "cloud spend reduced",
+        title: "Cut cloud spend 40% — with zero performance cost.",
+        body: "Re-architected what was billed, not just what was used. The bill came down; the experience didn't move. The savings were a business decision, not a tuning trick.",
+      },
+      {
+        title: "Shipped features 90% faster.",
+        body: "Designed a fast continuous integration, delivery, and deployment pipeline — cutting the time to push feature changes to production by 90%. Deployment went from bottleneck to competitive speed.",
+      },
+      {
+        title: "Architected multi-cloud delivery for 15+ products.",
+        body: "Built the multi-cloud solutions that gave 15+ software products seamless delivery, deployment, and integration — architecture in service of business value, not just technical elegance.",
+      },
+      {
+        title: "Built a central logging system (CLS) from scratch.",
+        body: "A proprietary system giving developers unified visibility and seamless operations — a concrete artifact built to close a real operational gap.",
+      },
+      {
+        title: "Decoupled monoliths; untangled production bottlenecks.",
+        body: "Broke legacy applications into microservices and resolved the deployment and production-infrastructure bottlenecks that only surface under real load.",
+      },
+    ],
+    capabilities:
+      "Security systems & strict IAM · advisory to 10+ external customers on cost and migration trade-offs · monitoring & logging strategy · led the Cloud & Support team · emerging AI architectures.",
+    backdrop: "/backgrounds/tier-systems.svg",
+  },
+  {
+    kicker: "Tier 2",
+    name: "People and delivery built at scale",
+    tagline: "Because building taught me, I teach. Technical mentorship and delivery leadership.",
+    items: [
+      {
+        feature: true,
+        title: "Sustained 90%+ satisfaction across live technical delivery.",
+        body: "90%+ CSAT on AWS live sessions, 91% on cybersecurity webinars, and 85% on asynchronous support with a 15-minute maximum response time — consistent quality at cohort scale.",
+      },
+      {
+        title: "Drove certification success across large cohorts.",
+        body: "Supported 2,000+ learners through certification — 240+ certifications in a single cohort, 450+ practice questions distributed weekly, 86% exam satisfaction.",
+      },
+      {
+        title: "Cut delivery cost by re-architecting how sessions run.",
+        body: "Adopted simulive delivery to maximize resources and resolve scheduling conflicts across overlapping cohorts — the same cost-as-architecture instinct, applied to teaching.",
+      },
+      {
+        title: "Built AI into core delivery before it was standard.",
+        body: "AI-generated technical podcasts, flashcards, and quizzes; automated mock exams (90% CSAT); and the introduction of NotebookLM and Gemini as organizational standards.",
+      },
+      {
+        title: "Architected the standards others deliver by.",
+        body: "Authored the Cybersecurity Technical Mentor Blueprint and co-authored the AWS Operations Playbook — the frameworks future cohorts now run on.",
+      },
+    ],
+    capabilities:
+      "AWS-certified (Cloud Practitioner + Solutions Architect Associate) · 10% operational-efficiency gain via a single source of truth · 50% retake pass-likelihood lift through targeted unblocking · organizational research contribution (Project Purple, 1,000+ respondents).",
+    backdrop: "/backgrounds/tier-people.svg",
+  },
+];
+
+/** Closing line for /work. */
+export const workClose =
+  "These systems started as business questions. If you have one, let's talk.";
 
 export type Capability = {
   title: string;
@@ -191,24 +202,70 @@ export type Diagram = {
  */
 export const diagrams: Diagram[] = [
   {
-    src: "/diagrams/diagram-1.svg",
-    title: "Multi-cloud delivery",
-    caption: "One delivery model spanning providers, drawn for portability and reliability.",
+    src: "/diagrams/the-cached-edge.png",
+    title: "The Cached Edge",
+    caption:
+      "CloudFront at the edge into AWS compute — backed by S3, DynamoDB, a Redis cache, and Terraform-managed infrastructure for low-latency reads.",
   },
   {
-    src: "/diagrams/diagram-2.svg",
-    title: "Central logging system",
-    caption: "Ingestion, retention, and access designed around the questions an incident asks.",
+    src: "/diagrams/multi-region-resilience.jpg",
+    title: "Multi-Region Resilience",
+    caption:
+      "Dual-region VPCs behind a security layer and DNS — NGINX-fronted containers, per-region backups and snapshots, and a redundant database tier.",
   },
   {
-    src: "/diagrams/diagram-3.svg",
-    title: "Cost-aware architecture",
-    caption: "Where cost is a design input — the structure that held performance while the bill fell.",
+    src: "/diagrams/firewalled-kubernetes.png",
+    title: "Firewalled Kubernetes Delivery",
+    caption:
+      "CDN to load balancer into a Kubernetes pod fleet — public and internal firewall rules around storage, a Postgres primary, replica, and backup.",
   },
   {
-    src: "/diagrams/diagram-4.svg",
-    title: "Secure access design",
-    caption: "Identity and access modeled from the first diagram, sized to real risk.",
+    src: "/diagrams/auto-scaled-frontend.jpg",
+    title: "Auto-Scaled Frontend Estate",
+    caption:
+      "WAF and CDN into an auto-scaling group of containerised frontends — API server, database, plus monitoring, logging, and CI/CD wired through.",
+  },
+  {
+    src: "/diagrams/staging-to-production.jpg",
+    title: "Staging to Production",
+    caption:
+      "One VPC carrying staging and production across availability zones — containerised EC2, a shared S3 store, ECS registry, and automated promotion.",
+  },
+  {
+    src: "/diagrams/mobile-commerce-platform.jpg",
+    title: "Mobile Commerce Platform",
+    caption:
+      "A containerised app server fronting Aurora MySQL — chat, maps, notifications, auth, object storage, and payments composed as managed services.",
+  },
+  {
+    src: "/diagrams/observability-pipeline.png",
+    title: "The Observability Pipeline",
+    caption:
+      "Lambda and API Gateway emitting metrics to CloudWatch, with Prometheus on EKS collecting and forwarding to Grafana — one pane over the workload.",
+  },
+  {
+    src: "/diagrams/defense-in-depth.jpg",
+    title: "Defense in Depth",
+    caption:
+      "SSL and endpoint security into a rules layer and middleware — encryption keys, an ORM boundary, and a standing vulnerability scan over the estate.",
+  },
+  {
+    src: "/diagrams/push-to-deploy.png",
+    title: "Push to Deploy",
+    caption:
+      "Webhook-driven delivery — a push to the main branch triggers Docker Hub and rolls a fresh container onto the server, no hands on the box.",
+  },
+  {
+    src: "/diagrams/split-tier-estate.png",
+    title: "Split-Tier API Estate",
+    caption:
+      "Two servers split by responsibility — firewalled APIs behind web servers, talking over HTTPS, each with its own database for clean isolation.",
+  },
+  {
+    src: "/diagrams/single-region-vpc.png",
+    title: "Single-Region VPC Foundation",
+    caption:
+      "A clean starting point — CloudFront into a public-subnet web tier and API Gateway, with S3 serving assets. Room to grow without a rewrite.",
   },
 ];
 
@@ -336,14 +393,30 @@ export type BioLength = {
 export const bios: BioLength[] = [
   {
     label: "Short (embed)",
-    text: "A builder, mentor, and boardroom translator — connecting the technical floor to the decisions that fund it.",
+    text: "Builder, mentor, and boardroom translator — I build the systems that connect the technical floor to the boardroom, and grow the people who'll stand in both.",
   },
   {
     label: "Medium",
-    text: "I build systems for businesses — cloud architecture that serves the P&L, security matched to real risk, and delivery at the speed the business needs. I also teach: the part of this work that lasts is judgment, and judgment can be taught.",
+    text: "I work at the seam between engineering and the business — over five years across cloud and cybersecurity, as both an engineer and a technical mentor. I build business-aligned systems, restructure delivery to cut cost, and teach engineers to think like the business from the first system they build.",
   },
   {
     label: "Press (long)",
-    text: "I work at the seam between engineering and the business. For over a decade I've architected cloud systems, cut costs without cutting performance, built central logging and delivery platforms from scratch, and sat at the decision table translating technical reality into the language leaders use to make calls. Alongside the building, I mentor and teach — because the scarce skill in this field was never the tool. It's the judgment to know which system to build, and why.",
+    text: "I work at the seam between engineering and the business — building business-aligned systems and translating the technical floor to the boardroom and back. For more than five years I've worked across cloud and cybersecurity as both an engineer and a technical mentor, staying AWS-certified in Cloud Practitioner and Solutions Architect Associate because credibility in the room depends on still being able to do the work. As a technical mentor for Udacity's Cloud Developer program, the ALX AWS program, and currently ALX Cybersecurity, I've supported thousands of engineers across large global cohorts, sustaining live-session satisfaction above 90%, and I've helped shape how these programs run — co-authoring operational playbooks and a technical-mentor blueprint and integrating AI into core delivery. As AI makes running the tools easy, the durable edge becomes judgment — knowing which trade-off, which system, serves the business. I build the systems that connect the technical floor to the boardroom, and I grow the people who'll stand in both.",
   },
 ];
+
+/** Long-form bio for /about, paragraph by paragraph (author's own copy). */
+export const bioStory: string[] = [
+  "For more than five years I've worked across cloud and cybersecurity, as both an engineer and a technical mentor. I stay AWS-certified in Cloud Practitioner and Solutions Architect Associate not for the badge, but because credibility in the room depends on still being able to do the work. I've designed hands-on projects that simulate real business challenges, restructured delivery to cut organizational cost, and resolved the kind of IAM and architecture issues that only surface under real load.",
+  "But the lesson that drives me came from teaching. As a technical mentor — for Udacity's Cloud Developer program, the ALX AWS program, and currently ALX Cybersecurity — I've supported thousands of engineers across large global cohorts, sustaining live-session satisfaction above 90% and helping learners reach certification and career readiness. Mentoring at every level isn't a side project; it's the conviction that engineers should think like the business from the first system they build.",
+  "I've also helped shape how these programs work: co-authoring operational playbooks and a technical-mentor blueprint, and contributing to organization-wide initiatives — including research, female-activation strategy, and the integration of AI into core delivery. That last thread matters to me most. As AI makes running the tools easy, the durable edge becomes judgment — knowing which trade-off, which system, serves the business. So I build AI into how I work and teach, while keeping the human judgment at the center.",
+];
+
+/** A warm, human aside for /about. */
+export const bioPersonal =
+  "Off the cloud, you'll find me behind a drum kit, or deep in a business or psychology book chasing an idea worth building on.";
+
+/** The closing for /about — three roles set apart from the statement. */
+export const bioRoles = ["Builder", "Mentor", "Boardroom translator"];
+export const bioCloseText =
+  "I build the systems that connect the technical floor to the boardroom — and I grow the people who'll stand in both.";

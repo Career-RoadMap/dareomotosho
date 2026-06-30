@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Button from "@/components/Button";
 import Reveal from "@/components/Reveal";
+import PageBanner from "@/components/PageBanner";
 import EmailCapture from "@/components/EmailCapture";
-import { resources } from "@/lib/content";
-import { social } from "@/lib/site";
+import { seedEntries } from "@/lib/library";
+import { pageBanners, brand, social } from "@/lib/site";
 
 const doors = [
   {
@@ -24,53 +25,25 @@ const doors = [
 ];
 
 export default function HomePage() {
-  const latestResource = resources[0];
+  const latestResource = seedEntries[0];
 
   return (
     <>
-      {/* ── HERO — Paper-dominant, light, max whitespace. The signature moment. */}
-      <section className="container-content pt-24 pb-12 sm:pt-32 sm:pb-16 lg:pt-40">
-        <div className="max-w-4xl">
-          <h1 className="font-serif text-display font-light text-ink animate-hero-rise">
-            The tool is the easy part.{" "}
-            <span className="text-signature">The judgment is the job.</span>
-          </h1>
-          {/* One amber accent for the balanced home hero — a quiet warm highlight. */}
-          <span
-            className="mt-10 block h-px w-16 bg-amber animate-fade-up"
-            style={{ animationDelay: "160ms" }}
-            aria-hidden
-          />
-          <p
-            className="mt-8 max-w-2xl text-body text-ink animate-fade-up"
-            style={{ animationDelay: "200ms" }}
-          >
-            A translator between the technical floor and the boardroom, who builds the
-            systems that connect them.
-          </p>
-          <div
-            className="mt-12 animate-fade-up"
-            style={{ animationDelay: "320ms" }}
-          >
-            <Button href="/work">See what I build</Button>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Picture banner — placeholder for a landing banner image. Paper-
-          dominant with a thin amber frame as the single warm highlight. Swap
-          the inner box for the real image (next/image) at integration time. */}
-      <section className="container-content pb-16 sm:pb-20">
-        <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-amber/40 bg-paper">
-            <div className="aspect-[21/9] w-full" />
-            <span className="kicker absolute left-6 top-6 text-amber">Banner</span>
-            <p className="absolute bottom-6 left-6 text-small text-ink/45">
-              Banner image mounts here.
-            </p>
-          </div>
-        </Reveal>
-      </section>
+      {/* ── HERO BANNER — full-viewport, landing-style. Placeholder banner art
+          sits behind the headline; all key content lands above the fold. */}
+      <PageBanner
+        image={pageBanners.home}
+        kicker={brand.byline}
+        title={
+          <>
+            The tool <span className="text-amber">is the easy part.</span> The{" "}
+            <span className="text-amber">judgment</span> is the job.
+          </>
+        }
+        intro={<p>{brand.oneLine}</p>}
+      >
+        <Button href="/work">See what I build</Button>
+      </PageBanner>
 
       {/* ── Three audience doors — gentle staggered fade-in on scroll. */}
       <section className="container-content py-16 sm:py-20">
@@ -102,8 +75,7 @@ export default function HomePage() {
       <section className="container-content py-24 sm:py-32">
         <Reveal>
           <p className="mx-auto max-w-3xl text-center font-serif text-h2 font-light leading-snug text-ink">
-            Most engineers optimize the tool. Almost none are taught that every system
-            they build is a{" "}
+            Most engineers optimize the tool. But every system they build is a{" "}
             <span className="text-signature">business decision in disguise.</span>
           </p>
         </Reveal>

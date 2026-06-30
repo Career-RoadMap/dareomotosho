@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" fill="none" aria-hidden="true">
+  <!-- PLACEHOLDER backdrop — swap for a real (desaturated) image if you like. -->
+  <g stroke="#1E3A5F" stroke-width="2" stroke-linecap="round">
+    <!-- ascending bars -->
+    <rect x="160" y="560" width="120" height="160" rx="10"/>
+    <rect x="360" y="470" width="120" height="250" rx="10"/>
+    <rect x="560" y="380" width="120" height="340" rx="10"/>
+    <rect x="760" y="300" width="120" height="420" rx="10"/>
+    <rect x="960" y="200" width="120" height="520" rx="10"/>
+    <!-- rising trend -->
+    <path d="M180 520 L420 430 L640 340 L840 260 L1040 160" stroke-width="2.5"/>
+  </g>
+  <g stroke="#1E3A5F" stroke-width="2">
+    <!-- people glyphs (head + shoulders) growing along the trend -->
+    <circle cx="220" cy="160" r="22"/><path d="M188 215 a32 30 0 0 1 64 0"/>
+    <circle cx="470" cy="150" r="26"/><path d="M433 212 a37 34 0 0 1 74 0"/>
+    <circle cx="730" cy="135" r="30"/><path d="M688 205 a42 38 0 0 1 84 0"/>
+  </g>
+</svg>
