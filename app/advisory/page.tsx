@@ -86,7 +86,10 @@ export default function AdvisoryPage() {
             </p>
           </Reveal>
           <Reveal>
-            <InquiryForm submitLabel="Send advisory inquiry" />
+            <InquiryForm
+              submitLabel="Send advisory inquiry"
+              subject="New advisory inquiry — dareomotosho.com"
+            />
           </Reveal>
         </div>
       </section>

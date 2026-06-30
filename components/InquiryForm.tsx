@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { contactEmail } from "@/lib/site";
 
 type Field = {
   name: string;
@@ -15,7 +16,17 @@ type InquiryFormProps = {
   submitLabel?: string;
   /** "dark" sits on a deep surface; "light" on Paper. */
   tone?: "light" | "dark";
+  /** Email subject line so submissions are easy to triage (e.g. "Speaking booking"). */
+  subject?: string;
 };
+
+/**
+ * Submissions are delivered to {@link contactEmail} via FormSubmit
+ * (https://formsubmit.co) — a no-backend relay, so no API keys are needed.
+ * NOTE: the very first submission triggers a one-time activation email from
+ * FormSubmit; click its link once and every later submission lands silently.
+ */
+const FORM_ENDPOINT = `https://formsubmit.co/ajax/${contactEmail}`;
 
 const defaultFields: Field[] = [
   { name: "name", label: "Your name", required: true, placeholder: "Jane Doe" },
@@ -38,14 +49,37 @@ export default function InquiryForm({
   fields = defaultFields,
   submitLabel = "Send inquiry",
   tone = "light",
+  subject = "New inquiry from the website",
 }: InquiryFormProps) {
   const [done, setDone] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(false);
   const dark = tone === "dark";
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // TODO(integration): POST form payload to your submission endpoint.
-    setDone(true);
+    if (submitting) return;
+    setError(false);
+    setSubmitting(true);
+
+    const payload = new FormData(e.currentTarget);
+    payload.append("_subject", subject);
+    payload.append("_template", "table");
+    payload.append("_captcha", "false");
+
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: payload,
+      });
+      if (!res.ok) throw new Error(`Submission failed (${res.status})`);
+      setDone(true);
+    } catch {
+      setError(true);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (done) {
@@ -68,6 +102,15 @@ export default function InquiryForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Honeypot — bots fill this; humans never see it. FormSubmit drops it. */}
+      <input
+        type="text"
+        name="_honey"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden
+        className="hidden"
+      />
       {fields.map((field) => (
         <div key={field.name}>
           <label htmlFor={field.name} className={labelCls}>
@@ -98,14 +141,29 @@ export default function InquiryForm({
 
       <button
         type="submit"
-        className={`rounded-lg px-7 py-3.5 text-small font-medium transition-all duration-300 ease-calm ${
+        disabled={submitting}
+        className={`rounded-lg px-7 py-3.5 text-small font-medium transition-all duration-300 ease-calm disabled:cursor-not-allowed disabled:opacity-60 ${
           dark
             ? "bg-amber text-ink hover:brightness-[0.97]"
             : "bg-signature text-paper hover:bg-blue-lift"
         }`}
       >
-        {submitLabel}
+        {submitting ? "Sending…" : submitLabel}
       </button>
+
+      {error ? (
+        <p
+          className={`text-small ${dark ? "text-amber" : "text-signature"}`}
+          role="alert"
+        >
+          Something went wrong sending that. Please try again, or email me directly
+          at{" "}
+          <a href={`mailto:${contactEmail}`} className="underline">
+            {contactEmail}
+          </a>
+          .
+        </p>
+      ) : null}
     </form>
   );
 }

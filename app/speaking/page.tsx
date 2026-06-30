@@ -96,6 +96,7 @@ export default function SpeakingPage() {
           <Reveal>
             <InquiryForm
               submitLabel="Send booking inquiry"
+              subject="New speaking booking — dareomotosho.com"
               fields={[
                 { name: "name", label: "Your name", required: true, placeholder: "Jane Doe" },
                 { name: "email", label: "Email", type: "email", required: true, placeholder: "you@event.com" },

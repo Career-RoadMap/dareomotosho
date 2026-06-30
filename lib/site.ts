@@ -63,8 +63,11 @@ export const nav: NavItem[] = [
   { href: "/about", label: "About" },
 ];
 
+/** Where booking + inquiry form submissions are delivered. */
+export const contactEmail = "darelekan46@gmail.com";
+
 export const social = {
-  youtube: "https://youtube.com/@your-channel",
+  youtube: "https://www.youtube.com/@DareOmotosho",
   x: "https://x.com/your-handle",
-  linkedin: "https://linkedin.com/in/your-handle",
+  linkedin: "https://www.linkedin.com/in/dare-omotosho-lekan-cloud-oxla/",
 } as const;

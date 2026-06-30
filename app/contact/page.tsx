@@ -54,6 +54,7 @@ export default function ContactPage() {
           <Reveal>
             <InquiryForm
               submitLabel="Send message"
+              subject="New contact message — dareomotosho.com"
               fields={[
                 { name: "name", label: "Your name", required: true, placeholder: "Jane Doe" },
                 { name: "email", label: "Email", type: "email", required: true, placeholder: "you@example.com" },
