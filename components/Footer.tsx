@@ -83,7 +83,12 @@ export default function Footer() {
           <p>
             © {new Date().getFullYear()} {brand.name}. All rights reserved.
           </p>
-          <p>{brand.oneLine}</p>
+          <div className="flex items-center gap-4">
+            <Link href="/privacy" className="link-amber !text-paper/70">
+              Privacy
+            </Link>
+            <p>{brand.oneLine}</p>
+          </div>
         </div>
       </div>
     </footer>
