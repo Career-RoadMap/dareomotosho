@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { contactEmail } from "@/lib/site";
+import { contactEmail, formSubmitAlias } from "@/lib/site";
 
 type Field = {
   name: string;
@@ -23,17 +23,10 @@ type InquiryFormProps = {
 /**
  * Submissions are delivered to {@link contactEmail} via FormSubmit
  * (https://formsubmit.co), a no-backend relay, so no API keys are needed.
- *
- * This targets the naked address directly rather than an activated alias:
- * FormSubmit only issues an alias hash after the destination inbox confirms
- * a one-time activation email, and dare@dareomotosho.com hasn't done that
- * yet (the previous alias belongs to the old inbox). The FIRST submission
- * after this change will hold until someone clicks the activation link
- * FormSubmit sends to dare@dareomotosho.com; every submission after that
- * delivers normally. Once activated, swap this back to the alias FormSubmit
- * issues, to keep the address out of the client bundle.
+ * The endpoint uses the activated alias rather than the naked address so the
+ * email stays out of the client bundle.
  */
-const FORM_ENDPOINT = `https://formsubmit.co/ajax/${contactEmail}`;
+const FORM_ENDPOINT = `https://formsubmit.co/ajax/${formSubmitAlias}`;
 
 const defaultFields: Field[] = [
   { name: "name", label: "Your name", required: true, placeholder: "Jane Doe" },

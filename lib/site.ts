@@ -63,6 +63,14 @@ export const contactEmail = "dare@dareomotosho.com";
 /** Contact email for privacy-specific requests (Privacy + Cookie policies). */
 export const privacyEmail = "privacy@dareomotosho.com";
 
+/**
+ * FormSubmit alias for {@link contactEmail}, issued after activating
+ * dare@dareomotosho.com there. Using the alias instead of the naked address
+ * keeps the email out of the client bundle. Regenerate at formsubmit.co if
+ * it ever changes.
+ */
+export const formSubmitAlias = "749a1f153340c16fa905dca455bfce34";
+
 export const social = {
   youtube: "https://www.youtube.com/@DareOmotosho",
   x: "https://x.com/your-handle",
