@@ -1,0 +1,3 @@
+# What is serverless, does it really mean no server?
+
+A serverless application still runs on a server, the server is simply abstracted away and the cloud provider manages the infrastructure for you. Serverless technologies feature automatic scaling, built-in high availability, and pay-for-use billing, which increases agility and optimizes cost. They also remove infrastructure tasks like capacity provisioning and patching, so you can focus on writing code that serves your customers. On AWS, serverless typically starts with AWS Lambda, an event-driven compute service integrated with over 200 AWS and SaaS services.

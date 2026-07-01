@@ -195,7 +195,7 @@ export async function getEntries(): Promise<Entry[]> {
       if (data.length === 0) {
         console.warn(
           "[getEntries] Supabase returned 0 published entries. If the table " +
-            "has published rows, the anon SELECT is likely blocked by RLS — " +
+            "has published rows, the anon SELECT is likely blocked by RLS, " +
             "apply supabase/migrations/0003_entries_read_policy.sql.",
         );
       }

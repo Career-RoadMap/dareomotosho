@@ -1,0 +1,3 @@
+# What do low and high latency actually mean?
+
+Latency in cloud computing is the time it takes for a deployed application or website to reach a user's device when they visit. If a page takes a long time to load, the application has high latency; if it loads quickly, it has low latency. It is a major factor in user experience and an application's success, slow loads lead to frustration. One responsibility of a cloud engineer is to keep latency low so the application is delivered fast, which you can achieve with caching or by deploying to the Region, Availability Zone, or edge location closest to your users.

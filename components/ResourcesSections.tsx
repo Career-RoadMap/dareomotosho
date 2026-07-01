@@ -6,6 +6,15 @@ import { entryTypeMeta, levelLabels, topicLabel, type Entry, type EntryType } fr
 import { supabase } from "@/lib/supabase";
 import QuestionTicker from "./QuestionTicker";
 
+/** Trim a summary to a max character count on a word boundary. */
+function truncateChars(text: string, max = 200): string {
+  const t = (text || "").trim();
+  if (t.length <= max) return t;
+  const cut = t.slice(0, max);
+  const at = cut.lastIndexOf(" ");
+  return (at > 0 ? cut.slice(0, at) : cut).replace(/[,;:.\s]+$/, "") + "…";
+}
+
 export default function ResourcesSections({ initial }: { initial: Entry[] }) {
   const [entries, setEntries] = useState<Entry[]>(initial);
 
@@ -38,37 +47,38 @@ export default function ResourcesSections({ initial }: { initial: Entry[] }) {
     entries.filter((e) => e.type === type && e.published !== false);
 
   return (
-    <div className="space-y-16">
-      {/* ── Case Studies. */}
-      <Group
-        id="case-studies"
-        label={entryTypeMeta.case_study.label}
-        blurb={entryTypeMeta.case_study.blurb}
-        items={byType("case_study")}
-      />
+    <div className="grid items-start gap-10 lg:grid-cols-[1fr_19rem] xl:grid-cols-[1fr_21rem] xl:gap-14">
+      {/* ── Main area: Case Studies and Interview Prep side by side, so both
+          are visible at the top instead of one buried under the other. */}
+      <div className="grid min-w-0 items-start gap-10 md:grid-cols-2">
+        <Group
+          id="case-studies"
+          label={entryTypeMeta.case_study.label}
+          blurb={entryTypeMeta.case_study.blurb}
+          items={byType("case_study")}
+        />
+        <Group
+          id="course-questions"
+          label={entryTypeMeta.course_qa.label}
+          blurb={entryTypeMeta.course_qa.blurb}
+          items={byType("course_qa")}
+        />
+      </div>
 
-      {/* ── Interview Prep. */}
-      <Group
-        id="course-questions"
-        label={entryTypeMeta.course_qa.label}
-        blurb={entryTypeMeta.course_qa.blurb}
-        items={byType("course_qa")}
-      />
-
-      {/* ── Community Questions, a portrait sidebar that auto-scrolls live. */}
-      <section id="community" className="scroll-mt-24">
-        <div className="grid items-start gap-10 lg:grid-cols-[1fr_0.8fr]">
-          <div>
-            <h3 className="font-serif text-h1 font-light text-signature">
-              {entryTypeMeta.user_question.label}
-            </h3>
-            <p className="mt-3 max-w-prose text-body text-ink/70">
-              {entryTypeMeta.user_question.blurb}
-            </p>
-          </div>
-          <QuestionTicker items={byType("user_question")} />
+      {/* ── Community Questions: a live news banner running alongside the
+          library. Sticks in view on desktop; drops below on mobile. */}
+      <aside id="community" className="scroll-mt-24 lg:sticky lg:top-24">
+        <div className="mb-4 flex items-center gap-2">
+          <span className="relative flex h-2 w-2" aria-hidden>
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber/70" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-amber" />
+          </span>
+          <p className="kicker text-blue-lift">
+            {entryTypeMeta.user_question.label}
+          </p>
         </div>
-      </section>
+        <QuestionTicker items={byType("user_question")} />
+      </aside>
     </div>
   );
 }
@@ -105,12 +115,12 @@ function Group({
           Nothing published here yet, check back soon.
         </p>
       ) : (
-        <ul className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-2">
+        <ul className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10">
           {items.map((e) => (
             <li key={e.id}>
               <Link
                 href={`/resources/${e.slug}`}
-                className="group flex h-full flex-col bg-paper p-8 transition-colors duration-300 ease-calm hover:bg-paper/60"
+                className="group flex h-full flex-col bg-paper p-6 transition-colors duration-300 ease-calm hover:bg-paper/60"
               >
                 <div className="flex items-center gap-3 text-small text-ink/50">
                   <span className="kicker text-blue-lift">{topicLabel(e.topic)}</span>
@@ -120,11 +130,13 @@ function Group({
                 <h4 className="mt-4 font-serif text-xl font-medium text-ink transition-colors duration-300 ease-calm group-hover:text-blue-lift">
                   {e.title}
                 </h4>
-                <p className="mt-3 flex-1 text-small text-ink">{e.summary}</p>
+                <p className="mt-3 flex-1 text-small text-ink">
+                  {truncateChars(e.summary, 200)}
+                </p>
                 {e.asker ? (
                   <p className="mt-4 text-small italic text-ink/50">{e.asker}</p>
                 ) : null}
-                <span className="mt-6 inline-flex items-center gap-2 text-small text-link">
+                <span className="mt-6 inline-flex items-center gap-2 text-small font-medium text-amber">
                   Continue Reading
                   <span className="transition-transform duration-300 ease-calm group-hover:translate-x-1">
                     →
