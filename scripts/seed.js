@@ -329,9 +329,18 @@ function walk(dir) {
   return out;
 }
 
+/** If the body opens with a heading equal to the title, drop it so the page
+ *  doesn't render the title twice (it's already shown from `title`). */
+function stripLeadingTitleHeading(body, title) {
+  const m = body.match(/^﻿?\s*#{1,3}\s+([^\n]+)\n+/);
+  if (m && m[1].trim() === title) return body.slice(m[0].length).trimStart();
+  return body;
+}
+
 // ── BUILD ─────────────────────────────────────────────────────────
 function buildEntry({ fileName, type, body }) {
   const title = deriveTitle(fileName, body);
+  body = stripLeadingTitleHeading(body, title);
   const topic = classifyTopic(body);
   const level = classifyLevel(body);
   const summary =

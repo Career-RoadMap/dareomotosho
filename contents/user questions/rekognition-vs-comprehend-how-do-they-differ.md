@@ -1,0 +1,3 @@
+# Rekognition vs Comprehend — how do they differ?
+
+Amazon Rekognition adds image and video analysis to your applications, identifying objects, people, text, scenes, and activities, detecting inappropriate content, and providing facial analysis and search, with no machine learning expertise required. Amazon Comprehend is a natural language processing service that finds insights and relationships in text: it identifies language, extracts key phrases, places, people, brands, and events, gauges sentiment, analyzes tokens and parts of speech, and can organize text by topic. In short, Rekognition is for images and video; Comprehend is for text.
