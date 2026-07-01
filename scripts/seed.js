@@ -337,10 +337,17 @@ function stripLeadingTitleHeading(body, title) {
   return body;
 }
 
+/** Replace em dashes with conventional punctuation (site-wide house style). */
+function normalizeDashes(str) {
+  return (str || "")
+    .replace(/[ \t]*—[ \t]*\n/g, ",\n")
+    .replace(/[ \t]*—[ \t]*/g, ", ");
+}
+
 // ── BUILD ─────────────────────────────────────────────────────────
 function buildEntry({ fileName, type, body }) {
-  const title = deriveTitle(fileName, body);
-  body = stripLeadingTitleHeading(body, title);
+  const title = normalizeDashes(deriveTitle(fileName, body));
+  body = normalizeDashes(stripLeadingTitleHeading(body, deriveTitle(fileName, body)));
   const topic = classifyTopic(body);
   const level = classifyLevel(body);
   const summary =

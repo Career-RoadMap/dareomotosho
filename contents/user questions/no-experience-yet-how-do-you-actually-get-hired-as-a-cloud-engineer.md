@@ -1,4 +1,4 @@
-# No experience yet — how do you actually get hired as a cloud engineer?
+# No experience yet, how do you actually get hired as a cloud engineer?
 
 Work on real projects. You stand a far better chance when you can show a recruiter what you've actually done. Labs that mimic real-life situations are a good source, and you should document each project as you go.
 
