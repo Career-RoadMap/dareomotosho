@@ -4,6 +4,7 @@ import { useMemo, useState, type CSSProperties } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { topicLabel, type Entry } from "@/lib/library";
+import ShareButtons from "./ShareButtons";
 
 /**
  * Community Questions: a searchable, filterable list of flip cards. Clicking a
@@ -53,7 +54,7 @@ export default function CommunityQuestions({ items }: { items: Entry[] }) {
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search questions…"
+          placeholder="Search using keywords"
           aria-label="Search community questions"
           className="w-full rounded-lg border border-ink/15 bg-paper px-3 py-2 text-small text-ink outline-none transition-colors duration-300 ease-calm placeholder:text-ink/35 focus:border-blue-lift"
         />
@@ -155,14 +156,17 @@ function FlipQuestion({
           <span className="font-serif text-lg font-light leading-snug text-ink">
             {entry.title}
           </span>
-          <span className="inline-flex items-center gap-2 text-small text-amber">
-            Reveal answer
-            <span
-              aria-hidden
-              className="transition-transform duration-300 ease-calm group-hover:translate-x-1"
-            >
-              ↻
+          <span className="flex items-center justify-between gap-2">
+            <span className="inline-flex items-center gap-2 text-small text-amber">
+              Reveal answer
+              <span
+                aria-hidden
+                className="transition-transform duration-300 ease-calm group-hover:translate-x-1"
+              >
+                ↻
+              </span>
             </span>
+            <ShareButtons path={`/resources/${entry.slug}`} title={entry.title} />
           </span>
         </span>
 

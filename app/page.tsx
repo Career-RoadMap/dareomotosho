@@ -3,6 +3,7 @@ import Button from "@/components/Button";
 import Reveal from "@/components/Reveal";
 import PageBanner from "@/components/PageBanner";
 import EmailCapture from "@/components/EmailCapture";
+import LatestVideo from "@/components/LatestVideo";
 import { seedEntries } from "@/lib/library";
 import { pageBanners, brand, social } from "@/lib/site";
 
@@ -101,11 +102,9 @@ export default function HomePage() {
 
           <Reveal as="div" delay={120} className="bg-paper p-8">
             <p className="kicker text-blue-lift">Latest video</p>
-            {/* Seam: live YouTube fetch mounts here. */}
-            <div className="mt-5 aspect-video w-full rounded-lg border border-ink/10 bg-ink/[0.04]" />
-            <p className="mt-4 text-small text-ink/60">
-              The newest video loads here once the channel feed is wired.
-            </p>
+            <div className="mt-5">
+              <LatestVideo />
+            </div>
             <a
               href={social.youtube}
               target="_blank"
