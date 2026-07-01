@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
-import { brand, contactEmail } from "@/lib/site";
+import { privacyEmail } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Cookie Policy",
@@ -8,6 +8,7 @@ export const metadata: Metadata = {
     "How this site uses cookies: functional cookies only, no tracking or advertising, and how to manage them.",
 };
 
+const SITE_URL = "dareomotosho.com";
 const LAST_UPDATED = "1 July 2026";
 const linkCls = "text-link underline underline-offset-2";
 
@@ -210,11 +211,11 @@ export default function CookiesPage() {
             </h2>
             <p className="mt-4">For questions about cookies on this Site, contact:</p>
             <p className="mt-4">
-              {brand.name}
+              {SITE_URL}
               <br />
               Email:{" "}
-              <a href={`mailto:${contactEmail}`} className={linkCls}>
-                {contactEmail}
+              <a href={`mailto:${privacyEmail}`} className={linkCls}>
+                {privacyEmail}
               </a>
               <br />
               Location: Nigeria
