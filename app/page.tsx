@@ -73,33 +73,9 @@ export default function HomePage() {
       <section className="container-content py-24 sm:py-32">
         <Reveal>
           <p className="mx-auto max-w-3xl text-center font-serif text-h2 font-light leading-snug text-ink">
-            Most engineers optimize the tool. But every system they build is a{" "}
+            Most engineers optimize the tool. But every system built is a{" "}
             <span className="text-signature">business decision in disguise.</span>
           </p>
-        </Reveal>
-      </section>
-
-      {/* ── Featured proof, the "40%". Slow fade as it lands. */}
-      <section className="container-content py-16 sm:py-24">
-        <Reveal>
-          <div className="rounded-3xl bg-signature px-8 py-16 text-paper sm:px-16 sm:py-24">
-            <p className="kicker text-amber">Featured proof</p>
-            <p className="mt-8 font-serif text-display font-light leading-none text-paper">
-              40%
-            </p>
-            <p className="mt-6 max-w-2xl font-serif text-h1 font-light leading-tight text-paper">
-              Cut cloud spend 40%, with zero performance cost.
-            </p>
-            <p className="mt-8 max-w-xl text-body text-paper/70">
-              The bill came down; the experience didn't move. Savings as a business
-              decision, not a tuning trick.
-            </p>
-            <div className="mt-10">
-              <Button href="/work" variant="accent">
-                Read the work
-              </Button>
-            </div>
-          </div>
         </Reveal>
       </section>
 
