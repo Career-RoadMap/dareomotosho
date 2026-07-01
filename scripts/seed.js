@@ -137,10 +137,20 @@ function clampWords(str, max) {
   return w.slice(0, max).join(" ").replace(/[,;:.\s]+$/, "") + "…";
 }
 
-/** Max words for every content-library summary. */
-const SUMMARY_MAX_WORDS = 100;
+/** Trim to a max character count on a word boundary. */
+function clampChars(str, max) {
+  const t = (str || "").trim();
+  if (t.length <= max) return t;
+  const cut = t.slice(0, max);
+  const at = cut.lastIndexOf(" ");
+  return (at > 0 ? cut.slice(0, at) : cut).replace(/[,;:.\s]+$/, "") + "…";
+}
 
-/** Case-study summary: extractive challenge → decision → outcome, ≤100 words. */
+/** Every content-library summary is capped at this many characters. */
+const SUMMARY_MAX_WORDS = 100; // upper bound before the character cap applies
+const SUMMARY_MAX_CHARS = 200;
+
+/** Case-study summary: extractive challenge → decision → outcome, ≤200 chars. */
 function summariseCaseStudy(body) {
   const SIGNAL =
     /\b(challenge|problem|situation|issue|context|decision|decided|chose|approach|solution|strateg|outcome|result|impact|saved|reduced|increased|grew|cut|achiev|deliver)\b/i;
@@ -168,10 +178,10 @@ function summariseCaseStudy(body) {
     seen.add(s);
   }
   const summary = picked.join(" ").replace(/\s+/g, " ").trim();
-  return clampWords(summary, SUMMARY_MAX_WORDS);
+  return clampChars(clampWords(summary, SUMMARY_MAX_WORDS), SUMMARY_MAX_CHARS);
 }
 
-/** Q&A / question summary: first paragraph(s), capped at 100 words. */
+/** Q&A / question summary: first paragraph(s), capped at 200 chars. */
 function summariseFirstParagraph(body) {
   const paras = paragraphs(body);
   let summary = paras[0] || body;
@@ -179,7 +189,7 @@ function summariseFirstParagraph(body) {
   while (words(summary).length < SUMMARY_MAX_WORDS && i < paras.length) {
     summary += " " + paras[i++];
   }
-  return clampWords(summary, SUMMARY_MAX_WORDS);
+  return clampChars(clampWords(summary, SUMMARY_MAX_WORDS), SUMMARY_MAX_CHARS);
 }
 
 /** Pull an attributed name if the doc carries one; otherwise null. */

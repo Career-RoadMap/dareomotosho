@@ -6,6 +6,15 @@ import { entryTypeMeta, levelLabels, topicLabel, type Entry, type EntryType } fr
 import { supabase } from "@/lib/supabase";
 import QuestionTicker from "./QuestionTicker";
 
+/** Trim a summary to a max character count on a word boundary. */
+function truncateChars(text: string, max = 200): string {
+  const t = (text || "").trim();
+  if (t.length <= max) return t;
+  const cut = t.slice(0, max);
+  const at = cut.lastIndexOf(" ");
+  return (at > 0 ? cut.slice(0, at) : cut).replace(/[,;:.\s]+$/, "") + "…";
+}
+
 export default function ResourcesSections({ initial }: { initial: Entry[] }) {
   const [entries, setEntries] = useState<Entry[]>(initial);
 
@@ -39,8 +48,9 @@ export default function ResourcesSections({ initial }: { initial: Entry[] }) {
 
   return (
     <div className="grid items-start gap-10 lg:grid-cols-[1fr_19rem] xl:grid-cols-[1fr_21rem] xl:gap-14">
-      {/* ── Main column: Case Studies + Interview Prep. */}
-      <div className="min-w-0 space-y-16">
+      {/* ── Main area: Case Studies and Interview Prep side by side, so both
+          are visible at the top instead of one buried under the other. */}
+      <div className="grid min-w-0 items-start gap-10 md:grid-cols-2">
         <Group
           id="case-studies"
           label={entryTypeMeta.case_study.label}
@@ -105,12 +115,12 @@ function Group({
           Nothing published here yet, check back soon.
         </p>
       ) : (
-        <ul className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-2">
+        <ul className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10">
           {items.map((e) => (
             <li key={e.id}>
               <Link
                 href={`/resources/${e.slug}`}
-                className="group flex h-full flex-col bg-paper p-8 transition-colors duration-300 ease-calm hover:bg-paper/60"
+                className="group flex h-full flex-col bg-paper p-6 transition-colors duration-300 ease-calm hover:bg-paper/60"
               >
                 <div className="flex items-center gap-3 text-small text-ink/50">
                   <span className="kicker text-blue-lift">{topicLabel(e.topic)}</span>
@@ -120,11 +130,13 @@ function Group({
                 <h4 className="mt-4 font-serif text-xl font-medium text-ink transition-colors duration-300 ease-calm group-hover:text-blue-lift">
                   {e.title}
                 </h4>
-                <p className="mt-3 flex-1 text-small text-ink">{e.summary}</p>
+                <p className="mt-3 flex-1 text-small text-ink">
+                  {truncateChars(e.summary, 200)}
+                </p>
                 {e.asker ? (
                   <p className="mt-4 text-small italic text-ink/50">{e.asker}</p>
                 ) : null}
-                <span className="mt-6 inline-flex items-center gap-2 text-small text-link">
+                <span className="mt-6 inline-flex items-center gap-2 text-small font-medium text-amber">
                   Continue Reading
                   <span className="transition-transform duration-300 ease-calm group-hover:translate-x-1">
                     →
