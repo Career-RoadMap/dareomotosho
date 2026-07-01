@@ -87,6 +87,9 @@ export default function Footer() {
             <Link href="/privacy" className="link-amber !text-paper/70">
               Privacy
             </Link>
+            <Link href="/terms" className="link-amber !text-paper/70">
+              Terms
+            </Link>
             <p>{brand.oneLine}</p>
           </div>
         </div>
