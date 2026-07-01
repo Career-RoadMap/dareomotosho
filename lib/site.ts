@@ -57,15 +57,11 @@ export const nav: NavItem[] = [
   { href: "/about", label: "About" },
 ];
 
-/** Where booking + inquiry form submissions are delivered. */
-export const contactEmail = "darelekan46@gmail.com";
+/** Primary contact email, shown for general inquiries and booking. */
+export const contactEmail = "dare@dareomotosho.com";
 
-/**
- * FormSubmit alias for {@link contactEmail}. Using the alias instead of the
- * naked address keeps the email out of the client bundle (less scraping/spam).
- * Issued by FormSubmit on activation; regenerate it there if it ever changes.
- */
-export const formSubmitAlias = "1875ebb7d8771afd337e8fc5cd8ee770";
+/** Contact email for privacy-specific requests (Privacy + Cookie policies). */
+export const privacyEmail = "privacy@dareomotosho.com";
 
 export const social = {
   youtube: "https://www.youtube.com/@DareOmotosho",

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
-import { brand, contactEmail } from "@/lib/site";
+import { privacyEmail } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -29,7 +29,7 @@ export default function PrivacyPage() {
               1. Who this policy is from
             </h2>
             <p className="mt-4">
-              This Privacy Policy explains how {brand.name} (&ldquo;I,&rdquo;
+              This Privacy Policy explains how {SITE_URL} (&ldquo;I,&rdquo;
               &ldquo;me,&rdquo; &ldquo;we&rdquo;) collects, uses, and protects your
               personal information when you visit {SITE_URL} (the &ldquo;Site&rdquo;).
             </p>
@@ -283,11 +283,11 @@ export default function PrivacyPage() {
               For any privacy-related question, request, or concern, contact:
             </p>
             <p className="mt-4">
-              {brand.name}
+              {SITE_URL}
               <br />
               Email:{" "}
-              <a href={`mailto:${contactEmail}`} className={linkCls}>
-                {contactEmail}
+              <a href={`mailto:${privacyEmail}`} className={linkCls}>
+                {privacyEmail}
               </a>
               <br />
               Location: Nigeria

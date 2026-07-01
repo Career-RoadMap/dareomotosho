@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
-import { brand, contactEmail } from "@/lib/site";
+import { contactEmail } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Terms and Conditions",
@@ -32,7 +32,7 @@ export default function TermsPage() {
               Welcome. These Terms and Conditions (&ldquo;Terms&rdquo;) govern your
               access to and use of {SITE_URL} (the &ldquo;Site&rdquo;), operated by
               {" "}
-              {brand.name} (&ldquo;I,&rdquo; &ldquo;me,&rdquo; &ldquo;we&rdquo;).
+              {SITE_URL} (&ldquo;I,&rdquo; &ldquo;me,&rdquo; &ldquo;we&rdquo;).
             </p>
             <p className="mt-4">
               By accessing or using the Site, you agree to be bound by these Terms. If
@@ -327,7 +327,7 @@ export default function TermsPage() {
               content not permitted under Section 4, contact:
             </p>
             <p className="mt-4">
-              {brand.name}
+              {SITE_URL}
               <br />
               Email:{" "}
               <a href={`mailto:${contactEmail}`} className={linkCls}>
