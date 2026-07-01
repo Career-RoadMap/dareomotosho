@@ -44,8 +44,12 @@ export default function CookieConsent() {
     >
       <div className="container-content flex flex-col items-start gap-4 py-4 sm:flex-row sm:items-center sm:justify-between">
         <p className="max-w-2xl text-small text-ink">
-          This site uses cookies to remember your preferences and understand how the
-          site is used. See how it works in the privacy notice.
+          This site uses functional cookies to keep it running and remember your
+          preferences. Read the{" "}
+          <a href="/cookies" className="text-link underline underline-offset-2">
+            Cookie Policy
+          </a>
+          .
         </p>
         <div className="flex shrink-0 items-center gap-3">
           <button
