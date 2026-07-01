@@ -63,16 +63,6 @@ export const contactEmail = "dare@dareomotosho.com";
 /** Contact email for privacy-specific requests (Privacy + Cookie policies). */
 export const privacyEmail = "privacy@dareomotosho.com";
 
-/**
- * FormSubmit alias the inquiry forms actually deliver to. This was issued by
- * FormSubmit when it activated for the original inbox; it has NOT been
- * re-activated for {@link contactEmail} yet, so form submissions still land
- * in the original mailbox until FormSubmit is reconfigured for the new
- * address. Regenerate it at formsubmit.co once dare@dareomotosho.com is
- * confirmed there.
- */
-export const formSubmitAlias = "1875ebb7d8771afd337e8fc5cd8ee770";
-
 export const social = {
   youtube: "https://www.youtube.com/@DareOmotosho",
   x: "https://x.com/your-handle",
