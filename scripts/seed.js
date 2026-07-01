@@ -28,6 +28,7 @@
  *     npm install
  *     SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... node scripts/seed.js
  *     node scripts/seed.js --dry-run        # parse + label, no insert
+ *     node scripts/seed.js --update         # refresh existing rows (by slug), not just new
  */
 
 const fs = require("fs");
@@ -45,6 +46,10 @@ const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || "";
 const SUPABASE_KEY = SUPABASE_SERVICE_ROLE_KEY || SUPABASE_ANON_KEY;
 
 const DRY_RUN = process.argv.includes("--dry-run");
+// --update refreshes rows that already exist (matched by slug) instead of
+// skipping them, so edited content re-syncs. Without it, existing slugs are
+// left untouched.
+const UPDATE = process.argv.includes("--update");
 const PUBLISHED = true; // inserted rows are live; set false to stage for review
 
 const TEXT_EXT = new Set([".md", ".markdown", ".txt", ".text", ".html", ".htm"]);
@@ -412,7 +417,11 @@ async function main() {
       const { data, error } = await supabase.from("entries").select("slug");
       if (error) throw error;
       existingSlugs = new Set((data || []).map((r) => r.slug));
-      console.log(`Existing rows: ${existingSlugs.size} (their slugs will be skipped).`);
+      console.log(
+        `Existing rows: ${existingSlugs.size} (${
+          UPDATE ? "matching slugs will be updated" : "their slugs will be skipped"
+        }).`,
+      );
     } catch (e) {
       if (!DRY_RUN) {
         console.error(`✗ Could not read existing slugs: ${e.message}`);
@@ -426,6 +435,7 @@ async function main() {
   const entries = [];
   const usedSlugs = new Set();
   let skipped = 0;
+  let updated = 0;
 
   for (const folder of folders) {
     const dir = path.join(CONTENT_DIR, folder.name);
@@ -451,52 +461,69 @@ async function main() {
 
       const entry = buildEntry({ fileName: path.basename(file), type: folder.type, body });
 
-      if (existingSlugs.has(entry.slug)) {
-        console.log(`   ↺ ${entry.title}  [already in the table — skipped]`);
-        skipped++;
-        continue;
-      }
       if (usedSlugs.has(entry.slug)) {
         console.log(`   ↺ ${entry.title}  [duplicate within this run — skipped]`);
         skipped++;
         continue;
       }
+      const exists = existingSlugs.has(entry.slug);
+      if (exists && !UPDATE) {
+        console.log(`   ↺ ${entry.title}  [already in the table — skipped]`);
+        skipped++;
+        continue;
+      }
       usedSlugs.add(entry.slug);
+      if (UPDATE) {
+        // Let the DB keep created_at and the trigger refresh updated_at.
+        delete entry.created_at;
+        delete entry.updated_at;
+        if (exists) updated++;
+      }
       entries.push(entry);
       console.log(
-        `   ✓ ${entry.title}  [topic:${entry.topic} · level:${entry.level}` +
+        `   ${exists ? "↻" : "✓"} ${entry.title}  [topic:${entry.topic} · level:${entry.level}` +
           `${entry.asker ? ` · asker:${entry.asker}` : ""}]`,
       );
     }
   }
 
+  const newCount = entries.length - updated;
   console.log(
-    `\nPrepared ${entries.length} new entr${entries.length === 1 ? "y" : "ies"}` +
+    `\nPrepared ${entries.length} entr${entries.length === 1 ? "y" : "ies"}` +
+      ` (${newCount} new${updated ? `, ${updated} to update` : ""})` +
       `${skipped ? `, skipped ${skipped} duplicate(s)` : ""}.`,
   );
   if (entries.length === 0) {
-    console.log("Nothing to insert. Done.");
+    console.log("Nothing to write. Done.");
     return;
   }
 
   if (DRY_RUN) {
-    console.log("\n--- DRY RUN: rows that would be inserted ---");
+    console.log(`\n--- DRY RUN: rows that would be ${UPDATE ? "written" : "inserted"} ---`);
     for (const e of entries) {
       console.log(`• [${e.type}] ${e.title} (slug:${e.slug}, topic:${e.topic}, level:${e.level})`);
     }
     return;
   }
 
-  const { data, error } = await supabase.from("entries").insert(entries).select("id,slug");
+  const { data, error } = UPDATE
+    ? await supabase.from("entries").upsert(entries, { onConflict: "slug" }).select("id,slug")
+    : await supabase.from("entries").insert(entries).select("id,slug");
   if (error) {
-    console.error("\n✗ Insert failed:", error.message);
+    console.error(`\n✗ ${UPDATE ? "Upsert" : "Insert"} failed:`, error.message);
     console.error(
-      "  If it mentions RLS, add an insert policy or use the service-role key.\n" +
-        "  If it mentions a duplicate slug, that row exists — re-run; dupes are skipped.",
+      "  If it mentions RLS, add the matching policy or use the service-role key.\n" +
+        "  If it mentions 'on conflict'/slug, ensure entries.slug has a unique index\n" +
+        "  (see supabase/migrations). Without --update, existing slugs are skipped.",
     );
     process.exit(1);
   }
-  console.log(`\n✓ Inserted ${data ? data.length : entries.length} new row(s) into "entries".`);
+  const n = data ? data.length : entries.length;
+  console.log(
+    UPDATE
+      ? `\n✓ Upserted ${n} row(s) into "entries" (${updated} updated, ${n - updated} new).`
+      : `\n✓ Inserted ${n} new row(s) into "entries".`,
+  );
 }
 
 main().catch((e) => {

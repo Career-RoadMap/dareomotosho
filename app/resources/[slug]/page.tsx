@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Reveal from "@/components/Reveal";
 import EntryInteractions from "@/components/EntryInteractions";
+import DownloadPdfButton from "@/components/DownloadPdfButton";
 import { entryTypeMeta, getEntry, levelLabels, topicLabel } from "@/lib/library";
 
 type Params = { slug: string };
@@ -33,10 +34,13 @@ export default async function EntryPage({
 
   return (
     <article className="container-content py-20 sm:py-28">
-      <Reveal>
+      <Reveal className="flex items-center justify-between gap-4 print:hidden">
         <Link href="/resources" className="link-quiet text-small">
           ← Back to the library
         </Link>
+        {entry.type === "case_study" ? (
+          <DownloadPdfButton label="Download PDF" />
+        ) : null}
       </Reveal>
 
       <Reveal className="mt-10 max-w-3xl">
@@ -66,7 +70,7 @@ export default async function EntryPage({
       </Reveal>
 
       {/* Realtime discussion */}
-      <div className="max-w-3xl">
+      <div className="max-w-3xl print:hidden">
         <EntryInteractions entryId={entry.id} />
       </div>
     </article>

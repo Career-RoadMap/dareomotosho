@@ -9,7 +9,7 @@ import EmailCapture from "./EmailCapture";
  */
 export default function Footer() {
   return (
-    <footer className="mt-32 bg-signature text-paper">
+    <footer className="mt-32 bg-signature text-paper print:hidden">
       <div className="container-content grid gap-14 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
         {/* Email capture + byline */}
         <div>

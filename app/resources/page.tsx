@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import PageBanner from "@/components/PageBanner";
 import Reveal from "@/components/Reveal";
 import ResourcesSections from "@/components/ResourcesSections";
+import Downloads from "@/components/Downloads";
 import AskQuestion from "@/components/AskQuestion";
 import Button from "@/components/Button";
 import { getEntries } from "@/lib/library";
@@ -38,6 +39,9 @@ export default async function ResourcesPage() {
           <Button href="#community" variant="accent">
             Community Questions
           </Button>
+          <Button href="#downloads" variant="ghost">
+            Downloads
+          </Button>
         </div>
       </PageBanner>
 
@@ -45,6 +49,11 @@ export default async function ResourcesPage() {
           Community Questions side banner inside ResourcesSections. */}
       <section className="container-content py-16 sm:py-20">
         <ResourcesSections initial={entries} />
+      </section>
+
+      {/* ── Downloadable resources: textbooks, slide decks, video clips. */}
+      <section className="container-content py-12 sm:py-16">
+        <Downloads />
       </section>
 
       {/* ── Ask a question, submitted to the library, pending review. */}

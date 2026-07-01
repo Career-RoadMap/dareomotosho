@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { entryTypeMeta, levelLabels, topicLabel, type Entry, type EntryType } from "@/lib/library";
 import { supabase } from "@/lib/supabase";
-import QuestionTicker from "./QuestionTicker";
+import CommunityQuestions from "./CommunityQuestions";
 
 /** Trim a summary to a max character count on a word boundary. */
 function truncateChars(text: string, max = 200): string {
@@ -77,7 +77,7 @@ export default function ResourcesSections({ initial }: { initial: Entry[] }) {
             {entryTypeMeta.user_question.label}
           </p>
         </div>
-        <QuestionTicker items={byType("user_question")} />
+        <CommunityQuestions items={byType("user_question")} />
       </aside>
     </div>
   );
