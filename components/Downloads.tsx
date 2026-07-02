@@ -15,9 +15,9 @@ export default function Downloads() {
   const hasAny = downloads.length > 0;
 
   return (
-    <section id="downloads" className="scroll-mt-24">
+    <div>
       <Reveal>
-        <h2 className="font-serif text-h1 font-light text-signature">Downloads</h2>
+        <h1 className="font-serif text-h1 font-light text-signature">Downloads</h1>
         <p className="mt-2 max-w-prose text-body text-ink/70">
           Textbooks, slide decks, and short video clips, free to download.
         </p>
@@ -77,7 +77,7 @@ export default function Downloads() {
           })}
         </div>
       )}
-    </section>
+    </div>
   );
 }
 
