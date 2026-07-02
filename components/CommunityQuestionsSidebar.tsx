@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { entryTypeMeta, type Entry } from "@/lib/library";
 import { supabase } from "@/lib/supabase";
 import CommunityQuestions from "./CommunityQuestions";
@@ -15,6 +15,16 @@ export default function CommunityQuestionsSidebar({ initial }: { initial: Entry[
   const [items, setItems] = useState<Entry[]>(
     initial.filter((e) => e.type === "user_question" && e.published !== false),
   );
+  const asideRef = useRef<HTMLElement | null>(null);
+
+  // Nav links to /resources#community from other pages; Next's router doesn't
+  // reliably scroll to a hash target that mounts after client hydration, so
+  // do it ourselves once this section is actually in the DOM.
+  useEffect(() => {
+    if (window.location.hash === "#community") {
+      asideRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, []);
 
   useEffect(() => {
     const client = supabase;
@@ -41,7 +51,7 @@ export default function CommunityQuestionsSidebar({ initial }: { initial: Entry[
   }, []);
 
   return (
-    <aside id="community" className="scroll-mt-24 lg:sticky lg:top-24">
+    <aside ref={asideRef} id="community" className="scroll-mt-24 lg:sticky lg:top-24">
       <div className="mb-4 flex items-center gap-2">
         <span className="relative flex h-2 w-2" aria-hidden>
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber/70" />

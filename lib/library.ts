@@ -60,7 +60,7 @@ export const entryTypeMeta: Record<
   },
   article: {
     label: "Articles",
-    blurb: "Longer pieces on cloud, career, and the judgment behind both.",
+    blurb: "Longer pieces on cloud, cybersecurity, career, and the judgment behind both.",
   },
 };
 

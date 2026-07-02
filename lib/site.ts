@@ -47,9 +47,11 @@ export const nav: NavItem[] = [
     href: "/resources",
     label: "Resources",
     children: [
-      { href: "/resources#case-studies", label: "Case Studies" },
+      { href: "/resources/case-studies", label: "Case Studies" },
+      { href: "/resources/interview-prep", label: "Interview Prep" },
+      { href: "/resources/articles", label: "Articles" },
+      { href: "/resources/downloads", label: "Downloads" },
       { href: "/resources#community", label: "Community Questions" },
-      { href: "/resources#course-questions", label: "Interview Prep" },
     ],
   },
   { href: "/speaking", label: "Speaking" },
