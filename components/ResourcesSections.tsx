@@ -49,19 +49,29 @@ export default function ResourcesSections({ initial }: { initial: Entry[] }) {
   return (
     <div className="grid items-start gap-10 lg:grid-cols-[1fr_19rem] xl:grid-cols-[1fr_21rem] xl:gap-14">
       {/* ── Main area: Case Studies and Interview Prep side by side, so both
-          are visible at the top instead of one buried under the other. */}
-      <div className="grid min-w-0 items-start gap-10 md:grid-cols-2">
+          are visible at the top instead of one buried under the other.
+          Articles run full width below, since they read better roomier. */}
+      <div className="min-w-0 space-y-14">
+        <div className="grid items-start gap-10 md:grid-cols-2">
+          <Group
+            id="case-studies"
+            label={entryTypeMeta.case_study.label}
+            blurb={entryTypeMeta.case_study.blurb}
+            items={byType("case_study")}
+          />
+          <Group
+            id="course-questions"
+            label={entryTypeMeta.course_qa.label}
+            blurb={entryTypeMeta.course_qa.blurb}
+            items={byType("course_qa")}
+          />
+        </div>
         <Group
-          id="case-studies"
-          label={entryTypeMeta.case_study.label}
-          blurb={entryTypeMeta.case_study.blurb}
-          items={byType("case_study")}
-        />
-        <Group
-          id="course-questions"
-          label={entryTypeMeta.course_qa.label}
-          blurb={entryTypeMeta.course_qa.blurb}
-          items={byType("course_qa")}
+          id="articles"
+          label={entryTypeMeta.article.label}
+          blurb={entryTypeMeta.article.blurb}
+          items={byType("article")}
+          wide
         />
       </div>
 
@@ -89,12 +99,15 @@ function Group({
   blurb,
   items,
   sub = false,
+  wide = false,
 }: {
   id: string;
   label: string;
   blurb: string;
   items: Entry[];
   sub?: boolean;
+  /** Full-width sections (e.g. Articles) show two cards per row on larger screens. */
+  wide?: boolean;
 }) {
   return (
     <section id={id} className="scroll-mt-24">
@@ -115,7 +128,11 @@ function Group({
           Nothing published here yet, check back soon.
         </p>
       ) : (
-        <ul className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10">
+        <ul
+          className={`mt-6 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 ${
+            wide ? "sm:grid-cols-2" : ""
+          }`}
+        >
           {items.map((e) => (
             <li key={e.id}>
               <Link

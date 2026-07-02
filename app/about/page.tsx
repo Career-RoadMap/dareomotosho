@@ -7,9 +7,9 @@ import { bioCloseText, bioPersonal, bioRoles, bioStory, bios } from "@/lib/conte
 import { aboutPortrait, brand, pageBanners } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "Technical mentor and cloud engineer",
   description:
-    "I work at the seam between engineering and the business, building business-aligned systems, and growing the people who'll stand in both rooms.",
+    "A technical mentor and cloud engineer working at the seam between engineering and the business, building business-aligned systems and growing the people who'll stand in both rooms.",
 };
 
 export default function AboutPage() {
@@ -22,8 +22,9 @@ export default function AboutPage() {
         intro={
           <p>
             Two rooms rarely speak the same language: the technical floor and the
-            boardroom. I've spent my career in the doorway between them, building
-            business-aligned systems, and translating each room to the other.
+            boardroom. I've spent my career in the doorway between them, a
+            technical mentor and cloud engineer building business-aligned
+            systems, and translating each room to the other.
           </p>
         }
         figure={
@@ -53,7 +54,10 @@ export default function AboutPage() {
       <section className="container-content py-12 sm:py-16">
         <Reveal>
           <div className="mx-auto max-w-3xl rounded-3xl border border-ink/10 bg-paper p-8 sm:p-12">
-            <div className="space-y-6">
+            <h2 className="font-serif text-h2 font-light text-signature">
+              Technical mentor and cloud engineer
+            </h2>
+            <div className="mt-6 space-y-6">
               {bioStory.map((para, i) => (
                 <p key={i} className="text-body text-ink">
                   {para}

@@ -15,9 +15,9 @@ import { pageBanners } from "@/lib/site";
 const corners = ["tl", "tr", "bl", "br"] as const;
 
 export const metadata: Metadata = {
-  title: "Work",
+  title: "Cloud architecture for business decisions",
   description:
-    "Outcome-led, building-first. Cloud architecture that serves the P&L, security matched to real risk, delivery at the speed the business needs.",
+    "Cloud architecture for business decisions: outcome-led engineering that serves the P&L, security matched to real risk, and delivery at the speed the business needs.",
 };
 
 export default function WorkPage() {
@@ -29,9 +29,10 @@ export default function WorkPage() {
         title="Systems for the business, not just the stack."
         intro={
           <p>
-            I build systems for businesses, cloud architecture that serves the P&amp;L,
-            security matched to real risk, and delivery at the speed the business needs.
-            Every system below started as a business decision, not just a technical one.
+            I build systems for businesses: cloud architecture for business
+            decisions, security matched to real risk, and delivery at the speed
+            the business needs. Every system below started as a decision, not
+            just a technical one.
           </p>
         }
       >
@@ -129,7 +130,7 @@ export default function WorkPage() {
           <Reveal>
             <p className="kicker text-amber">Selected architecture</p>
             <h2 className="mt-5 max-w-2xl font-serif text-h1 font-light text-paper">
-              The diagrams behind the decisions.
+              Cloud architecture behind the business decisions.
             </h2>
             <p className="mt-4 max-w-prose text-body text-paper/70">
               A rolling look at designed architecture, real systems, drawn end to

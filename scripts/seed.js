@@ -65,11 +65,12 @@ function resolveContentDir() {
 }
 const CONTENT_DIR = resolveContentDir();
 
-/** Map a subfolder name → entry type. Order matters: case → user → course/q&a. */
+/** Map a subfolder name → entry type. Order matters: case → user → article → course/q&a. */
 function classifyFolderType(name) {
   const n = name.toLowerCase();
   if (/case/.test(n)) return "case_study";
   if (/user/.test(n)) return "user_question";
+  if (/article/.test(n)) return "article";
   if (/q\s*&?\s*a|qa\b|course|content/.test(n)) return "course_qa";
   return null;
 }
@@ -91,12 +92,13 @@ const TOPIC_RULES = [
   { topic: "cloud", patterns: [/\bcloud\b/gi, /\bAWS\b/gi, /\bcost(s|ing)?\b/gi, /\barchitecture\b/gi] },
   { topic: "cybersecurity", patterns: [/\bsecurity\b/gi, /\bIAM\b/gi, /\bcyber ?security\b/gi, /\bbreach(es|ed)?\b/gi] },
   { topic: "ai_era", patterns: [/\bAI\b/gi, /\bAI[ -]?era\b/gi, /\bautomation\b/gi, /\bartificial intelligence\b/gi] },
+  { topic: "career", patterns: [/\bcareer(s)?\b/gi, /\bjob(s)?\b/gi, /\bhir(e|ed|ing)\b/gi, /\binterview(s|ing)?\b/gi, /\br[ée]sum[ée]\b/gi, /\bworkplace\b/gi, /\bvolunteer(ing)?\b/gi, /\bboss\b/gi] },
 ];
 
 const LEVEL_RULES = [
   { level: "newcomer", patterns: [/\bbeginner\b/gi, /\bstart(ing|er)?\b/gi, /\bnew\b/gi, /\bintro(duction|ductory)?\b/gi] },
   { level: "practitioner", patterns: [/\bintermediate\b/gi, /\bpractitioner\b/gi, /\bengineer(s|ing)?\b/gi] },
-  { level: "executive", patterns: [/\badvanced\b/gi, /\bexecutive\b/gi, /\bC-?suite\b/gi, /\bboardroom\b/gi] },
+  { level: "executive", patterns: [/\badvanced\b/gi, /\bexecutive\b/gi, /\bC-?suite\b/gi, /\bboardroom\b/gi, /\bC(EO|FO|TO|IO|ISO|OO|HRO)\b/g] },
 ];
 
 function countHits(text, patterns) {
@@ -195,6 +197,21 @@ function summariseFirstParagraph(body) {
     summary += " " + paras[i++];
   }
   return clampChars(clampWords(summary, SUMMARY_MAX_WORDS), SUMMARY_MAX_CHARS);
+}
+
+/** Article summary: first paragraph(s), 100-150 words (no short char clamp;
+ *  articles are long-form, so their teaser reads as a real summary, not a
+ *  card-sized snippet). */
+const ARTICLE_SUMMARY_MIN_WORDS = 100;
+const ARTICLE_SUMMARY_MAX_WORDS = 150;
+function summariseArticle(body) {
+  const paras = paragraphs(body).filter((p) => !/^#{1,3}\s/.test(p));
+  let summary = paras[0] || body;
+  let i = 1;
+  while (words(summary).length < ARTICLE_SUMMARY_MIN_WORDS && i < paras.length) {
+    summary += " " + paras[i++];
+  }
+  return clampWords(summary, ARTICLE_SUMMARY_MAX_WORDS);
 }
 
 /** Pull an attributed name if the doc carries one; otherwise null. */
@@ -356,9 +373,16 @@ function buildEntry({ fileName, type, body }) {
   const topic = classifyTopic(body);
   const level = classifyLevel(body);
   const summary =
-    type === "case_study" ? summariseCaseStudy(body) : summariseFirstParagraph(body);
+    type === "case_study"
+      ? summariseCaseStudy(body)
+      : type === "article"
+        ? summariseArticle(body)
+        : summariseFirstParagraph(body);
   const asker = extractAsker(body);
   const nowIso = new Date().toISOString();
+  // Articles are repurposed from another channel (e.g. LinkedIn) and default
+  // to unpublished so they can be reviewed individually before going live.
+  const isArticle = type === "article";
   return {
     slug: slugify(title),
     type,
@@ -368,7 +392,10 @@ function buildEntry({ fileName, type, body }) {
     topic,
     level,
     asker,
-    published: PUBLISHED,
+    source_note: isArticle
+      ? "Originally published on LinkedIn; substantially rewritten for site"
+      : null,
+    published: isArticle ? false : PUBLISHED,
     created_at: nowIso,
     updated_at: nowIso,
   };

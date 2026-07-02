@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Button from "@/components/Button";
 import Reveal from "@/components/Reveal";
@@ -6,6 +7,12 @@ import EmailCapture from "@/components/EmailCapture";
 import LatestVideo from "@/components/LatestVideo";
 import { seedEntries } from "@/lib/library";
 import { pageBanners, brand, social } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: "Business-aligned cloud engineering",
+  description:
+    "Business-aligned cloud engineering: architecture, security, and delivery built around the business decision inside every system, not just the tooling.",
+};
 
 const doors = [
   {
@@ -73,10 +80,14 @@ export default function HomePage() {
       {/* ── POV line, quiet feature, lots of air. */}
       <section className="container-content py-24 sm:py-32">
         <Reveal>
-          <p className="mx-auto max-w-3xl text-center font-serif text-h2 font-light leading-snug text-ink">
-            Most engineers optimize the tool. But every system built is a{" "}
-            <span className="text-signature">business decision in disguise.</span>
+          <p className="kicker text-center text-blue-lift">
+            Business-aligned cloud engineering
           </p>
+          <h2 className="mx-auto mt-5 max-w-3xl text-center font-serif text-h2 font-light leading-snug text-ink">
+            Most engineers optimize the tool. But business-aligned cloud
+            engineering means treating every system as{" "}
+            <span className="text-signature">the business decision it already is.</span>
+          </h2>
         </Reveal>
       </section>
 

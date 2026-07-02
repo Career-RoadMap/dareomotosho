@@ -12,7 +12,7 @@ import { isSupabaseConfigured, supabase } from "./supabase";
  * the seed data below is served so the library is fully browsable offline.
  */
 
-export type EntryType = "course_qa" | "case_study" | "user_question";
+export type EntryType = "course_qa" | "case_study" | "user_question" | "article";
 export type Level = "newcomer" | "practitioner" | "executive";
 
 export type Entry = {
@@ -28,6 +28,8 @@ export type Entry = {
   published: boolean;
   created_at: string;
   updated_at: string;
+  /** Internal editorial note (e.g. provenance); never rendered in the UI. */
+  source_note?: string | null;
 };
 
 export type Interaction = {
@@ -55,6 +57,10 @@ export const entryTypeMeta: Record<
   user_question: {
     label: "Community Questions",
     blurb: "Questions visitors send in, answered in the open. New ones appear here live once reviewed.",
+  },
+  article: {
+    label: "Articles",
+    blurb: "Longer pieces on cloud, career, and the judgment behind both.",
   },
 };
 
