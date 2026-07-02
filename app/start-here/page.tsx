@@ -6,9 +6,9 @@ import { entryTypeMeta, getEntries } from "@/lib/library";
 import { pageBanners } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Learn",
+  title: "Learn cloud engineering with business thinking",
   description:
-    "New to cloud? Start at the beginning, in order, a guided route with the latest resources, not a dump of links.",
+    "Learn cloud engineering and the business thinking behind it: an ordered, guided route with the latest resources, not a dump of links.",
 };
 
 // Reflect the latest published resources when Supabase is configured.
@@ -69,9 +69,10 @@ export default async function StartHerePage() {
         title="Start at the beginning. In order."
         intro={
           <p>
-            Not a pile of links, a route. We'll go step by step, the latest
-            resources are yours, and you don't need a background to begin. You need a
-            direction.
+            This is how you learn cloud engineering with business thinking
+            built in from day one: not a pile of links, a route. We'll go step
+            by step, the latest resources are yours, and you don't need a
+            background to begin. You need a direction.
           </p>
         }
       >
@@ -81,7 +82,9 @@ export default async function StartHerePage() {
       {/* ── Guided learning order. */}
       <section className="container-content py-12 sm:py-16">
         <Reveal>
-          <h2 className="font-serif text-h2 font-light text-ink">The path</h2>
+          <h2 className="font-serif text-h2 font-light text-ink">
+            Learn cloud engineering, and how to think like the business
+          </h2>
         </Reveal>
         <ol className="mt-10 space-y-4">
           {learningOrder.map((item, i) => (

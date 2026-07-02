@@ -7,9 +7,9 @@ import { talkTopics, episodes, outcomes } from "@/lib/content";
 import { pageBanners } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Speaking Engagement",
+  title: "Technical speaker on cloud engineering",
   description:
-    "Talks rooted in systems I've actually built. A point of view, bookable talk topics, and the work that backs them.",
+    "A technical speaker on cloud engineering: talks rooted in systems I've actually built, a point of view, bookable talk topics, and the work that backs them.",
 };
 
 export default function SpeakingPage() {
@@ -23,9 +23,10 @@ export default function SpeakingPage() {
         title="Talks rooted in systems I've actually built."
         intro={
           <p>
-            So here's the opinion: every system an engineer builds is a business
-            decision in disguise, and the industry trains almost no one to see it.
-            That's the talk under all the talks.
+            As a technical speaker on cloud engineering, here's the opinion I
+            keep bringing to the stage: every system an engineer builds is a
+            business decision in disguise, and the industry trains almost no
+            one to see it. That's the talk under all the talks.
           </p>
         }
       >
@@ -36,7 +37,7 @@ export default function SpeakingPage() {
       <section className="container-content py-12 sm:py-16">
         <Reveal>
           <h2 className="font-serif text-h2 font-light text-signature">
-            Talks I'll bring to your stage
+            Book a technical speaker on cloud engineering for your stage
           </h2>
           <p className="mt-3 max-w-prose text-body text-ink/70">
             Speaking from the floor, not just the stage.

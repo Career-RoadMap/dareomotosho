@@ -6,9 +6,9 @@ import InquiryForm from "@/components/InquiryForm";
 import { pageBanners } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Advisory",
+  title: "Cloud and cybersecurity advisory",
   description:
-    "Helping teams and leaders build business-aligned judgment, outcomes, not hours.",
+    "Cloud and cybersecurity advisory that builds business-aligned judgment into your team, outcomes, not hours.",
 };
 
 const outcomes = [
@@ -35,9 +35,11 @@ export default function AdvisoryPage() {
         title="Judgment, built into the team."
         intro={
           <p>
-            I help teams and leaders build business-aligned judgment, the ability to
-            see the decision inside the system, and to make it well. The goal isn't to
-            be needed twice. It's to leave the judgment behind.
+            Real cloud and cybersecurity advisory doesn't just fix the system,
+            it leaves your team able to make the next call themselves. I help
+            teams and leaders build business-aligned judgment, the ability to
+            see the decision inside the system, and to make it well. The goal
+            isn't to be needed twice. It's to leave the judgment behind.
           </p>
         }
       >
@@ -46,10 +48,16 @@ export default function AdvisoryPage() {
 
       {/* ── Outcomes language. */}
       <section className="container-content py-12 sm:py-16">
-        <div className="grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-3">
+        <Reveal>
+          <h2 className="mx-auto max-w-2xl text-center font-serif text-h2 font-light text-signature">
+            Cloud and cybersecurity advisory for teams that want the judgment,
+            not just the fix.
+          </h2>
+        </Reveal>
+        <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-3">
           {outcomes.map((o, i) => (
             <Reveal as="div" key={o.title} delay={i * 90} className="bg-paper p-8 sm:p-10">
-              <h2 className="font-serif text-h2 font-light text-signature">{o.title}</h2>
+              <h3 className="font-serif text-h2 font-light text-signature">{o.title}</h3>
               <p className="mt-4 text-body text-ink">{o.body}</p>
             </Reveal>
           ))}
