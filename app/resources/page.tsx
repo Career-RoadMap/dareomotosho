@@ -42,7 +42,7 @@ export default async function ResourcesPage() {
           <Button href="#community" variant="accent">
             Community Questions
           </Button>
-          <Button href="/resources/downloads" variant="ghost">
+          <Button href="/resources/downloads" variant="primary">
             Downloads
           </Button>
         </div>
@@ -55,27 +55,31 @@ export default async function ResourcesPage() {
           {/* ── Collections: click through to browse, then click any item to
               open and interact with it. */}
           <div className="min-w-0">
-            <ul className="grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-2">
+            <ul className="grid gap-6 sm:grid-cols-2">
               <CollectionCard
                 href="/resources/case-studies"
+                kind="case_study"
                 label={entryTypeMeta.case_study.label}
                 blurb={entryTypeMeta.case_study.blurb}
                 count={countOf("case_study")}
               />
               <CollectionCard
                 href="/resources/interview-prep"
+                kind="course_qa"
                 label={entryTypeMeta.course_qa.label}
                 blurb={entryTypeMeta.course_qa.blurb}
                 count={countOf("course_qa")}
               />
               <CollectionCard
                 href="/resources/articles"
+                kind="article"
                 label={entryTypeMeta.article.label}
                 blurb={entryTypeMeta.article.blurb}
                 count={countOf("article")}
               />
               <CollectionCard
                 href="/resources/downloads"
+                kind="download"
                 label="Downloads"
                 blurb="Textbooks, slide decks, and short video clips, free to download."
                 count={downloads.length}

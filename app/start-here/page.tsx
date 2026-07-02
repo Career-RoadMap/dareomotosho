@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import PageBanner from "@/components/PageBanner";
 import Reveal from "@/components/Reveal";
 import Button from "@/components/Button";
-import { entryTypeMeta, getEntries } from "@/lib/library";
+import CollectionCard from "@/components/CollectionCard";
+import { entryTypeMeta } from "@/lib/library";
 import { pageBanners } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -10,9 +11,6 @@ export const metadata: Metadata = {
   description:
     "Learn cloud engineering and the business thinking behind it: an ordered, guided route with the latest resources, not a dump of links.",
 };
-
-// Reflect the latest published resources when Supabase is configured.
-export const dynamic = "force-dynamic";
 
 const learningOrder = [
   {
@@ -57,10 +55,7 @@ const whyExplainers = [
   },
 ];
 
-export default async function StartHerePage() {
-  // The three most recently published resources, fetched live.
-  const latest = (await getEntries()).slice(0, 3);
-
+export default function StartHerePage() {
   return (
     <>
       <PageBanner
@@ -105,30 +100,34 @@ export default async function StartHerePage() {
         </ol>
       </section>
 
-      {/* ── Latest resources, the three most recently uploaded, fetched live. */}
+      {/* ── Straight into the library: three starting points. */}
       <section className="container-content py-16 sm:py-20">
         <Reveal>
-          <h2 className="font-serif text-h2 font-light text-ink">Latest resources</h2>
+          <h2 className="font-serif text-h2 font-light text-ink">Go straight to the library</h2>
           <p className="mt-3 max-w-prose text-body text-ink">
-            The three newest answers from the library, no email wall. Take what's
-            useful.
+            Three ways in, no email wall. Take what's useful.
           </p>
         </Reveal>
-        <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-3">
-          {latest.map((r, i) => (
-            <Reveal as="div" key={r.slug} delay={i * 100} className="bg-paper p-8">
-              <p className="kicker text-blue-lift">{entryTypeMeta[r.type].label}</p>
-              <h3 className="mt-4 font-serif text-xl font-medium text-ink">{r.title}</h3>
-              <p className="mt-3 text-small text-ink">{r.summary}</p>
-              <a
-                href={`/resources/${r.slug}`}
-                className="link-quiet mt-6 inline-block text-small"
-              >
-                Read
-              </a>
-            </Reveal>
-          ))}
-        </div>
+        <ul className="mt-10 grid gap-6 sm:grid-cols-3">
+          <CollectionCard
+            href="/resources/articles"
+            kind="article"
+            label={entryTypeMeta.article.label}
+            blurb={entryTypeMeta.article.blurb}
+          />
+          <CollectionCard
+            href="/resources/case-studies"
+            kind="case_study"
+            label={entryTypeMeta.case_study.label}
+            blurb={entryTypeMeta.case_study.blurb}
+          />
+          <CollectionCard
+            href="/resources/downloads"
+            kind="download"
+            label="Downloads"
+            blurb="Textbooks, slide decks, and short video clips, free to download."
+          />
+        </ul>
       </section>
 
       {/* ── Why explainers. */}

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
-import CollectionList from "@/components/CollectionList";
+import FilterableCollection from "@/components/FilterableCollection";
 import { entryTypeMeta, getEntries } from "@/lib/library";
 
 export const metadata: Metadata = {
@@ -30,7 +30,7 @@ export default async function InterviewPrepPage() {
         <p className="mt-4 text-body text-ink/70">{entryTypeMeta.course_qa.blurb}</p>
       </Reveal>
       <div className="mt-10">
-        <CollectionList items={items} />
+        <FilterableCollection items={items} />
       </div>
     </div>
   );

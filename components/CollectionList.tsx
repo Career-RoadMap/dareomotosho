@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { levelLabels, topicLabel, type Entry } from "@/lib/library";
+import ShareButtons from "./ShareButtons";
 
 /** Trim a summary to a max character count on a word boundary. */
 function truncateChars(text: string, max = 200): string {
@@ -56,12 +57,15 @@ export default function CollectionList({
             {e.asker ? (
               <p className="mt-4 text-small italic text-ink/50">{e.asker}</p>
             ) : null}
-            <span className="mt-6 inline-flex items-center gap-2 text-small font-medium text-amber">
-              Continue Reading
-              <span className="transition-transform duration-300 ease-calm group-hover:translate-x-1">
-                →
+            <div className="mt-6 flex items-center justify-between gap-3">
+              <span className="inline-flex items-center gap-2 text-small font-medium text-amber">
+                Continue Reading
+                <span className="transition-transform duration-300 ease-calm group-hover:translate-x-1">
+                  →
+                </span>
               </span>
-            </span>
+              <ShareButtons path={`/resources/${e.slug}`} title={e.title} />
+            </div>
           </Link>
         </li>
       ))}
