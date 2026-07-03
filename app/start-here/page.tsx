@@ -134,13 +134,13 @@ export default function StartHerePage() {
       {/* ── Salary explorer, a quiet pointer to the standalone reference tool. */}
       <section className="container-content py-12 sm:py-16">
         <Reveal>
-          <div className="flex flex-col gap-6 rounded-2xl border border-ink/10 bg-paper p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+          <div className="flex flex-col gap-6 rounded-2xl bg-ink p-8 text-paper sm:flex-row sm:items-center sm:justify-between sm:p-10">
             <div>
-              <p className="kicker text-blue-lift">Also worth a look</p>
-              <h3 className="mt-3 font-serif text-h2 font-light text-ink">
+              <p className="kicker text-amber">Also worth a look</p>
+              <h3 className="mt-3 font-serif text-h2 font-light text-paper">
                 See what these roles tend to pay
               </h3>
-              <p className="mt-3 max-w-prose text-body text-ink">
+              <p className="mt-3 max-w-prose text-body text-paper/70">
                 A reference tool covering salary ranges and growth trends across
                 30 cloud, security, and business roles, in USD or Naira.
               </p>
@@ -149,7 +149,7 @@ export default function StartHerePage() {
               href="/tools/career-salary-explorer.html"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex shrink-0 items-center justify-center rounded-lg border border-signature/25 px-7 py-3.5 text-small font-medium tracking-wide text-signature transition-all duration-300 ease-calm hover:border-blue-lift hover:text-blue-lift"
+              className="inline-flex shrink-0 items-center justify-center rounded-lg bg-amber px-7 py-3.5 text-small font-medium tracking-wide text-ink shadow-sm transition-all duration-300 ease-calm hover:brightness-[0.97] active:brightness-95"
             >
               Explore salary ranges
             </a>
