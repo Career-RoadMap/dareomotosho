@@ -131,6 +131,37 @@ export default function StartHerePage() {
         </ul>
       </section>
 
+      {/* ── Salary explorer, a quiet pointer to the standalone reference tool. */}
+      <section className="container-content py-12 sm:py-16">
+        <Reveal>
+          <div className="flex flex-col gap-6 rounded-2xl border border-ink/10 bg-paper p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+            <div>
+              <p className="kicker text-blue-lift">Also worth a look</p>
+              <h3 className="mt-3 font-serif text-h2 font-light text-ink">
+                See what these roles tend to pay
+              </h3>
+              <p className="mt-3 max-w-prose text-body text-ink">
+                A reference tool covering salary ranges and growth trends across
+                30 cloud, security, and business roles, in USD or Naira.
+              </p>
+            </div>
+            <a
+              href="/tools/career-salary-explorer.html"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex shrink-0 items-center justify-center rounded-lg border border-signature/25 px-7 py-3.5 text-small font-medium tracking-wide text-signature transition-all duration-300 ease-calm hover:border-blue-lift hover:text-blue-lift"
+            >
+              Explore salary ranges
+            </a>
+          </div>
+          <p className="mt-4 max-w-prose text-small text-ink/50">
+            Educational reference only, not professional, career, or financial
+            advice or a recommendation. Actual pay varies by company, location,
+            and experience.
+          </p>
+        </Reveal>
+      </section>
+
       {/* ── Why explainers. */}
       <section className="container-content py-16 sm:py-20">
         <div className="grid gap-8 sm:grid-cols-3">
