@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Tech Career Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .animate-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+
+        .roadmap-line::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e2e8f0;
+            z-index: 0;
+        }
+
+        .stat-card:hover .info-icon { opacity: 1; }
+        .info-icon { opacity: 0.4; transition: opacity 0.2s; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+    <!-- Main Navigation Bar -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2 font-bold text-xl text-slate-800">
+                    <div class="bg-blue-600 p-1.5 rounded-lg text-white">
+                        <i data-lucide="compass" class="w-6 h-6"></i>
+                    </div>
+                    CareerPulse <span class="text-blue-600">2026</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="flex bg-slate-100 p-1 rounded-lg border border-slate-200">
+                        <button onclick="setCurrency('USD')" id="btn-USD" class="px-3 py-1 text-xs font-bold rounded-md transition-all">Global ($)</button>
+                        <button onclick="setCurrency('NGN')" id="btn-NGN" class="px-3 py-1 text-xs font-bold rounded-md transition-all">Nigeria (₦)</button>
+                    </div>
+                    <div class="h-6 w-[1px] bg-slate-200 hidden md:block"></div>
+                    <div class="flex gap-1">
+                        <button onclick="setView('engineering')" id="nav-engineering" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all">Engineering</button>
+                        <button onclick="setView('operations')" id="nav-operations" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all">Operations & Business</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Education-only disclaimer, slim and persistent, not a modal so it can't be missed and dismissed once. -->
+    <div class="bg-amber-50 border-b border-amber-100">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-2 flex items-center gap-2 text-amber-800 text-xs font-medium text-center sm:text-left">
+            <i data-lucide="info" class="w-3.5 h-3.5 flex-shrink-0"></i>
+            <span>For education purposes only. Figures are illustrative market reference points, not professional, career, or financial advice or a recommendation.</span>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto p-4 md:p-8 flex-grow">
+        <!-- Dynamic Header -->
+        <header class="mb-8">
+            <div class="flex flex-col gap-6">
+                <div class="max-w-2xl">
+                    <h1 id="viewTitle" class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight text-balance">Technical Career Projections</h1>
+                    <p id="viewDesc" class="text-slate-600 mt-2 text-base">Comprehensive role guide reflecting the 2026 market demands. Click stat boxes for context.</p>
+                </div>
+
+                <!-- Stat Grid -->
+                <div id="statGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 w-full">
+                    <!-- Stats populated by JS -->
+                </div>
+            </div>
+        </header>
+
+        <!-- Filters Section -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8 bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+            <div class="relative">
+                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4"></i>
+                <input type="text" id="searchInput" placeholder="Search 30+ roles..." class="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+            </div>
+            <div>
+                <select id="levelFilter" class="w-full p-2 border border-slate-200 rounded-lg bg-white text-sm font-medium focus:ring-2 focus:ring-blue-500">
+                    <option value="entry">Entry Level</option>
+                    <option value="mid" selected>Mid Level</option>
+                    <option value="senior">Senior / Lead</option>
+                </select>
+            </div>
+            <div>
+                <select id="growthFilter" class="w-full p-2 border border-slate-200 rounded-lg bg-white text-sm font-medium focus:ring-2 focus:ring-blue-500">
+                    <option value="all">All Growth Rates</option>
+                    <option value="high">High Growth (>25%)</option>
+                </select>
+            </div>
+            <button onclick="resetFilters()" class="text-sm font-semibold text-blue-600 hover:bg-blue-50 rounded-lg py-2 transition-colors flex items-center gap-2 justify-center border border-transparent hover:border-blue-100">
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset Filters
+            </button>
+        </div>
+
+        <!-- Dashboard Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="bg-slate-50 border-b border-slate-200">
+                                <tr>
+                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Role</th>
+                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Salary (Annual)</th>
+                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Growth</th>
+                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Context</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dataTableBody" class="divide-y divide-slate-100">
+                                <!-- Data populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detail Sidebar -->
+            <div id="detailSidebar" class="lg:col-span-1">
+                <!-- Selected detail card -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Stat Details -->
+    <div id="statModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-2xl p-8 shadow-2xl animate-in relative">
+            <button onclick="closeStatModal()" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <footer class="bg-slate-100 border-t border-slate-200 py-8 px-4 md:px-8 mt-12">
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row gap-6 items-start">
+                <div class="p-3 bg-amber-50 text-amber-600 rounded-xl">
+                    <i data-lucide="info" class="w-6 h-6"></i>
+                </div>
+                <div class="text-sm text-slate-600 leading-relaxed">
+                    <h4 class="font-bold text-slate-900 mb-2">Ecosystem Context & Methodology</h4>
+                    <p>This extended dashboard covers 30 roles across engineering and operations. The technical stats boxes reflect key 2026 industry shifts: the absolute dominance of AI skillsets, the standardization of cloud-native architecture, and the maturation of borderless remote hiring models.</p>
+                    <p class="mt-3 font-semibold text-slate-700">This page is strictly for education. Nothing here is professional, career, or financial advice, or a recommendation, and it shouldn't be the sole basis for a compensation, hiring, or career decision. Actual pay varies by company, location, and experience, so verify current figures before acting on them.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const data = {
+            engineering: [
+                { id: 1, name: 'AI/ML Engineer', icon: 'brain-circuit', growth: 45, mode: 'High Remote', skills: ['PyTorch', 'Python', 'LLM Ops'], description: 'Building and deploying Large Language Models and automated systems.',
+                  roadmap: { steps: ['Python/Math Basics', 'ML Fundamentals', 'Deep Learning Specialization', 'MLOps/Production AI'], certifications: ['AWS Machine Learning Specialty', 'TensorFlow Dev'] },
+                  salaries: { entry: { usd: 110000, ngn: 3000000 }, mid: { usd: 175000, ngn: 7200000 }, senior: { usd: 240000, ngn: 12000000 } } },
+                { id: 2, name: 'Cloud Architect', icon: 'cloud', growth: 29, mode: 'Hybrid', skills: ['AWS/Azure', 'Terraform', 'Kubernetes'], description: 'Designing scalable infrastructure for high-traffic platforms.',
+                  roadmap: { steps: ['SysAdmin/Linux', 'Cloud Foundations', 'Infrastructure as Code', 'Enterprise Architecture'], certifications: ['AWS Solutions Architect Pro', 'CKA'] },
+                  salaries: { entry: { usd: 90000, ngn: 2400000 }, mid: { usd: 168000, ngn: 6600000 }, senior: { usd: 210000, ngn: 13000000 } } },
+                { id: 3, name: 'Cybersecurity Specialist', icon: 'shield-check', growth: 33, mode: 'Hybrid', skills: ['SIEM', 'Compliance', 'Pentesting'], description: 'Protecting digital assets from evolving threats.',
+                  roadmap: { steps: ['Network+ / Security+', 'Soc Analyst (Tier 1)', 'Threat Hunting/Incident Response', 'Security Management'], certifications: ['CISSP', 'CompTIA Security+'] },
+                  salaries: { entry: { usd: 85000, ngn: 2100000 }, mid: { usd: 152000, ngn: 5400000 }, senior: { usd: 195000, ngn: 9000000 } } },
+                { id: 4, name: 'DevOps / SRE', icon: 'terminal', growth: 27, mode: 'Remote', skills: ['CI/CD', 'Docker', 'Go'], description: 'Bridging the gap between development and operations.',
+                  roadmap: { steps: ['Software Dev Basics', 'Automation/Scripting', 'Cloud Native Apps', 'Reliability Engineering'], certifications: ['AWS DevOps Pro', 'Docker Certified'] },
+                  salaries: { entry: { usd: 88000, ngn: 2400000 }, mid: { usd: 158000, ngn: 6000000 }, senior: { usd: 205000, ngn: 10000000 } } },
+                { id: 5, name: 'Data Engineer', icon: 'database', growth: 31, mode: 'Remote', skills: ['Spark', 'Airflow', 'Snowflake'], description: 'Constructing robust data pipelines.',
+                  roadmap: { steps: ['Advanced SQL', 'Big Data Frameworks', 'ETL/ELT Design', 'Data Governance'], certifications: ['Azure Data Engineer', 'SnowPro'] },
+                  salaries: { entry: { usd: 82000, ngn: 1800000 }, mid: { usd: 145000, ngn: 4800000 }, senior: { usd: 185000, ngn: 8400000 } } },
+                { id: 6, name: 'Full Stack Developer', icon: 'code-2', growth: 24, mode: 'Remote', skills: ['React', 'Node.js', 'TypeScript'], description: 'End-to-end development of modern web applications.',
+                  roadmap: { steps: ['Frontend Mastery', 'Backend Logic', 'Database Design', 'System Design'], certifications: ['Meta Full Stack Cert'] },
+                  salaries: { entry: { usd: 75000, ngn: 1500000 }, mid: { usd: 130000, ngn: 4200000 }, senior: { usd: 175000, ngn: 7800000 } } },
+                { id: 7, name: 'Mobile Dev (Swift/Kotlin)', icon: 'smartphone', growth: 21, mode: 'Remote', skills: ['SwiftUI', 'Jetpack Compose', 'API'], description: 'Native application development for iOS and Android.',
+                  roadmap: { steps: ['Programming Fundamentals', 'UI/UX Mobile Design', 'Platform SDKs', 'Advanced Architecture'], certifications: ['Google Android Dev', 'Apple App Dev'] },
+                  salaries: { entry: { usd: 80000, ngn: 1500000 }, mid: { usd: 125000, ngn: 3900000 }, senior: { usd: 180000, ngn: 7200000 } } },
+                { id: 8, name: 'Frontend Engineer', icon: 'monitor', growth: 20, mode: 'Remote', skills: ['Next.js', 'Tailwind', 'Wasm'], description: 'Specialized in high-performance user interfaces.',
+                  roadmap: { steps: ['Modern JS/TS', 'React/Next Ecosystem', 'Performance Tuning', 'Design Systems'], certifications: ['AWS Certified Developer'] },
+                  salaries: { entry: { usd: 72000, ngn: 1200000 }, mid: { usd: 120000, ngn: 3600000 }, senior: { usd: 170000, ngn: 6600000 } } },
+                { id: 9, name: 'Backend Architect', icon: 'server', growth: 26, mode: 'Hybrid', skills: ['Java', 'Go', 'Microservices'], description: 'Designing complex, resilient server-side architectures.',
+                  roadmap: { steps: ['OOP/Design Patterns', 'Distributed Systems', 'Message Queues', 'Legacy Migration'], certifications: ['Oracle Java Architect'] },
+                  salaries: { entry: { usd: 95000, ngn: 2100000 }, mid: { usd: 155000, ngn: 5400000 }, senior: { usd: 215000, ngn: 9600000 } } },
+                { id: 10, name: 'AI Safety Engineer', icon: 'activity', growth: 55, mode: 'High Remote', skills: ['Ethics', 'Alignment', 'Red Teaming'], description: 'Ensuring AI systems behave predictably and safely.',
+                  roadmap: { steps: ['Ethics in AI', 'Policy/Compliance', 'Robustness Testing', 'Formal Verification'], certifications: ['CAIS AI Safety Cert'] },
+                  salaries: { entry: { usd: 120000, ngn: 3000000 }, mid: { usd: 190000, ngn: 6000000 }, senior: { usd: 280000, ngn: 11000000 } } },
+                { id: 11, name: 'Blockchain Engineer', icon: 'link', growth: 23, mode: 'Remote', skills: ['Solidity', 'Rust', 'Web3'], description: 'Developing decentralized apps and smart contracts.',
+                  roadmap: { steps: ['Cryptography Basics', 'Ethereum/Solana SDKs', 'Smart Contract Auditing', 'Layer 2 Scaling'], certifications: ['Certified Blockchain Expert'] },
+                  salaries: { entry: { usd: 90000, ngn: 1800000 }, mid: { usd: 150000, ngn: 4500000 }, senior: { usd: 200000, ngn: 8400000 } } },
+                { id: 12, name: 'QA Automation Engineer', icon: 'check-square', growth: 18, mode: 'Remote', skills: ['Selenium', 'Cypress', 'PyTest'], description: 'Automating testing cycles for faster releases.',
+                  roadmap: { steps: ['Manual Testing Theory', 'Scripting in Python', 'Framework Design', 'CI/CD Integration'], certifications: ['ISTQB Foundation'] },
+                  salaries: { entry: { usd: 65000, ngn: 1200000 }, mid: { usd: 105000, ngn: 3300000 }, senior: { usd: 155000, ngn: 6000000 } } },
+                { id: 13, name: 'Embedded Systems Eng', icon: 'cpu', growth: 19, mode: 'On-site', skills: ['C/C++', 'RTOS', 'IoT'], description: 'Working on hardware-level software for electronics.',
+                  roadmap: { steps: ['Electrical Engineering', 'Microcontrollers', 'Memory Mgmt', 'Kernel Dev'], certifications: ['Arm Accredited Engineer'] },
+                  salaries: { entry: { usd: 85000, ngn: 1800000 }, mid: { usd: 135000, ngn: 4200000 }, senior: { usd: 185000, ngn: 7800000 } } },
+                { id: 14, name: 'Bioinformatician', icon: 'dna', growth: 28, mode: 'Hybrid', skills: ['R', 'Genomics', 'Data Science'], description: 'Applying tech to biological and healthcare data.',
+                  roadmap: { steps: ['Molecular Biology', 'Statistical Computing', 'Next Gen Sequencing', 'Health Informatics'], certifications: ['BCB Certification'] },
+                  salaries: { entry: { usd: 88000, ngn: 1500000 }, mid: { usd: 140000, ngn: 4500000 }, senior: { usd: 195000, ngn: 8400000 } } },
+                { id: 15, name: 'Systems Administrator', icon: 'hard-drive', growth: 12, mode: 'On-site', skills: ['Linux', 'Windows Server', 'Networking'], description: 'Maintaining internal corporate IT infrastructure.',
+                  roadmap: { steps: ['Desktop Support', 'Network Fundamentals', 'Server Admin', 'IT Security'], certifications: ['CompTIA Network+', 'RHCSA'] },
+                  salaries: { entry: { usd: 60000, ngn: 900000 }, mid: { usd: 95000, ngn: 2700000 }, senior: { usd: 135000, ngn: 5100000 } } }
+            ],
+            operations: [
+                { id: 101, name: 'Product Manager', icon: 'layout-grid', growth: 32, mode: 'High Demand', skills: ['Roadmap', 'Strategy', 'AI PM'], description: 'Orchestrating product vision.',
+                  roadmap: { steps: ['Associate PM', 'Product Manager (Core)', 'Senior PM', 'CPO'], certifications: ['CSPO', 'Pragmatic Marketing'] },
+                  salaries: { entry: { usd: 110000, ngn: 2400000 }, mid: { usd: 159000, ngn: 5400000 }, senior: { usd: 226000, ngn: 12000000 } } },
+                { id: 110, name: 'Revenue Ops Lead', icon: 'trending-up', growth: 40, mode: 'Sales Support', skills: ['Salesforce', 'Reporting', 'Pipeline'], description: 'Aligning marketing, sales, and success operations.',
+                  roadmap: { steps: ['Sales Ops', 'RevOps Analyst', 'Director RevOps', 'CRO'], certifications: ['Salesforce Admin', 'LeanData'] },
+                  salaries: { entry: { usd: 88000, ngn: 2100000 }, mid: { usd: 140000, ngn: 5100000 }, senior: { usd: 195000, ngn: 10000000 } } },
+                { id: 108, name: 'Data Privacy Officer', icon: 'lock', growth: 35, mode: 'Compliance', skills: ['GDPR/CCPA', 'Legal', 'Audit'], description: 'Managing data protection and regulatory compliance.',
+                  roadmap: { steps: ['Compliance Asst', 'Data Privacy Officer', 'Risk Director', 'Chief Privacy Officer'], certifications: ['CIPP/E', 'CIPM'] },
+                  salaries: { entry: { usd: 105000, ngn: 3000000 }, mid: { usd: 145000, ngn: 6000000 }, senior: { usd: 210000, ngn: 10500000 } } },
+                { id: 102, name: 'Business Analyst', icon: 'bar-chart-3', growth: 25, mode: 'Data Driven', skills: ['SQL', 'ERP', 'Process Mapping'], description: 'Bridging technical data with business requirements.',
+                  roadmap: { steps: ['Junior Data Analyst', 'Lead BA', 'Strategy Consultant', 'Ops Lead'], certifications: ['CBAP', 'PMP'] },
+                  salaries: { entry: { usd: 85000, ngn: 1800000 }, mid: { usd: 101000, ngn: 4800000 }, senior: { usd: 123000, ngn: 8400000 } } },
+                { id: 104, name: 'Project Manager', icon: 'clipboard-check', growth: 21, mode: 'Ops Focus', skills: ['Scrum', 'Risk Mgmt', 'Planning'], description: 'Execution oversight for cross-functional initiatives.',
+                  roadmap: { steps: ['Coordinator', 'Project Manager', 'Program Manager', 'PMO Dir'], certifications: ['PMP', 'CAPM'] },
+                  salaries: { entry: { usd: 95000, ngn: 2100000 }, mid: { usd: 133000, ngn: 6000000 }, senior: { usd: 190000, ngn: 12000000 } } },
+                { id: 105, name: 'Operations Manager', icon: 'settings', growth: 18, mode: 'Strategy', skills: ['BizOps', 'SOPs', 'Efficiency'], description: 'Managing internal processes and strategy.',
+                  roadmap: { steps: ['Ops Coordinator', 'Ops Manager', 'Director of Ops', 'COO'], certifications: ['Six Sigma', 'MBA Foundations'] },
+                  salaries: { entry: { usd: 80000, ngn: 2400000 }, mid: { usd: 110000, ngn: 5400000 }, senior: { usd: 160000, ngn: 9000000 } } },
+                { id: 107, name: 'Customer Success Mgr', icon: 'smile', growth: 28, mode: 'Churn Focused', skills: ['Renewal', 'Product Adoption', 'Upsell'], description: 'Ensuring client value and retention.',
+                  roadmap: { steps: ['Support Lead', 'CSM', 'Key Account Mgr', 'VP Success'], certifications: ['SuccessHacker Cert'] },
+                  salaries: { entry: { usd: 60000, ngn: 1200000 }, mid: { usd: 95000, ngn: 3000000 }, senior: { usd: 145000, ngn: 6600000 } } },
+                { id: 113, name: 'Customer Success Ops', icon: 'users', growth: 38, mode: 'Efficiency', skills: ['Churn Modeling', 'Gainsight', 'Data'], description: 'Optimizing success functions via data.',
+                  roadmap: { steps: ['CS Analyst', 'Success Ops Mgr', 'Director CS Ops', 'COO'], certifications: ['Gainsight Admin'] },
+                  salaries: { entry: { usd: 75000, ngn: 1500000 }, mid: { usd: 125000, ngn: 4200000 }, senior: { usd: 175000, ngn: 8400000 } } },
+                { id: 103, name: 'Sales Lead', icon: 'banknote', growth: 22, mode: 'Comm. Based', skills: ['CRM', 'Pipeline', 'Growth Mkt'], description: 'Strategic revenue growth in tech.',
+                  roadmap: { steps: ['SDR / AE', 'Senior AE', 'Sales Director', 'VP Sales'], certifications: ['Salesforce Certified'] },
+                  salaries: { entry: { usd: 70000, ngn: 1500000 }, mid: { usd: 120000, ngn: 5400000 }, senior: { usd: 190000, ngn: 9600000 } } },
+                { id: 109, name: 'Product Marketing Mgr', icon: 'megaphone', growth: 24, mode: 'Launch Focused', skills: ['Messaging', 'GTM', 'Positioning'], description: 'Positioning for technical launches.',
+                  roadmap: { steps: ['Marketing Assoc', 'PMM', 'Director of PMM', 'VP Marketing'], certifications: ['Product Marketing Alliance'] },
+                  salaries: { entry: { usd: 85000, ngn: 1800000 }, mid: { usd: 135000, ngn: 4800000 }, senior: { usd: 185000, ngn: 9000000 } } },
+                { id: 106, name: 'Tech Recruiter', icon: 'user-plus', growth: 15, mode: 'Talent Acquisition', skills: ['ATS', 'Culture', 'Sourcing'], description: 'Identifying and retaining talent.',
+                  roadmap: { steps: ['Coordinator', 'Recruiter', 'People Ops Mgr', 'CHRO'], certifications: ['SHRM-CP'] },
+                  salaries: { entry: { usd: 65000, ngn: 1200000 }, mid: { usd: 90000, ngn: 3600000 }, senior: { usd: 150000, ngn: 7200000 } } },
+                { id: 111, name: 'Tech Support Lead', icon: 'help-circle', growth: 12, mode: 'Customer Facing', skills: ['Troubleshooting', 'SLA', 'API'], description: 'Resolving customer technical issues.',
+                  roadmap: { steps: ['Support Tier 1', 'Tier 2 Lead', 'Support Manager', 'VP Support'], certifications: ['ITIL Foundation'] },
+                  salaries: { entry: { usd: 55000, ngn: 900000 }, mid: { usd: 85000, ngn: 2400000 }, senior: { usd: 125000, ngn: 4800000 } } },
+                { id: 112, name: 'Information Architect', icon: 'map', growth: 18, mode: 'Hierarchy Focus', skills: ['UX', 'Ontology', 'CMS'], description: 'Organizing complex content systems.',
+                  roadmap: { steps: ['Web Designer', 'UI Architect', 'Lead IA', 'Design Director'], certifications: ['NN/g Cert'] },
+                  salaries: { entry: { usd: 80000, ngn: 1500000 }, mid: { usd: 115000, ngn: 3900000 }, senior: { usd: 165000, ngn: 7200000 } } },
+                { id: 114, name: 'Financial Analyst', icon: 'wallet', growth: 16, mode: 'Reporting', skills: ['FP&A', 'SaaS Metrics', 'Excel'], description: 'Managing financial forecasting for tech.',
+                  roadmap: { steps: ['Staff Accountant', 'FP&A Analyst', 'Finance Manager', 'CFO'], certifications: ['CFA'] },
+                  salaries: { entry: { usd: 70000, ngn: 1500000 }, mid: { usd: 110000, ngn: 3600000 }, senior: { usd: 165000, ngn: 7500000 } } },
+                { id: 115, name: 'Partner Mgr', icon: 'handshake', growth: 22, mode: 'Channel Sales', skills: ['Partnerships', 'Alliances', 'BD'], description: 'Managing technical integrations.',
+                  roadmap: { steps: ['BD Assoc', 'Partner Manager', 'Director Alliances', 'VP Business Dev'], certifications: ['Alliance Prof'] },
+                  salaries: { entry: { usd: 85000, ngn: 1800000 }, mid: { usd: 130000, ngn: 4500000 }, senior: { usd: 190000, ngn: 9000000 } } }
+            ]
+        };
+
+        const stats = {
+            engineering: [
+                { label: 'Workforce Share', value: '57%', sub: 'Global Tech Sector', note: 'Technical engineering continues to command the largest portion of the tech workforce, despite efficiency gains from AI.' },
+                { label: 'AI Dominance', value: '45%', sub: 'ML Role Growth 2026', note: 'AI skillsets have moved from a niche specialty to a core requirement for nearly half of all new engineering roles.' },
+                { label: 'Remote Adoption', value: '82%', sub: 'Borderless Contracts', note: '8 out of 10 engineering jobs now support remote or borderless work, allowing talent to work for any company globally.' },
+                { label: 'Infrastructure', value: 'Native', sub: '90% Cloud-First Apps', note: 'The transition to cloud-native architecture (Serverless/Kubernetes) is now standard for almost all production software.' },
+                { label: 'Talent Gap', value: '1.2M', sub: 'Unfilled Senior Roles', note: 'The industry faces a massive shortage of experienced engineers who can architect complex, high-scale systems.' },
+                { label: 'Avg Increase', value: '12%', sub: 'YOY Salary Bump', note: 'Engineering salaries continue to grow faster than inflation, specifically in specialized fields like Security and MLOps.' }
+            ],
+            operations: [
+                { label: 'Workforce Share', value: '43%', sub: 'Support & Strategy', note: 'Strategic business roles are the backbone of tech scalability, ensuring engineering output aligns with revenue goals.' },
+                { label: 'RevOps Rise', value: '40%', sub: 'Operational Growth', note: 'Revenue Operations is the fastest growing non-coding field, focusing on data-driven pipeline efficiency.' },
+                { label: 'Privacy Focus', value: '35%', sub: 'Compliance Roles', note: 'Global data regulations like GDPR/CCPA have turned compliance from a legal hurdle into a major operational department.' },
+                { label: 'Success Growth', value: '38%', sub: 'Retention Focus', note: 'In a competitive market, Customer Success Ops is vital for maintaining existing revenue streams and reducing churn.' },
+                { label: 'Non-Tech Pay', value: '+$15k', sub: 'Data-Centric Premium', note: 'Operations roles that require high data literacy (SQL/Tableau) pay a significant premium over traditional management.' },
+                { label: 'Efficiency', value: 'High', sub: 'Automation Driven', note: 'Operations is becoming more technical as businesses automate repetitive administrative tasks to focus on strategy.' }
+            ]
+        };
+
+        let state = {
+            view: 'engineering',
+            currency: 'USD',
+            level: 'mid',
+            search: '',
+            growthFilter: 'all',
+            selectedId: null
+        };
+
+        function setView(v) {
+            state.view = v;
+            state.selectedId = null;
+            render();
+        }
+
+        function setCurrency(c) { state.currency = c; render(); }
+
+        function formatCurrency(val) {
+            return state.currency === 'NGN'
+                ? new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(val)
+                : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(val);
+        }
+
+        function resetFilters() {
+            state.search = '';
+            state.level = 'mid';
+            state.growthFilter = 'all';
+            document.getElementById('searchInput').value = '';
+            document.getElementById('levelFilter').value = 'mid';
+            document.getElementById('growthFilter').value = 'all';
+            render();
+        }
+
+        function openStatModal(index) {
+            const stat = stats[state.view][index];
+            const modal = document.getElementById('statModal');
+            const content = document.getElementById('modalContent');
+
+            content.innerHTML = `
+                <div class="mb-4 inline-flex p-3 bg-blue-50 text-blue-600 rounded-xl">
+                    <i data-lucide="info" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xs font-black text-blue-600 uppercase tracking-widest mb-1">${stat.label}</h3>
+                <p class="text-3xl font-black text-slate-900 mb-2">${stat.value}</p>
+                <p class="text-sm font-bold text-slate-500 mb-6">${stat.sub}</p>
+                <div class="h-px w-full bg-slate-100 mb-6"></div>
+                <p class="text-slate-600 leading-relaxed">${stat.note}</p>
+            `;
+
+            modal.style.display = 'flex';
+            lucide.createIcons();
+        }
+
+        function closeStatModal() {
+            document.getElementById('statModal').style.display = 'none';
+        }
+
+        document.getElementById('statModal').addEventListener('click', (e) => {
+            if(e.target.id === 'statModal') closeStatModal();
+        });
+
+        function render() {
+            const title = document.getElementById('viewTitle');
+            const desc = document.getElementById('viewDesc');
+            const statGrid = document.getElementById('statGrid');
+
+            title.innerText = state.view === 'engineering' ? "Technical Career Projections" : "Operations & Business Strategy";
+            desc.innerText = state.view === 'engineering' ? "Focusing on 15 core tech roles including AI Safety, Cloud, and SRE." : "Business roles focused on revenue, strategy, and operations (Non-Coding Paths).";
+
+            // Render Stats
+            statGrid.innerHTML = stats[state.view].map((s, index) => `
+                <div onclick="openStatModal(${index})" class="stat-card bg-white border border-slate-200 p-4 rounded-xl shadow-sm hover:border-blue-400 hover:shadow-md transition-all cursor-help group relative overflow-hidden">
+                    <div class="absolute top-3 right-3 info-icon text-slate-300">
+                        <i data-lucide="info" class="w-3 h-3"></i>
+                    </div>
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1 group-hover:text-blue-500">${s.label}</p>
+                    <p class="text-xl font-black text-slate-900">${s.value}</p>
+                    <p class="text-[10px] text-slate-500 mt-1 leading-tight">${s.sub}</p>
+                </div>
+            `).join('');
+
+            document.getElementById('nav-engineering').className = `px-4 py-2 rounded-lg text-sm font-bold transition-all ${state.view === 'engineering' ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500 hover:bg-slate-100'}`;
+            document.getElementById('nav-operations').className = `px-4 py-2 rounded-lg text-sm font-bold transition-all ${state.view === 'operations' ? 'bg-indigo-600 text-white shadow-lg' : 'text-slate-500 hover:bg-slate-100'}`;
+            document.getElementById('btn-USD').className = `px-3 py-1 text-xs font-bold rounded-md transition-all ${state.currency === 'USD' ? 'bg-white shadow-sm text-blue-600' : 'text-slate-400'}`;
+            document.getElementById('btn-NGN').className = `px-3 py-1 text-xs font-bold rounded-md transition-all ${state.currency === 'NGN' ? 'bg-white shadow-sm text-emerald-600' : 'text-slate-400'}`;
+
+            const filtered = data[state.view].filter(item => {
+                const searchMatch = item.name.toLowerCase().includes(state.search.toLowerCase());
+                const growthMatch = state.growthFilter === 'all' || item.growth >= 25;
+                return searchMatch && growthMatch;
+            });
+
+            const tbody = document.getElementById('dataTableBody');
+            tbody.innerHTML = filtered.map(item => {
+                const isSelected = state.selectedId === item.id;
+                const sal = item.salaries[state.level][state.currency.toLowerCase()];
+                return `
+                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer group ${isSelected ? 'bg-blue-50 border-l-4 border-blue-600' : ''}" onclick="state.selectedId = ${item.id}; render();">
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2 bg-slate-100 rounded-lg text-slate-500 transition-all"><i data-lucide="${item.icon}" class="w-4 h-4"></i></div>
+                                <span class="font-bold text-slate-800 text-sm tracking-tight">${item.name}</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="font-bold text-sm ${state.currency === 'NGN' ? 'text-emerald-700' : 'text-slate-700'}">${formatCurrency(sal)}</span>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-1.5">
+                                <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black tracking-tighter">+${item.growth}%</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 text-right text-[10px] text-slate-500 font-bold uppercase tracking-widest">${item.mode}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            const selected = data[state.view].find(i => i.id === state.selectedId);
+            const detailContainer = document.getElementById('detailSidebar');
+
+            if (selected) {
+                const curSal = selected.salaries[state.level][state.currency.toLowerCase()];
+                detailContainer.innerHTML = `
+                    <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 animate-in sticky top-24 overflow-y-auto max-h-[80vh] custom-scrollbar">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="p-4 bg-slate-900 rounded-2xl text-white shadow-lg"><i data-lucide="${selected.icon}" class="w-6 h-6"></i></div>
+                            <span class="text-[10px] font-black px-3 py-1 rounded-full bg-blue-50 text-blue-600 uppercase tracking-widest">${state.level} Level</span>
+                        </div>
+                        <h2 class="text-2xl font-black text-slate-900 mb-2 leading-tight">${selected.name}</h2>
+                        <p class="text-slate-500 text-sm mb-6 leading-relaxed">${selected.description}</p>
+
+                        <div class="space-y-6">
+                            <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Annual Compensation</p>
+                                <p class="text-3xl font-black text-slate-900">${formatCurrency(curSal)}</p>
+                            </div>
+
+                            <div class="pt-2">
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                    <i data-lucide="map" class="w-3 h-3"></i> Career Roadmap
+                                </p>
+                                <div class="relative roadmap-line space-y-4">
+                                    ${selected.roadmap.steps.map(step => `
+                                        <div class="flex gap-4 relative z-10">
+                                            <div class="w-4 h-4 rounded-full bg-blue-600 border-2 border-white shadow-sm mt-1 flex-shrink-0"></div>
+                                            <div class="text-sm font-semibold text-slate-700">${step}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <div>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Core Skills</p>
+                                <div class="flex flex-wrap gap-2">
+                                    ${selected.skills.map(s => `<span class="px-3 py-1 bg-white text-slate-700 text-xs font-bold rounded-lg border border-slate-200 shadow-sm">${s}</span>`).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                detailContainer.innerHTML = `
+                    <div class="h-full min-h-[400px] flex flex-col items-center justify-center bg-white border-2 border-dashed border-slate-200 rounded-xl p-8 text-center text-slate-400">
+                        <i data-lucide="mouse-pointer-2" class="w-12 h-12 mb-4 opacity-20"></i>
+                        <p class="font-medium text-sm">Select one of the 30 career paths to view its 2026 roadmap.</p>
+                    </div>
+                `;
+            }
+            lucide.createIcons();
+        }
+
+        document.getElementById('searchInput').addEventListener('input', e => { state.search = e.target.value; render(); });
+        document.getElementById('levelFilter').addEventListener('change', e => { state.level = e.target.value; render(); });
+        document.getElementById('growthFilter').addEventListener('change', e => { state.growthFilter = e.target.value; render(); });
+
+        window.onload = render;
+    </script>
+</body>
+</html>
