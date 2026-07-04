@@ -3,11 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 Tech Career Hub</title>
+    <title>Role & Salary Explorer</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ink: '#0F1B2D',
+                        signature: '#1E3A5F',
+                        'blue-lift': '#3D6491',
+                        paper: '#F7F5F0',
+                        amber: '#E0A951',
+                    },
+                    fontFamily: {
+                        serif: ['Fraunces', 'Georgia', 'serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap');
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .animate-in {
             animation: fadeIn 0.3s ease-out forwards;
@@ -18,7 +37,7 @@
         }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(15, 27, 45, 0.15); border-radius: 10px; }
 
         .roadmap-line::before {
             content: '';
@@ -27,7 +46,7 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: #e2e8f0;
+            background: rgba(15, 27, 45, 0.12);
             z-index: 0;
         }
 
@@ -35,23 +54,23 @@
         .info-icon { opacity: 0.4; transition: opacity 0.2s; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+<body class="bg-paper text-ink min-h-screen flex flex-col">
     <!-- Main Navigation Bar -->
-    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <nav class="bg-paper/90 backdrop-blur-md border-b border-ink/10 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 md:px-8">
             <div class="flex justify-between items-center h-16">
-                <div class="flex items-center gap-2 font-bold text-xl text-slate-800">
-                    <div class="bg-blue-600 p-1.5 rounded-lg text-white">
+                <div class="flex items-center gap-2 font-serif text-xl font-medium tracking-tight text-ink">
+                    <div class="bg-signature p-1.5 rounded-lg text-paper">
                         <i data-lucide="compass" class="w-6 h-6"></i>
                     </div>
-                    CareerPulse <span class="text-blue-600">2026</span>
+                    Role & Salary Explorer
                 </div>
                 <div class="flex items-center gap-4">
-                    <div class="flex bg-slate-100 p-1 rounded-lg border border-slate-200">
+                    <div class="flex bg-ink/5 p-1 rounded-lg border border-ink/10">
                         <button onclick="setCurrency('USD')" id="btn-USD" class="px-3 py-1 text-xs font-bold rounded-md transition-all">Global ($)</button>
                         <button onclick="setCurrency('NGN')" id="btn-NGN" class="px-3 py-1 text-xs font-bold rounded-md transition-all">Nigeria (₦)</button>
                     </div>
-                    <div class="h-6 w-[1px] bg-slate-200 hidden md:block"></div>
+                    <div class="h-6 w-[1px] bg-ink/10 hidden md:block"></div>
                     <div class="flex gap-1">
                         <button onclick="setView('engineering')" id="nav-engineering" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all">Engineering</button>
                         <button onclick="setView('operations')" id="nav-operations" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all">Operations & Business</button>
@@ -62,9 +81,9 @@
     </nav>
 
     <!-- Education-only disclaimer, slim and persistent, not a modal so it can't be missed and dismissed once. -->
-    <div class="bg-amber-50 border-b border-amber-100">
-        <div class="max-w-7xl mx-auto px-4 md:px-8 py-2 flex items-center gap-2 text-amber-800 text-xs font-medium text-center sm:text-left">
-            <i data-lucide="info" class="w-3.5 h-3.5 flex-shrink-0"></i>
+    <div class="bg-amber/10 border-b border-amber/25">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-2 flex items-center gap-2 text-ink/80 text-xs font-medium text-center sm:text-left">
+            <i data-lucide="info" class="w-3.5 h-3.5 flex-shrink-0 text-amber"></i>
             <span>For education purposes only. Figures are illustrative market reference points, not professional, career, or financial advice or a recommendation.</span>
         </div>
     </div>
@@ -74,8 +93,8 @@
         <header class="mb-8">
             <div class="flex flex-col gap-6">
                 <div class="max-w-2xl">
-                    <h1 id="viewTitle" class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight text-balance">Technical Career Projections</h1>
-                    <p id="viewDesc" class="text-slate-600 mt-2 text-base">Comprehensive role guide reflecting the 2026 market demands. Click stat boxes for context.</p>
+                    <h1 id="viewTitle" class="font-serif text-3xl md:text-4xl font-light text-ink tracking-tight text-balance">Technical Career Projections</h1>
+                    <p id="viewDesc" class="text-ink/70 mt-2 text-base">Comprehensive role guide reflecting the 2026 market demands. Click stat boxes for context.</p>
                 </div>
 
                 <!-- Stat Grid -->
@@ -86,25 +105,25 @@
         </header>
 
         <!-- Filters Section -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8 bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8 bg-paper p-4 rounded-xl shadow-sm border border-ink/10">
             <div class="relative">
-                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4"></i>
-                <input type="text" id="searchInput" placeholder="Search 30+ roles..." class="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-ink/40 w-4 h-4"></i>
+                <input type="text" id="searchInput" placeholder="Search 30+ roles..." class="w-full pl-10 pr-4 py-2 border border-ink/15 rounded-lg bg-paper focus:ring-2 focus:ring-blue-lift focus:outline-none text-sm">
             </div>
             <div>
-                <select id="levelFilter" class="w-full p-2 border border-slate-200 rounded-lg bg-white text-sm font-medium focus:ring-2 focus:ring-blue-500">
+                <select id="levelFilter" class="w-full p-2 border border-ink/15 rounded-lg bg-paper text-sm font-medium focus:ring-2 focus:ring-blue-lift">
                     <option value="entry">Entry Level</option>
                     <option value="mid" selected>Mid Level</option>
                     <option value="senior">Senior / Lead</option>
                 </select>
             </div>
             <div>
-                <select id="growthFilter" class="w-full p-2 border border-slate-200 rounded-lg bg-white text-sm font-medium focus:ring-2 focus:ring-blue-500">
+                <select id="growthFilter" class="w-full p-2 border border-ink/15 rounded-lg bg-paper text-sm font-medium focus:ring-2 focus:ring-blue-lift">
                     <option value="all">All Growth Rates</option>
                     <option value="high">High Growth (>25%)</option>
                 </select>
             </div>
-            <button onclick="resetFilters()" class="text-sm font-semibold text-blue-600 hover:bg-blue-50 rounded-lg py-2 transition-colors flex items-center gap-2 justify-center border border-transparent hover:border-blue-100">
+            <button onclick="resetFilters()" class="text-sm font-semibold text-blue-lift hover:bg-blue-lift/10 rounded-lg py-2 transition-colors flex items-center gap-2 justify-center border border-transparent hover:border-blue-lift/20">
                 <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset Filters
             </button>
         </div>
@@ -112,18 +131,18 @@
         <!-- Dashboard Layout -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div class="lg:col-span-2">
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-paper rounded-xl shadow-sm border border-ink/10 overflow-hidden">
                     <div class="overflow-x-auto custom-scrollbar">
                         <table class="w-full text-left border-collapse">
-                            <thead class="bg-slate-50 border-b border-slate-200">
+                            <thead class="bg-ink/5 border-b border-ink/10">
                                 <tr>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Role</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Salary (Annual)</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Growth</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Context</th>
+                                    <th class="px-6 py-4 text-xs font-bold text-ink/50 uppercase tracking-wider">Role</th>
+                                    <th class="px-6 py-4 text-xs font-bold text-ink/50 uppercase tracking-wider">Salary (Annual)</th>
+                                    <th class="px-6 py-4 text-xs font-bold text-ink/50 uppercase tracking-wider">Growth</th>
+                                    <th class="px-6 py-4 text-xs font-bold text-ink/50 uppercase tracking-wider text-right">Context</th>
                                 </tr>
                             </thead>
-                            <tbody id="dataTableBody" class="divide-y divide-slate-100">
+                            <tbody id="dataTableBody" class="divide-y divide-ink/10">
                                 <!-- Data populated by JS -->
                             </tbody>
                         </table>
@@ -139,26 +158,24 @@
     </div>
 
     <!-- Modal for Stat Details -->
-    <div id="statModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] hidden items-center justify-center p-4">
-        <div class="bg-white w-full max-w-md rounded-2xl p-8 shadow-2xl animate-in relative">
-            <button onclick="closeStatModal()" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600">
+    <div id="statModal" class="fixed inset-0 bg-ink/60 backdrop-blur-sm z-[100] hidden items-center justify-center p-4">
+        <div class="bg-paper w-full max-w-md rounded-2xl p-8 shadow-2xl animate-in relative">
+            <button onclick="closeStatModal()" class="absolute top-4 right-4 p-2 text-ink/40 hover:text-ink/70">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
             <div id="modalContent"></div>
         </div>
     </div>
 
-    <footer class="bg-slate-100 border-t border-slate-200 py-8 px-4 md:px-8 mt-12">
-        <div class="max-w-7xl mx-auto">
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row gap-6 items-start">
-                <div class="p-3 bg-amber-50 text-amber-600 rounded-xl">
-                    <i data-lucide="info" class="w-6 h-6"></i>
-                </div>
-                <div class="text-sm text-slate-600 leading-relaxed">
-                    <h4 class="font-bold text-slate-900 mb-2">Ecosystem Context & Methodology</h4>
-                    <p>This extended dashboard covers 30 roles across engineering and operations. The technical stats boxes reflect key 2026 industry shifts: the absolute dominance of AI skillsets, the standardization of cloud-native architecture, and the maturation of borderless remote hiring models.</p>
-                    <p class="mt-3 font-semibold text-slate-700">This page is strictly for education. Nothing here is professional, career, or financial advice, or a recommendation, and it shouldn't be the sole basis for a compensation, hiring, or career decision. Actual pay varies by company, location, and experience, so verify current figures before acting on them.</p>
-                </div>
+    <footer class="bg-signature text-paper py-10 px-4 md:px-8 mt-12">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 items-start">
+            <div class="p-3 bg-paper/10 text-amber rounded-xl">
+                <i data-lucide="info" class="w-6 h-6"></i>
+            </div>
+            <div class="text-sm text-paper/70 leading-relaxed">
+                <h4 class="font-serif text-base font-medium text-paper mb-2">Ecosystem Context & Methodology</h4>
+                <p>This extended dashboard covers 30 roles across engineering and operations. The technical stats boxes reflect key 2026 industry shifts: the absolute dominance of AI skillsets, the standardization of cloud-native architecture, and the maturation of borderless remote hiring models.</p>
+                <p class="mt-3 font-semibold text-paper">This page is strictly for education. Nothing here is professional, career, or financial advice, or a recommendation, and it shouldn't be the sole basis for a compensation, hiring, or career decision. Actual pay varies by company, location, and experience, so verify current figures before acting on them.</p>
             </div>
         </div>
     </footer>
@@ -319,14 +336,14 @@
             const content = document.getElementById('modalContent');
 
             content.innerHTML = `
-                <div class="mb-4 inline-flex p-3 bg-blue-50 text-blue-600 rounded-xl">
+                <div class="mb-4 inline-flex p-3 bg-signature/10 text-signature rounded-xl">
                     <i data-lucide="info" class="w-6 h-6"></i>
                 </div>
-                <h3 class="text-xs font-black text-blue-600 uppercase tracking-widest mb-1">${stat.label}</h3>
-                <p class="text-3xl font-black text-slate-900 mb-2">${stat.value}</p>
-                <p class="text-sm font-bold text-slate-500 mb-6">${stat.sub}</p>
-                <div class="h-px w-full bg-slate-100 mb-6"></div>
-                <p class="text-slate-600 leading-relaxed">${stat.note}</p>
+                <h3 class="text-xs font-black text-signature uppercase tracking-widest mb-1">${stat.label}</h3>
+                <p class="text-3xl font-black text-ink mb-2">${stat.value}</p>
+                <p class="text-sm font-bold text-ink/50 mb-6">${stat.sub}</p>
+                <div class="h-px w-full bg-ink/10 mb-6"></div>
+                <p class="text-ink/70 leading-relaxed">${stat.note}</p>
             `;
 
             modal.style.display = 'flex';
@@ -351,20 +368,20 @@
 
             // Render Stats
             statGrid.innerHTML = stats[state.view].map((s, index) => `
-                <div onclick="openStatModal(${index})" class="stat-card bg-white border border-slate-200 p-4 rounded-xl shadow-sm hover:border-blue-400 hover:shadow-md transition-all cursor-help group relative overflow-hidden">
-                    <div class="absolute top-3 right-3 info-icon text-slate-300">
+                <div onclick="openStatModal(${index})" class="stat-card bg-paper border border-ink/10 p-4 rounded-xl shadow-sm hover:border-blue-lift hover:shadow-md transition-all cursor-help group relative overflow-hidden">
+                    <div class="absolute top-3 right-3 info-icon text-ink/20">
                         <i data-lucide="info" class="w-3 h-3"></i>
                     </div>
-                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1 group-hover:text-blue-500">${s.label}</p>
-                    <p class="text-xl font-black text-slate-900">${s.value}</p>
-                    <p class="text-[10px] text-slate-500 mt-1 leading-tight">${s.sub}</p>
+                    <p class="text-[10px] font-black text-ink/40 uppercase tracking-widest leading-none mb-1 group-hover:text-blue-lift">${s.label}</p>
+                    <p class="text-xl font-black text-ink">${s.value}</p>
+                    <p class="text-[10px] text-ink/50 mt-1 leading-tight">${s.sub}</p>
                 </div>
             `).join('');
 
-            document.getElementById('nav-engineering').className = `px-4 py-2 rounded-lg text-sm font-bold transition-all ${state.view === 'engineering' ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500 hover:bg-slate-100'}`;
-            document.getElementById('nav-operations').className = `px-4 py-2 rounded-lg text-sm font-bold transition-all ${state.view === 'operations' ? 'bg-indigo-600 text-white shadow-lg' : 'text-slate-500 hover:bg-slate-100'}`;
-            document.getElementById('btn-USD').className = `px-3 py-1 text-xs font-bold rounded-md transition-all ${state.currency === 'USD' ? 'bg-white shadow-sm text-blue-600' : 'text-slate-400'}`;
-            document.getElementById('btn-NGN').className = `px-3 py-1 text-xs font-bold rounded-md transition-all ${state.currency === 'NGN' ? 'bg-white shadow-sm text-emerald-600' : 'text-slate-400'}`;
+            document.getElementById('nav-engineering').className = `px-4 py-2 rounded-lg text-sm font-bold transition-all ${state.view === 'engineering' ? 'bg-signature text-paper shadow-lg' : 'text-ink/50 hover:bg-ink/5'}`;
+            document.getElementById('nav-operations').className = `px-4 py-2 rounded-lg text-sm font-bold transition-all ${state.view === 'operations' ? 'bg-blue-lift text-paper shadow-lg' : 'text-ink/50 hover:bg-ink/5'}`;
+            document.getElementById('btn-USD').className = `px-3 py-1 text-xs font-bold rounded-md transition-all ${state.currency === 'USD' ? 'bg-paper shadow-sm text-signature' : 'text-ink/40'}`;
+            document.getElementById('btn-NGN').className = `px-3 py-1 text-xs font-bold rounded-md transition-all ${state.currency === 'NGN' ? 'bg-paper shadow-sm text-signature' : 'text-ink/40'}`;
 
             const filtered = data[state.view].filter(item => {
                 const searchMatch = item.name.toLowerCase().includes(state.search.toLowerCase());
@@ -377,22 +394,22 @@
                 const isSelected = state.selectedId === item.id;
                 const sal = item.salaries[state.level][state.currency.toLowerCase()];
                 return `
-                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer group ${isSelected ? 'bg-blue-50 border-l-4 border-blue-600' : ''}" onclick="state.selectedId = ${item.id}; render();">
+                    <tr class="hover:bg-ink/5 transition-colors cursor-pointer group ${isSelected ? 'bg-blue-lift/10 border-l-4 border-signature' : ''}" onclick="state.selectedId = ${item.id}; render();">
                         <td class="px-6 py-4">
                             <div class="flex items-center gap-3">
-                                <div class="p-2 bg-slate-100 rounded-lg text-slate-500 transition-all"><i data-lucide="${item.icon}" class="w-4 h-4"></i></div>
-                                <span class="font-bold text-slate-800 text-sm tracking-tight">${item.name}</span>
+                                <div class="p-2 bg-ink/5 rounded-lg text-ink/60 transition-all"><i data-lucide="${item.icon}" class="w-4 h-4"></i></div>
+                                <span class="font-bold text-ink text-sm tracking-tight">${item.name}</span>
                             </div>
                         </td>
                         <td class="px-6 py-4">
-                            <span class="font-bold text-sm ${state.currency === 'NGN' ? 'text-emerald-700' : 'text-slate-700'}">${formatCurrency(sal)}</span>
+                            <span class="font-bold text-sm text-ink">${formatCurrency(sal)}</span>
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex items-center gap-1.5">
-                                <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black tracking-tighter">+${item.growth}%</span>
+                                <span class="px-2 py-0.5 bg-ink/5 text-ink/60 rounded-full text-[10px] font-black tracking-tighter">+${item.growth}%</span>
                             </div>
                         </td>
-                        <td class="px-6 py-4 text-right text-[10px] text-slate-500 font-bold uppercase tracking-widest">${item.mode}</td>
+                        <td class="px-6 py-4 text-right text-[10px] text-ink/50 font-bold uppercase tracking-widest">${item.mode}</td>
                     </tr>
                 `;
             }).join('');
@@ -403,38 +420,38 @@
             if (selected) {
                 const curSal = selected.salaries[state.level][state.currency.toLowerCase()];
                 detailContainer.innerHTML = `
-                    <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 animate-in sticky top-24 overflow-y-auto max-h-[80vh] custom-scrollbar">
+                    <div class="bg-paper rounded-2xl shadow-xl border border-ink/10 p-8 animate-in sticky top-24 overflow-y-auto max-h-[80vh] custom-scrollbar">
                         <div class="flex justify-between items-start mb-6">
-                            <div class="p-4 bg-slate-900 rounded-2xl text-white shadow-lg"><i data-lucide="${selected.icon}" class="w-6 h-6"></i></div>
-                            <span class="text-[10px] font-black px-3 py-1 rounded-full bg-blue-50 text-blue-600 uppercase tracking-widest">${state.level} Level</span>
+                            <div class="p-4 bg-ink rounded-2xl text-paper shadow-lg"><i data-lucide="${selected.icon}" class="w-6 h-6"></i></div>
+                            <span class="text-[10px] font-black px-3 py-1 rounded-full bg-signature/10 text-signature uppercase tracking-widest">${state.level} Level</span>
                         </div>
-                        <h2 class="text-2xl font-black text-slate-900 mb-2 leading-tight">${selected.name}</h2>
-                        <p class="text-slate-500 text-sm mb-6 leading-relaxed">${selected.description}</p>
+                        <h2 class="font-serif text-2xl font-medium text-ink mb-2 leading-tight">${selected.name}</h2>
+                        <p class="text-ink/60 text-sm mb-6 leading-relaxed">${selected.description}</p>
 
                         <div class="space-y-6">
-                            <div class="p-5 bg-slate-50 rounded-2xl border border-slate-100">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Annual Compensation</p>
-                                <p class="text-3xl font-black text-slate-900">${formatCurrency(curSal)}</p>
+                            <div class="p-5 bg-ink/5 rounded-2xl border border-ink/10">
+                                <p class="text-[10px] font-bold text-ink/40 uppercase tracking-widest mb-1">Annual Compensation</p>
+                                <p class="text-3xl font-black text-ink">${formatCurrency(curSal)}</p>
                             </div>
 
                             <div class="pt-2">
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <p class="text-[10px] font-bold text-ink/40 uppercase tracking-widest mb-4 flex items-center gap-2">
                                     <i data-lucide="map" class="w-3 h-3"></i> Career Roadmap
                                 </p>
                                 <div class="relative roadmap-line space-y-4">
                                     ${selected.roadmap.steps.map(step => `
                                         <div class="flex gap-4 relative z-10">
-                                            <div class="w-4 h-4 rounded-full bg-blue-600 border-2 border-white shadow-sm mt-1 flex-shrink-0"></div>
-                                            <div class="text-sm font-semibold text-slate-700">${step}</div>
+                                            <div class="w-4 h-4 rounded-full bg-signature border-2 border-paper shadow-sm mt-1 flex-shrink-0"></div>
+                                            <div class="text-sm font-semibold text-ink/80">${step}</div>
                                         </div>
                                     `).join('')}
                                 </div>
                             </div>
 
                             <div>
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Core Skills</p>
+                                <p class="text-[10px] font-bold text-ink/40 uppercase tracking-widest mb-3">Core Skills</p>
                                 <div class="flex flex-wrap gap-2">
-                                    ${selected.skills.map(s => `<span class="px-3 py-1 bg-white text-slate-700 text-xs font-bold rounded-lg border border-slate-200 shadow-sm">${s}</span>`).join('')}
+                                    ${selected.skills.map(s => `<span class="px-3 py-1 bg-paper text-ink/80 text-xs font-bold rounded-lg border border-ink/15 shadow-sm">${s}</span>`).join('')}
                                 </div>
                             </div>
                         </div>
@@ -442,7 +459,7 @@
                 `;
             } else {
                 detailContainer.innerHTML = `
-                    <div class="h-full min-h-[400px] flex flex-col items-center justify-center bg-white border-2 border-dashed border-slate-200 rounded-xl p-8 text-center text-slate-400">
+                    <div class="h-full min-h-[400px] flex flex-col items-center justify-center bg-paper border-2 border-dashed border-ink/15 rounded-xl p-8 text-center text-ink/30">
                         <i data-lucide="mouse-pointer-2" class="w-12 h-12 mb-4 opacity-20"></i>
                         <p class="font-medium text-sm">Select one of the 30 career paths to view its 2026 roadmap.</p>
                     </div>
