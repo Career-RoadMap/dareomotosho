@@ -20,6 +20,17 @@ export const metadata: Metadata = {
   },
 };
 
+// Warm up the TLS handshake for the origins the client talks to right after
+// hydration: Supabase (realtime questions/reactions) and YouTube thumbnails.
+const supabaseOrigin = (() => {
+  try {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    return url ? new URL(url).origin : null;
+  } catch {
+    return null;
+  }
+})();
+
 export default function RootLayout({
   children,
 }: {
@@ -27,6 +38,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+      <head>
+        {supabaseOrigin ? (
+          <link rel="preconnect" href={supabaseOrigin} crossOrigin="anonymous" />
+        ) : null}
+        <link rel="preconnect" href="https://i.ytimg.com" />
+      </head>
       <body className="min-h-screen antialiased">
         <a
           href="#main"
