@@ -15,8 +15,9 @@ export const metadata: Metadata = {
     "Case studies, interview prep, articles, and downloads, plus community questions answered in the open, real decisions and real answers, open for everyone.",
 };
 
-// Always reflect the live library when Supabase is configured.
-export const dynamic = "force-dynamic";
+// Serve cached HTML instantly; re-render in the background at most once a
+// minute so new library entries still appear promptly.
+export const revalidate = 60;
 
 export default async function ResourcesPage() {
   const entries = await getEntries();

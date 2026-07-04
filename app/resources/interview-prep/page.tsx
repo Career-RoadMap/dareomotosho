@@ -9,7 +9,9 @@ export const metadata: Metadata = {
   description: entryTypeMeta.course_qa.blurb,
 };
 
-export const dynamic = "force-dynamic";
+// Serve cached HTML instantly; re-render in the background at most once a
+// minute so new library entries still appear promptly.
+export const revalidate = 60;
 
 export default async function InterviewPrepPage() {
   const entries = await getEntries();

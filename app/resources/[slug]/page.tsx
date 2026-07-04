@@ -10,7 +10,9 @@ import { entryTypeMeta, getEntry, levelLabels, topicLabel } from "@/lib/library"
 
 type Params = { slug: string };
 
-export const dynamic = "force-dynamic";
+// Each entry is rendered on first visit, then served from cache and
+// re-rendered in the background at most once a minute.
+export const revalidate = 60;
 
 export async function generateMetadata({
   params,

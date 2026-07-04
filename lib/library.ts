@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
 /**
@@ -187,8 +188,11 @@ export const seedEntries: Entry[] = [
 export const topics = Array.from(new Set(seedEntries.map((e) => e.topic)));
 export const levels: Level[] = ["newcomer", "practitioner", "executive"];
 
-/** Fetch all published entries (newest first). Falls back to seed. */
-export async function getEntries(): Promise<Entry[]> {
+/**
+ * Fetch all published entries (newest first). Falls back to seed.
+ * Wrapped in React cache() so one render pass hits Supabase at most once.
+ */
+export const getEntries = cache(async (): Promise<Entry[]> => {
   if (isSupabaseConfigured && supabase) {
     const { data, error } = await supabase
       .from("entries")
@@ -209,10 +213,13 @@ export async function getEntries(): Promise<Entry[]> {
     }
   }
   return seedEntries.filter((e) => e.published);
-}
+});
 
-/** Fetch a single published entry by slug. Falls back to seed. */
-export async function getEntry(slug: string): Promise<Entry | null> {
+/**
+ * Fetch a single published entry by slug. Falls back to seed.
+ * cache() dedupes the generateMetadata + page calls into one query.
+ */
+export const getEntry = cache(async (slug: string): Promise<Entry | null> => {
   if (isSupabaseConfigured && supabase) {
     const { data } = await supabase
       .from("entries")
@@ -223,4 +230,4 @@ export async function getEntry(slug: string): Promise<Entry | null> {
     if (data) return data as Entry;
   }
   return seedEntries.find((e) => e.slug === slug && e.published) ?? null;
-}
+});
