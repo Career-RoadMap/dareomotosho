@@ -141,6 +141,7 @@ export default function EntryInteractions({ entryId }: { entryId: string }) {
       <form onSubmit={submitComment} className="mt-8 max-w-xl space-y-3">
         <input
           type="text"
+          maxLength={160}
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
           placeholder="Your name (optional)"
@@ -151,6 +152,7 @@ export default function EntryInteractions({ entryId }: { entryId: string }) {
           onChange={(e) => setBody(e.target.value)}
           rows={3}
           required
+          maxLength={4000}
           placeholder="Add to the conversation…"
           className="w-full rounded-lg border border-ink/15 bg-paper px-4 py-3 text-body text-ink outline-none transition-colors duration-300 ease-calm placeholder:text-ink/35 focus:border-blue-lift"
         />

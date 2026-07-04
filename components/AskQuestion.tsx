@@ -62,6 +62,7 @@ export default function AskQuestion() {
           id="q-title"
           type="text"
           required
+          maxLength={300}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="What would you like to know?"
@@ -75,6 +76,7 @@ export default function AskQuestion() {
         <input
           id="q-asker"
           type="text"
+          maxLength={120}
           value={asker}
           onChange={(e) => setAsker(e.target.value)}
           placeholder="a learner, or your name"

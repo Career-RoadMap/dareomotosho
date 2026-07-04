@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Role & Salary Explorer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Pinned versions: an unpinned "latest" CDN script is a supply-chain
+         risk, whatever the CDN serves tomorrow would run on this page. -->
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -24,7 +26,7 @@
             },
         };
     </script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap');
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
