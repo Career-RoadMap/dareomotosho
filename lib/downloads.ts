@@ -45,4 +45,21 @@ export const downloadKinds: DownloadKind[] = ["textbook", "slides", "clip"];
  *   { title: "AWS Well-Architected, in plain English", kind: "textbook",
  *     file: "/downloads/aws-well-architected.pdf", size: "2.4 MB" },
  */
-export const downloads: Download[] = [];
+export const downloads: Download[] = [
+  {
+    title: "Breaking Into Cloud and Cybersecurity While AI Writes the Code",
+    description:
+      "What employers still hire humans to do: the durable work of specifying, verifying, and being accountable for what gets built, once AI has commoditized producing it.",
+    kind: "textbook",
+    file: "/downloads/breaking-into-cloud-and-cybersecurity-while-ai-writes-the-code.pdf",
+    size: "281 KB",
+  },
+  {
+    title: "Well-Architected Framework for Cloud Computing",
+    description:
+      "The first principles, trade-offs, and governance behind sound cloud architecture, structured as a guide for the decisions every strategy and engineering call comes back to.",
+    kind: "textbook",
+    file: "/downloads/well-architected-framework-cloud-computing.pdf",
+    size: "613 KB",
+  },
+];

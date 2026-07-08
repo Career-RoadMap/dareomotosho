@@ -29,8 +29,8 @@ export const pageBanners = {
 /** Landing-page banner image. */
 export const bannerSrc = pageBanners.home;
 
-/** About-page portrait placeholder, drop the real photo in over this file. */
-export const aboutPortrait = "/portraits/dare.svg";
+/** About-page portrait (web-optimized JPEG, 4:5). */
+export const aboutPortrait = "/portraits/dare.jpg";
 
 export type NavItem = {
   href: string;
