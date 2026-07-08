@@ -36,7 +36,6 @@ export default function AboutPage() {
               alt="Dare Omotosho"
               className="aspect-[4/5] w-full object-cover"
             />
-            <span className="kicker absolute left-5 top-5 text-amber">Dare Omotosho</span>
           </div>
         }
       />
