@@ -22,7 +22,22 @@ export async function generateMetadata({
   const { slug } = await params;
   const entry = await getEntry(slug);
   if (!entry) return { title: "Not found" };
-  return { title: entry.title, description: entry.summary };
+  return {
+    title: entry.title,
+    description: entry.summary,
+    openGraph: {
+      title: entry.title,
+      description: entry.summary,
+      type: "article",
+      publishedTime: entry.created_at,
+      modifiedTime: entry.updated_at,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: entry.title,
+      description: entry.summary,
+    },
+  };
 }
 
 export default async function EntryPage({

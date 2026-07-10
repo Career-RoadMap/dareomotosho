@@ -3,6 +3,15 @@
  * Kept in one place so nav order and byline never drift between header/footer.
  */
 
+/**
+ * Canonical site origin. Used for metadataBase, the sitemap, robots.txt,
+ * the RSS feed, and JSON-LD. Override with NEXT_PUBLIC_SITE_URL when the
+ * domain changes (e.g. previews).
+ */
+export const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
+  "https://dareomotosho.com";
+
 export const brand = {
   name: "Dare Omotosho",
   byline: "Builder · Mentor · Boardroom Translator",
