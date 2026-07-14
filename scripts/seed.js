@@ -435,15 +435,17 @@ async function main() {
 
   // Pull existing slugs so duplicates are skipped.
   let existingSlugs = new Set();
+  const existingPublished = new Map();
   let supabase = null;
   if (SUPABASE_URL && SUPABASE_KEY) {
     try {
       supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
         auth: { persistSession: false, autoRefreshToken: false },
       });
-      const { data, error } = await supabase.from("entries").select("slug");
+      const { data, error } = await supabase.from("entries").select("slug,published");
       if (error) throw error;
       existingSlugs = new Set((data || []).map((r) => r.slug));
+      for (const r of data || []) existingPublished.set(r.slug, r.published);
       console.log(
         `Existing rows: ${existingSlugs.size} (${
           UPDATE ? "matching slugs will be updated" : "their slugs will be skipped"
@@ -504,7 +506,14 @@ async function main() {
         // Let the DB keep created_at and the trigger refresh updated_at.
         delete entry.created_at;
         delete entry.updated_at;
-        if (exists) updated++;
+        if (exists) {
+          updated++;
+          // Never clobber a manual publish/unpublish made in Supabase:
+          // content updates flow through, the published switch stays put.
+          if (existingPublished.has(entry.slug)) {
+            entry.published = existingPublished.get(entry.slug);
+          }
+        }
       }
       entries.push(entry);
       console.log(

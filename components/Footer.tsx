@@ -97,7 +97,7 @@ export default function Footer() {
             <Link href="/cookies" className="link-amber !text-paper/70">
               Cookies
             </Link>
-            <p>{brand.oneLine}</p>
+            <p className="text-xs text-paper/40">{brand.oneLine}</p>
           </div>
         </div>
       </div>

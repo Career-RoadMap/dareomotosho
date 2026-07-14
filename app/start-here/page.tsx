@@ -154,7 +154,8 @@ export default function StartHerePage() {
               Explore salary ranges
             </a>
           </div>
-          <p className="mt-4 max-w-prose text-small text-ink/50">
+          {/* One line on desktop; wraps (never clips) on smaller screens. */}
+          <p className="mt-4 text-xs text-ink/50 lg:whitespace-nowrap">
             Educational reference only, not professional, career, or financial
             advice or a recommendation. Actual pay varies by company, location,
             and experience.
@@ -162,13 +163,18 @@ export default function StartHerePage() {
         </Reveal>
       </section>
 
-      {/* ── Why explainers. */}
+      {/* ── Why explainers, boxed, easing up in sequence. */}
       <section className="container-content py-16 sm:py-20">
-        <div className="grid gap-8 sm:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-3">
           {whyExplainers.map((w, i) => (
-            <Reveal key={w.title} delay={i * 90}>
-              <h3 className="font-serif text-h2 font-light text-signature">{w.title}</h3>
-              <p className="mt-4 text-body text-ink">{w.body}</p>
+            <Reveal key={w.title} delay={i * 140}>
+              <div className="group h-full rounded-2xl border border-ink/10 bg-paper p-8 transition-all duration-300 ease-calm hover:-translate-y-1 hover:border-amber/50 hover:shadow-lg hover:shadow-ink/10 sm:p-10">
+                <span className="block h-px w-10 bg-amber transition-all duration-300 ease-calm group-hover:w-16" aria-hidden />
+                <h3 className="mt-6 font-serif text-h2 font-light text-signature">
+                  {w.title}
+                </h3>
+                <p className="mt-4 text-body text-ink">{w.body}</p>
+              </div>
             </Reveal>
           ))}
         </div>
