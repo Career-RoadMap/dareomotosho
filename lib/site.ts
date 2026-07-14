@@ -57,6 +57,7 @@ export const bookingUrl = "https://calendar.app.google/Nv7QaxGCdmkTXd3S8";
 export const nav: NavItem[] = [
   { href: "/work", label: "Work" },
   { href: "/start-here", label: "Learn" },
+  { href: "/path-finder", label: "Path Finder" },
   {
     href: "/resources",
     label: "Resources",

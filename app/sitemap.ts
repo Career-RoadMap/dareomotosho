@@ -13,6 +13,7 @@ const staticRoutes = [
   "/speaking",
   "/book",
   "/start-here",
+  "/path-finder",
   "/resources",
   "/resources/articles",
   "/resources/case-studies",
