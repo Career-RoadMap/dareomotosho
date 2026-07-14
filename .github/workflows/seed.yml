@@ -1,8 +1,9 @@
 name: Seed Supabase
 
 # Auto-seed the Supabase `entries` table from the content folders on every
-# push to main. The seed script skips anything already in the table, so
-# re-runs are safe and idempotent.
+# push to main. Runs in --update mode: new files insert, edited files update
+# their existing rows (matched by slug). Manual publish/unpublish flips made
+# directly in Supabase are preserved across runs.
 on:
   push:
     branches: [main]
@@ -43,4 +44,4 @@ jobs:
           # Used only here in CI — never expose it to the browser.
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-        run: node scripts/seed.js
+        run: node scripts/seed.js --update
