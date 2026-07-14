@@ -1,11 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Home banner placeholder">
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="">
+  <defs>
+    <radialGradient id="hg1" cx="78%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#3D6491" stop-opacity="0.55"/>
+      <stop offset="60%" stop-color="#1E3A5F" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#0F1B2D" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="hg2" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1E3A5F" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#0F1B2D" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
   <rect width="1600" height="900" fill="#0F1B2D"/>
-  <rect x="32" y="32" width="1536" height="836" fill="none" stroke="#E0A951" stroke-opacity="0.18" stroke-width="2" stroke-dasharray="10 14"/>
-  <g opacity="0.16" fill="none" stroke="#3D6491" stroke-width="2">
-    <circle cx="1320" cy="240" r="120"/>
-    <circle cx="1320" cy="240" r="70"/>
-    <line x1="1200" y1="240" x2="1440" y2="240"/>
-    <line x1="1320" y1="120" x2="1320" y2="360"/>
+  <rect width="1600" height="900" fill="url(#hg1)"/>
+  <rect width="1600" height="900" fill="url(#hg2)"/>
+  <!-- constellation: nodes and connections, systems meeting -->
+  <g stroke="#3D6491" stroke-width="1.5" opacity="0.55" fill="none">
+    <path d="M180 700 L420 560 L700 640 L980 460 L1240 540 L1460 380"/>
+    <path d="M420 560 L520 360 L820 300 L980 460"/>
+    <path d="M820 300 L1120 220 L1240 540"/>
+    <path d="M520 360 L700 640"/>
   </g>
-  <text x="1540" y="852" text-anchor="end" font-family="Arial, sans-serif" font-size="20" letter-spacing="2" fill="#F7F5F0" fill-opacity="0.22">Home banner placeholder · /banners/home.svg</text>
+  <g fill="#3D6491" opacity="0.9">
+    <circle cx="180" cy="700" r="5"/><circle cx="420" cy="560" r="7"/>
+    <circle cx="700" cy="640" r="5"/><circle cx="520" cy="360" r="5"/>
+    <circle cx="820" cy="300" r="7"/><circle cx="1120" cy="220" r="5"/>
+    <circle cx="1240" cy="540" r="6"/><circle cx="1460" cy="380" r="5"/>
+  </g>
+  <circle cx="980" cy="460" r="9" fill="#E0A951" opacity="0.95"/>
+  <circle cx="980" cy="460" r="26" fill="none" stroke="#E0A951" stroke-opacity="0.4" stroke-width="1.5"/>
+  <circle cx="980" cy="460" r="52" fill="none" stroke="#E0A951" stroke-opacity="0.15" stroke-width="1.5"/>
 </svg>

@@ -19,11 +19,17 @@ export default function CommunityQuestionsSidebar({ initial }: { initial: Entry[
 
   // Nav links to /resources#community from other pages; Next's router doesn't
   // reliably scroll to a hash target that mounts after client hydration, so
-  // do it ourselves once this section is actually in the DOM.
+  // do it ourselves once this section is actually in the DOM, and again on
+  // every subsequent in-page hash change (the banner button).
   useEffect(() => {
-    if (window.location.hash === "#community") {
-      asideRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    const scrollToSelf = () => {
+      if (window.location.hash === "#community") {
+        asideRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
+    scrollToSelf();
+    window.addEventListener("hashchange", scrollToSelf);
+    return () => window.removeEventListener("hashchange", scrollToSelf);
   }, []);
 
   useEffect(() => {

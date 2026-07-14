@@ -32,7 +32,7 @@ export default async function InterviewPrepPage() {
         <p className="mt-4 text-body text-ink/70">{entryTypeMeta.course_qa.blurb}</p>
       </Reveal>
       <div className="mt-10">
-        <FilterableCollection items={items} />
+        <FilterableCollection items={items} variant="accordion" />
       </div>
     </div>
   );

@@ -1,6 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 48" role="img" aria-label="DigitalOcean">
-  <!-- PLACEHOLDER wordmark — replace with the official DigitalOcean logo asset. -->
-  <rect x="0.5" y="0.5" width="179" height="47" rx="10" fill="none" stroke="#0F1B2D" stroke-opacity="0.12"/>
-  <circle cx="24" cy="24" r="7" fill="none" stroke="#0F1B2D" stroke-opacity="0.35" stroke-width="1.5"/>
-  <text x="42" y="29" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="15" font-weight="500" letter-spacing="0.2" fill="#0F1B2D">DigitalOcean</text>
-</svg>
+<svg fill="#0F1B2D" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>DigitalOcean</title><path d="M12.04 0C5.408-.02.005 5.37.005 11.992h4.638c0-4.923 4.882-8.731 10.064-6.855a6.95 6.95 0 014.147 4.148c1.889 5.177-1.924 10.055-6.84 10.064v-4.61H7.391v4.623h4.61V24c7.86 0 13.967-7.588 11.397-15.83-1.115-3.59-3.985-6.446-7.575-7.575A12.8 12.8 0 0012.039 0zM7.39 19.362H3.828v3.564H7.39zm-3.563 0v-2.978H.85v2.978z"/></svg>

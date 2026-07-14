@@ -3,18 +3,22 @@
 import { useMemo, useState } from "react";
 import { topicLabel, type Entry } from "@/lib/library";
 import CollectionList from "./CollectionList";
+import QaAccordion from "./QaAccordion";
 
 /**
- * Search + topic filter on top of a CollectionList, for the Case Studies,
- * Interview Prep, and Articles collection pages.
+ * Search + topic filter on top of a collection, for the Case Studies,
+ * Interview Prep, and Articles collection pages. `variant="accordion"`
+ * renders inline Q&A disclosures instead of link-out cards.
  */
 export default function FilterableCollection({
   items,
   wide = false,
+  variant = "cards",
   emptyMessage = "No entries match your search.",
 }: {
   items: Entry[];
   wide?: boolean;
+  variant?: "cards" | "accordion";
   emptyMessage?: string;
 }) {
   const [query, setQuery] = useState("");
@@ -65,6 +69,8 @@ export default function FilterableCollection({
       <div className="mt-8">
         {filtered.length === 0 && items.length > 0 ? (
           <p className="text-small text-ink/50">{emptyMessage}</p>
+        ) : variant === "accordion" ? (
+          <QaAccordion items={filtered} />
         ) : (
           <CollectionList items={filtered} wide={wide} />
         )}
