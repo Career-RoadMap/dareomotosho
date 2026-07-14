@@ -36,16 +36,19 @@ export default function Footer() {
                   YouTube
                 </a>
               </li>
-              <li>
-                <a
-                  href={social.x}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="link-quiet !text-paper"
-                >
-                  X / Twitter
-                </a>
-              </li>
+              {/* Hidden until the real handle replaces the placeholder in lib/site. */}
+              {!social.x.includes("your-handle") ? (
+                <li>
+                  <a
+                    href={social.x}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="link-quiet !text-paper"
+                  >
+                    X / Twitter
+                  </a>
+                </li>
+              ) : null}
               <li>
                 <a
                   href={social.linkedin}
@@ -56,11 +59,12 @@ export default function Footer() {
                   LinkedIn
                 </a>
               </li>
+              <li>
+                <a href="/feed.xml" className="link-quiet !text-paper">
+                  RSS feed
+                </a>
+              </li>
             </ul>
-            {/* Seam: latest YouTube video + cached X/LinkedIn embeds mount here. */}
-            <p className="mt-5 text-small text-paper/45">
-              Live feed mounts here once wired to the channel.
-            </p>
           </div>
 
           <nav aria-label="Footer">

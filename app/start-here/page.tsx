@@ -61,13 +61,13 @@ export default function StartHerePage() {
       <PageBanner
         image={pageBanners.learn}
         kicker="New to cloud"
-        title="Start at the beginning. In order."
+        title="Start at the beginning."
         intro={
           <p>
             This is how you learn cloud engineering and cybersecurity with
-            business thinking built in from day one: not a pile of links, a
-            route. We'll go step by step, the latest resources are yours, and
-            you don't need a background to begin. You need a direction.
+            business thinking built in from day one: not a pile of links.
+            We'll go step by step, the latest resources are yours, and you
+            don't need a background to begin. You need a direction.
           </p>
         }
       >

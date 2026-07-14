@@ -69,6 +69,26 @@ export default function AboutPage() {
         </Reveal>
       </section>
 
+      {/* ── The gap I close, compliance that survives delivery pressure. */}
+      <section className="container-content py-12 sm:py-16">
+        <Reveal>
+          <div className="rounded-3xl bg-ink p-10 text-paper sm:p-16">
+            <p className="kicker text-amber">The gap I close</p>
+            <p className="mt-6 max-w-3xl font-serif text-h2 font-light leading-snug text-paper">
+              Your controls get switched off under delivery pressure, and you
+              find out at audit.
+            </p>
+            <p className="mt-6 max-w-2xl text-body text-paper/70">
+              The problem isn't that your engineers are careless, it's that
+              nobody has ever translated your regulatory obligations into
+              something they can act on without it costing them the release. I
+              close that gap, and I make it hold while the business keeps
+              shipping.
+            </p>
+          </div>
+        </Reveal>
+      </section>
+
       {/* ── Off the cloud, a warm, human aside. */}
       <section className="container-content py-12 sm:py-16">
         <Reveal>

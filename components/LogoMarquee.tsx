@@ -6,7 +6,8 @@ import { toolkit } from "@/lib/content";
  * translateX(-50%) loop is seamless; it pauses on hover and freezes under
  * prefers-reduced-motion (handled globally in globals.css).
  *
- * Logos are placeholders in /public/logos, swap each for the official asset.
+ * Logos are the official brand glyphs (Simple Icons set), rendered in the
+ * site's ink tone with the tool name set beside each mark.
  */
 export default function LogoMarquee() {
   const loop = [...toolkit, ...toolkit];
@@ -26,16 +27,23 @@ export default function LogoMarquee() {
     >
       <ul className="marquee-track flex w-max items-center gap-10 sm:gap-14">
         {loop.map((tool, i) => (
-          <li key={`${tool.name}-${i}`} className="shrink-0" aria-hidden={i >= toolkit.length}>
+          <li
+            key={`${tool.name}-${i}`}
+            className="flex shrink-0 items-center gap-3 opacity-70 transition-opacity duration-300 ease-calm hover:opacity-100"
+            aria-hidden={i >= toolkit.length}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={tool.logo}
               alt={tool.name}
-              width={180}
-              height={48}
+              width={32}
+              height={32}
               loading="lazy"
-              className="h-11 w-auto opacity-75 transition-opacity duration-300 ease-calm hover:opacity-100"
+              className="h-8 w-8"
             />
+            <span className="whitespace-nowrap text-small font-medium text-ink">
+              {tool.name}
+            </span>
           </li>
         ))}
       </ul>

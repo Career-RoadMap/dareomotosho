@@ -158,6 +158,24 @@ export default function WorkPage() {
         </Reveal>
       </section>
 
+      {/* ── Compliance that survives delivery pressure, variant of the
+          About-page statement, in Work's outcome-led register. */}
+      <section className="container-content py-12 sm:py-16">
+        <Reveal>
+          <div className="rounded-3xl bg-ink p-10 text-paper sm:p-16">
+            <p className="kicker text-amber">Controls that hold</p>
+            <p className="mt-6 max-w-3xl font-serif text-h2 font-light leading-snug text-paper">
+              Controls that only hold until the next deadline aren't controls.
+            </p>
+            <p className="mt-6 max-w-2xl text-body text-paper/70">
+              I translate regulatory obligations into defaults engineers can
+              act on without it costing them the release, so the audit holds
+              and the business keeps shipping.
+            </p>
+          </div>
+        </Reveal>
+      </section>
+
       {/* ── Close CTA → Advisory / Contact. */}
       <section className="container-content py-16 sm:py-24">
         <Reveal>

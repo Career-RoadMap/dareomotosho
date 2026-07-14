@@ -40,9 +40,14 @@ export default async function ResourcesPage() {
       >
         <div className="flex flex-wrap gap-4">
           <Button href="/resources/case-studies">Case Studies</Button>
-          <Button href="#community" variant="accent">
+          {/* Native anchor, not next/link: a hash-only router navigation
+              re-mounts the page template and swallows the scroll. */}
+          <a
+            href="#community"
+            className="inline-flex items-center justify-center rounded-lg bg-amber px-7 py-3.5 text-small font-medium tracking-wide text-ink shadow-sm transition-all duration-300 ease-calm hover:brightness-[0.97] active:brightness-95 focus-visible:ring-2"
+          >
             Community Questions
-          </Button>
+          </a>
           <Button href="/resources/downloads" variant="primary">
             Downloads
           </Button>

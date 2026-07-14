@@ -80,11 +80,13 @@
   /* Long-form Markdown rendered in the content library. Headings are
      highlighted with an amber band/rule for fast scanning, and paragraphs
      (e.g. a question, then its answer) are spaced apart for easy reading. */
+  /* Entry-body headings: bold amber type on the deep Signature band, amber
+     alone on Paper fails contrast, the band keeps it readable (~5.4:1). */
   .prose-entry h2 {
-    @apply mt-12 mb-4 rounded-md border-l-4 border-amber bg-amber/10 py-2 pl-4 pr-3 font-serif text-h2 font-light text-signature;
+    @apply mt-12 mb-4 rounded-lg border-l-4 border-amber bg-signature py-3 pl-5 pr-4 font-serif text-h2 font-medium text-amber;
   }
   .prose-entry h3 {
-    @apply mt-9 mb-3 border-l-2 border-amber/70 pl-3 font-serif text-xl font-medium text-signature;
+    @apply mt-9 mb-3 rounded-md border-l-4 border-amber bg-signature/95 py-2 pl-4 pr-3 font-serif text-xl font-medium text-amber;
   }
   .prose-entry p {
     @apply text-body leading-relaxed text-ink;

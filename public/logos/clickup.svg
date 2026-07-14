@@ -1,6 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 48" role="img" aria-label="ClickUp">
-  <!-- PLACEHOLDER wordmark — replace with the official ClickUp logo asset. -->
-  <rect x="0.5" y="0.5" width="179" height="47" rx="10" fill="none" stroke="#0F1B2D" stroke-opacity="0.12"/>
-  <circle cx="24" cy="24" r="7" fill="none" stroke="#0F1B2D" stroke-opacity="0.35" stroke-width="1.5"/>
-  <text x="42" y="29" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="15" font-weight="500" letter-spacing="0.2" fill="#0F1B2D">ClickUp</text>
-</svg>
+<svg fill="#0F1B2D" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>ClickUp</title><path d="M2 18.439l3.69-2.828c1.961 2.56 4.044 3.739 6.363 3.739 2.307 0 4.33-1.166 6.203-3.704L22 18.405C19.298 22.065 15.941 24 12.053 24 8.178 24 4.788 22.078 2 18.439zM12.04 6.15l-6.568 5.66-3.036-3.52L12.055 0l9.543 8.296-3.05 3.509z"/></svg>
