@@ -101,6 +101,28 @@ export default function StartHerePage() {
         </ol>
       </section>
 
+      {/* ── Path Finder, the personalized way in. */}
+      <section className="container-content py-12 sm:py-16">
+        <Reveal>
+          <div className="flex flex-col gap-6 rounded-3xl border border-amber/40 bg-paper p-8 sm:flex-row sm:items-center sm:justify-between sm:p-12">
+            <div>
+              <p className="kicker text-amber">Not sure which direction?</p>
+              <h2 className="mt-3 font-serif text-h2 font-light text-ink">
+                Take the two-minute Path Finder
+              </h2>
+              <p className="mt-3 max-w-prose text-body text-ink">
+                Four questions turn where you are into an ordered route: the
+                role that fits you, what it pays, and exactly what to read
+                first.
+              </p>
+            </div>
+            <Button href="/path-finder" variant="accent" className="shrink-0">
+              Find my path
+            </Button>
+          </div>
+        </Reveal>
+      </section>
+
       {/* ── Straight into the library: three starting points. */}
       <section className="container-content py-16 sm:py-20">
         <Reveal>
