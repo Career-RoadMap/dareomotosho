@@ -11,6 +11,7 @@ const staticRoutes = [
   "/work",
   "/advisory",
   "/speaking",
+  "/book",
   "/start-here",
   "/resources",
   "/resources/articles",

@@ -46,7 +46,12 @@ export type NavItem = {
   label: string;
   /** Optional dropdown children (one level of nesting supported). */
   children?: NavItem[];
+  /** Render as a filled call-to-action button instead of a text link. */
+  cta?: boolean;
 };
+
+/** External scheduling link (Google Calendar appointment page). */
+export const bookingUrl = "https://calendar.app.google/Nv7QaxGCdmkTXd3S8";
 
 /** NAV order is intentional, a "build-first ascent." Do not reorder casually. */
 export const nav: NavItem[] = [
@@ -66,6 +71,7 @@ export const nav: NavItem[] = [
   { href: "/speaking", label: "Speaking" },
   { href: "/advisory", label: "Advisory" },
   { href: "/about", label: "About" },
+  { href: "/book", label: "Book a Call", cta: true },
 ];
 
 /** Primary contact email, shown for general inquiries and booking. */

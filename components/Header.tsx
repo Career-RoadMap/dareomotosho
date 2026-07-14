@@ -50,6 +50,19 @@ export default function Header() {
           <ul className="flex items-center gap-7">
             {nav.map((item) => {
               const active = isActive(item.href);
+              if (item.cta) {
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      aria-current={active ? "page" : undefined}
+                      className="inline-flex items-center justify-center rounded-lg bg-amber px-5 py-2.5 text-small font-medium tracking-wide text-ink shadow-sm transition-all duration-300 ease-calm hover:brightness-[0.97] active:brightness-95"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              }
               if (!item.children) {
                 return (
                   <li key={item.href}>
@@ -141,6 +154,19 @@ export default function Header() {
           <ul className="container-content flex flex-col gap-1 py-4">
             {nav.map((item) => {
               const active = isActive(item.href);
+              if (item.cta) {
+                return (
+                  <li key={item.href} className="px-3 pt-2">
+                    <Link
+                      href={item.href}
+                      tabIndex={open ? undefined : -1}
+                      className="inline-flex w-full items-center justify-center rounded-lg bg-amber px-5 py-3 text-body font-medium text-ink shadow-sm transition-all duration-300 ease-calm hover:brightness-[0.97]"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              }
               return (
                 <li key={item.href}>
                   <Link
