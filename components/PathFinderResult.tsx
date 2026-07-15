@@ -6,6 +6,7 @@ import Button from "@/components/Button";
 import EmailCapture from "@/components/EmailCapture";
 import ShareButtons from "@/components/ShareButtons";
 import { resultDisclaimer, type Temperament, type Track } from "@/lib/pathfinder";
+import { siteUrl } from "@/lib/site";
 
 /**
  * The Path Finder result view: the verdict, salary band, roadmap, first
@@ -30,7 +31,82 @@ export default function PathFinderResult({
   onRestart?: () => void;
 }) {
   const [downloading, setDownloading] = useState(false);
+  const [emailAddr, setEmailAddr] = useState("");
+  const [emailStatus, setEmailStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const resultPath = `/path-finder/${track.id}`;
+
+  function buildEmailBody() {
+    const lines: string[] = [];
+    lines.push(`YOUR CLOUD CAREER PATH: ${track.title.toUpperCase()}`);
+    lines.push("");
+    lines.push(track.tagline);
+    lines.push("");
+    lines.push(track.whyItFits);
+    if (temperament) {
+      lines.push("");
+      lines.push(`TEMPERAMENT LEANING: ${temperament.code} · ${temperament.family.name}`);
+      lines.push(temperament.family.blurb);
+    }
+    lines.push("");
+    lines.push("SALARY REFERENCE");
+    track.salary.forEach((s) => {
+      lines.push(`  ${s.level}: ${s.usd}  (${s.ngn} Nigeria)`);
+    });
+    lines.push("");
+    lines.push("YOUR ROADMAP, IN ORDER");
+    if (pacing) lines.push(pacing);
+    lines.push("");
+    track.roadmap.forEach((r, i) => {
+      lines.push(`${i + 1}. ${r.step}`);
+      lines.push(`   ${r.body}`);
+      lines.push("");
+    });
+    lines.push(`Certifications worth holding: ${track.certifications.join(" · ")}`);
+    lines.push("");
+    lines.push("BUILD THIS FIRST");
+    lines.push(track.firstProject);
+    lines.push("");
+    lines.push("READ THESE, IN ORDER");
+    track.resources.forEach((r, i) => {
+      lines.push(`${i + 1}. ${r.label}`);
+      lines.push(`   ${siteUrl}${r.href.startsWith("/") ? r.href : `/${r.href}`}`);
+    });
+    lines.push("");
+    lines.push(`Your result page: ${siteUrl}${resultPath}`);
+    lines.push("");
+    lines.push("—");
+    lines.push("Educational reference only. Not professional, career, or financial advice.");
+    lines.push("dareomotosho.com");
+    return lines.join("\n");
+  }
+
+  async function sendToEmail(e: React.FormEvent) {
+    e.preventDefault();
+    if (!emailAddr || emailStatus === "sending") return;
+    setEmailStatus("sending");
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/dare@dareomotosho.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          email: emailAddr,
+          _cc: emailAddr,
+          _subject: `Your cloud career path: ${track.title}`,
+          _captcha: "false",
+          message: buildEmailBody(),
+        }),
+      });
+      const data = await res.json();
+      if (data.success === "true" || data.success === true) {
+        setEmailStatus("sent");
+        setEmailAddr("");
+      } else {
+        setEmailStatus("error");
+      }
+    } catch {
+      setEmailStatus("error");
+    }
+  }
 
   async function download() {
     if (downloading) return;
@@ -117,6 +193,47 @@ export default function PathFinderResult({
             >
               Take the test yourself
             </Link>
+          )}
+        </div>
+
+        {/* Email-to-self: send the result to the user's inbox. */}
+        <div className="mt-8 border-t border-paper/15 pt-7">
+          {emailStatus === "sent" ? (
+            <p className="text-small text-amber">
+              Sent. Check your inbox — it should arrive within a minute.
+            </p>
+          ) : (
+            <>
+              <p className="mb-3 text-small text-paper/70">
+                Want a copy in your inbox?
+              </p>
+              <form onSubmit={sendToEmail} className="flex flex-wrap gap-2">
+                <input
+                  type="email"
+                  required
+                  placeholder="your@email.com"
+                  value={emailAddr}
+                  onChange={(e) => {
+                    setEmailAddr(e.target.value);
+                    if (emailStatus === "error") setEmailStatus("idle");
+                  }}
+                  disabled={emailStatus === "sending"}
+                  className="flex-1 min-w-0 rounded-lg border border-paper/20 bg-paper/10 px-4 py-2.5 text-small text-paper placeholder-paper/40 focus:border-amber focus:outline-none disabled:opacity-50"
+                />
+                <button
+                  type="submit"
+                  disabled={emailStatus === "sending"}
+                  className="shrink-0 rounded-lg bg-paper/15 px-5 py-2.5 text-small font-medium text-paper transition-colors duration-300 ease-calm hover:bg-amber hover:text-ink disabled:opacity-50"
+                >
+                  {emailStatus === "sending" ? "Sending…" : "Email me this"}
+                </button>
+              </form>
+              {emailStatus === "error" ? (
+                <p className="mt-2 text-xs text-red-400">
+                  Something went wrong. Try again or reach out at dare@dareomotosho.com.
+                </p>
+              ) : null}
+            </>
           )}
         </div>
       </div>
