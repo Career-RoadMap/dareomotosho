@@ -206,7 +206,7 @@ export const getEntries = cache(async (): Promise<Entry[]> => {
         console.warn(
           "[getEntries] Supabase returned 0 published entries. If the table " +
             "has published rows, the anon SELECT is likely blocked by RLS, " +
-            "apply supabase/migrations/0003_entries_read_policy.sql.",
+            "apply supabase/migrations/0001_schema.sql.",
         );
       }
       return data as Entry[];

@@ -76,7 +76,13 @@ export default async function EntryPage({
         {entry.asker ? (
           <p className="mt-4 text-small italic text-ink/55">{entry.asker}</p>
         ) : null}
-        <p className="mt-6 text-body text-ink">{entry.summary}</p>
+        {/* Case studies and articles derive their summary from the body's
+            opening, so a standfirst here just repeats the first lines. Their
+            body is self-contained; show the summary only for the short types
+            (questions, course Q&A) where it aids scanning. */}
+        {entry.type === "case_study" || entry.type === "article" ? null : (
+          <p className="mt-6 text-body text-ink">{entry.summary}</p>
+        )}
       </Reveal>
 
       {/* Long-form Markdown body */}
