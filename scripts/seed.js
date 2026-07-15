@@ -542,15 +542,30 @@ async function main() {
     return;
   }
 
-  const { data, error } = UPDATE
+  let { data, error } = UPDATE
     ? await supabase.from("entries").upsert(entries, { onConflict: "slug" }).select("id,slug")
     : await supabase.from("entries").insert(entries).select("id,slug");
+
+  // If the DB is missing the unique index on slug, PostgREST can't resolve
+  // on_conflict (Postgres 42P10). Rather than fail the run, fall back to a
+  // per-row update-by-slug / insert. Apply 0007_entries_slug_unique.sql to
+  // restore the fast atomic upsert path.
+  if (error && UPDATE && error.code === "42P10") {
+    console.warn(
+      "\n! entries.slug has no unique index, so on-conflict upsert isn't\n" +
+        "  available. Falling back to per-row update/insert (slower).\n" +
+        "  Apply supabase/migrations/0007_entries_slug_unique.sql to fix this.",
+    );
+    ({ data, error } = await upsertPerRow(entries));
+  }
+
   if (error) {
     console.error(`\n✗ ${UPDATE ? "Upsert" : "Insert"} failed:`, error.message);
     console.error(
       "  If it mentions RLS, add the matching policy or use the service-role key.\n" +
         "  If it mentions 'on conflict'/slug, ensure entries.slug has a unique index\n" +
-        "  (see supabase/migrations). Without --update, existing slugs are skipped.",
+        "  (apply supabase/migrations/0007_entries_slug_unique.sql). Without\n" +
+        "  --update, existing slugs are skipped.",
     );
     process.exit(1);
   }
@@ -560,6 +575,43 @@ async function main() {
       ? `\n✓ Upserted ${n} row(s) into "entries" (${updated} updated, ${n - updated} new).`
       : `\n✓ Inserted ${n} new row(s) into "entries".`,
   );
+}
+
+/**
+ * Fallback for when entries.slug has no unique index (so on_conflict upsert
+ * is unavailable): update existing rows by slug, insert the rest. Returns the
+ * same { data, error } shape the caller expects.
+ */
+async function upsertPerRow(entries) {
+  const written = [];
+  for (const entry of entries) {
+    const { created_at, ...rest } = entry;
+    void created_at; // never overwrite an existing row's created_at
+    const { data: found, error: selErr } = await supabase
+      .from("entries")
+      .select("id")
+      .eq("slug", entry.slug)
+      .maybeSingle();
+    if (selErr) return { data: null, error: selErr };
+
+    if (found) {
+      const { error: updErr } = await supabase
+        .from("entries")
+        .update(rest)
+        .eq("slug", entry.slug);
+      if (updErr) return { data: null, error: updErr };
+      written.push({ id: found.id, slug: entry.slug });
+    } else {
+      const { data: ins, error: insErr } = await supabase
+        .from("entries")
+        .insert(entry)
+        .select("id,slug")
+        .single();
+      if (insErr) return { data: null, error: insErr };
+      written.push(ins);
+    }
+  }
+  return { data: written, error: null };
 }
 
 main().catch((e) => {
