@@ -101,23 +101,23 @@ export default function StartHerePage() {
         </ol>
       </section>
 
-      {/* ── Path Finder, the personalized way in. */}
+      {/* ── Path Finder, the personalized way in, on the boldest band the
+          palette allows so it can't be scrolled past. */}
       <section className="container-content py-12 sm:py-16">
         <Reveal>
-          <div className="flex flex-col gap-6 rounded-3xl border border-amber/40 bg-paper p-8 sm:flex-row sm:items-center sm:justify-between sm:p-12">
+          <div className="flex flex-col gap-6 rounded-3xl bg-amber p-8 shadow-xl shadow-ink/15 sm:flex-row sm:items-center sm:justify-between sm:p-12">
             <div>
-              <p className="kicker text-amber">Not sure which direction?</p>
-              <h2 className="mt-3 font-serif text-h2 font-light text-ink">
+              <p className="kicker !text-ink/70">Not sure which direction?</p>
+              <h2 className="mt-3 font-serif text-h2 font-medium text-ink">
                 Take the three-minute Path Finder
               </h2>
-              <p className="mt-3 max-w-prose text-body text-ink">
+              <p className="mt-3 max-w-prose text-body text-ink/85">
                 Eight quick questions, temperament included, turn where you
-                are into an ordered route: the
-                role that fits you, what it pays, and exactly what to read
-                first.
+                are into an ordered route: the role that fits you, what it
+                pays, and exactly what to read first.
               </p>
             </div>
-            <Button href="/path-finder" variant="accent" className="shrink-0">
+            <Button href="/path-finder" variant="primary" className="shrink-0">
               Find my path
             </Button>
           </div>

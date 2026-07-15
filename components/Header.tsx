@@ -14,6 +14,10 @@ import { brand, nav, type NavItem } from "@/lib/site";
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  // Hides the hover/focus dropdown the moment a child link is clicked, the
+  // CSS group-hover/focus-within rules would otherwise keep it open across
+  // the client-side navigation. Re-arms when the pointer leaves the menu.
+  const [dropdownSuppressed, setDropdownSuppressed] = useState(false);
 
   // Close the mobile menu whenever the route changes.
   useEffect(() => {
@@ -79,7 +83,11 @@ export default function Header() {
                 );
               }
               return (
-                <li key={item.href} className="group/nav relative">
+                <li
+                  key={item.href}
+                  className="group/nav relative"
+                  onMouseLeave={() => setDropdownSuppressed(false)}
+                >
                   <Link
                     href={item.href}
                     aria-current={active ? "page" : undefined}
@@ -99,11 +107,22 @@ export default function Header() {
                     </span>
                   </Link>
 
-                  {/* Dropdown panel, opens on hover or keyboard focus. */}
-                  <div className="invisible absolute right-0 top-full pt-3 opacity-0 transition-all duration-200 ease-calm group-hover/nav:visible group-hover/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:opacity-100">
+                  {/* Dropdown panel, opens on hover or keyboard focus; force-
+                      hidden right after a child click so it doesn't linger. */}
+                  <div
+                    className={
+                      dropdownSuppressed
+                        ? "invisible absolute right-0 top-full pt-3 opacity-0"
+                        : "invisible absolute right-0 top-full pt-3 opacity-0 transition-all duration-200 ease-calm group-hover/nav:visible group-hover/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:opacity-100"
+                    }
+                  >
                     <ul className="w-60 overflow-hidden rounded-2xl border border-ink/10 bg-paper p-2 shadow-xl shadow-ink/10">
                       {item.children.map((child) => (
-                        <DropdownItem key={child.href} item={child} />
+                        <DropdownItem
+                          key={child.href}
+                          item={child}
+                          onNavigate={() => setDropdownSuppressed(true)}
+                        />
                       ))}
                     </ul>
                   </div>
@@ -208,11 +227,19 @@ function NavChildLink({
   item,
   className,
   tabIndex,
+  onNavigate,
 }: {
   item: NavItem;
   className: string;
   tabIndex?: number;
+  onNavigate?: () => void;
 }) {
+  // Drop focus (so focus-within stops holding the dropdown open) and let the
+  // header hide the panel for the rest of this hover session.
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.currentTarget.blur();
+    onNavigate?.();
+  };
   if (item.external) {
     return (
       <a
@@ -220,6 +247,7 @@ function NavChildLink({
         target="_blank"
         rel="noreferrer"
         tabIndex={tabIndex}
+        onClick={handleClick}
         className={className}
       >
         {item.label}
@@ -227,19 +255,26 @@ function NavChildLink({
     );
   }
   return (
-    <Link href={item.href} tabIndex={tabIndex} className={className}>
+    <Link href={item.href} tabIndex={tabIndex} onClick={handleClick} className={className}>
       {item.label}
     </Link>
   );
 }
 
 /** A desktop dropdown row, renders a nested submenu when the item has children. */
-function DropdownItem({ item }: { item: NavItem }) {
+function DropdownItem({
+  item,
+  onNavigate,
+}: {
+  item: NavItem;
+  onNavigate?: () => void;
+}) {
   if (!item.children) {
     return (
       <li>
         <NavChildLink
           item={item}
+          onNavigate={onNavigate}
           className="block rounded-xl px-3 py-2.5 text-small text-ink transition-colors duration-200 ease-calm hover:bg-ink/[0.04] hover:text-amber"
         />
       </li>
@@ -249,6 +284,10 @@ function DropdownItem({ item }: { item: NavItem }) {
     <li>
       <Link
         href={item.href}
+        onClick={(e) => {
+          e.currentTarget.blur();
+          onNavigate?.();
+        }}
         className="block rounded-xl px-3 pt-2.5 pb-1 text-small font-medium text-signature transition-colors duration-200 ease-calm hover:text-amber"
       >
         {item.label}
@@ -258,6 +297,7 @@ function DropdownItem({ item }: { item: NavItem }) {
           <li key={child.href}>
             <NavChildLink
               item={child}
+              onNavigate={onNavigate}
               className="block rounded-xl px-3 py-2 text-small text-ink/80 transition-colors duration-200 ease-calm hover:bg-ink/[0.04] hover:text-amber"
             />
           </li>
