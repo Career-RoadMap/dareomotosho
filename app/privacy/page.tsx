@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 const SITE_URL = "dareomotosho.com";
-const LAST_UPDATED = "1 July 2026";
+const LAST_UPDATED = "15 July 2026";
 
 const linkCls = "text-link underline underline-offset-2";
 
@@ -62,7 +62,23 @@ export default function PrivacyPage() {
                 Site&rsquo;s question feature. Providing your name with your question
                 is optional; you may submit anonymously.
               </li>
+              <li>
+                Comments and reactions &mdash; if you comment on a library entry.
+                Providing a name is optional; comments are held for review before
+                they appear publicly.
+              </li>
+              <li>
+                Inquiry and booking details &mdash; name, email, and message content
+                when you send an advisory, speaking, or contact inquiry, or book a
+                call through the scheduling link.
+              </li>
             </ul>
+            <p className="mt-4">
+              The Career Path Finder is different by design: your answers are
+              processed entirely in your browser and are never transmitted to or
+              stored on my systems. Sharing or downloading a result shares only the
+              resulting role page, not your answers.
+            </p>
             <p className="mt-4 font-medium text-signature">
               Information collected automatically:
             </p>
@@ -145,6 +161,31 @@ export default function PrivacyPage() {
                   className={linkCls}
                 >
                   GitHub Privacy Policy
+                </a>
+              </li>
+              <li>
+                FormSubmit &mdash; relays advisory, speaking, and contact form
+                submissions to my inbox (processes the name, email, and message you
+                send).{" "}
+                <a
+                  href="https://formsubmit.co/privacy"
+                  target="_blank"
+                  rel="noreferrer"
+                  className={linkCls}
+                >
+                  FormSubmit Privacy Policy
+                </a>
+              </li>
+              <li>
+                Google Calendar &mdash; appointment scheduling when you book a call
+                (processes the details you enter on Google&rsquo;s booking page).{" "}
+                <a
+                  href="https://policies.google.com/privacy"
+                  target="_blank"
+                  rel="noreferrer"
+                  className={linkCls}
+                >
+                  Google Privacy Policy
                 </a>
               </li>
             </ul>

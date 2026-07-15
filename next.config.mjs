@@ -51,6 +51,9 @@ const sharedHeaders = [
     key: "Strict-Transport-Security",
     value: "max-age=63072000; includeSubDomains",
   },
+  // Isolates this site's browsing context from cross-origin openers
+  // (mitigates tab-nabbing / cross-window attacks).
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
 ];
 
 /** @type {import('next').NextConfig} */

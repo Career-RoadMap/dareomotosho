@@ -108,10 +108,11 @@ export default function StartHerePage() {
             <div>
               <p className="kicker text-amber">Not sure which direction?</p>
               <h2 className="mt-3 font-serif text-h2 font-light text-ink">
-                Take the two-minute Path Finder
+                Take the three-minute Path Finder
               </h2>
               <p className="mt-3 max-w-prose text-body text-ink">
-                Four questions turn where you are into an ordered route: the
+                Eight quick questions, temperament included, turn where you
+                are into an ordered route: the
                 role that fits you, what it pays, and exactly what to read
                 first.
               </p>
@@ -123,34 +124,47 @@ export default function StartHerePage() {
         </Reveal>
       </section>
 
-      {/* ── Straight into the library: three starting points. */}
+      {/* ── Straight into the library: the strongest call to action on the
+          page, set on its own amber-edged band so it can't be missed. */}
       <section className="container-content py-16 sm:py-20">
         <Reveal>
-          <h2 className="font-serif text-h2 font-light text-ink">Go straight to the library</h2>
-          <p className="mt-3 max-w-prose text-body text-ink">
-            Three ways in, no email wall. Take what's useful.
-          </p>
+          <div className="rounded-3xl border-2 border-amber bg-paper p-8 shadow-lg shadow-ink/10 sm:p-12">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <p className="kicker text-amber">Free, no email wall</p>
+                <h2 className="mt-3 font-serif text-h1 font-light text-signature">
+                  Go straight to the library
+                </h2>
+                <p className="mt-3 max-w-prose text-body text-ink">
+                  Three ways in. Take what's useful.
+                </p>
+              </div>
+              <Button href="/resources" variant="accent" className="shrink-0">
+                Open the library
+              </Button>
+            </div>
+            <ul className="mt-10 grid gap-6 sm:grid-cols-3">
+              <CollectionCard
+                href="/resources/articles"
+                kind="article"
+                label={entryTypeMeta.article.label}
+                blurb={entryTypeMeta.article.blurb}
+              />
+              <CollectionCard
+                href="/resources/case-studies"
+                kind="case_study"
+                label={entryTypeMeta.case_study.label}
+                blurb={entryTypeMeta.case_study.blurb}
+              />
+              <CollectionCard
+                href="/resources/downloads"
+                kind="download"
+                label="Downloads"
+                blurb="Textbooks, slide decks, and short video clips, free to download."
+              />
+            </ul>
+          </div>
         </Reveal>
-        <ul className="mt-10 grid gap-6 sm:grid-cols-3">
-          <CollectionCard
-            href="/resources/articles"
-            kind="article"
-            label={entryTypeMeta.article.label}
-            blurb={entryTypeMeta.article.blurb}
-          />
-          <CollectionCard
-            href="/resources/case-studies"
-            kind="case_study"
-            label={entryTypeMeta.case_study.label}
-            blurb={entryTypeMeta.case_study.blurb}
-          />
-          <CollectionCard
-            href="/resources/downloads"
-            kind="download"
-            label="Downloads"
-            blurb="Textbooks, slide decks, and short video clips, free to download."
-          />
-        </ul>
       </section>
 
       {/* ── Salary explorer, a quiet pointer to the standalone reference tool. */}
@@ -191,7 +205,13 @@ export default function StartHerePage() {
           {whyExplainers.map((w, i) => (
             <Reveal key={w.title} delay={i * 140}>
               <div className="group h-full rounded-2xl bg-signature p-8 shadow-md shadow-ink/10 transition-all duration-300 ease-calm hover:-translate-y-1 hover:bg-blue-lift hover:shadow-lg hover:shadow-ink/20 sm:p-10">
-                <span className="block h-1 w-10 rounded-full bg-amber transition-all duration-300 ease-calm group-hover:w-16" aria-hidden />
+                {/* The amber accents read left → centre → right across the row. */}
+                <span
+                  className={`block h-1 w-10 rounded-full bg-amber transition-all duration-300 ease-calm group-hover:w-16 ${
+                    i === 1 ? "mx-auto" : i === 2 ? "ml-auto" : ""
+                  }`}
+                  aria-hidden
+                />
                 <h3 className="mt-6 font-serif text-h2 font-light text-amber">
                   {w.title}
                 </h3>

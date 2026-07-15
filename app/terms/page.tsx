@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 const SITE_URL = "dareomotosho.com";
-const LAST_UPDATED = "1 July 2026";
+const LAST_UPDATED = "15 July 2026";
 
 const linkCls = "text-link underline underline-offset-2";
 
@@ -230,6 +230,16 @@ export default function TermsPage() {
               compliance obligations. Case studies and Q&amp;A on this Site describe
               scenarios and reasoning for learning purposes; they are not prescriptions
               for any specific real-world decision.
+            </p>
+            <p className="mt-4">
+              The Site&rsquo;s interactive tools carry the same limit. The Role &amp;
+              Salary Explorer shows illustrative market reference figures, not
+              guarantees; actual pay varies by company, location, and experience. The
+              Career Path Finder, including its temperament reading, is a short
+              educational exercise, not an expert assessment: a real career decision
+              needs personal introspection, your own interests and circumstances, and
+              analysis this Site cannot do for you. Neither tool constitutes
+              professional, career, or financial advice or a recommendation.
             </p>
             <p className="mt-4">
               Before acting on any information from the Site in a production environment

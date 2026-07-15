@@ -11,7 +11,16 @@ export const metadata: Metadata = {
     default: `${brand.name}, ${brand.byline}`,
     template: `%s · ${brand.name}`,
   },
-  description: brand.oneLine,
+  description: `${brand.name} on dareomotosho.com: ${brand.oneLine}`,
+  keywords: [
+    "Dare Omotosho",
+    "dareomotosho.com",
+    "cloud engineer",
+    "cybersecurity engineer",
+    "solutions architect",
+    "technical mentor",
+    "business-aligned cloud engineering",
+  ],
   metadataBase: new URL(siteUrl),
   alternates: {
     // "./" resolves against the current route, so every page gets a correct
@@ -45,6 +54,7 @@ const jsonLd = {
       "@type": "Person",
       "@id": `${siteUrl}/#person`,
       name: brand.name,
+      alternateName: "dareomotosho.com",
       url: siteUrl,
       image: `${siteUrl}/portraits/dare.jpg`,
       jobTitle:
@@ -58,6 +68,7 @@ const jsonLd = {
       "@id": `${siteUrl}/#website`,
       url: siteUrl,
       name: brand.name,
+      alternateName: "dareomotosho.com",
       description: brand.oneLine,
       publisher: { "@id": `${siteUrl}/#person` },
     },

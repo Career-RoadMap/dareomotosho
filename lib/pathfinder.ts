@@ -12,12 +12,19 @@ export type TrackId =
   | "cybersecurity"
   | "devops-sre"
   | "solutions-architect"
-  | "ai-era-cloud";
+  | "ai-era-cloud"
+  | "security-grc"
+  | "offensive-security";
+
+/** One letter per pole of the four temperament dichotomies (16-type model). */
+export type TemperamentLetter = "E" | "I" | "S" | "N" | "T" | "F" | "J" | "P";
 
 export type Option = {
   label: string;
   detail?: string;
   weights: Partial<Record<TrackId, number>>;
+  /** Set on temperament questions; contributes a letter to the 4-letter code. */
+  letter?: TemperamentLetter;
 };
 
 export type Question = {
@@ -107,6 +114,81 @@ export const questions: Question[] = [
         label: "Steady building, visible progress",
         detail: "Ship, measure, improve",
         weights: { "cloud-engineer": 2, "devops-sre": 1 },
+      },
+    ],
+  },
+  // ── Temperament (16-type model): one question per dichotomy. Each answer
+  // contributes a letter to the visitor's 4-letter code and a nudge toward
+  // the tracks that temperament tends to thrive in. ──
+  {
+    id: "energy",
+    prompt: "Where does your energy come from on a working day?",
+    options: [
+      {
+        label: "Rooms and conversations",
+        detail: "Aligning people, talking a problem out",
+        letter: "E",
+        weights: { "solutions-architect": 2, "security-grc": 1 },
+      },
+      {
+        label: "Quiet, uninterrupted deep work",
+        detail: "Headphones on, problem open",
+        letter: "I",
+        weights: { "cloud-engineer": 1, "offensive-security": 1, "ai-era-cloud": 1 },
+      },
+    ],
+  },
+  {
+    id: "information",
+    prompt: "Meeting a new system for the first time, what do you trust?",
+    options: [
+      {
+        label: "The concrete: docs, runbooks, what's proven",
+        detail: "Facts first, then conclusions",
+        letter: "S",
+        weights: { "security-grc": 2, "cloud-engineer": 1, "devops-sre": 1 },
+      },
+      {
+        label: "The pattern: what it resembles, where it's going",
+        detail: "The big picture first, details after",
+        letter: "N",
+        weights: { "ai-era-cloud": 2, "solutions-architect": 1 },
+      },
+    ],
+  },
+  {
+    id: "decisions",
+    prompt: "A hard call lands on you. What wins?",
+    options: [
+      {
+        label: "The most defensible logic, even if unpopular",
+        detail: "Correctness over comfort",
+        letter: "T",
+        weights: { "offensive-security": 1, "devops-sre": 1, "ai-era-cloud": 1 },
+      },
+      {
+        label: "The impact on the people involved",
+        detail: "Decisions land on humans first",
+        letter: "F",
+        weights: { "solutions-architect": 2, "security-grc": 1 },
+      },
+    ],
+  },
+  {
+    id: "structure",
+    prompt: "Your best week is…",
+    options: [
+      {
+        label: "Planned and closed-out",
+        detail: "Structure, checklists, loops closed",
+        letter: "J",
+        weights: { "security-grc": 2, "cloud-engineer": 1, "devops-sre": 1 },
+      },
+      {
+        label: "Adaptive and open-ended",
+        detail: "Responding to what the day brings",
+        letter: "P",
+        weights: { "offensive-security": 2, cybersecurity: 1 },
       },
     ],
   },
@@ -289,7 +371,117 @@ export const tracks: Track[] = [
       { href: "/resources/downloads", label: "Breaking into cloud while AI writes the code (free download)" },
     ],
   },
+  {
+    id: "security-grc",
+    title: "Security Governance, Risk & Compliance (GRC)",
+    tagline: "The assurance route: turn regulatory obligations into controls a business can live with.",
+    whyItFits:
+      "You bring structure, and you're at your best when the loop is closed and defensible. GRC is where that temperament becomes a career: translating regulation into controls, evidencing that they hold, and being the person an auditor and an engineer both trust.",
+    salary: [
+      { level: "Entry", usd: "$105,000", ngn: "₦3,000,000" },
+      { level: "Mid", usd: "$145,000", ngn: "₦6,000,000" },
+      { level: "Senior / CPO track", usd: "$210,000", ngn: "₦10,500,000" },
+    ],
+    roadmap: [
+      { step: "Security fundamentals", body: "The Security+ body of knowledge: what the controls are actually protecting." },
+      { step: "Frameworks & regulation", body: "ISO 27001, SOC 2, GDPR and friends: what they demand and why they exist." },
+      { step: "Risk assessment & audit practice", body: "Gap assessments, evidence, and writing findings people act on." },
+      { step: "Governance leadership", body: "Sizing controls to real risk and making them hold while the business ships." },
+    ],
+    certifications: ["CompTIA Security+", "ISACA CISA (later, with experience)"],
+    firstProject:
+      "Run a gap assessment of a small AWS environment against the CIS benchmark, then present the top five risks with a remediation plan a non-technical manager could approve.",
+    resources: [
+      { href: "/resources/case-studies", label: "Boardroom breach case studies" },
+      { href: "/resources/iam-policy-vs-service-control-policy-scp-what-s-the-difference", label: "IAM policy vs Service Control Policy" },
+      { href: "/resources/how-do-s3-block-public-access-iam-policies-and-bucket-policies-relate", label: "S3 Block Public Access, IAM & bucket policies" },
+      { href: "/resources/downloads", label: "Well-Architected Framework guide (free download)" },
+    ],
+  },
+  {
+    id: "offensive-security",
+    title: "Offensive Security (Ethical Hacking & Penetration Testing)",
+    tagline: "The red-team route: find the holes before someone hostile does, with permission and a report.",
+    whyItFits:
+      "You think adversarially and you thrive when the day is open-ended. Ethical hacking channels exactly that: authorized, methodical attacks on real systems, finished with a professional report that makes the defense stronger. It rewards curiosity, patience, and the discipline to stay inside the rules of engagement.",
+    salary: [
+      { level: "Entry", usd: "$85,000", ngn: "₦2,100,000" },
+      { level: "Mid", usd: "$152,000", ngn: "₦5,400,000" },
+      { level: "Senior / Lead", usd: "$195,000", ngn: "₦9,000,000" },
+    ],
+    roadmap: [
+      { step: "Networking & security fundamentals", body: "You can't break what you don't understand: protocols, auth, and where trust lives." },
+      { step: "Hands-on labs & CTFs", body: "Legal practice environments: capture-the-flag paths, vulnerable-by-design labs." },
+      { step: "Web & cloud attack techniques", body: "The common classes of weakness, practiced only in authorized environments." },
+      { step: "Professional pentesting", body: "Scoping, rules of engagement, and reports that get findings fixed." },
+    ],
+    certifications: ["CompTIA Security+", "OSCP (later, with experience)"],
+    firstProject:
+      "Complete a beginner path on a legal capture-the-flag platform and write a professional-style findings report for one machine, impact, evidence, and remediation.",
+    resources: [
+      { href: "/resources/iam-vs-security-groups-what-s-the-difference", label: "IAM vs security groups" },
+      { href: "/resources/if-security-groups-are-stateful-why-do-they-have-outbound-rules", label: "Why stateful security groups have outbound rules" },
+      { href: "/resources/case-studies", label: "Breach case studies (how attacks actually land)" },
+      { href: "/resources/which-skills-actually-move-a-cloud-newbie-forward", label: "Which skills actually move a newbie forward" },
+    ],
+  },
 ];
+
+/** The four temperament families behind the 16-type code. */
+export const temperamentFamilies: Record<string, { name: string; blurb: string }> = {
+  SJ: {
+    name: "Guardian",
+    blurb: "Steady, standards-driven, strongest where structure and reliability matter.",
+  },
+  SP: {
+    name: "Responder",
+    blurb: "Adaptive and hands-on, strongest where the situation changes faster than the plan.",
+  },
+  NT: {
+    name: "Strategist",
+    blurb: "Systems-minded and analytical, strongest where the problem is the architecture itself.",
+  },
+  NF: {
+    name: "Advocate",
+    blurb: "People-centred and meaning-driven, strongest where technology has to serve humans.",
+  },
+};
+
+export type Temperament = {
+  /** Four-letter code, e.g. "ISTJ". */
+  code: string;
+  family: { name: string; blurb: string };
+};
+
+/** Derive the 4-letter code + family from a full answer set. */
+export function temperamentOf(answerIdx: number[]): Temperament | null {
+  const letters: string[] = [];
+  answerIdx.forEach((optIdx, qIdx) => {
+    const l = questions[qIdx]?.options[optIdx]?.letter;
+    if (l) letters.push(l);
+  });
+  if (letters.length !== 4) return null;
+  const code = letters.join("");
+  const familyKey =
+    code.includes("S") && code.includes("J")
+      ? "SJ"
+      : code.includes("S")
+        ? "SP"
+        : code.includes("T")
+          ? "NT"
+          : "NF";
+  return { code, family: temperamentFamilies[familyKey] };
+}
+
+/** Index of the timeline question (drives the pacing note). */
+export const timelineIndex = questions.findIndex((q) => q.id === "timeline");
+
+/**
+ * Education-only caveat shown with every result, per the site's standing
+ * policy on guidance content.
+ */
+export const resultDisclaimer =
+  "These results are for education only and are not expert, professional, or career advice. This short assessment, including its temperament reading, cannot capture everything that a real career decision needs: personal introspection, your own interests and circumstances, and honest analysis over time. Treat the result as a starting point for your own research, not a verdict.";
 
 /** Score a full answer set (option index per question) and return the winning track. */
 export function scoreAnswers(answerIdx: number[]): Track {

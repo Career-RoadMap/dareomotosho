@@ -89,9 +89,10 @@ function discoverFolders(baseDir) {
 
 // ── AUTO-LABELLING RULES ──────────────────────────────────────────
 const TOPIC_RULES = [
-  { topic: "cloud", patterns: [/\bcloud\b/gi, /\bAWS\b/gi, /\bcost(s|ing)?\b/gi, /\barchitecture\b/gi] },
+  { topic: "cloud", patterns: [/\bcloud\b/gi, /\bAWS\b/gi, /\bcost(s|ing)?\b/gi, /\barchitecture\b/gi, /\bkubernetes\b/gi, /\bcompute\b/gi, /\binfrastructure\b/gi] },
   { topic: "cybersecurity", patterns: [/\bsecurity\b/gi, /\bIAM\b/gi, /\bcyber ?security\b/gi, /\bbreach(es|ed)?\b/gi] },
-  { topic: "ai_era", patterns: [/\bAI\b/gi, /\bAI[ -]?era\b/gi, /\bautomation\b/gi, /\bartificial intelligence\b/gi] },
+  // NB: "automation" deliberately not an AI signal, it's everyday DevOps vocabulary.
+  { topic: "ai_era", patterns: [/\bAI\b/gi, /\bAI[ -]?era\b/gi, /\bartificial intelligence\b/gi] },
   { topic: "career", patterns: [/\bcareer(s)?\b/gi, /\bjob(s)?\b/gi, /\bhir(e|ed|ing)\b/gi, /\binterview(s|ing)?\b/gi, /\br[ée]sum[ée]\b/gi, /\bworkplace\b/gi, /\bvolunteer(ing)?\b/gi, /\bboss\b/gi] },
 ];
 
