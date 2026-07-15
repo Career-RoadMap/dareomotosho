@@ -22,7 +22,7 @@ export async function generateMetadata({
   const track = trackById(id);
   if (!track) return { title: "Path Finder result" };
   const title = `My cloud career path: ${track.title}`;
-  const description = `${track.tagline} Take the 2-minute Cloud Career Path Finder and find yours.`;
+  const description = `${track.tagline} Take the 3-minute Cloud Career Path Finder and find yours.`;
   return {
     title,
     description,
@@ -48,14 +48,14 @@ export default async function PathResultPage({
         title="Someone mapped their cloud career. Here's what they got."
         intro={
           <p>
-            This is a result from the Cloud Career Path Finder, a two-minute
+            This is a result from the Cloud Career Path Finder, a three-minute
             assessment that turns where you are into an ordered route. Read it,
             then take it yourself, your path may be different.
           </p>
         }
       >
         <Button href="/path-finder" variant="accent">
-          Take the 2-minute test
+          Take the 3-minute test
         </Button>
       </PageBanner>
 

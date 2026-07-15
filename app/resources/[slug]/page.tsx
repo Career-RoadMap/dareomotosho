@@ -7,6 +7,7 @@ import Reveal from "@/components/Reveal";
 import EntryInteractions from "@/components/EntryInteractions";
 import DownloadPdfButton from "@/components/DownloadPdfButton";
 import { entryTypeMeta, getEntry, levelLabels, topicLabel } from "@/lib/library";
+import { siteUrl } from "@/lib/site";
 
 type Params = { slug: string };
 
@@ -49,8 +50,24 @@ export default async function EntryPage({
   const entry = await getEntry(slug);
   if (!entry) notFound();
 
+  // Breadcrumb structured data: Home → Resources → this entry.
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "Resources", item: `${siteUrl}/resources` },
+      { "@type": "ListItem", position: 3, name: entry.title, item: `${siteUrl}/resources/${entry.slug}` },
+    ],
+  };
+
   return (
     <article className="container-content py-20 sm:py-28">
+      <script
+        type="application/ld+json"
+        // Built from the entry's own title/slug, values the page already renders.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <Reveal className="flex items-center justify-between gap-4 print:hidden">
         <Link href="/resources" className="link-quiet text-small">
           ← Back to the library

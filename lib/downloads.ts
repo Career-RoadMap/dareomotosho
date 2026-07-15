@@ -62,4 +62,12 @@ export const downloads: Download[] = [
     file: "/downloads/well-architected-framework-cloud-computing.pdf",
     size: "613 KB",
   },
+  {
+    title: "Request Right-Sizing: Reclaiming Kubernetes Runway",
+    description:
+      "Cut compute waste and buy back months of runway: how to right-size Kubernetes resource requests without cutting the safety margin that keeps critical services alive.",
+    kind: "textbook",
+    file: "/downloads/request-right-sizing-reclaiming-kubernetes-runway.pdf",
+    size: "351 KB",
+  },
 ];

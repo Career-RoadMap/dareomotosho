@@ -5,7 +5,7 @@ import Link from "next/link";
 import Button from "@/components/Button";
 import EmailCapture from "@/components/EmailCapture";
 import ShareButtons from "@/components/ShareButtons";
-import { type Track } from "@/lib/pathfinder";
+import { resultDisclaimer, type Temperament, type Track } from "@/lib/pathfinder";
 
 /**
  * The Path Finder result view: the verdict, salary band, roadmap, first
@@ -19,11 +19,13 @@ import { type Track } from "@/lib/pathfinder";
 export default function PathFinderResult({
   track,
   pacing = null,
+  temperament = null,
   shared = false,
   onRestart,
 }: {
   track: Track;
   pacing?: string | null;
+  temperament?: Temperament | null;
   shared?: boolean;
   onRestart?: () => void;
 }) {
@@ -65,6 +67,16 @@ export default function PathFinderResult({
         </h2>
         <p className="mt-4 max-w-2xl text-body text-paper/75">{track.tagline}</p>
         <p className="mt-6 max-w-2xl text-body text-paper/90">{track.whyItFits}</p>
+
+        {temperament ? (
+          <div className="mt-6 inline-flex max-w-2xl flex-wrap items-center gap-3 rounded-xl bg-paper/10 px-4 py-3">
+            <span className="kicker text-amber">Temperament leaning</span>
+            <span className="font-serif text-lg font-medium text-paper">
+              {temperament.code} · {temperament.family.name}
+            </span>
+            <span className="text-small text-paper/70">{temperament.family.blurb}</span>
+          </div>
+        ) : null}
 
         {/* Two options: download the result image, or share the link. */}
         <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -186,6 +198,11 @@ export default function PathFinderResult({
           </ol>
         </div>
       </div>
+
+      {/* Education-only disclaimer, always visible with the result. */}
+      <p className="mt-6 rounded-xl border border-ink/10 bg-paper px-5 py-4 text-xs leading-relaxed text-ink/60">
+        {resultDisclaimer}
+      </p>
 
       {/* Close: capture + human help. */}
       <div className="mt-6 rounded-3xl bg-signature p-8 text-paper sm:p-12">

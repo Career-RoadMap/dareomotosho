@@ -10,9 +10,25 @@ export const metadata: Metadata = {
   description: "Answers to the questions that come up most.",
 };
 
+// FAQPage structured data: makes these Q&As eligible for rich results.
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: { "@type": "Answer", text: f.answer },
+  })),
+};
+
 export default function FaqPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        // Static, build-time JSON from the site's own FAQ content.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <PageHero
         kicker="FAQ"
         tone="cool"

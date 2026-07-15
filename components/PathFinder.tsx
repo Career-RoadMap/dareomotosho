@@ -6,6 +6,8 @@ import {
   pacingNotes,
   questions,
   scoreAnswers,
+  temperamentOf,
+  timelineIndex,
   trackById,
   type Track,
 } from "@/lib/pathfinder";
@@ -53,11 +55,12 @@ export default function PathFinder() {
   }
 
   if (result) {
-    const timelineIdx = answers.length === questions.length ? answers[3] : null;
+    const complete = answers.length === questions.length;
     return (
       <PathFinderResult
         track={result}
-        pacing={timelineIdx !== null ? pacingNotes[timelineIdx] : null}
+        pacing={complete ? pacingNotes[answers[timelineIndex]] ?? null : null}
+        temperament={complete ? temperamentOf(answers) : null}
         onRestart={restart}
       />
     );
