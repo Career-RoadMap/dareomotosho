@@ -157,34 +157,21 @@ function clampChars(str, max) {
 const SUMMARY_MAX_WORDS = 100; // upper bound before the character cap applies
 const SUMMARY_MAX_CHARS = 200;
 
-/** Case-study summary: extractive challenge → decision → outcome, ≤200 chars. */
+/**
+ * Case-study summary: the opening narrative paragraph(s), in order, capped at
+ * 200 chars. Skips heading lines and the italic subtitle so the card teaser
+ * reads cleanly, an earlier extractive version stitched keyword-matching
+ * sentences out of order, which read as jumbled and duplicated the body.
+ */
 function summariseCaseStudy(body) {
-  const SIGNAL =
-    /\b(challenge|problem|situation|issue|context|decision|decided|chose|approach|solution|strateg|outcome|result|impact|saved|reduced|increased|grew|cut|achiev|deliver)\b/i;
-  const paras = paragraphs(body);
-  const allSentences = sentences(paras.join(" "));
-  const picked = [];
-  const seen = new Set();
-
-  if (allSentences[0]) {
-    picked.push(allSentences[0]);
-    seen.add(allSentences[0]);
+  const paras = paragraphs(body).filter(
+    (p) => !/^#{1,3}\s/.test(p) && !/^[*_].+[*_]$/.test(p),
+  );
+  let summary = paras[0] || body;
+  let i = 1;
+  while (words(summary).length < SUMMARY_MAX_WORDS && i < paras.length) {
+    summary += " " + paras[i++];
   }
-  for (const s of allSentences) {
-    if (words(picked.join(" ")).length >= SUMMARY_MAX_WORDS) break;
-    if (seen.has(s)) continue;
-    if (SIGNAL.test(s)) {
-      picked.push(s);
-      seen.add(s);
-    }
-  }
-  for (const s of allSentences) {
-    if (words(picked.join(" ")).length >= SUMMARY_MAX_WORDS) break;
-    if (seen.has(s)) continue;
-    picked.push(s);
-    seen.add(s);
-  }
-  const summary = picked.join(" ").replace(/\s+/g, " ").trim();
   return clampChars(clampWords(summary, SUMMARY_MAX_WORDS), SUMMARY_MAX_CHARS);
 }
 
@@ -548,13 +535,13 @@ async function main() {
 
   // If the DB is missing the unique index on slug, PostgREST can't resolve
   // on_conflict (Postgres 42P10). Rather than fail the run, fall back to a
-  // per-row update-by-slug / insert. Apply 0007_entries_slug_unique.sql to
+  // per-row update-by-slug / insert. Apply 0001_schema.sql to
   // restore the fast atomic upsert path.
   if (error && UPDATE && error.code === "42P10") {
     console.warn(
       "\n! entries.slug has no unique index, so on-conflict upsert isn't\n" +
         "  available. Falling back to per-row update/insert (slower).\n" +
-        "  Apply supabase/migrations/0007_entries_slug_unique.sql to fix this.",
+        "  Apply supabase/migrations/0001_schema.sql to fix this.",
     );
     ({ data, error } = await upsertPerRow(entries));
   }
@@ -564,7 +551,7 @@ async function main() {
     console.error(
       "  If it mentions RLS, add the matching policy or use the service-role key.\n" +
         "  If it mentions 'on conflict'/slug, ensure entries.slug has a unique index\n" +
-        "  (apply supabase/migrations/0007_entries_slug_unique.sql). Without\n" +
+        "  (apply supabase/migrations/0001_schema.sql). Without\n" +
         "  --update, existing slugs are skipped.",
     );
     process.exit(1);

@@ -200,17 +200,48 @@ export default function Header() {
   );
 }
 
+/**
+ * A dropdown/menu link that opens in a new tab for `external` items (static
+ * tools outside the app router) and uses client-side Link otherwise.
+ */
+function NavChildLink({
+  item,
+  className,
+  tabIndex,
+}: {
+  item: NavItem;
+  className: string;
+  tabIndex?: number;
+}) {
+  if (item.external) {
+    return (
+      <a
+        href={item.href}
+        target="_blank"
+        rel="noreferrer"
+        tabIndex={tabIndex}
+        className={className}
+      >
+        {item.label}
+      </a>
+    );
+  }
+  return (
+    <Link href={item.href} tabIndex={tabIndex} className={className}>
+      {item.label}
+    </Link>
+  );
+}
+
 /** A desktop dropdown row, renders a nested submenu when the item has children. */
 function DropdownItem({ item }: { item: NavItem }) {
   if (!item.children) {
     return (
       <li>
-        <Link
-          href={item.href}
+        <NavChildLink
+          item={item}
           className="block rounded-xl px-3 py-2.5 text-small text-ink transition-colors duration-200 ease-calm hover:bg-ink/[0.04] hover:text-amber"
-        >
-          {item.label}
-        </Link>
+        />
       </li>
     );
   }
@@ -225,12 +256,10 @@ function DropdownItem({ item }: { item: NavItem }) {
       <ul className="ml-3 border-l border-ink/10 pl-2">
         {item.children.map((child) => (
           <li key={child.href}>
-            <Link
-              href={child.href}
+            <NavChildLink
+              item={child}
               className="block rounded-xl px-3 py-2 text-small text-ink/80 transition-colors duration-200 ease-calm hover:bg-ink/[0.04] hover:text-amber"
-            >
-              {child.label}
-            </Link>
+            />
           </li>
         ))}
       </ul>
@@ -242,24 +271,20 @@ function DropdownItem({ item }: { item: NavItem }) {
 function MobileChild({ item, open }: { item: NavItem; open: boolean }) {
   return (
     <li>
-      <Link
-        href={item.href}
+      <NavChildLink
+        item={item}
         tabIndex={open ? undefined : -1}
         className="block rounded-md px-3 py-2 text-small text-ink/80 transition-colors duration-300 ease-calm hover:bg-ink/[0.03] hover:text-amber"
-      >
-        {item.label}
-      </Link>
+      />
       {item.children ? (
         <ul className="ml-3 border-l border-ink/10 pl-3">
           {item.children.map((child) => (
             <li key={child.href}>
-              <Link
-                href={child.href}
+              <NavChildLink
+                item={child}
                 tabIndex={open ? undefined : -1}
                 className="block rounded-md px-3 py-1.5 text-small text-ink/65 transition-colors duration-300 ease-calm hover:bg-ink/[0.03] hover:text-amber"
-              >
-                {child.label}
-              </Link>
+              />
             </li>
           ))}
         </ul>

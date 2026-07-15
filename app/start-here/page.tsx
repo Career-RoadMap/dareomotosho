@@ -190,12 +190,12 @@ export default function StartHerePage() {
         <div className="grid gap-6 sm:grid-cols-3">
           {whyExplainers.map((w, i) => (
             <Reveal key={w.title} delay={i * 140}>
-              <div className="group h-full rounded-2xl border border-ink/10 bg-paper p-8 transition-all duration-300 ease-calm hover:-translate-y-1 hover:border-amber/50 hover:shadow-lg hover:shadow-ink/10 sm:p-10">
-                <span className="block h-px w-10 bg-amber transition-all duration-300 ease-calm group-hover:w-16" aria-hidden />
-                <h3 className="mt-6 font-serif text-h2 font-light text-signature">
+              <div className="group h-full rounded-2xl bg-signature p-8 shadow-md shadow-ink/10 transition-all duration-300 ease-calm hover:-translate-y-1 hover:bg-blue-lift hover:shadow-lg hover:shadow-ink/20 sm:p-10">
+                <span className="block h-1 w-10 rounded-full bg-amber transition-all duration-300 ease-calm group-hover:w-16" aria-hidden />
+                <h3 className="mt-6 font-serif text-h2 font-light text-amber">
                   {w.title}
                 </h3>
-                <p className="mt-4 text-body text-ink">{w.body}</p>
+                <p className="mt-4 text-body text-paper/85">{w.body}</p>
               </div>
             </Reveal>
           ))}

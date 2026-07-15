@@ -16,7 +16,7 @@ type Status = "idle" | "sending" | "done" | "error";
 
 /**
  * Email capture, wired to the Supabase `subscribers` table (see
- * supabase/migrations/0006_subscribers.sql). Anon inserts only; the list is
+ * supabase/migrations/0001_schema.sql). Anon inserts only; the list is
  * readable solely from the Supabase dashboard. A duplicate signup reads as
  * success (the address is on the list either way), and a real failure says
  * so honestly instead of pretending.

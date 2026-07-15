@@ -48,6 +48,8 @@ export type NavItem = {
   children?: NavItem[];
   /** Render as a filled call-to-action button instead of a text link. */
   cta?: boolean;
+  /** Open in a new tab via a plain anchor (for static tools outside the app router). */
+  external?: boolean;
 };
 
 /** External scheduling link (Google Calendar appointment page). */
@@ -56,8 +58,19 @@ export const bookingUrl = "https://calendar.app.google/Nv7QaxGCdmkTXd3S8";
 /** NAV order is intentional, a "build-first ascent." Do not reorder casually. */
 export const nav: NavItem[] = [
   { href: "/work", label: "Work" },
-  { href: "/start-here", label: "Learn" },
-  { href: "/path-finder", label: "Path Finder" },
+  {
+    href: "/start-here",
+    label: "Learn",
+    children: [
+      { href: "/start-here", label: "Start Here" },
+      { href: "/path-finder", label: "Career Path Finder" },
+      {
+        href: "/tools/career-salary-explorer.html",
+        label: "Salary Explorer",
+        external: true,
+      },
+    ],
+  },
   {
     href: "/resources",
     label: "Resources",
