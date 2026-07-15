@@ -50,6 +50,25 @@ export default async function EntryPage({
   const entry = await getEntry(slug);
   if (!entry) notFound();
 
+  // The seeder derives summaries from the body's opening lines, so on the
+  // full page the standfirst usually just repeats the first paragraph
+  // (e.g. "Question 1: …" showing twice on Interview Prep entries). Show it
+  // only when it's genuinely distinct from how the body opens.
+  const normalize = (s: string) =>
+    s.toLowerCase().replace(/[#*_`>“”"']/g, "").replace(/\s+/g, " ").trim();
+  const summaryProbe = normalize(entry.summary).replace(/…$/, "").slice(0, 80);
+  const summaryRepeatsBody =
+    summaryProbe.length > 0 &&
+    normalize(entry.body).slice(0, 400).includes(summaryProbe);
+
+  // Send readers back to the collection they came from, not the top library.
+  const backLinks: Record<string, { href: string; label: string }> = {
+    course_qa: { href: "/resources/interview-prep", label: "Back to Interview Prep" },
+    article: { href: "/resources/articles", label: "Back to Articles" },
+    case_study: { href: "/resources/case-studies", label: "Back to Case Studies" },
+  };
+  const back = backLinks[entry.type] ?? { href: "/resources", label: "Back to the library" };
+
   // Breadcrumb structured data: Home → Resources → this entry.
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -69,8 +88,8 @@ export default async function EntryPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <Reveal className="flex items-center justify-between gap-4 print:hidden">
-        <Link href="/resources" className="link-quiet text-small">
-          ← Back to the library
+        <Link href={back.href} className="link-quiet text-small">
+          ← {back.label}
         </Link>
         {entry.type === "case_study" ? (
           <DownloadPdfButton label="Download PDF" />
@@ -93,11 +112,7 @@ export default async function EntryPage({
         {entry.asker ? (
           <p className="mt-4 text-small italic text-ink/55">{entry.asker}</p>
         ) : null}
-        {/* Case studies and articles derive their summary from the body's
-            opening, so a standfirst here just repeats the first lines. Their
-            body is self-contained; show the summary only for the short types
-            (questions, course Q&A) where it aids scanning. */}
-        {entry.type === "case_study" || entry.type === "article" ? null : (
+        {summaryRepeatsBody ? null : (
           <p className="mt-6 text-body text-ink">{entry.summary}</p>
         )}
       </Reveal>
