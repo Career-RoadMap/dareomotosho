@@ -68,10 +68,6 @@
                     Role & Salary Explorer
                 </div>
                 <div class="flex items-center gap-4">
-                    <div class="flex bg-ink/5 p-1 rounded-lg border border-ink/10">
-                        <button onclick="setCurrency('USD')" id="btn-USD" class="px-3 py-1 text-xs font-bold rounded-md transition-all">Global ($)</button>
-                        <button onclick="setCurrency('NGN')" id="btn-NGN" class="px-3 py-1 text-xs font-bold rounded-md transition-all">Nigeria (₦)</button>
-                    </div>
                     <div class="h-6 w-[1px] bg-ink/10 hidden md:block"></div>
                     <div class="flex gap-1">
                         <button onclick="setView('engineering')" id="nav-engineering" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all">Engineering</button>
@@ -382,8 +378,8 @@
 
             document.getElementById('nav-engineering').className = `px-4 py-2 rounded-lg text-sm font-bold transition-all ${state.view === 'engineering' ? 'bg-signature text-paper shadow-lg' : 'text-ink/50 hover:bg-ink/5'}`;
             document.getElementById('nav-operations').className = `px-4 py-2 rounded-lg text-sm font-bold transition-all ${state.view === 'operations' ? 'bg-blue-lift text-paper shadow-lg' : 'text-ink/50 hover:bg-ink/5'}`;
-            document.getElementById('btn-USD').className = `px-3 py-1 text-xs font-bold rounded-md transition-all ${state.currency === 'USD' ? 'bg-paper shadow-sm text-signature' : 'text-ink/40'}`;
-            document.getElementById('btn-NGN').className = `px-3 py-1 text-xs font-bold rounded-md transition-all ${state.currency === 'NGN' ? 'bg-paper shadow-sm text-signature' : 'text-ink/40'}`;
+            const btnUSD = document.getElementById('btn-USD');
+            if (btnUSD) btnUSD.className = `px-3 py-1 text-xs font-bold rounded-md transition-all bg-paper shadow-sm text-signature`;
 
             const filtered = data[state.view].filter(item => {
                 const searchMatch = item.name.toLowerCase().includes(state.search.toLowerCase());

@@ -1,15 +1,9 @@
 import { ImageResponse } from "next/og";
 import { trackById } from "@/lib/pathfinder";
-import { brand } from "@/lib/site";
 
-/**
- * Per-track share/result card, generated at build time. This single image is
- * both the social preview (og:image / twitter:image) and the file the result
- * page offers for download, so the two always match. It carries the role, the
- * mid-level salary reference, and a call to take the test.
- */
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+export const revalidate = 86400;
 
 export default async function Image({
   params,
@@ -20,7 +14,6 @@ export default async function Image({
   const track = trackById(id);
   const title = track?.title ?? "Cloud Career Path";
   const tagline = track?.tagline ?? "";
-  const mid = track?.salary.find((s) => s.level === "Mid");
 
   return new ImageResponse(
     (
@@ -56,7 +49,7 @@ export default async function Image({
               color: "#E0A951",
             }}
           >
-            My cloud career path
+            Cloud Career Path
           </div>
           <div
             style={{
@@ -91,21 +84,9 @@ export default async function Image({
           style={{
             display: "flex",
             alignItems: "flex-end",
-            justifyContent: "space-between",
+            justifyContent: "flex-end",
           }}
         >
-          {mid ? (
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ display: "flex", fontSize: 22, color: "rgba(247,245,240,0.6)" }}>
-                Typical mid-level
-              </div>
-              <div style={{ display: "flex", marginTop: 6, fontSize: 46, fontWeight: 500 }}>
-                {mid.usd}
-              </div>
-            </div>
-          ) : (
-            <div style={{ display: "flex" }} />
-          )}
           <div
             style={{
               display: "flex",
@@ -115,7 +96,7 @@ export default async function Image({
             }}
           >
             <div style={{ display: "flex", fontSize: 26, color: "#E0A951" }}>
-              Find your path in 2 minutes
+              Find your path in 3 minutes
             </div>
             <div style={{ display: "flex", marginTop: 6, fontSize: 24, color: "rgba(247,245,240,0.85)" }}>
               dareomotosho.com/path-finder

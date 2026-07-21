@@ -35,6 +35,132 @@ export default function PathFinderResult({
   const [emailStatus, setEmailStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const resultPath = `/path-finder/${track.id}`;
 
+  function buildPdfHtml() {
+    const tempHtml = temperament
+      ? `<div class="temp-box">
+          <span class="label">Temperament</span>
+          <span class="code">${temperament.code}</span>
+          <span class="sep">·</span>
+          <span class="family">${temperament.family.name}</span>
+          <p class="blurb">${temperament.family.blurb}</p>
+        </div>`
+      : "";
+    const roadmapHtml = track.roadmap
+      .map(
+        (r, i) => `<div class="roadmap-item">
+          <div class="roadmap-num">${String(i + 1).padStart(2, "0")}</div>
+          <div><strong>${r.step}</strong><p>${r.body}</p></div>
+        </div>`,
+      )
+      .join("");
+    const salaryHtml = track.salary
+      .map(
+        (s) => `<div class="salary-card">
+          <div class="level">${s.level}</div>
+          <div class="amount">${s.usd}</div>
+        </div>`,
+      )
+      .join("");
+    const certsHtml = track.certifications
+      .map((c) => `<span class="cert">${c}</span>`)
+      .join("");
+    const resourcesHtml = track.resources
+      .map((r, i) => `<li>${i + 1}. ${r.label}</li>`)
+      .join("");
+
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cloud Career Path Report: ${track.title}</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Georgia,serif;color:#0f1b2d;background:#fff;padding:48px;max-width:820px;margin:0 auto;font-size:15px;line-height:1.7}
+  .header{border-bottom:3px solid #e0a951;padding-bottom:20px;margin-bottom:32px}
+  .kicker{font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#e0a951}
+  h1{font-size:2.1rem;font-weight:400;line-height:1.15;margin:8px 0 6px;color:#0f1b2d}
+  .tagline{font-size:1.1rem;color:#555;font-style:italic}
+  .why{margin-top:14px;color:#444}
+  .section{margin-top:36px}
+  h2{font-family:Arial,sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#1e3a5f;border-bottom:1px solid #e0a951;padding-bottom:6px;margin-bottom:16px}
+  .temp-box{background:#f5f0e8;border:1px solid rgba(224,169,81,.5);border-radius:8px;padding:14px 18px;display:inline-flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:4px}
+  .temp-box .label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#e0a951}
+  .temp-box .code{font-size:1.6rem;font-weight:700;color:#1e3a5f}
+  .temp-box .sep{color:#bbb}
+  .temp-box .family{font-size:1.05rem;font-weight:600;color:#1e3a5f}
+  .temp-box .blurb{width:100%;margin-top:4px;font-size:.88rem;color:#666;font-style:italic}
+  .salary-grid{display:flex;gap:12px;margin-top:8px}
+  .salary-card{flex:1;border:1px solid #ddd;border-radius:8px;padding:14px 16px}
+  .salary-card .level{font-family:Arial,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#1e3a5f}
+  .salary-card .amount{font-size:1.45rem;font-weight:700;color:#0f1b2d;margin-top:4px}
+  .pacing{background:#f8f8f8;border-left:3px solid #e0a951;padding:12px 16px;margin-bottom:20px;font-size:.9rem;color:#666;font-style:italic}
+  .roadmap-item{display:flex;gap:16px;margin-bottom:20px}
+  .roadmap-num{font-size:1.8rem;font-weight:700;color:#e0a951;min-width:44px;line-height:1.1;font-family:Georgia,serif}
+  .roadmap-item strong{font-size:1rem;color:#0f1b2d;display:block;margin-bottom:2px}
+  .roadmap-item p{font-size:.9rem;color:#666;margin:0}
+  .certs{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .cert{background:#e8f0f8;border:1px solid rgba(30,58,95,.25);border-radius:20px;padding:4px 14px;font-family:Arial,sans-serif;font-size:.82rem;color:#1e3a5f;font-weight:600}
+  .project-box{background:#fffbf0;border:1px solid rgba(224,169,81,.4);border-radius:10px;padding:20px 24px}
+  .project-text{font-size:1.05rem;color:#333;margin:8px 0 0}
+  .project-note{margin-top:10px;font-size:.85rem;color:#888;font-style:italic}
+  .resource-list{list-style:none;padding:0}
+  .resource-list li{padding:8px 0;border-bottom:1px solid #eee;font-size:.95rem;color:#333}
+  .resource-list li:last-child{border-bottom:none}
+  .disclaimer{margin-top:40px;padding:16px 18px;background:#f8f8f8;border-radius:8px;font-family:Arial,sans-serif;font-size:.78rem;color:#999;line-height:1.6}
+  .footer{margin-top:20px;text-align:center;font-family:Arial,sans-serif;font-size:.75rem;color:#bbb}
+  @media print{body{padding:0}@page{margin:1.5cm;size:A4}}
+</style>
+<script>window.addEventListener('load',function(){window.print();})</script>
+</head>
+<body>
+<div class="header">
+  <div class="kicker">Cloud Career Path Report · dareomotosho.com</div>
+  <h1>${track.title}</h1>
+  <div class="tagline">${track.tagline}</div>
+  <div class="why">${track.whyItFits}</div>
+</div>
+${tempHtml}
+<div class="section">
+  <h2>Salary Reference (USD)</h2>
+  <div class="salary-grid">${salaryHtml}</div>
+  <p style="margin-top:10px;font-family:Arial,sans-serif;font-size:.78rem;color:#aaa">Educational reference only. Not financial or career advice. Varies by company, location, and experience.</p>
+</div>
+<div class="section">
+  <h2>Your Roadmap, In Order</h2>
+  ${pacing ? `<div class="pacing">${pacing}</div>` : ""}
+  ${roadmapHtml}
+  <div style="margin-top:16px">
+    <strong style="font-size:.9rem;color:#1e3a5f">Certifications worth holding:</strong>
+    <div class="certs">${certsHtml}</div>
+  </div>
+</div>
+<div class="section">
+  <h2>Build This First</h2>
+  <div class="project-box">
+    <div class="kicker">Start here</div>
+    <div class="project-text">${track.firstProject}</div>
+    <p class="project-note">Confidence comes from shipping, not from reading. Start it in week one, badly if necessary.</p>
+  </div>
+</div>
+<div class="section">
+  <h2>Read These, In This Order</h2>
+  <ol class="resource-list">${resourcesHtml}</ol>
+</div>
+<p class="disclaimer">${resultDisclaimer}</p>
+<p class="footer">Generated from dareomotosho.com/path-finder &nbsp;·&nbsp; For education only</p>
+</body>
+</html>`;
+  }
+
+  function downloadPdf() {
+    const html = buildPdfHtml();
+    const win = window.open("", "_blank");
+    if (!win) return;
+    win.document.write(html);
+    win.document.close();
+    win.focus();
+  }
+
   function buildEmailBody() {
     const lines: string[] = [];
     lines.push(`YOUR CLOUD CAREER PATH: ${track.title.toUpperCase()}`);
@@ -112,9 +238,9 @@ export default function PathFinderResult({
     if (downloading) return;
     setDownloading(true);
     try {
-      // The result card IS the page's Open Graph image, so the download and
-      // the social preview are guaranteed to match.
-      const res = await fetch(`${resultPath}/opengraph-image`);
+      const params = new URLSearchParams({ track: track.id });
+      if (temperament?.code) params.set("t", temperament.code);
+      const res = await fetch(`/api/download-image?${params}`);
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -165,7 +291,18 @@ export default function PathFinderResult({
             <svg viewBox="0 0 20 20" className="h-4 w-4 fill-current" aria-hidden>
               <path d="M10 2a1 1 0 0 1 1 1v7.586l2.293-2.293a1 1 0 1 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 1 1 1.414-1.414L9 10.586V3a1 1 0 0 1 1-1zM4 15a1 1 0 0 1 1 1h10a1 1 0 1 1 0 2H5a2 2 0 0 1-2-2 1 1 0 0 1 1-1z" />
             </svg>
-            {downloading ? "Preparing…" : "Download result"}
+            {downloading ? "Preparing…" : "Download image"}
+          </button>
+
+          <button
+            type="button"
+            onClick={downloadPdf}
+            className="inline-flex items-center gap-2 rounded-lg border border-paper/30 px-5 py-2.5 text-small font-medium text-paper transition-all duration-300 ease-calm hover:border-amber hover:bg-paper/10 hover:text-amber"
+          >
+            <svg viewBox="0 0 20 20" className="h-4 w-4 fill-current" aria-hidden>
+              <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
+            </svg>
+            Download PDF
           </button>
 
           <span className="inline-flex items-center gap-1 rounded-lg bg-paper/10 px-3 py-2">
