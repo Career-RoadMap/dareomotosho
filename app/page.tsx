@@ -33,7 +33,6 @@ export default function HomePage() {
           sits behind the headline; all key content lands above the fold. */}
       <PageBanner
         image={pageBanners.home}
-        kicker={brand.byline}
         title={
           <>
             The tool <span className="text-amber">is the easy part.</span> The{" "}

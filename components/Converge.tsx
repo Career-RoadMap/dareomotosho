@@ -15,8 +15,47 @@ const offset: Record<Corner, string> = {
  * Entrance wrapper for a grid of tiles that "come together" once scrolled to.
  * Each tile starts offset toward its corner and eases into place, fires once.
  * The translate lives on this outer wrapper so it never fights a flip/3D
- * transform on the child. Honors prefers-reduced-motion (shows at rest).
+ * transform on the child.
+ *
+ * Visibility is driven by a single shared IntersectionObserver (no per-element
+ * getBoundingClientRect), so a grid of these doesn't force synchronous layout
+ * on mount. Visible (aligned) by default so first paint never scatters; only
+ * below-fold tiles hide and animate in. Honors prefers-reduced-motion.
  */
+
+type Rec = { primed: boolean; onHide: () => void; onShow: () => void };
+
+let observer: IntersectionObserver | null = null;
+const registry = new WeakMap<Element, Rec>();
+
+function getObserver(): IntersectionObserver | null {
+  if (typeof IntersectionObserver === "undefined") return null;
+  if (observer) return observer;
+  observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        const rec = registry.get(entry.target);
+        if (!rec) continue;
+        if (!rec.primed) {
+          rec.primed = true;
+          if (entry.isIntersecting) {
+            observer!.unobserve(entry.target);
+            registry.delete(entry.target);
+          } else {
+            rec.onHide();
+          }
+        } else if (entry.isIntersecting) {
+          rec.onShow();
+          observer!.unobserve(entry.target);
+          registry.delete(entry.target);
+        }
+      }
+    },
+    { threshold: 0.2, rootMargin: "0px 0px -8% 0px" },
+  );
+  return observer;
+}
+
 export default function Converge({
   children,
   from = "tl",
@@ -30,33 +69,25 @@ export default function Converge({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
-  // Visible (aligned) by default so first paint never scatters; only hide and
-  // animate tiles that are below the fold at load.
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
-    if (typeof IntersectionObserver === "undefined") return;
+    const obs = getObserver();
+    if (!obs) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const vh = window.innerHeight || 0;
-    if (node.getBoundingClientRect().top < vh * 0.92) return; // in view → stay shown
-
-    setVisible(false);
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setVisible(true);
-            observer.unobserve(entry.target);
-          }
-        }
-      },
-      { threshold: 0.2, rootMargin: "0px 0px -8% 0px" },
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
+    registry.set(node, {
+      primed: false,
+      onHide: () => setVisible(false),
+      onShow: () => setVisible(true),
+    });
+    obs.observe(node);
+    return () => {
+      obs.unobserve(node);
+      registry.delete(node);
+    };
   }, []);
 
   return (

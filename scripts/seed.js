@@ -31,6 +31,26 @@ const fs = require("fs");
 const path = require("path");
 const { createClient } = require("@supabase/supabase-js");
 
+/**
+ * Build a Supabase client that works on every Node version. The client always
+ * constructs a realtime client (which needs a WebSocket), but this script only
+ * uses the REST API. Node 22+ has a global WebSocket; on older Node we hand the
+ * client the `ws` package so it doesn't throw. Realtime never actually connects.
+ */
+function makeSupabase(url, key) {
+  let WS = globalThis.WebSocket;
+  if (!WS) {
+    try {
+      WS = require("ws");
+    } catch (_) {
+      /* not installed — only a problem on Node < 22; see error guidance below */
+    }
+  }
+  const options = { auth: { persistSession: false, autoRefreshToken: false } };
+  if (WS) options.realtime = { transport: WS };
+  return createClient(url, key, options);
+}
+
 // ── CONFIG ────────────────────────────────────────────────────────
 const SUPABASE_URL = process.env.SUPABASE_URL || "";
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || "";
@@ -360,7 +380,7 @@ async function main() {
   let supabase = null;
   if (SUPABASE_URL && SUPABASE_ANON_KEY) {
     try {
-      supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      supabase = makeSupabase(SUPABASE_URL, SUPABASE_ANON_KEY);
       const { data, error } = await supabase.from("entries").select("slug");
       if (error) throw error;
       existingSlugs = new Set((data || []).map((r) => r.slug));

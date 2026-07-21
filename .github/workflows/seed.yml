@@ -27,7 +27,10 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # Node 22+ has a native WebSocket, which the Supabase client needs at
+          # construction time. (scripts/seed.js also falls back to the `ws`
+          # package, so older Node works too.)
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
