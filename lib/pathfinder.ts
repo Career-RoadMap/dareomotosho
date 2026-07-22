@@ -194,7 +194,7 @@ export const questions: Question[] = [
   },
   {
     id: "timeline",
-    prompt: "How much runway are you giving this?",
+    prompt: "How much time are you willing to commit to learning?",
     options: [
       {
         label: "3 to 6 months, full push",

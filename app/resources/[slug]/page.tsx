@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import Reveal from "@/components/Reveal";
 import EntryInteractions from "@/components/EntryInteractions";
 import DownloadPdfButton from "@/components/DownloadPdfButton";
+import CourseQaPage from "@/components/CourseQaPage";
 import { entryTypeMeta, getEntry, levelLabels, topicLabel } from "@/lib/library";
 import { siteUrl } from "@/lib/site";
 
@@ -119,9 +120,13 @@ export default async function EntryPage({
 
       {/* Long-form Markdown body */}
       <Reveal className="mt-10 max-w-3xl">
-        <div className="prose-entry space-y-5 text-body text-ink">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{entry.body}</ReactMarkdown>
-        </div>
+        {entry.type === "course_qa" ? (
+          <CourseQaPage body={entry.body} />
+        ) : (
+          <div className="prose-entry space-y-5 text-body text-ink">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{entry.body}</ReactMarkdown>
+          </div>
+        )}
       </Reveal>
 
       {/* Realtime discussion */}
