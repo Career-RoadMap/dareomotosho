@@ -49,7 +49,7 @@ export default function HomePage() {
         }
         intro={<p>{brand.oneLine}</p>}
       >
-        <Button href="/work">See what I build</Button>
+        <Button href="/work" variant="accent">See what I build</Button>
       </PageBanner>
 
       {/* ── Three audience doors, gentle staggered fade-in on scroll. */}

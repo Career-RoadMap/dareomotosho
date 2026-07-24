@@ -74,9 +74,12 @@ export async function POST(request: NextRequest) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: process.env.RESEND_FROM ?? "Dare Omotosho <results@dareomotosho.com>",
+      // Default sender lives on the Resend-verified domain
+      // (email.dareomotosho.com); RESEND_FROM overrides it.
+      from: process.env.RESEND_FROM ?? "Dare Omotosho <results@email.dareomotosho.com>",
       to: [email],
       bcc: ["dare@dareomotosho.com"],
+      reply_to: "dare@dareomotosho.com",
       subject: `Your cloud career path: ${track.title}`,
       html,
       attachments: [
@@ -91,7 +94,10 @@ export async function POST(request: NextRequest) {
   if (!res.ok) {
     const detail = await res.text().catch(() => "");
     console.error("Resend send failed:", res.status, detail);
-    return NextResponse.json({ error: "Send failed" }, { status: 502 });
+    return NextResponse.json(
+      { error: "Send failed", detail: detail.slice(0, 300) },
+      { status: 502 },
+    );
   }
 
   return NextResponse.json({ success: true });

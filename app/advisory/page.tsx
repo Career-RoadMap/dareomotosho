@@ -43,7 +43,7 @@ export default function AdvisoryPage() {
           </p>
         }
       >
-        <Button href="#start">Start a conversation</Button>
+        <Button href="#start" variant="accent">Start a conversation</Button>
       </PageBanner>
 
       {/* ── Outcomes language. */}

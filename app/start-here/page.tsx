@@ -71,7 +71,7 @@ export default function StartHerePage() {
           </p>
         }
       >
-        <Button href="/resources">Browse the library</Button>
+        <Button href="/resources" variant="accent">Browse the library</Button>
       </PageBanner>
 
       {/* ── Guided learning order. */}
