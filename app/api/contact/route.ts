@@ -1,6 +1,15 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { safeSender } from "@/lib/email";
 
 export const runtime = "nodejs";
+
+// Distinct from the results@ sender so inquiries are easy to filter;
+// RESEND_CONTACT_FROM overrides (must be on the Resend-verified domain).
+const CONTACT_FROM = () =>
+  safeSender(
+    process.env.RESEND_CONTACT_FROM,
+    "Website inquiries <contacts@email.dareomotosho.com>",
+  );
 
 /** Escape a string for safe inclusion in the HTML email body. */
 function esc(s: string): string {
@@ -98,11 +107,7 @@ function sendInquiry(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      // Distinct from the results@ sender so inquiries are easy to filter;
-      // RESEND_CONTACT_FROM overrides (must be on the verified domain).
-      from:
-        process.env.RESEND_CONTACT_FROM ??
-        "Website inquiries <contacts@email.dareomotosho.com>",
+      from: CONTACT_FROM(),
       to: ["dare@dareomotosho.com"],
       subject,
       html,
@@ -120,9 +125,7 @@ function sendInquiry(
  */
 export async function GET(request: NextRequest) {
   const apiKey = process.env.RESEND_API_KEY;
-  const from =
-    process.env.RESEND_CONTACT_FROM ??
-    "Website inquiries <contacts@email.dareomotosho.com>";
+  const from = CONTACT_FROM();
   if (!apiKey) {
     return NextResponse.json({
       ok: false,
