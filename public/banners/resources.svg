@@ -5,12 +5,23 @@
       <stop offset="100%" stop-color="#0F1B2D" stop-opacity="0"/>
     </radialGradient>
   </defs>
+  <style>
+    .pulse{stroke-dasharray:16 484;stroke-linecap:round;animation:flow 13s linear infinite}
+    .p2{animation-duration:15s;animation-delay:-8s}
+    @keyframes flow{to{stroke-dashoffset:-500}}
+    @media (prefers-reduced-motion:reduce){.pulse{display:none}}
+  </style>
   <rect width="1600" height="900" fill="#0F1B2D"/>
   <rect width="1600" height="900" fill="url(#rg1)"/>
   <!-- library: staggered spines on shelves -->
   <g stroke="#3D6491" stroke-width="2" opacity="0.55" fill="none">
     <path d="M900 660 H1520"/>
     <path d="M900 420 H1520"/>
+  </g>
+  <!-- knowledge moving along the shelves -->
+  <g stroke="#8FB3DE" stroke-width="2" opacity="0.35" fill="none">
+    <path class="pulse" d="M900 660 H1520"/>
+    <path class="pulse p2" d="M900 420 H1520"/>
   </g>
   <g fill="#3D6491" opacity="0.5">
     <rect x="930" y="480" width="26" height="180" rx="3"/>

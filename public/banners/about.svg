@@ -7,6 +7,13 @@
       <stop offset="100%" stop-color="#3D6491" stop-opacity="0.55"/>
     </linearGradient>
   </defs>
+  <style>
+    .pulse{stroke-dasharray:16 484;stroke-linecap:round;animation:flow 12s linear infinite}
+    .p2{animation-duration:14s;animation-delay:-7s}
+    .pa{stroke-dasharray:22 478;animation-duration:9s;animation-delay:-3s}
+    @keyframes flow{to{stroke-dashoffset:-500}}
+    @media (prefers-reduced-motion:reduce){.pulse{display:none}}
+  </style>
   <rect width="1600" height="900" fill="#0F1B2D"/>
   <rect width="1600" height="900" fill="url(#bg1)"/>
   <!-- the seam: two rooms, one doorway of light -->
@@ -15,8 +22,14 @@
     <path d="M0 320 H660 M940 320 H1600"/>
     <path d="M660 0 V900 M940 0 V900"/>
   </g>
+  <!-- signal drifting toward the doorway -->
+  <g stroke="#8FB3DE" stroke-width="1.5" opacity="0.35" fill="none">
+    <path class="pulse" d="M0 320 H660 M940 320 H1600"/>
+    <path class="pulse p2" d="M0 640 H660 M940 640 H1600"/>
+  </g>
   <rect x="660" y="0" width="280" height="900" fill="#E0A951" opacity="0.07"/>
   <path d="M800 60 V840" stroke="#E0A951" stroke-width="2.5" opacity="0.65"/>
+  <path class="pulse pa" d="M800 60 V840" fill="none" stroke="#F0C888" stroke-width="2.5" opacity="0.45"/>
   <circle cx="800" cy="450" r="8" fill="#E0A951" opacity="0.9"/>
   <circle cx="800" cy="450" r="34" fill="none" stroke="#E0A951" stroke-opacity="0.3" stroke-width="1.5"/>
 </svg>

@@ -15,11 +15,11 @@ type EmailCaptureProps = {
 type Status = "idle" | "sending" | "done" | "error";
 
 /**
- * Email capture, wired to the Supabase `subscribers` table (see
- * supabase/migrations/0001_schema.sql). Anon inserts only; the list is
- * readable solely from the Supabase dashboard. A duplicate signup reads as
- * success (the address is on the list either way), and a real failure says
- * so honestly instead of pretending.
+ * Email capture, wired to the Resend audience via /api/subscribe, with the
+ * Supabase `subscribers` table kept in sync as a backup list (see
+ * supabase/migrations/0001_schema.sql; anon inserts only). A duplicate
+ * signup reads as success (the address is on the list either way), and a
+ * real failure says so honestly instead of pretending.
  */
 export default function EmailCapture({
   tone = "light",
@@ -34,18 +34,27 @@ export default function EmailCapture({
     e.preventDefault();
     const address = email.trim();
     if (!address || status === "sending") return;
-    if (!supabase) {
-      setStatus("error");
-      return;
-    }
     setStatus("sending");
-    const { error } = await supabase.from("subscribers").insert({
-      email: address,
-      source: window.location.pathname,
-    });
-    // 23505 = unique violation: already subscribed, which is still success.
-    if (!error || error.code === "23505") setStatus("done");
-    else setStatus("error");
+
+    const [resendOk, supabaseOk] = await Promise.all([
+      fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: address }),
+      })
+        .then((res) => res.ok)
+        .catch(() => false),
+      // Backup list; 23505 = unique violation: already subscribed, which is
+      // still success.
+      supabase
+        ? supabase
+            .from("subscribers")
+            .insert({ email: address, source: window.location.pathname })
+            .then(({ error }) => !error || error.code === "23505")
+        : Promise.resolve(false),
+    ]);
+
+    setStatus(resendOk || supabaseOk ? "done" : "error");
   }
 
   const dark = tone === "dark";

@@ -5,6 +5,14 @@
       <stop offset="100%" stop-color="#0F1B2D" stop-opacity="0"/>
     </radialGradient>
   </defs>
+  <style>
+    .pulse{stroke-dasharray:24 476;stroke-linecap:round;animation:flow 9s linear infinite}
+    .p2{animation-delay:-1.2s}
+    .p3{animation-delay:-2.4s}
+    .p4{animation-delay:-3.6s}
+    @keyframes flow{to{stroke-dashoffset:-500}}
+    @media (prefers-reduced-motion:reduce){.pulse{display:none}}
+  </style>
   <rect width="1600" height="900" fill="#0F1B2D"/>
   <rect width="1600" height="900" fill="url(#sg1)"/>
   <!-- voice: arcs radiating from a single point -->
@@ -14,11 +22,18 @@
     <path d="M1355 200 A340 340 0 0 1 1355 700" opacity="0.35"/>
     <path d="M1410 135 A425 425 0 0 1 1410 765" opacity="0.2"/>
   </g>
+  <!-- the voice carrying outward along the arcs -->
+  <g fill="none" stroke="#8FB3DE" stroke-width="2">
+    <path class="pulse" d="M1245 330 A170 170 0 0 1 1245 570" opacity="0.4"/>
+    <path class="pulse p2" d="M1300 265 A255 255 0 0 1 1300 635" opacity="0.32"/>
+    <path class="pulse p3" d="M1355 200 A340 340 0 0 1 1355 700" opacity="0.24"/>
+    <path class="pulse p4" d="M1410 135 A425 425 0 0 1 1410 765" opacity="0.16"/>
+  </g>
   <circle cx="1160" cy="450" r="10" fill="#E0A951" opacity="0.95"/>
   <circle cx="1160" cy="450" r="30" fill="none" stroke="#E0A951" stroke-opacity="0.45" stroke-width="2"/>
   <g fill="#3D6491" opacity="0.4">
     <circle cx="300" cy="620" r="5"/><circle cx="420" cy="680" r="5"/><circle cx="540" cy="610" r="5"/>
     <circle cx="360" cy="740" r="5"/><circle cx="500" cy="750" r="5"/><circle cx="640" cy="700" r="5"/>
-    <circle cx="240" cy="700" r="5"/><circle cx="600 " cy="780" r="5"/>
+    <circle cx="240" cy="700" r="5"/><circle cx="600" cy="780" r="5"/>
   </g>
 </svg>
