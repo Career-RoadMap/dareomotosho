@@ -52,6 +52,7 @@ export default function InquiryForm({
   const [done, setDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(false);
+  const [errorDetail, setErrorDetail] = useState("");
   const dark = tone === "dark";
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -75,9 +76,15 @@ export default function InquiryForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ subject, fields, honeypot }),
       });
-      if (!res.ok) throw new Error(`Submission failed (${res.status})`);
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        setErrorDetail(data?.detail || data?.error || `HTTP ${res.status}`);
+        setError(true);
+        return;
+      }
       setDone(true);
     } catch {
+      setErrorDetail("Network error");
       setError(true);
     } finally {
       setSubmitting(false);
@@ -164,6 +171,11 @@ export default function InquiryForm({
             {contactEmail}
           </a>
           .
+          {errorDetail ? (
+            <span className={`mt-1 block text-xs ${dark ? "text-paper/50" : "text-ink/45"}`}>
+              ({errorDetail})
+            </span>
+          ) : null}
         </p>
       ) : null}
     </form>
