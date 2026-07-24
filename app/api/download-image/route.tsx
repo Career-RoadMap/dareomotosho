@@ -109,8 +109,7 @@ export async function GET(request: NextRequest) {
               padding: "14px 22px",
               gap: 16,
               alignItems: "center",
-              width: "fit-content",
-            }}
+                }}
           >
             <div
               style={{
@@ -183,10 +182,12 @@ export async function GET(request: NextRequest) {
           ))}
         </div>
 
+        {/* Flex spacer pushes footer to bottom */}
+        <div style={{ display: "flex", flex: 1 }} />
+
         {/* Footer */}
         <div
           style={{
-            marginTop: "auto",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
