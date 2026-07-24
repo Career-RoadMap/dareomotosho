@@ -473,6 +473,20 @@ export function temperamentOf(answerIdx: number[]): Temperament | null {
   return { code, family: temperamentFamilies[familyKey] };
 }
 
+/** Rebuild a Temperament from its 4-letter code (e.g. from a URL param). */
+export function temperamentFromCode(code: string): Temperament | null {
+  if (!/^[EI][SN][TF][JP]$/.test(code)) return null;
+  const familyKey =
+    code.includes("S") && code.includes("J")
+      ? "SJ"
+      : code.includes("S")
+        ? "SP"
+        : code.includes("T")
+          ? "NT"
+          : "NF";
+  return { code, family: temperamentFamilies[familyKey] };
+}
+
 /** Index of the timeline question (drives the pacing note). */
 export const timelineIndex = questions.findIndex((q) => q.id === "timeline");
 
