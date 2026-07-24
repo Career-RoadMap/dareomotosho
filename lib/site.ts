@@ -52,7 +52,7 @@ export type NavItem = {
   external?: boolean;
 };
 
-/** External scheduling link (Calendly, 35-minute call). */
+/** External scheduling link (Calendly, 30-minute call). */
 export const bookingUrl = "https://calendly.com/darelekan46/35min";
 
 /** NAV order is intentional, a "build-first ascent." Do not reorder casually. */

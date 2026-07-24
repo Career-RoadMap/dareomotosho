@@ -33,7 +33,7 @@ export default function BookPage() {
         title="Pick a time. Bring the real question."
         intro={
           <p>
-            Thirty-five minutes, no ceremony. Choose a slot on the calendar and
+            Thirty minutes, no ceremony. Choose a slot on the calendar and
             come with the decision, the blocker, or the ambition you actually
             care about.
           </p>
