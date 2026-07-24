@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { safeSender } from "@/lib/email";
 import { trackById, temperamentFromCode } from "@/lib/pathfinder";
 import { buildReportPdf } from "@/lib/report-pdf";
 import { siteUrl } from "@/lib/site";
@@ -76,7 +77,10 @@ export async function POST(request: NextRequest) {
     body: JSON.stringify({
       // Default sender lives on the Resend-verified domain
       // (email.dareomotosho.com); RESEND_FROM overrides it.
-      from: process.env.RESEND_FROM ?? "Dare Omotosho <results@email.dareomotosho.com>",
+      from: safeSender(
+        process.env.RESEND_FROM,
+        "Dare Omotosho <results@email.dareomotosho.com>",
+      ),
       to: [email],
       bcc: ["dare@dareomotosho.com"],
       reply_to: "dare@dareomotosho.com",
