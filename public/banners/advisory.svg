@@ -5,6 +5,13 @@
       <stop offset="100%" stop-color="#0F1B2D" stop-opacity="0"/>
     </radialGradient>
   </defs>
+  <style>
+    .pulse{stroke-dasharray:18 482;stroke-linecap:round;animation:flow 11s linear infinite}
+    .p2{animation-delay:-5.5s}
+    .pa{stroke-dasharray:22 478;animation-duration:8s;animation-delay:-2s}
+    @keyframes flow{to{stroke-dashoffset:-500}}
+    @media (prefers-reduced-motion:reduce){.pulse{display:none}}
+  </style>
   <rect width="1600" height="900" fill="#0F1B2D"/>
   <rect width="1600" height="900" fill="url(#ag1)"/>
   <!-- counsel: two paths converging on a decision point, then one deliberate line -->
@@ -12,6 +19,12 @@
     <path d="M120 260 C480 300 760 380 1060 450" stroke="#3D6491" opacity="0.6"/>
     <path d="M120 700 C480 660 760 540 1060 450" stroke="#3D6491" opacity="0.6"/>
     <path d="M1060 450 C1220 450 1360 450 1500 450" stroke="#E0A951" opacity="0.8"/>
+  </g>
+  <!-- thinking arriving at the decision point, then moving out as one line -->
+  <g fill="none" stroke-width="2.5">
+    <path class="pulse" d="M120 260 C480 300 760 380 1060 450" stroke="#8FB3DE" opacity="0.4"/>
+    <path class="pulse p2" d="M120 700 C480 660 760 540 1060 450" stroke="#8FB3DE" opacity="0.4"/>
+    <path class="pulse pa" d="M1060 450 C1220 450 1360 450 1500 450" stroke="#F0C888" opacity="0.5"/>
   </g>
   <circle cx="1060" cy="450" r="9" fill="#E0A951" opacity="0.95"/>
   <circle cx="1060" cy="450" r="30" fill="none" stroke="#E0A951" stroke-opacity="0.35" stroke-width="1.5"/>

@@ -5,11 +5,21 @@
       <stop offset="100%" stop-color="#0F1B2D" stop-opacity="0"/>
     </radialGradient>
   </defs>
+  <style>
+    .pulse{stroke-dasharray:20 580;stroke-linecap:round;animation:flow 12s linear infinite}
+    .p2{stroke-dasharray:14 586;animation-duration:16s;animation-delay:-9s}
+    @keyframes flow{to{stroke-dashoffset:-600}}
+    @media (prefers-reduced-motion:reduce){.pulse{display:none}}
+  </style>
   <rect width="1600" height="900" fill="#0F1B2D"/>
   <rect width="1600" height="900" fill="url(#lg1)"/>
   <!-- the route: ascending steps, marked waypoints, a destination -->
   <g fill="none" stroke="#3D6491" stroke-width="2.5" opacity="0.65">
     <path d="M140 760 H420 V640 H700 V520 H980 V400 H1260 V280 H1500"/>
+  </g>
+  <!-- progress climbing the route toward the destination -->
+  <g fill="none" stroke="#8FB3DE" stroke-width="2.5" opacity="0.45">
+    <path class="pulse" d="M140 760 H420 V640 H700 V520 H980 V400 H1260 V280 H1500"/>
   </g>
   <g fill="#3D6491" opacity="0.85">
     <circle cx="280" cy="760" r="6"/>
@@ -21,5 +31,8 @@
   <circle cx="1380" cy="280" r="30" fill="none" stroke="#E0A951" stroke-opacity="0.4" stroke-width="1.5"/>
   <g stroke="#3D6491" stroke-opacity="0.2" stroke-width="1.5" fill="none">
     <path d="M140 790 H1500"/>
+  </g>
+  <g stroke="#8FB3DE" stroke-width="1.5" opacity="0.25" fill="none">
+    <path class="pulse p2" d="M140 790 H1500"/>
   </g>
 </svg>

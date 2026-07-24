@@ -10,6 +10,14 @@
       <stop offset="100%" stop-color="#0F1B2D" stop-opacity="0"/>
     </linearGradient>
   </defs>
+  <style>
+    .pulse{stroke-dasharray:18 482;stroke-linecap:round;animation:flow 11s linear infinite}
+    .p2{animation-duration:13s;animation-delay:-5s}
+    .p3{animation-duration:10s;animation-delay:-2s}
+    .p4{animation-duration:12s;animation-delay:-8s}
+    @keyframes flow{to{stroke-dashoffset:-500}}
+    @media (prefers-reduced-motion:reduce){.pulse{display:none}}
+  </style>
   <rect width="1600" height="900" fill="#0F1B2D"/>
   <rect width="1600" height="900" fill="url(#hg1)"/>
   <rect width="1600" height="900" fill="url(#hg2)"/>
@@ -19,6 +27,13 @@
     <path d="M420 560 L520 360 L820 300 L980 460"/>
     <path d="M820 300 L1120 220 L1240 540"/>
     <path d="M520 360 L700 640"/>
+  </g>
+  <!-- quiet packets in transit along the same connections -->
+  <g stroke="#8FB3DE" stroke-width="1.5" opacity="0.4" fill="none">
+    <path class="pulse" d="M180 700 L420 560 L700 640 L980 460 L1240 540 L1460 380"/>
+    <path class="pulse p2" d="M420 560 L520 360 L820 300 L980 460"/>
+    <path class="pulse p3" d="M820 300 L1120 220 L1240 540"/>
+    <path class="pulse p4" d="M520 360 L700 640"/>
   </g>
   <g fill="#3D6491" opacity="0.9">
     <circle cx="180" cy="700" r="5"/><circle cx="420" cy="560" r="7"/>

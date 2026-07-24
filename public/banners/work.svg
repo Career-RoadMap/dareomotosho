@@ -5,6 +5,13 @@
       <stop offset="100%" stop-color="#0F1B2D" stop-opacity="0"/>
     </radialGradient>
   </defs>
+  <style>
+    .pulse{stroke-dasharray:16 384;stroke-linecap:round;animation:flow 10s linear infinite}
+    .p2{animation-duration:12s;animation-delay:-6s}
+    .pa{stroke-dasharray:20 380;animation-duration:8s;animation-delay:-3s}
+    @keyframes flow{to{stroke-dashoffset:-400}}
+    @media (prefers-reduced-motion:reduce){.pulse{display:none}}
+  </style>
   <rect width="1600" height="900" fill="#0F1B2D"/>
   <rect width="1600" height="900" fill="url(#wg1)"/>
   <!-- blueprint: fine grid with structural blocks -->
@@ -19,7 +26,13 @@
     <circle cx="600" cy="600" r="8"/>
     <circle cx="1520" cy="380" r="8"/>
   </g>
+  <!-- signal moving through the connectors -->
+  <g fill="none" stroke="#8FB3DE" stroke-width="2" opacity="0.4">
+    <path class="pulse" d="M600 600 H880 V450 H1000"/>
+    <path class="pulse p2" d="M1400 380 H1520"/>
+  </g>
   <rect x="1080" y="380" width="240" height="140" rx="4" fill="#3D6491" opacity="0.12"/>
   <path d="M1000 300 L1400 300" stroke="#E0A951" stroke-width="2.5" opacity="0.75"/>
+  <path class="pulse pa" d="M1000 300 L1400 300" fill="none" stroke="#F0C888" stroke-width="2.5" opacity="0.5"/>
   <circle cx="1200" cy="450" r="6" fill="#E0A951" opacity="0.9"/>
 </svg>
