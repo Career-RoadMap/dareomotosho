@@ -12,11 +12,11 @@ const appCsp = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https://i.ytimg.com",
   "font-src 'self'",
-  // Supabase REST + realtime websocket, and the FormSubmit inquiry relay.
-  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://formsubmit.co",
+  // Supabase REST + realtime websocket; forms and email relay stay same-origin.
+  "connect-src 'self' https://*.supabase.co wss://*.supabase.co",
   "object-src 'none'",
   "base-uri 'self'",
-  "form-action 'self' https://formsubmit.co",
+  "form-action 'self'",
   "frame-ancestors 'none'",
   "upgrade-insecure-requests",
 ].join("; ");

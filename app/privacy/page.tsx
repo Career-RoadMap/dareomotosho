@@ -164,16 +164,17 @@ export default function PrivacyPage() {
                 </a>
               </li>
               <li>
-                FormSubmit &mdash; relays advisory, speaking, and contact form
-                submissions to my inbox (processes the name, email, and message you
+                Resend &mdash; delivers advisory, speaking, and contact form
+                submissions to my inbox, emailed results you request, and the
+                subscriber list (processes the name, email, and message you
                 send).{" "}
                 <a
-                  href="https://formsubmit.co/privacy"
+                  href="https://resend.com/legal/privacy-policy"
                   target="_blank"
                   rel="noreferrer"
                   className={linkCls}
                 >
-                  FormSubmit Privacy Policy
+                  Resend Privacy Policy
                 </a>
               </li>
               <li>
