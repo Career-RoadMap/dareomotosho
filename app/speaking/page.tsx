@@ -32,7 +32,7 @@ export default function SpeakingPage() {
           </p>
         }
       >
-        <Button href="#book">Book a talk</Button>
+        <Button href="#book" variant="accent">Book a talk</Button>
       </PageBanner>
 
       {/* ── Bookable talk topics, one at a time. */}
