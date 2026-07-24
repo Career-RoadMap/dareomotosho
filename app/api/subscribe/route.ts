@@ -35,6 +35,48 @@ function addContact(apiKey: string, audienceId: string, email: string) {
   });
 }
 
+/**
+ * Diagnostic: GET /api/subscribe reports whether the Resend audience wiring
+ * works, without exposing secrets. Open it in a browser to see why contacts
+ * are not landing (e.g. a restricted sending-only API key).
+ */
+export async function GET() {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    return NextResponse.json({
+      ok: false,
+      reason: "RESEND_API_KEY is not set in this environment.",
+    });
+  }
+  const res = await fetch("https://api.resend.com/audiences", {
+    headers: { Authorization: `Bearer ${apiKey}` },
+  });
+  if (!res.ok) {
+    const detail = await res.text().catch(() => "");
+    return NextResponse.json({
+      ok: false,
+      reason: `Resend refused the audiences request (HTTP ${res.status}). ` +
+        "This usually means the API key has 'Sending access' only — " +
+        "create a key with Full access in Resend → API Keys and update " +
+        "RESEND_API_KEY.",
+      detail: detail.slice(0, 300),
+    });
+  }
+  const data = (await res.json().catch(() => null)) as {
+    data?: { id?: string; name?: string }[];
+  } | null;
+  const audiences = (data?.data ?? []).map((a) => ({ id: a.id, name: a.name }));
+  return NextResponse.json({
+    ok: audiences.length > 0,
+    audiences,
+    using:
+      process.env.RESEND_AUDIENCE_ID ??
+      audiences[0]?.id ??
+      "none — create an audience in Resend",
+    override: Boolean(process.env.RESEND_AUDIENCE_ID),
+  });
+}
+
 export async function POST(request: NextRequest) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {

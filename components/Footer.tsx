@@ -9,20 +9,21 @@ import EmailCapture from "./EmailCapture";
  */
 export default function Footer() {
   return (
-    <footer className="mt-32 bg-signature text-paper print:hidden">
-      <div className="container-content grid gap-10 py-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
+    <footer className="mt-24 bg-signature text-paper print:hidden">
+      <div className="container-content grid gap-8 py-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
         {/* Email capture + byline */}
         <div>
           <EmailCapture
             tone="dark"
+            compact
             label="Stay close to the work."
             hint="The newest resource, the next live class, the latest episode, quietly, when there's something worth your time."
           />
-          <p className="kicker mt-8 text-paper/55">{brand.byline}</p>
+          <p className="kicker mt-6 text-paper/55">{brand.byline}</p>
         </div>
 
         {/* Social feed area (YouTube primary) + sitemap */}
-        <div className="grid gap-10 sm:grid-cols-2">
+        <div className="grid gap-8 sm:grid-cols-2">
           <div>
             <h2 className="kicker text-paper/55">Follow the build</h2>
             <ul className="mt-4 space-y-2 text-body">
@@ -83,7 +84,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-paper/10">
-        <div className="container-content flex flex-col gap-2 py-6 text-small text-paper/50 sm:flex-row sm:items-center sm:justify-between">
+        <div className="container-content flex flex-col gap-2 py-4 text-small text-paper/50 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} {brand.name}. All rights reserved.
           </p>

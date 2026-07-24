@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { contactEmail, formSubmitAlias } from "@/lib/site";
+import { contactEmail } from "@/lib/site";
 
 type Field = {
   name: string;
@@ -21,12 +21,10 @@ type InquiryFormProps = {
 };
 
 /**
- * Submissions are delivered to {@link contactEmail} via FormSubmit
- * (https://formsubmit.co), a no-backend relay, so no API keys are needed.
- * The endpoint uses the activated alias rather than the naked address so the
- * email stays out of the client bundle.
+ * Submissions are delivered to {@link contactEmail} through the site's own
+ * /api/contact route, which relays via Resend with the sender as reply-to.
  */
-const FORM_ENDPOINT = `https://formsubmit.co/ajax/${formSubmitAlias}`;
+const FORM_ENDPOINT = "/api/contact";
 
 const defaultFields: Field[] = [
   { name: "name", label: "Your name", required: true, placeholder: "Jane Doe" },
@@ -62,16 +60,20 @@ export default function InquiryForm({
     setError(false);
     setSubmitting(true);
 
-    const payload = new FormData(e.currentTarget);
-    payload.append("_subject", subject);
-    payload.append("_template", "table");
-    payload.append("_captcha", "false");
+    const data = new FormData(e.currentTarget);
+    const fields: Record<string, string> = {};
+    let honeypot = "";
+    data.forEach((value, key) => {
+      if (typeof value !== "string") return;
+      if (key === "_honey") honeypot = value;
+      else fields[key] = value;
+    });
 
     try {
       const res = await fetch(FORM_ENDPOINT, {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: payload,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ subject, fields, honeypot }),
       });
       if (!res.ok) throw new Error(`Submission failed (${res.status})`);
       setDone(true);
@@ -102,7 +104,7 @@ export default function InquiryForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Honeypot, bots fill this; humans never see it. FormSubmit drops it. */}
+      {/* Honeypot, bots fill this; humans never see it. The API drops it. */}
       <input
         type="text"
         name="_honey"
