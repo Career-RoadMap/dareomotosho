@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { safeSender } from "@/lib/email";
+import { clientIp, rateLimit } from "@/lib/rate-limit";
 import { trackById, temperamentFromCode } from "@/lib/pathfinder";
 import { buildReportPdf } from "@/lib/report-pdf";
 import { siteUrl } from "@/lib/site";
@@ -18,6 +19,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { error: "Email delivery is not configured" },
       { status: 503 },
+    );
+  }
+
+  if (!rateLimit(`email-result:${clientIp(request.headers)}`, 5, 10 * 60 * 1000)) {
+    return NextResponse.json(
+      { error: "Too many requests. Try again in a few minutes." },
+      { status: 429 },
     );
   }
 

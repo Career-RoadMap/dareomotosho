@@ -49,6 +49,8 @@ export default async function LatestVideo() {
       <img
         src={thumb}
         alt="Latest video thumbnail"
+        loading="lazy"
+        decoding="async"
         className="h-full w-full object-cover transition-transform duration-500 ease-calm group-hover:scale-105"
       />
       <span className="absolute inset-0 grid place-items-center bg-ink/20 transition-colors duration-300 ease-calm group-hover:bg-ink/30">

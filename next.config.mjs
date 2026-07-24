@@ -77,6 +77,22 @@ const nextConfig = {
           { key: "Content-Security-Policy", value: toolsCsp },
         ],
       },
+      {
+        // API responses are not pages; keep them out of search indexes.
+        source: "/api/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+      {
+        // Static artwork changes rarely; let browsers keep it for a day and
+        // serve stale for a week while revalidating in the background.
+        source: "/:dir(banners|portraits)/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=604800",
+          },
+        ],
+      },
     ];
   },
 };

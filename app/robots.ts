@@ -3,7 +3,9 @@ import { siteUrl } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: "*", allow: "/" },
+    // /api/ endpoints are not pages — and crawling /api/contact?send=test
+    // would fire a real email.
+    rules: { userAgent: "*", allow: "/", disallow: "/api/" },
     sitemap: `${siteUrl}/sitemap.xml`,
   };
 }
