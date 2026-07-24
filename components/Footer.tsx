@@ -10,7 +10,7 @@ import EmailCapture from "./EmailCapture";
 export default function Footer() {
   return (
     <footer className="mt-32 bg-signature text-paper print:hidden">
-      <div className="container-content grid gap-14 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
+      <div className="container-content grid gap-10 py-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
         {/* Email capture + byline */}
         <div>
           <EmailCapture
@@ -18,14 +18,14 @@ export default function Footer() {
             label="Stay close to the work."
             hint="The newest resource, the next live class, the latest episode, quietly, when there's something worth your time."
           />
-          <p className="kicker mt-12 text-paper/55">{brand.byline}</p>
+          <p className="kicker mt-8 text-paper/55">{brand.byline}</p>
         </div>
 
         {/* Social feed area (YouTube primary) + sitemap */}
-        <div className="grid gap-12 sm:grid-cols-2">
+        <div className="grid gap-10 sm:grid-cols-2">
           <div>
             <h2 className="kicker text-paper/55">Follow the build</h2>
-            <ul className="mt-5 space-y-3 text-body">
+            <ul className="mt-4 space-y-2 text-body">
               <li>
                 <a
                   href={social.youtube}
@@ -69,7 +69,7 @@ export default function Footer() {
 
           <nav aria-label="Footer">
             <h2 className="kicker text-paper/55">Explore</h2>
-            <ul className="mt-5 space-y-3 text-body">
+            <ul className="mt-4 space-y-2 text-body">
               {nav.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="link-amber !text-paper">
