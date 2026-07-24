@@ -108,9 +108,8 @@ export default function PathFinderResult({
   .resource-list li:last-child{border-bottom:none}
   .disclaimer{margin-top:40px;padding:16px 18px;background:#f8f8f8;border-radius:8px;font-family:Arial,sans-serif;font-size:.78rem;color:#999;line-height:1.6}
   .footer{margin-top:20px;text-align:center;font-family:Arial,sans-serif;font-size:.75rem;color:#bbb}
-  @media print{body{padding:0}@page{margin:1.5cm;size:A4}}
+  @media print{@page{margin:0;size:A4}body{padding:1.5cm;max-width:none}}
 </style>
-<script>window.addEventListener('load',function(){window.print();})</script>
 </head>
 <body>
 <div class="header">
@@ -153,106 +152,82 @@ ${tempHtml}
   }
 
   function downloadPdf() {
+    // Print from a hidden same-origin iframe: printing an about:blank popup
+    // fails to save in several browsers, this path does not.
     const html = buildPdfHtml();
-    const win = window.open("", "_blank");
-    if (!win) return;
-    win.document.write(html);
-    win.document.close();
-    win.focus();
+    const iframe = document.createElement("iframe");
+    iframe.setAttribute("aria-hidden", "true");
+    iframe.style.position = "fixed";
+    iframe.style.right = "0";
+    iframe.style.bottom = "0";
+    iframe.style.width = "0";
+    iframe.style.height = "0";
+    iframe.style.border = "0";
+    document.body.appendChild(iframe);
+    const doc = iframe.contentDocument;
+    if (!doc) {
+      iframe.remove();
+      return;
+    }
+    doc.open();
+    doc.write(html);
+    doc.close();
+    const printFrame = () => {
+      const win = iframe.contentWindow;
+      if (!win) {
+        iframe.remove();
+        return;
+      }
+      win.addEventListener("afterprint", () => iframe.remove(), { once: true });
+      // Fallback cleanup in case afterprint never fires.
+      setTimeout(() => {
+        if (document.body.contains(iframe)) iframe.remove();
+      }, 60000);
+      win.focus();
+      win.print();
+    };
+    // Give the frame a beat to lay out before opening the print dialog.
+    if (doc.readyState === "complete") {
+      setTimeout(printFrame, 200);
+    } else {
+      iframe.addEventListener("load", () => setTimeout(printFrame, 200), { once: true });
+    }
   }
 
-  function buildEmailHtml() {
-    const tempHtml = temperament
-      ? `<div style="margin:20px 0;background:#f5f0e8;border:1px solid rgba(224,169,81,.5);border-radius:8px;padding:14px 18px;display:inline-block">
-          <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#e0a951">Temperament</span>
-          &nbsp;&nbsp;
-          <span style="font-size:1.5rem;font-weight:700;color:#1e3a5f">${temperament.code}</span>
-          &nbsp;·&nbsp;
-          <span style="font-size:1rem;font-weight:600;color:#1e3a5f">${temperament.family.name}</span>
-          <br/><span style="font-size:.85rem;color:#666;font-style:italic">${temperament.family.blurb}</span>
-        </div>`
-      : "";
-    const salaryHtml = track.salary
-      .map(
-        (s) => `<td style="border:1px solid #ddd;border-radius:8px;padding:14px 16px;vertical-align:top">
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#1e3a5f">${s.level}</div>
-          <div style="font-size:1.35rem;font-weight:700;color:#0f1b2d;margin-top:4px">${s.usd}</div>
-        </td>`,
-      )
-      .join("<td style='width:8px'></td>");
-    const roadmapHtml = track.roadmap
-      .map(
-        (r, i) => `<tr>
-          <td style="font-size:1.6rem;font-weight:700;color:#e0a951;padding-right:16px;vertical-align:top;font-family:Georgia,serif;line-height:1.1">${String(i + 1).padStart(2, "0")}</td>
-          <td style="padding-bottom:18px;vertical-align:top">
-            <strong style="font-size:1rem;color:#0f1b2d">${r.step}</strong>
-            <p style="margin:4px 0 0;font-size:.9rem;color:#666">${r.body}</p>
-          </td>
-        </tr>`,
-      )
-      .join("");
-    const certsHtml = track.certifications
-      .map((c) => `<span style="display:inline-block;background:#e8f0f8;border:1px solid rgba(30,58,95,.25);border-radius:20px;padding:4px 14px;font-size:.82rem;color:#1e3a5f;font-weight:600;margin:3px">${c}</span>`)
-      .join("");
-    const resourcesHtml = track.resources
-      .map((r, i) => `<tr><td style="padding:8px 0;border-bottom:1px solid #eee;font-size:.95rem;color:#333">${i + 1}. <a href="${siteUrl}${r.href.startsWith("/") ? r.href : `/${r.href}`}" style="color:#1e3a5f">${r.label}</a></td></tr>`)
-      .join("");
-
-    return `<!DOCTYPE html>
-<html lang="en">
-<head><meta charset="UTF-8"><title>Cloud Career Path Report</title></head>
-<body style="font-family:Georgia,serif;color:#0f1b2d;background:#fff;padding:0;margin:0">
-<table width="100%" cellpadding="0" cellspacing="0" style="max-width:640px;margin:0 auto;padding:32px 24px">
-<tr><td>
-  <div style="border-bottom:3px solid #e0a951;padding-bottom:20px;margin-bottom:24px">
-    <div style="font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#e0a951">Cloud Career Path Report · dareomotosho.com</div>
-    <h1 style="font-size:2rem;font-weight:400;line-height:1.15;margin:8px 0 6px;color:#0f1b2d">${track.title}</h1>
-    <div style="font-size:1.05rem;color:#555;font-style:italic">${track.tagline}</div>
-    <div style="margin-top:10px;color:#444;font-size:.95rem">${track.whyItFits}</div>
-  </div>
-
-  ${tempHtml}
-
-  <div style="margin-top:28px">
-    <h2 style="font-family:Arial,sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#1e3a5f;border-bottom:1px solid #e0a951;padding-bottom:6px;margin-bottom:14px">Salary Reference (USD)</h2>
-    <table cellpadding="0" cellspacing="0"><tr>${salaryHtml}</tr></table>
-    <p style="margin-top:10px;font-family:Arial,sans-serif;font-size:.75rem;color:#aaa">Educational reference only. Not financial or career advice. Varies by company, location, and experience.</p>
-  </div>
-
-  <div style="margin-top:28px">
-    <h2 style="font-family:Arial,sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#1e3a5f;border-bottom:1px solid #e0a951;padding-bottom:6px;margin-bottom:14px">Your Roadmap, In Order</h2>
-    ${pacing ? `<div style="background:#f8f8f8;border-left:3px solid #e0a951;padding:12px 16px;margin-bottom:16px;font-size:.9rem;color:#666;font-style:italic">${pacing}</div>` : ""}
-    <table cellpadding="0" cellspacing="0" style="width:100%">${roadmapHtml}</table>
-    <div style="margin-top:12px"><strong style="font-size:.9rem;color:#1e3a5f">Certifications worth holding:</strong><br/><div style="margin-top:8px">${certsHtml}</div></div>
-  </div>
-
-  <div style="margin-top:28px">
-    <h2 style="font-family:Arial,sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#1e3a5f;border-bottom:1px solid #e0a951;padding-bottom:6px;margin-bottom:14px">Build This First</h2>
-    <div style="background:#fffbf0;border:1px solid rgba(224,169,81,.4);border-radius:10px;padding:18px 22px">
-      <div style="font-family:Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#e0a951">Start here</div>
-      <div style="font-size:1.05rem;color:#333;margin:8px 0 0">${track.firstProject}</div>
-      <p style="margin-top:10px;font-size:.85rem;color:#888;font-style:italic">Confidence comes from shipping, not from reading. Start it in week one, badly if necessary.</p>
-    </div>
-  </div>
-
-  <div style="margin-top:28px">
-    <h2 style="font-family:Arial,sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#1e3a5f;border-bottom:1px solid #e0a951;padding-bottom:6px;margin-bottom:14px">Read These, In This Order</h2>
-    <table cellpadding="0" cellspacing="0" style="width:100%">${resourcesHtml}</table>
-  </div>
-
-  <div style="margin-top:28px">
-    <a href="${siteUrl}${resultPath}" style="display:inline-block;background:#1e3a5f;color:#fff;text-decoration:none;padding:12px 22px;border-radius:8px;font-family:Arial,sans-serif;font-size:.9rem;font-weight:600">View your result page →</a>
-  </div>
-
-  <div style="margin-top:32px;padding:14px 16px;background:#f8f8f8;border-radius:8px;font-family:Arial,sans-serif;font-size:.75rem;color:#999;line-height:1.6">
-    ${resultDisclaimer}
-  </div>
-  <div style="margin-top:14px;text-align:center;font-family:Arial,sans-serif;font-size:.72rem;color:#bbb">
-    Generated from dareomotosho.com/path-finder &nbsp;·&nbsp; For education only
-  </div>
-</td></tr>
-</table>
-</body></html>`;
+  function buildEmailFields(): Record<string, string> {
+    // FormSubmit only delivers named form fields (rendered as rows by its
+    // "table" template) — arbitrary keys like _html are silently dropped, so
+    // the whole report goes out as one field per row.
+    const fields: Record<string, string> = {
+      email: emailAddr,
+      _cc: emailAddr,
+      _subject: `Your cloud career path: ${track.title}`,
+      _template: "table",
+      _captcha: "false",
+      "Your path": track.title,
+      Tagline: track.tagline,
+      "Why it fits": track.whyItFits,
+    };
+    if (temperament) {
+      fields["Temperament"] = `${temperament.code} · ${temperament.family.name} — ${temperament.family.blurb}`;
+    }
+    track.salary.forEach((s) => {
+      fields[`Salary — ${s.level}`] = s.usd;
+    });
+    if (pacing) fields["Pacing"] = pacing;
+    track.roadmap.forEach((r, i) => {
+      fields[`Roadmap step ${i + 1}`] = `${r.step} — ${r.body}`;
+    });
+    fields["Certifications worth holding"] = track.certifications.join(" · ");
+    fields["Build this first"] = track.firstProject;
+    track.resources.forEach((r, i) => {
+      const url = `${siteUrl}${r.href.startsWith("/") ? r.href : `/${r.href}`}`;
+      fields[`Read ${i + 1}`] = `${r.label} — ${url}`;
+    });
+    fields["Your result page"] = `${siteUrl}${resultPath}`;
+    fields["Note"] =
+      "Educational reference only. Not professional, career, or financial advice.";
+    return fields;
   }
 
   async function sendToEmail(e: React.FormEvent) {
@@ -263,13 +238,7 @@ ${tempHtml}
       const res = await fetch("https://formsubmit.co/ajax/dare@dareomotosho.com", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          email: emailAddr,
-          _cc: emailAddr,
-          _subject: `Your cloud career path: ${track.title}`,
-          _captcha: "false",
-          _html: buildEmailHtml(),
-        }),
+        body: JSON.stringify(buildEmailFields()),
       });
       const data = await res.json();
       if (data.success === "true" || data.success === true) {

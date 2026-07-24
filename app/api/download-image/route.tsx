@@ -198,8 +198,20 @@ export async function GET(request: NextRequest) {
           <div style={{ fontSize: 14, color: "rgba(247,245,240,0.3)" }}>
             Educational reference only · Not professional advice
           </div>
-          <div style={{ fontSize: 18, color: "#E0A951", fontWeight: 600 }}>
-            Find your path in 3 minutes →
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
+              gap: 4,
+            }}
+          >
+            <div style={{ fontSize: 18, color: "#E0A951", fontWeight: 600 }}>
+              Take the career path diagnostic →
+            </div>
+            <div style={{ fontSize: 16, color: "rgba(247,245,240,0.6)" }}>
+              dareomotosho.com/path-finder
+            </div>
           </div>
         </div>
       </div>
