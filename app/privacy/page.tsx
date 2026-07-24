@@ -178,15 +178,15 @@ export default function PrivacyPage() {
                 </a>
               </li>
               <li>
-                Google Calendar &mdash; appointment scheduling when you book a call
-                (processes the details you enter on Google&rsquo;s booking page).{" "}
+                Calendly &mdash; appointment scheduling when you book a call
+                (processes the details you enter on Calendly&rsquo;s booking page).{" "}
                 <a
-                  href="https://policies.google.com/privacy"
+                  href="https://calendly.com/legal/privacy-notice"
                   target="_blank"
                   rel="noreferrer"
                   className={linkCls}
                 >
-                  Google Privacy Policy
+                  Calendly Privacy Notice
                 </a>
               </li>
             </ul>

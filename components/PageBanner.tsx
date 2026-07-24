@@ -35,6 +35,9 @@ export default function PageBanner({
       <img
         src={image}
         alt={imageAlt}
+        // The banner is the LCP element on every page: fetch it first.
+        fetchPriority="high"
+        decoding="async"
         className="absolute inset-0 h-full w-full object-cover opacity-40 animate-fade-in"
       />
       <div className="absolute inset-0 bg-gradient-to-br from-ink/95 via-ink/80 to-ink/55" />

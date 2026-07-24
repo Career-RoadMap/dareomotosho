@@ -1,3 +1,12 @@
+/** Escape a string for safe inclusion in an HTML email body. */
+export function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
 /** Bare address: user@host.tld with no spaces or angle brackets. */
 const ADDR = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/;
 

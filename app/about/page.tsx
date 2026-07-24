@@ -49,6 +49,7 @@ export default function AboutPage() {
             <img
               src={aboutPortrait}
               alt="Dare Omotosho"
+              decoding="async"
               className="aspect-[4/5] w-full object-cover"
             />
           </div>

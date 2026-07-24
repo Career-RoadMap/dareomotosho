@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { clientIp, rateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -83,6 +84,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { error: "Subscriptions are not configured" },
       { status: 503 },
+    );
+  }
+
+  if (!rateLimit(`subscribe:${clientIp(request.headers)}`, 8, 10 * 60 * 1000)) {
+    return NextResponse.json(
+      { error: "Too many requests. Try again in a few minutes." },
+      { status: 429 },
     );
   }
 

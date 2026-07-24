@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
-import { contactEmail } from "@/lib/site";
+import { privacyEmail } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Terms and Conditions",
@@ -340,8 +340,8 @@ export default function TermsPage() {
               {SITE_URL}
               <br />
               Email:{" "}
-              <a href={`mailto:${contactEmail}`} className={linkCls}>
-                {contactEmail}
+              <a href={`mailto:${privacyEmail}`} className={linkCls}>
+                {privacyEmail}
               </a>
               <br />
               Location: Nigeria

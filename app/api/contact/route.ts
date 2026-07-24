@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { safeSender } from "@/lib/email";
+import { escapeHtml as esc, safeSender } from "@/lib/email";
+import { clientIp, rateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -10,15 +11,6 @@ const CONTACT_FROM = () =>
     process.env.RESEND_CONTACT_FROM,
     "Website inquiries <contacts@email.dareomotosho.com>",
   );
-
-/** Escape a string for safe inclusion in the HTML email body. */
-function esc(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
 
 /**
  * Contact / inquiry relay: delivers form submissions to Dare's inbox via
@@ -33,6 +25,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { error: "Contact form is not configured" },
       { status: 503 },
+    );
+  }
+
+  if (!rateLimit(`contact:${clientIp(request.headers)}`, 5, 10 * 60 * 1000)) {
+    return NextResponse.json(
+      { error: "Too many requests. Try again in a few minutes." },
+      { status: 429 },
     );
   }
 
@@ -139,6 +138,14 @@ export async function GET(request: NextRequest) {
       from,
       hint: "Add ?send=test to send a test inquiry and see Resend's raw response.",
     });
+  }
+  // The test send fires a real email — keep bots and refresh-mashing from
+  // burning the Resend quota.
+  if (!rateLimit(`contact-test:${clientIp(request.headers)}`, 2, 10 * 60 * 1000)) {
+    return NextResponse.json(
+      { ok: false, reason: "Too many test sends. Try again in a few minutes." },
+      { status: 429 },
+    );
   }
   const res = await sendInquiry(
     apiKey,
