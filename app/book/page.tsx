@@ -33,7 +33,7 @@ export default function BookPage() {
         title="Pick a time. Bring the real question."
         intro={
           <p>
-            Thirty minutes, no ceremony. Choose a slot on the calendar and
+            Thirty-five minutes, no ceremony. Choose a slot on the calendar and
             come with the decision, the blocker, or the ambition you actually
             care about.
           </p>
@@ -74,7 +74,7 @@ export default function BookPage() {
               The calendar is open.
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-body text-paper/70">
-              Scheduling happens on Google Calendar; pick any open slot and
+              Scheduling happens on Calendly; pick any open slot and
               you'll get the invite and the meeting link immediately.
             </p>
             <div className="mt-10">

@@ -52,8 +52,8 @@ export type NavItem = {
   external?: boolean;
 };
 
-/** External scheduling link (Google Calendar appointment page). */
-export const bookingUrl = "https://calendar.app.google/Nv7QaxGCdmkTXd3S8";
+/** External scheduling link (Calendly, 35-minute call). */
+export const bookingUrl = "https://calendly.com/darelekan46/35min";
 
 /** NAV order is intentional, a "build-first ascent." Do not reorder casually. */
 export const nav: NavItem[] = [
