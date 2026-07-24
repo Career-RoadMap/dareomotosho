@@ -78,9 +78,11 @@ export async function POST(request: NextRequest) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      // Distinct from the results@ sender so inquiries are easy to filter;
+      // RESEND_CONTACT_FROM overrides (must be on the verified domain).
       from:
-        process.env.RESEND_FROM ??
-        "Website inquiries <results@email.dareomotosho.com>",
+        process.env.RESEND_CONTACT_FROM ??
+        "Website inquiries <contacts@email.dareomotosho.com>",
       to: ["dare@dareomotosho.com"],
       ...(replyTo ? { reply_to: replyTo } : {}),
       subject,
