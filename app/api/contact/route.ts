@@ -71,7 +71,27 @@ export async function POST(request: NextRequest) {
   </div>
 </body></html>`;
 
-  const res = await fetch("https://api.resend.com/emails", {
+  const res = await sendInquiry(apiKey, subject, html, replyTo);
+
+  if (!res.ok) {
+    const detail = await res.text().catch(() => "");
+    console.error("Resend contact relay failed:", res.status, detail);
+    return NextResponse.json(
+      { error: "Send failed", detail: `Resend ${res.status}: ${detail.slice(0, 300)}` },
+      { status: 502 },
+    );
+  }
+
+  return NextResponse.json({ success: true });
+}
+
+function sendInquiry(
+  apiKey: string,
+  subject: string,
+  html: string,
+  replyTo: string | null,
+) {
+  return fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${apiKey}`,
@@ -84,20 +104,50 @@ export async function POST(request: NextRequest) {
         process.env.RESEND_CONTACT_FROM ??
         "Website inquiries <contacts@email.dareomotosho.com>",
       to: ["dare@dareomotosho.com"],
-      ...(replyTo ? { reply_to: replyTo } : {}),
       subject,
       html,
+      // Reply-To as a raw header: portable across Resend's field-name
+      // variants (reply_to vs replyTo).
+      ...(replyTo ? { headers: { "Reply-To": replyTo } } : {}),
     }),
   });
+}
 
-  if (!res.ok) {
-    const detail = await res.text().catch(() => "");
-    console.error("Resend contact relay failed:", res.status, detail);
-    return NextResponse.json(
-      { error: "Send failed", detail: detail.slice(0, 300) },
-      { status: 502 },
-    );
+/**
+ * Diagnostic: GET /api/contact?send=test fires a real test inquiry to the
+ * inbox and reports Resend's exact response; a plain GET only reports the
+ * configuration without sending.
+ */
+export async function GET(request: NextRequest) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const from =
+    process.env.RESEND_CONTACT_FROM ??
+    "Website inquiries <contacts@email.dareomotosho.com>";
+  if (!apiKey) {
+    return NextResponse.json({
+      ok: false,
+      reason: "RESEND_API_KEY is not set in this environment.",
+    });
   }
-
-  return NextResponse.json({ success: true });
+  if (request.nextUrl.searchParams.get("send") !== "test") {
+    return NextResponse.json({
+      ok: true,
+      configured: true,
+      from,
+      hint: "Add ?send=test to send a test inquiry and see Resend's raw response.",
+    });
+  }
+  const res = await sendInquiry(
+    apiKey,
+    "Contact form self-test",
+    "<p>Test inquiry from /api/contact?send=test. If you are reading this in the inbox, the contact relay works.</p>",
+    "dare@dareomotosho.com",
+  );
+  const detail = await res.text().catch(() => "");
+  return NextResponse.json({
+    ok: res.ok,
+    resendStatus: res.status,
+    resendResponse: detail.slice(0, 500),
+    from,
+  });
 }
