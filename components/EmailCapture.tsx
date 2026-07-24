@@ -9,6 +9,8 @@ type EmailCaptureProps = {
   tone?: "light" | "dark";
   label?: string;
   hint?: string;
+  /** Tighter type and spacing, for the footer. */
+  compact?: boolean;
   className?: string;
 };
 
@@ -25,6 +27,7 @@ export default function EmailCapture({
   tone = "light",
   label = "Get the occasional, useful note.",
   hint = "Resources and class dates. No noise, no hype.",
+  compact = false,
   className = "",
 }: EmailCaptureProps) {
   const [email, setEmail] = useState("");
@@ -63,11 +66,11 @@ export default function EmailCapture({
     <form onSubmit={handleSubmit} className={`w-full max-w-md ${className}`}>
       <label
         htmlFor="email-capture"
-        className={`block font-serif text-h2 leading-tight ${dark ? "text-paper" : "text-ink"}`}
+        className={`block font-serif leading-tight ${compact ? "text-xl" : "text-h2"} ${dark ? "text-paper" : "text-ink"}`}
       >
         {label}
       </label>
-      <p className={`mt-3 text-small ${dark ? "text-paper/65" : "text-ink/60"}`}>{hint}</p>
+      <p className={`${compact ? "mt-2" : "mt-3"} text-small ${dark ? "text-paper/65" : "text-ink/60"}`}>{hint}</p>
 
       {status === "done" ? (
         <p
@@ -78,7 +81,7 @@ export default function EmailCapture({
         </p>
       ) : (
         <>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+          <div className={`${compact ? "mt-4" : "mt-6"} flex flex-col gap-3 sm:flex-row`}>
             <input
               id="email-capture"
               type="email"
@@ -86,7 +89,7 @@ export default function EmailCapture({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className={`flex-1 rounded-lg border px-4 py-3 text-body outline-none transition-colors duration-300 ease-calm ${
+              className={`flex-1 rounded-lg border px-4 ${compact ? "py-2.5" : "py-3"} text-body outline-none transition-colors duration-300 ease-calm ${
                 dark
                   ? "border-paper/20 bg-paper/5 text-paper placeholder:text-paper/40 focus:border-amber"
                   : "border-ink/15 bg-paper text-ink placeholder:text-ink/35 focus:border-blue-lift"
@@ -95,7 +98,7 @@ export default function EmailCapture({
             <button
               type="submit"
               disabled={status === "sending"}
-              className={`rounded-lg px-6 py-3 text-small font-medium transition-all duration-300 ease-calm disabled:opacity-60 ${
+              className={`rounded-lg px-6 ${compact ? "py-2.5" : "py-3"} text-small font-medium transition-all duration-300 ease-calm disabled:opacity-60 ${
                 dark
                   ? "bg-amber text-ink hover:brightness-[0.97]"
                   : "bg-signature text-paper hover:bg-blue-lift"
