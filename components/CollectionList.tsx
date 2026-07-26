@@ -33,7 +33,7 @@ export default function CollectionList({
 
   return (
     <ul
-      className={`grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 ${
+      className={`grid gap-px overflow-hidden rounded-2xl border border-ink/[0.14] bg-ink/[0.14] ${
         wide ? "sm:grid-cols-2" : ""
       }`}
     >

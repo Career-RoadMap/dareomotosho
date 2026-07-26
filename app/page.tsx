@@ -54,7 +54,7 @@ export default function HomePage() {
 
       {/* ── Three audience doors, gentle staggered fade-in on scroll. */}
       <section className="container-content py-16 sm:py-20">
-        <ul className="grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-3">
+        <ul className="grid gap-px overflow-hidden rounded-2xl border border-ink/[0.14] bg-ink/[0.14] sm:grid-cols-3">
           {doors.map((door, i) => (
             <Reveal as="li" key={door.href} delay={i * 120}>
               <Link
@@ -77,18 +77,21 @@ export default function HomePage() {
         </ul>
       </section>
 
-      {/* ── POV line, quiet feature, lots of air. */}
-      <section className="container-content py-24 sm:py-32">
-        <Reveal>
-          <p className="kicker text-center text-blue-lift">
-            Business-aligned cloud engineering
-          </p>
-          <h2 className="mx-auto mt-5 max-w-3xl text-center font-serif text-h2 font-light leading-snug text-ink">
-            Most engineers optimize the tool. But business-aligned cloud
-            engineering means treating every system as{" "}
-            <span className="text-signature">the business decision it already is.</span>
-          </h2>
-        </Reveal>
+      {/* ── POV line, quiet feature, lots of air. On a tinted band so the
+          statement reads as its own page while scrolling. */}
+      <section className="band">
+        <div className="container-content py-24 sm:py-32">
+          <Reveal>
+            <p className="kicker text-center text-blue-lift">
+              Business-aligned cloud engineering
+            </p>
+            <h2 className="mx-auto mt-5 max-w-3xl text-center font-serif text-h2 font-light leading-snug text-ink">
+              Most engineers optimize the tool. But business-aligned cloud
+              engineering means treating every system as{" "}
+              <span className="text-signature">the business decision it already is.</span>
+            </h2>
+          </Reveal>
+        </div>
       </section>
 
       {/* ── Latest strip, newest resource · latest video. */}
@@ -96,7 +99,7 @@ export default function HomePage() {
         <Reveal>
           <h2 className="font-serif text-h2 font-light text-ink">The latest</h2>
         </Reveal>
-        <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 md:grid-cols-2">
+        <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink/[0.14] bg-ink/[0.14] md:grid-cols-2">
           <Reveal as="div" className="bg-paper p-8">
             <p className="kicker text-blue-lift">Newest resource</p>
             <h3 className="mt-5 font-serif text-h2 font-light text-ink">
@@ -128,11 +131,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Email capture, prominent, repeated. */}
-      <section className="container-content py-20 sm:py-28">
-        <Reveal className="flex flex-col items-start gap-4">
-          <EmailCapture />
-        </Reveal>
+      {/* ── Email capture, prominent, repeated. Warm closing band. */}
+      <section className="band-warm">
+        <div className="container-content py-20 sm:py-28">
+          <Reveal className="flex flex-col items-start gap-4">
+            <EmailCapture />
+          </Reveal>
+        </div>
       </section>
     </>
   );

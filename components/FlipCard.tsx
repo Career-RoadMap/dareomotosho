@@ -41,7 +41,7 @@ export default function FlipCard({
     "absolute inset-0 flex flex-col items-center justify-center gap-3 overflow-hidden rounded-3xl p-8 text-center [backface-visibility:hidden]";
   const frontSurface = hero
     ? "bg-signature text-paper"
-    : "border border-ink/10 bg-paper text-ink";
+    : "border border-ink/[0.14] bg-paper text-ink";
   // Flipped side is a solid fill (no border), distinct from the front.
   const backSurface = hero ? "bg-ink text-paper" : "bg-signature text-paper";
 

@@ -30,7 +30,7 @@ export default async function LatestVideo() {
 
   if (!id) {
     return (
-      <div className="aspect-video w-full rounded-lg border border-ink/10 bg-ink/[0.04]" />
+      <div className="aspect-video w-full rounded-lg border border-ink/[0.14] bg-ink/[0.04]" />
     );
   }
 
@@ -43,7 +43,7 @@ export default async function LatestVideo() {
       target="_blank"
       rel="noreferrer"
       aria-label="Watch the latest video on YouTube"
-      className="group relative block aspect-video w-full overflow-hidden rounded-lg border border-ink/10"
+      className="group relative block aspect-video w-full overflow-hidden rounded-lg border border-ink/[0.14]"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img

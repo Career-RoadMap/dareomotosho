@@ -76,7 +76,7 @@ export default function CommunityQuestions({ items }: { items: Entry[] }) {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="flex h-[36rem] items-center justify-center rounded-3xl border border-ink/10 bg-paper p-6 text-center">
+        <div className="flex h-[36rem] items-center justify-center rounded-3xl border border-ink/[0.14] bg-paper p-6 text-center">
           <p className="text-small text-ink/50">
             {items.length === 0
               ? "No community questions yet. Be the first to ask one."
@@ -85,7 +85,7 @@ export default function CommunityQuestions({ items }: { items: Entry[] }) {
         </div>
       ) : (
         <div
-          className={`relative h-[36rem] overflow-hidden rounded-3xl border border-ink/10 bg-paper ${
+          className={`relative h-[36rem] overflow-hidden rounded-3xl border border-ink/[0.14] bg-paper ${
             idle ? "ticker motion-reduce:overflow-y-auto" : ""
           }`}
         >
@@ -151,7 +151,7 @@ function FlipQuestion({
         style={{ transform: flipped ? "rotateY(180deg)" : undefined }}
       >
         {/* Front, the question. */}
-        <span className={`${face} justify-between border-ink/10 bg-paper`}>
+        <span className={`${face} justify-between border-ink/[0.14] bg-paper`}>
           <span className="kicker text-blue-lift">{topicLabel(entry.topic)}</span>
           <span className="font-serif text-xl font-light leading-snug text-ink">
             {entry.title}

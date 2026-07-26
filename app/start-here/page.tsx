@@ -75,30 +75,32 @@ export default function StartHerePage() {
       </PageBanner>
 
       {/* ── Guided learning order. */}
-      <section className="container-content py-12 sm:py-16">
-        <Reveal>
-          <h2 className="font-serif text-h2 font-light text-ink">
-            Learn cloud engineering and cybersecurity, and how to think like
-            the business
-          </h2>
-        </Reveal>
-        <ol className="mt-10 space-y-4">
-          {learningOrder.map((item, i) => (
-            <Reveal as="li" key={item.step} delay={i * 90}>
-              <div className="flex gap-6 rounded-2xl border border-ink/10 bg-paper p-7 sm:gap-10 sm:p-9">
-                <span className="font-serif text-h1 font-light leading-none text-amber">
-                  {item.step}
-                </span>
-                <div>
-                  <h3 className="font-serif text-h2 font-light text-ink">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 max-w-prose text-body text-ink">{item.body}</p>
+      <section className="band">
+        <div className="container-content py-12 sm:py-16">
+          <Reveal>
+            <h2 className="font-serif text-h2 font-light text-ink">
+              Learn cloud engineering and cybersecurity, and how to think like
+              the business
+            </h2>
+          </Reveal>
+          <ol className="mt-10 space-y-4">
+            {learningOrder.map((item, i) => (
+              <Reveal as="li" key={item.step} delay={i * 90}>
+                <div className="flex gap-6 rounded-2xl border border-ink/[0.14] bg-paper p-7 sm:gap-10 sm:p-9">
+                  <span className="font-serif text-h1 font-light leading-none text-amber">
+                    {item.step}
+                  </span>
+                  <div>
+                    <h3 className="font-serif text-h2 font-light text-ink">
+                      {item.title}
+                    </h3>
+                    <p className="mt-3 max-w-prose text-body text-ink">{item.body}</p>
+                  </div>
                 </div>
-              </div>
-            </Reveal>
-          ))}
-        </ol>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
       </section>
 
       {/* ── Path Finder, the personalized way in, on the boldest band the
@@ -126,45 +128,47 @@ export default function StartHerePage() {
 
       {/* ── Straight into the library: the strongest call to action on the
           page, set on its own amber-edged band so it can't be missed. */}
-      <section className="container-content py-16 sm:py-20">
-        <Reveal>
-          <div className="rounded-3xl border-2 border-amber bg-paper p-8 shadow-lg shadow-ink/10 sm:p-12">
-            <div className="flex flex-wrap items-end justify-between gap-4">
-              <div>
-                <p className="kicker text-amber">Free, no email wall</p>
-                <h2 className="mt-3 font-serif text-h1 font-light text-signature">
-                  Go straight to the library
-                </h2>
-                <p className="mt-3 max-w-prose text-body text-ink">
-                  Three ways in. Take what's useful.
-                </p>
+      <section className="band">
+        <div className="container-content py-16 sm:py-20">
+          <Reveal>
+            <div className="rounded-3xl border-2 border-amber bg-paper p-8 shadow-lg shadow-ink/10 sm:p-12">
+              <div className="flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <p className="kicker text-amber">Free, no email wall</p>
+                  <h2 className="mt-3 font-serif text-h1 font-light text-signature">
+                    Go straight to the library
+                  </h2>
+                  <p className="mt-3 max-w-prose text-body text-ink">
+                    Three ways in. Take what's useful.
+                  </p>
+                </div>
+                <Button href="/resources" variant="accent" className="shrink-0">
+                  Open the library
+                </Button>
               </div>
-              <Button href="/resources" variant="accent" className="shrink-0">
-                Open the library
-              </Button>
+              <ul className="mt-10 grid gap-6 sm:grid-cols-3">
+                <CollectionCard
+                  href="/resources/articles"
+                  kind="article"
+                  label={entryTypeMeta.article.label}
+                  blurb={entryTypeMeta.article.blurb}
+                />
+                <CollectionCard
+                  href="/resources/case-studies"
+                  kind="case_study"
+                  label={entryTypeMeta.case_study.label}
+                  blurb={entryTypeMeta.case_study.blurb}
+                />
+                <CollectionCard
+                  href="/resources/downloads"
+                  kind="download"
+                  label="Downloads"
+                  blurb="Textbooks, slide decks, and short video clips, free to download."
+                />
+              </ul>
             </div>
-            <ul className="mt-10 grid gap-6 sm:grid-cols-3">
-              <CollectionCard
-                href="/resources/articles"
-                kind="article"
-                label={entryTypeMeta.article.label}
-                blurb={entryTypeMeta.article.blurb}
-              />
-              <CollectionCard
-                href="/resources/case-studies"
-                kind="case_study"
-                label={entryTypeMeta.case_study.label}
-                blurb={entryTypeMeta.case_study.blurb}
-              />
-              <CollectionCard
-                href="/resources/downloads"
-                kind="download"
-                label="Downloads"
-                blurb="Textbooks, slide decks, and short video clips, free to download."
-              />
-            </ul>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
       </section>
 
       {/* ── Salary explorer, a quiet pointer to the standalone reference tool. */}
@@ -200,25 +204,27 @@ export default function StartHerePage() {
       </section>
 
       {/* ── Why explainers, boxed, easing up in sequence. */}
-      <section className="container-content py-16 sm:py-20">
-        <div className="grid gap-6 sm:grid-cols-3">
-          {whyExplainers.map((w, i) => (
-            <Reveal key={w.title} delay={i * 140}>
-              <div className="group h-full rounded-2xl bg-signature p-8 shadow-md shadow-ink/10 transition-all duration-300 ease-calm hover:-translate-y-1 hover:bg-blue-lift hover:shadow-lg hover:shadow-ink/20 sm:p-10">
-                {/* The amber accents read left → centre → right across the row. */}
-                <span
-                  className={`block h-1 w-10 rounded-full bg-amber transition-all duration-300 ease-calm group-hover:w-16 ${
-                    i === 1 ? "mx-auto" : i === 2 ? "ml-auto" : ""
-                  }`}
-                  aria-hidden
-                />
-                <h3 className="mt-6 font-serif text-h2 font-light text-amber">
-                  {w.title}
-                </h3>
-                <p className="mt-4 text-body text-paper/85">{w.body}</p>
-              </div>
-            </Reveal>
-          ))}
+      <section className="band">
+        <div className="container-content py-16 sm:py-20">
+          <div className="grid gap-6 sm:grid-cols-3">
+            {whyExplainers.map((w, i) => (
+              <Reveal key={w.title} delay={i * 140}>
+                <div className="group h-full rounded-2xl bg-signature p-8 shadow-md shadow-ink/10 transition-all duration-300 ease-calm hover:-translate-y-1 hover:bg-blue-lift hover:shadow-lg hover:shadow-ink/20 sm:p-10">
+                  {/* The amber accents read left → centre → right across the row. */}
+                  <span
+                    className={`block h-1 w-10 rounded-full bg-amber transition-all duration-300 ease-calm group-hover:w-16 ${
+                      i === 1 ? "mx-auto" : i === 2 ? "ml-auto" : ""
+                    }`}
+                    aria-hidden
+                  />
+                  <h3 className="mt-6 font-serif text-h2 font-light text-amber">
+                    {w.title}
+                  </h3>
+                  <p className="mt-4 text-body text-paper/85">{w.body}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -240,20 +246,22 @@ export default function StartHerePage() {
       </section>
 
       {/* ── CTA → the library. */}
-      <section className="container-content py-16 sm:py-24">
-        <Reveal className="text-center">
-          <h2 className="mx-auto max-w-2xl font-serif text-h1 font-light text-ink">
-            The best first step is the starter path.
-          </h2>
-          <p className="mx-auto mt-5 max-w-xl text-body text-ink">
-            Come with questions. Leave with a direction.
-          </p>
-          <div className="mt-10">
-            <Button href="/resources" variant="accent">
-              Browse the library
-            </Button>
-          </div>
-        </Reveal>
+      <section className="band-warm">
+        <div className="container-content py-16 sm:py-24">
+          <Reveal className="text-center">
+            <h2 className="mx-auto max-w-2xl font-serif text-h1 font-light text-ink">
+              The best first step is the starter path.
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl text-body text-ink">
+              Come with questions. Leave with a direction.
+            </p>
+            <div className="mt-10">
+              <Button href="/resources" variant="accent">
+                Browse the library
+              </Button>
+            </div>
+          </Reveal>
+        </div>
       </section>
     </>
   );

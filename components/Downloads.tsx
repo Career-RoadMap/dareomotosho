@@ -83,7 +83,7 @@ export default function Downloads() {
                     <p className="mt-1 max-w-prose text-small text-ink/60">
                       {downloadKindMeta[k].blurb}
                     </p>
-                    <ul className="mt-5 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-2">
+                    <ul className="mt-5 grid gap-px overflow-hidden rounded-2xl border border-ink/[0.14] bg-ink/[0.14] sm:grid-cols-2">
                       {items.map((d) => (
                         <li key={d.file}>
                           <div className="group flex h-full flex-col bg-paper p-6 transition-colors duration-300 ease-calm hover:bg-paper/60">

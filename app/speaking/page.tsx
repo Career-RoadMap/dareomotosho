@@ -36,28 +36,30 @@ export default function SpeakingPage() {
       </PageBanner>
 
       {/* ── Bookable talk topics, one at a time. */}
-      <section className="container-content py-12 sm:py-16">
-        <Reveal>
-          <h2 className="font-serif text-h2 font-light text-signature">
-            Book a technical speaker on cloud engineering and security
-            governance for your stage
-          </h2>
-          <p className="mt-3 max-w-prose text-body text-ink/70">
-            Speaking from the floor, not just the stage.
-          </p>
-        </Reveal>
-        <div className="mt-10 space-y-4">
-          {talkTopics.map((t, i) => (
-            <Reveal key={t.title} delay={i * 80}>
-              <article className="rounded-2xl border border-ink/10 bg-paper p-8 sm:p-10">
-                <p className="kicker text-blue-lift">{t.audience}</p>
-                <h3 className="mt-4 font-serif text-h2 font-light text-ink">
-                  {t.title}
-                </h3>
-                <p className="mt-4 max-w-prose text-body text-ink">{t.body}</p>
-              </article>
-            </Reveal>
-          ))}
+      <section className="band">
+        <div className="container-content py-12 sm:py-16">
+          <Reveal>
+            <h2 className="font-serif text-h2 font-light text-signature">
+              Book a technical speaker on cloud engineering and security
+              governance for your stage
+            </h2>
+            <p className="mt-3 max-w-prose text-body text-ink/70">
+              Speaking from the floor, not just the stage.
+            </p>
+          </Reveal>
+          <div className="mt-10 space-y-4">
+            {talkTopics.map((t, i) => (
+              <Reveal key={t.title} delay={i * 80}>
+                <article className="rounded-2xl border border-ink/[0.14] bg-paper p-8 sm:p-10">
+                  <p className="kicker text-blue-lift">{t.audience}</p>
+                  <h3 className="mt-4 font-serif text-h2 font-light text-ink">
+                    {t.title}
+                  </h3>
+                  <p className="mt-4 max-w-prose text-body text-ink">{t.body}</p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -88,28 +90,30 @@ export default function SpeakingPage() {
       </section>
 
       {/* ── Book me. */}
-      <section id="book" className="container-content scroll-mt-20 py-12 sm:py-16">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
-          <Reveal>
-            <h2 className="font-serif text-h1 font-light text-signature">Book me.</h2>
-            <p className="mt-6 max-w-prose text-body text-ink">
-              Tell me about the event and the audience. I'll reply with fit, a tailored
-              angle, and logistics.
-            </p>
-          </Reveal>
-          <Reveal>
-            <InquiryForm
-              submitLabel="Send booking inquiry"
-              subject="New speaking booking, dareomotosho.com"
-              fields={[
-                { name: "name", label: "Your name", required: true, placeholder: "Jane Doe" },
-                { name: "email", label: "Email", type: "email", required: true, placeholder: "you@event.com" },
-                { name: "event", label: "Event / conference", required: true, placeholder: "QCon, internal summit…" },
-                { name: "date", label: "Date or window", placeholder: "Q4 2026" },
-                { name: "message", label: "Audience & what you're hoping for", type: "textarea", required: true, placeholder: "Who's in the room, and the talk you have in mind." },
-              ]}
-            />
-          </Reveal>
+      <section id="book" className="band-warm scroll-mt-20">
+        <div className="container-content py-12 sm:py-16">
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
+            <Reveal>
+              <h2 className="font-serif text-h1 font-light text-signature">Book me.</h2>
+              <p className="mt-6 max-w-prose text-body text-ink">
+                Tell me about the event and the audience. I'll reply with fit, a tailored
+                angle, and logistics.
+              </p>
+            </Reveal>
+            <Reveal>
+              <InquiryForm
+                submitLabel="Send booking inquiry"
+                subject="New speaking booking, dareomotosho.com"
+                fields={[
+                  { name: "name", label: "Your name", required: true, placeholder: "Jane Doe" },
+                  { name: "email", label: "Email", type: "email", required: true, placeholder: "you@event.com" },
+                  { name: "event", label: "Event / conference", required: true, placeholder: "QCon, internal summit…" },
+                  { name: "date", label: "Date or window", placeholder: "Q4 2026" },
+                  { name: "message", label: "Audience & what you're hoping for", type: "textarea", required: true, placeholder: "Who's in the room, and the talk you have in mind." },
+                ]}
+              />
+            </Reveal>
+          </div>
         </div>
       </section>
     </>

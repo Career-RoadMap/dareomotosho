@@ -54,7 +54,7 @@ export default function DiagramGallery({ diagrams }: { diagrams: Diagram[] }) {
   const current = diagrams[index];
 
   const arrowBtn =
-    "absolute top-1/2 z-10 -translate-y-1/2 inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/10 bg-paper/90 text-xl text-ink backdrop-blur transition-colors duration-300 ease-calm hover:text-amber";
+    "absolute top-1/2 z-10 -translate-y-1/2 inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/[0.14] bg-paper/90 text-xl text-ink backdrop-blur transition-colors duration-300 ease-calm hover:text-amber";
 
   return (
     <div>
@@ -68,7 +68,7 @@ export default function DiagramGallery({ diagrams }: { diagrams: Diagram[] }) {
           type="button"
           onClick={() => setLightbox(true)}
           aria-label={`View ${current.title} larger`}
-          className="group block w-full overflow-hidden rounded-3xl border border-ink/10 bg-paper transition-shadow duration-300 ease-calm hover:ring-2 hover:ring-amber"
+          className="group block w-full overflow-hidden rounded-3xl border border-ink/[0.14] bg-paper transition-shadow duration-300 ease-calm hover:ring-2 hover:ring-amber"
         >
           <div className="relative aspect-video w-full">
             {diagrams.map((d, i) => (

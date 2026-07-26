@@ -95,7 +95,7 @@ export default function EntryInteractions({ entryId }: { entryId: string }) {
   }
 
   return (
-    <div className="mt-16 border-t border-ink/10 pt-12">
+    <div className="mt-16 border-t border-ink/[0.14] pt-12">
       <div className="flex items-center justify-between gap-6">
         <h2 className="font-serif text-h2 font-light text-ink">Discussion</h2>
         <button
@@ -122,7 +122,7 @@ export default function EntryInteractions({ entryId }: { entryId: string }) {
           </li>
         ) : null}
         {comments.map((c) => (
-          <li key={c.id} className="rounded-2xl border border-ink/10 bg-paper p-5">
+          <li key={c.id} className="rounded-2xl border border-ink/[0.14] bg-paper p-5">
             <p className="text-body text-ink">{c.body}</p>
             <p className="mt-2 text-small text-ink/50">{c.author || "A visitor"}</p>
           </li>

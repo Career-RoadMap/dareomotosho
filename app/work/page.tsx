@@ -54,7 +54,11 @@ export default function WorkPage() {
         return (
           <section
             key={tier.kicker}
-            className="relative isolate overflow-hidden py-12 sm:py-20"
+            // Alternating surfaces so each tier reads as its own page on the
+            // way down: even tiers on Paper, odd tiers on the tinted band.
+            className={`relative isolate overflow-hidden py-12 sm:py-20 ${
+              ti % 2 === 1 ? "band" : ""
+            }`}
           >
             <TierBackdrop src={tier.backdrop} align={ti % 2 === 0 ? "right" : "left"} />
             <div className="container-content">
@@ -146,7 +150,7 @@ export default function WorkPage() {
       </section>
 
       {/* ── The toolkit, note + a continuously rolling logo marquee. */}
-      <section className="py-12 sm:py-16">
+      <section className="band py-12 sm:py-16">
         <div className="container-content">
           <Reveal>
             <p className="kicker text-amber">The toolkit</p>
@@ -159,38 +163,44 @@ export default function WorkPage() {
       </section>
 
       {/* ── Compliance that survives delivery pressure, variant of the
-          About-page statement, in Work's outcome-led register. */}
-      <section className="container-content py-12 sm:py-16">
-        <Reveal>
-          <div className="rounded-3xl bg-ink p-10 text-paper sm:p-16">
-            <p className="kicker text-amber">Controls that hold</p>
-            <p className="mt-6 max-w-3xl font-serif text-h2 font-light leading-snug text-paper">
-              Controls that only hold until the next deadline aren't controls.
-            </p>
-            <p className="mt-6 max-w-2xl text-body text-paper/70">
-              I translate regulatory obligations into defaults engineers can
-              act on without it costing them the release, so the audit holds
-              and the business keeps shipping.
-            </p>
-          </div>
-        </Reveal>
+          About-page statement, in Work's outcome-led register. Left on Paper:
+          the toolkit band sits directly above, and the dark card carries its
+          own contrast. */}
+      <section>
+        <div className="container-content py-12 sm:py-16">
+          <Reveal>
+            <div className="rounded-3xl bg-ink p-10 text-paper sm:p-16">
+              <p className="kicker text-amber">Controls that hold</p>
+              <p className="mt-6 max-w-3xl font-serif text-h2 font-light leading-snug text-paper">
+                Controls that only hold until the next deadline aren't controls.
+              </p>
+              <p className="mt-6 max-w-2xl text-body text-paper/70">
+                I translate regulatory obligations into defaults engineers can
+                act on without it costing them the release, so the audit holds
+                and the business keeps shipping.
+              </p>
+            </div>
+          </Reveal>
+        </div>
       </section>
 
       {/* ── Close CTA → Advisory / Contact. */}
-      <section className="container-content py-16 sm:py-24">
-        <Reveal>
-          <div className="rounded-3xl border border-ink/10 bg-paper p-10 text-center sm:p-16">
-            <h2 className="mx-auto max-w-2xl font-serif text-h1 font-light text-signature">
-              {workClose}
-            </h2>
-            <div className="mt-10 flex flex-wrap justify-center gap-4">
-              <Button href="/advisory">Explore advisory</Button>
-              <Button href="/contact" variant="ghost">
-                Get in touch
-              </Button>
+      <section className="band-warm">
+        <div className="container-content py-16 sm:py-24">
+          <Reveal>
+            <div className="rounded-3xl border border-ink/[0.14] bg-paper p-10 text-center sm:p-16">
+              <h2 className="mx-auto max-w-2xl font-serif text-h1 font-light text-signature">
+                {workClose}
+              </h2>
+              <div className="mt-10 flex flex-wrap justify-center gap-4">
+                <Button href="/advisory">Explore advisory</Button>
+                <Button href="/contact" variant="ghost">
+                  Get in touch
+                </Button>
+              </div>
             </div>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
       </section>
     </>
   );

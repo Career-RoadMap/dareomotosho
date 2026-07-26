@@ -75,7 +75,7 @@ export default function AboutPage() {
       {/* ── Page 2: the story, on a softly tinted band. */}
       <section
         id="story"
-        className="flex min-h-[70vh] scroll-mt-20 items-center bg-ink/[0.04]"
+        className="band flex min-h-[70vh] scroll-mt-20 items-center"
       >
         <div className="container-content py-16 sm:py-24">
           <Reveal>
@@ -163,7 +163,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Page 6: bios in three lengths. */}
-      <section id="bios" className="scroll-mt-20">
+      <section id="bios" className="band scroll-mt-20">
         <div className="container-content py-16 sm:py-24">
           <Reveal>
             <p className="kicker text-blue-lift">For organisers & press</p>
@@ -181,7 +181,7 @@ export default function AboutPage() {
       {/* ── Page 7: the invitation. */}
       <section
         id="talk"
-        className="flex min-h-[50vh] scroll-mt-20 items-center"
+        className="band-warm flex min-h-[50vh] scroll-mt-20 items-center"
       >
         <div className="container-content py-16 sm:py-24">
           <Reveal className="text-center">
