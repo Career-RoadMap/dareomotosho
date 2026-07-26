@@ -40,7 +40,7 @@ export default function CookieConsent() {
       role="dialog"
       aria-live="polite"
       aria-label="Cookie consent"
-      className="fixed inset-x-0 bottom-0 z-[100] border-t border-ink/10 bg-paper/95 backdrop-blur-md print:hidden"
+      className="fixed inset-x-0 bottom-0 z-[100] border-t border-ink/[0.14] bg-paper/95 backdrop-blur-md print:hidden"
     >
       <div className="container-content flex flex-col items-start gap-4 py-4 sm:flex-row sm:items-center sm:justify-between">
         <p className="max-w-2xl text-small text-ink">

@@ -30,7 +30,7 @@ export default function FlipTile({ title, body }: FlipTileProps) {
         style={{ transform: flipped ? "rotateY(180deg)" : undefined }}
       >
         {/* Front, heading only. */}
-        <span className={`${faceBase} border border-ink/10 bg-paper text-ink`}>
+        <span className={`${faceBase} border border-ink/[0.14] bg-paper text-ink`}>
           <span className="max-w-[20rem] font-serif text-xl font-medium leading-tight text-ink">
             {title}
           </span>

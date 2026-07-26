@@ -83,7 +83,7 @@ export default function QaAccordion({ items }: { items: Entry[] }) {
             </div>
 
             {pairs.length > 0 ? (
-              <ul className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10">
+              <ul className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-ink/[0.14] bg-ink/[0.14]">
                 {pairs.map((qa) => (
                   <li key={qa.n}>
                     <details className="group bg-paper">
@@ -104,7 +104,7 @@ export default function QaAccordion({ items }: { items: Entry[] }) {
                         </span>
                       </summary>
                       <div className="px-6 pb-6">
-                        <div className="prose-entry space-y-4 border-t border-ink/10 pt-5 text-body text-ink">
+                        <div className="prose-entry space-y-4 border-t border-ink/[0.14] pt-5 text-body text-ink">
                           <ReactMarkdown remarkPlugins={[remarkGfm]}>{qa.answer}</ReactMarkdown>
                         </div>
                       </div>
@@ -113,7 +113,7 @@ export default function QaAccordion({ items }: { items: Entry[] }) {
                 ))}
               </ul>
             ) : (
-              <div className="mt-6 overflow-hidden rounded-2xl border border-ink/10">
+              <div className="mt-6 overflow-hidden rounded-2xl border border-ink/[0.14]">
                 <details className="group bg-paper">
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-6 transition-colors duration-300 ease-calm hover:bg-paper/60 [&::-webkit-details-marker]:hidden">
                     <span className="font-serif text-lg font-medium text-ink">
@@ -129,7 +129,7 @@ export default function QaAccordion({ items }: { items: Entry[] }) {
                     </span>
                   </summary>
                   <div className="px-6 pb-6">
-                    <div className="prose-entry space-y-4 border-t border-ink/10 pt-5 text-body text-ink">
+                    <div className="prose-entry space-y-4 border-t border-ink/[0.14] pt-5 text-body text-ink">
                       <ReactMarkdown remarkPlugins={[remarkGfm]}>{entry.body}</ReactMarkdown>
                     </div>
                   </div>

@@ -116,7 +116,7 @@ export default function Header() {
                         : "invisible absolute right-0 top-full pt-3 opacity-0 transition-all duration-200 ease-calm group-hover/nav:visible group-hover/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:opacity-100"
                     }
                   >
-                    <ul className="w-60 overflow-hidden rounded-2xl border border-ink/10 bg-paper p-2 shadow-xl shadow-ink/10">
+                    <ul className="w-60 overflow-hidden rounded-2xl border border-ink/[0.14] bg-paper p-2 shadow-xl shadow-ink/10">
                       {item.children.map((child) => (
                         <DropdownItem
                           key={child.href}
@@ -199,7 +199,7 @@ export default function Header() {
                     {item.label}
                   </Link>
                   {item.children ? (
-                    <ul className="ml-3 border-l border-ink/10 pl-3">
+                    <ul className="ml-3 border-l border-ink/[0.14] pl-3">
                       {item.children.map((child) => (
                         <MobileChild
                           key={child.href}
@@ -292,7 +292,7 @@ function DropdownItem({
       >
         {item.label}
       </Link>
-      <ul className="ml-3 border-l border-ink/10 pl-2">
+      <ul className="ml-3 border-l border-ink/[0.14] pl-2">
         {item.children.map((child) => (
           <li key={child.href}>
             <NavChildLink
@@ -317,7 +317,7 @@ function MobileChild({ item, open }: { item: NavItem; open: boolean }) {
         className="block rounded-md px-3 py-2 text-small text-ink/80 transition-colors duration-300 ease-calm hover:bg-ink/[0.03] hover:text-amber"
       />
       {item.children ? (
-        <ul className="ml-3 border-l border-ink/10 pl-3">
+        <ul className="ml-3 border-l border-ink/[0.14] pl-3">
           {item.children.map((child) => (
             <li key={child.href}>
               <NavChildLink

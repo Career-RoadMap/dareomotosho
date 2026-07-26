@@ -47,20 +47,22 @@ export default function AdvisoryPage() {
       </PageBanner>
 
       {/* ── Outcomes language. */}
-      <section className="container-content py-12 sm:py-16">
-        <Reveal>
-          <h2 className="mx-auto max-w-2xl text-center font-serif text-h2 font-light text-signature">
-            Cloud and cybersecurity advisory for teams that want the judgment,
-            not just the fix.
-          </h2>
-        </Reveal>
-        <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-3">
-          {outcomes.map((o, i) => (
-            <Reveal as="div" key={o.title} delay={i * 90} className="bg-paper p-8 sm:p-10">
-              <h3 className="font-serif text-h2 font-light text-signature">{o.title}</h3>
-              <p className="mt-4 text-body text-ink">{o.body}</p>
-            </Reveal>
-          ))}
+      <section className="band">
+        <div className="container-content py-12 sm:py-16">
+          <Reveal>
+            <h2 className="mx-auto max-w-2xl text-center font-serif text-h2 font-light text-signature">
+              Cloud and cybersecurity advisory for teams that want the judgment,
+              not just the fix.
+            </h2>
+          </Reveal>
+          <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink/[0.14] bg-ink/[0.14] sm:grid-cols-3">
+            {outcomes.map((o, i) => (
+              <Reveal as="div" key={o.title} delay={i * 90} className="bg-paper p-8 sm:p-10">
+                <h3 className="font-serif text-h2 font-light text-signature">{o.title}</h3>
+                <p className="mt-4 text-body text-ink">{o.body}</p>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -82,23 +84,25 @@ export default function AdvisoryPage() {
       </section>
 
       {/* ── Inquiry form. */}
-      <section id="start" className="container-content scroll-mt-20 py-12 sm:py-16">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
-          <Reveal>
-            <h2 className="font-serif text-h1 font-light text-signature">
-              Start a conversation.
-            </h2>
-            <p className="mt-6 max-w-prose text-body text-ink">
-              A few lines on your situation and the outcome you're after is plenty. I
-              read every inquiry personally.
-            </p>
-          </Reveal>
-          <Reveal>
-            <InquiryForm
-              submitLabel="Send advisory inquiry"
-              subject="New advisory inquiry, dareomotosho.com"
-            />
-          </Reveal>
+      <section id="start" className="band-warm scroll-mt-20">
+        <div className="container-content py-12 sm:py-16">
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
+            <Reveal>
+              <h2 className="font-serif text-h1 font-light text-signature">
+                Start a conversation.
+              </h2>
+              <p className="mt-6 max-w-prose text-body text-ink">
+                A few lines on your situation and the outcome you're after is plenty. I
+                read every inquiry personally.
+              </p>
+            </Reveal>
+            <Reveal>
+              <InquiryForm
+                submitLabel="Send advisory inquiry"
+                subject="New advisory inquiry, dareomotosho.com"
+              />
+            </Reveal>
+          </div>
         </div>
       </section>
     </>

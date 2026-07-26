@@ -233,11 +233,11 @@ export default function PathFinderResult({
       </div>
 
       {/* Salary reference. */}
-      <div className="mt-6 rounded-2xl border border-ink/10 bg-paper p-8 sm:p-10">
+      <div className="mt-6 rounded-2xl border border-ink/[0.14] bg-paper p-8 sm:p-10">
         <h3 className="font-serif text-h2 font-light text-signature">
           What the role tends to pay
         </h3>
-        <div className="mt-6 grid gap-px overflow-hidden rounded-xl border border-ink/10 bg-ink/10 sm:grid-cols-3">
+        <div className="mt-6 grid gap-px overflow-hidden rounded-xl border border-ink/[0.14] bg-ink/[0.14] sm:grid-cols-3">
           {track.salary.map((s) => (
             <div key={s.level} className="bg-paper p-6">
               <p className="kicker text-blue-lift">{s.level}</p>
@@ -260,7 +260,7 @@ export default function PathFinderResult({
       </div>
 
       {/* The roadmap. */}
-      <div className="mt-6 rounded-2xl border border-ink/10 bg-paper p-8 sm:p-10">
+      <div className="mt-6 rounded-2xl border border-ink/[0.14] bg-paper p-8 sm:p-10">
         <h3 className="font-serif text-h2 font-light text-signature">Your roadmap, in order</h3>
         {pacing ? <p className="mt-3 max-w-prose text-small text-ink/70">{pacing}</p> : null}
         <ol className="mt-8 space-y-6">
@@ -294,7 +294,7 @@ export default function PathFinderResult({
             one, badly if necessary.
           </p>
         </div>
-        <div className="rounded-2xl border border-ink/10 bg-paper p-8 sm:p-10">
+        <div className="rounded-2xl border border-ink/[0.14] bg-paper p-8 sm:p-10">
           <p className="kicker text-blue-lift">Read these, in this order</p>
           <ol className="mt-5 space-y-3">
             {track.resources.map((r, i) => (
@@ -310,7 +310,7 @@ export default function PathFinderResult({
       </div>
 
       {/* Education-only disclaimer, always visible with the result. */}
-      <p className="mt-6 rounded-xl border border-ink/10 bg-paper px-5 py-4 text-xs leading-relaxed text-ink/60">
+      <p className="mt-6 rounded-xl border border-ink/[0.14] bg-paper px-5 py-4 text-xs leading-relaxed text-ink/60">
         {resultDisclaimer}
       </p>
 

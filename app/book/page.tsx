@@ -50,51 +50,55 @@ export default function BookPage() {
       </PageBanner>
 
       {/* ── What a call is good for. */}
-      <section className="container-content py-16 sm:py-20">
-        <Reveal>
-          <h2 className="font-serif text-h2 font-light text-ink">
-            What we can use it for
-          </h2>
-        </Reveal>
-        <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 sm:grid-cols-3">
-          {fits.map((f, i) => (
-            <Reveal as="div" key={f.title} delay={i * 90} className="bg-paper p-8 sm:p-10">
-              <h3 className="font-serif text-h2 font-light text-signature">{f.title}</h3>
-              <p className="mt-4 text-body text-ink">{f.body}</p>
-            </Reveal>
-          ))}
+      <section className="band">
+        <div className="container-content py-16 sm:py-20">
+          <Reveal>
+            <h2 className="font-serif text-h2 font-light text-ink">
+              What we can use it for
+            </h2>
+          </Reveal>
+          <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink/[0.14] bg-ink/[0.14] sm:grid-cols-3">
+            {fits.map((f, i) => (
+              <Reveal as="div" key={f.title} delay={i * 90} className="bg-paper p-8 sm:p-10">
+                <h3 className="font-serif text-h2 font-light text-signature">{f.title}</h3>
+                <p className="mt-4 text-body text-ink">{f.body}</p>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ── The booking CTA, repeated where the decision lands. */}
-      <section className="container-content py-16 sm:py-24">
-        <Reveal className="text-center">
-          <div className="rounded-3xl bg-ink p-10 text-paper sm:p-16">
-            <h2 className="mx-auto max-w-2xl font-serif text-h1 font-light text-paper">
-              The calendar is open.
-            </h2>
-            <p className="mx-auto mt-5 max-w-xl text-body text-paper/70">
-              Scheduling happens on Calendly; pick any open slot and
-              you'll get the invite and the meeting link immediately.
-            </p>
-            <div className="mt-10">
-              <a
-                href={bookingUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-lg bg-amber px-7 py-3.5 text-small font-medium tracking-wide text-ink shadow-sm transition-all duration-300 ease-calm hover:brightness-[0.97] active:brightness-95"
-              >
-                Book a call
-              </a>
+      <section className="band-warm">
+        <div className="container-content py-16 sm:py-24">
+          <Reveal className="text-center">
+            <div className="rounded-3xl bg-ink p-10 text-paper sm:p-16">
+              <h2 className="mx-auto max-w-2xl font-serif text-h1 font-light text-paper">
+                The calendar is open.
+              </h2>
+              <p className="mx-auto mt-5 max-w-xl text-body text-paper/70">
+                Scheduling happens on Calendly; pick any open slot and
+                you'll get the invite and the meeting link immediately.
+              </p>
+              <div className="mt-10">
+                <a
+                  href={bookingUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center rounded-lg bg-amber px-7 py-3.5 text-small font-medium tracking-wide text-ink shadow-sm transition-all duration-300 ease-calm hover:brightness-[0.97] active:brightness-95"
+                >
+                  Book a call
+                </a>
+              </div>
+              <p className="mt-8 text-small text-paper/55">
+                No slot that fits? Write me instead:{" "}
+                <a href={`mailto:${contactEmail}`} className="link-quiet !text-paper">
+                  {contactEmail}
+                </a>
+              </p>
             </div>
-            <p className="mt-8 text-small text-paper/55">
-              No slot that fits? Write me instead:{" "}
-              <a href={`mailto:${contactEmail}`} className="link-quiet !text-paper">
-                {contactEmail}
-              </a>
-            </p>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
       </section>
     </>
   );

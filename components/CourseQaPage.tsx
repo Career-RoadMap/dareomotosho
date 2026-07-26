@@ -42,7 +42,7 @@ export default function CourseQaPage({ body }: { body: string }) {
   return (
     <div className="space-y-8">
       {pairs.map((qa) => (
-        <div key={qa.n} className="overflow-hidden rounded-2xl border border-ink/10 shadow-sm">
+        <div key={qa.n} className="overflow-hidden rounded-2xl border border-ink/[0.14] shadow-sm">
           {/* Question — dark highlighted header */}
           <div className="flex items-start gap-5 bg-signature px-7 py-6">
             <span className="kicker mt-1 shrink-0 text-amber">Q{qa.n}</span>

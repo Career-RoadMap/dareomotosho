@@ -77,6 +77,27 @@
     @apply mx-auto w-full max-w-content px-6 sm:px-8 lg:px-12;
   }
 
+  /* ── Reading bands ───────────────────────────────────────────────────
+     Long pages read as a sequence of distinct "pages": alternating
+     full-bleed surfaces separated by hairline seams, so the eye keeps a
+     clear anchor while scrolling. Every value is a tint of an existing
+     brand token (Ink / Amber over Paper), so no new colors enter the
+     palette. Apply to a <section>; keep `container-content` on a child
+     div so the tint bleeds edge to edge. */
+  .band {
+    @apply border-y border-ink/[0.07] bg-ink/[0.035];
+  }
+  /* The warm variant, for closing / invitation moments. */
+  .band-warm {
+    @apply border-y border-amber/25 bg-amber/[0.06];
+  }
+
+  /* Cards that lift off a tinted band: a slightly firmer edge than a
+     hairline, plus the faintest shadow so the border reads crisply. */
+  .card-lift {
+    @apply border border-ink/[0.12] bg-paper shadow-sm shadow-ink/[0.05];
+  }
+
   /* Long-form Markdown rendered in the content library. Headings are
      highlighted with an amber band/rule for fast scanning, and paragraphs
      (e.g. a question, then its answer) are spaced apart for easy reading. */

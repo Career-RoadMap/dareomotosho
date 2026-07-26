@@ -99,20 +99,22 @@ export default async function ResourcesPage() {
       </section>
 
       {/* ── Ask a question, submitted to the library, pending review. */}
-      <section className="container-content py-16 sm:py-24">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
-          <Reveal>
-            <h2 className="font-serif text-h2 font-light text-ink">
-              Have a question?
-            </h2>
-            <p className="mt-5 max-w-prose text-body text-ink">
-              Ask it here. Good questions become answers in the library, once
-              reviewed, yours appears for everyone, live.
-            </p>
-          </Reveal>
-          <Reveal>
-            <AskQuestion />
-          </Reveal>
+      <section className="band-warm">
+        <div className="container-content py-16 sm:py-24">
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
+            <Reveal>
+              <h2 className="font-serif text-h2 font-light text-ink">
+                Have a question?
+              </h2>
+              <p className="mt-5 max-w-prose text-body text-ink">
+                Ask it here. Good questions become answers in the library, once
+                reviewed, yours appears for everyone, live.
+              </p>
+            </Reveal>
+            <Reveal>
+              <AskQuestion />
+            </Reveal>
+          </div>
         </div>
       </section>
     </>
