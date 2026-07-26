@@ -27,7 +27,7 @@ export default function CollectionCard({
     <li>
       <Link
         href={href}
-        className="group relative flex h-full flex-col rounded-2xl border border-ink/[0.14] bg-paper p-8 shadow-sm transition-all duration-300 ease-calm hover:-translate-y-1 hover:border-amber/50 hover:shadow-xl hover:shadow-ink/10 sm:p-10"
+        className="card-accent group relative flex h-full flex-col rounded-2xl border border-ink/[0.14] bg-paper p-8 shadow-sm transition-all duration-300 ease-calm hover:-translate-y-1 hover:border-amber/50 hover:shadow-xl hover:shadow-ink/10 sm:p-10"
       >
         <div className="flex items-start justify-between gap-3">
           <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-blue-lift/10 text-blue-lift transition-colors duration-300 ease-calm group-hover:bg-amber/15 group-hover:text-amber">
