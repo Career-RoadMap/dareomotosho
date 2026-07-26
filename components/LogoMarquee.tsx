@@ -7,7 +7,9 @@ import { toolkit } from "@/lib/content";
  * prefers-reduced-motion (handled globally in globals.css).
  *
  * Logos are the official brand glyphs (Simple Icons set), rendered in the
- * site's ink tone with the tool name set beside each mark.
+ * site's ink tone with the tool name set beside each mark. CapRover, Wazuh,
+ * and Nessus are not in that set, so they carry simple in-house line marks in
+ * the same tone; drop an official SVG over the file in /public/logos to swap.
  */
 export default function LogoMarquee() {
   const loop = [...toolkit, ...toolkit];

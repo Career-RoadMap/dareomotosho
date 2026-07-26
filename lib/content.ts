@@ -185,6 +185,9 @@ export const toolkit: Tool[] = [
   { name: "Prometheus", logo: "/logos/prometheus.svg" },
   { name: "Redis", logo: "/logos/redis.svg" },
   { name: "PostgreSQL", logo: "/logos/postgresql.svg" },
+  { name: "CapRover", logo: "/logos/caprover.svg" },
+  { name: "Wazuh", logo: "/logos/wazuh.svg" },
+  { name: "Nessus", logo: "/logos/nessus.svg" },
   { name: "ClickUp", logo: "/logos/clickup.svg" },
   { name: "Excel", logo: "/logos/excel.svg" },
 ];

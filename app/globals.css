@@ -98,6 +98,16 @@
     @apply border border-ink/[0.12] bg-paper shadow-sm shadow-ink/[0.05];
   }
 
+  /* The side accent: a solid Amber bar down the left edge of a card, so each
+     box reads as its own object at a glance. Pairs with .band — the bar is
+     the line that pops against the tint.
+     Marked important on purpose: most cards also carry Tailwind's `border`
+     utility, and utilities are emitted after components, so without this the
+     1px all-round border silently wins and the bar never appears. */
+  .card-accent {
+    @apply !border-l-4 !border-l-amber;
+  }
+
   /* Long-form Markdown rendered in the content library. Headings are
      highlighted with an amber band/rule for fast scanning, and paragraphs
      (e.g. a question, then its answer) are spaced apart for easy reading. */

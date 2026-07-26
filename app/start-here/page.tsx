@@ -86,7 +86,7 @@ export default function StartHerePage() {
           <ol className="mt-10 space-y-4">
             {learningOrder.map((item, i) => (
               <Reveal as="li" key={item.step} delay={i * 90}>
-                <div className="flex gap-6 rounded-2xl border border-ink/[0.14] bg-paper p-7 sm:gap-10 sm:p-9">
+                <div className="card-accent flex gap-6 rounded-2xl border border-ink/[0.14] bg-paper p-7 sm:gap-10 sm:p-9">
                   <span className="font-serif text-h1 font-light leading-none text-amber">
                     {item.step}
                   </span>

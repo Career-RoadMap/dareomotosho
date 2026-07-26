@@ -59,7 +59,7 @@ export default function HomePage() {
             <Reveal as="li" key={door.href} delay={i * 120}>
               <Link
                 href={door.href}
-                className="group flex h-full flex-col bg-paper p-8 transition-colors duration-300 ease-calm hover:bg-paper/60 sm:p-10"
+                className="card-accent group flex h-full flex-col bg-paper p-8 transition-colors duration-300 ease-calm hover:bg-paper/60 sm:p-10"
               >
                 <span className="font-serif text-h2 font-light text-ink transition-colors duration-300 ease-calm group-hover:text-blue-lift">
                   {door.label}

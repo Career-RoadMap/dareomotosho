@@ -59,7 +59,7 @@ export default function BookPage() {
           </Reveal>
           <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink/[0.14] bg-ink/[0.14] sm:grid-cols-3">
             {fits.map((f, i) => (
-              <Reveal as="div" key={f.title} delay={i * 90} className="bg-paper p-8 sm:p-10">
+              <Reveal as="div" key={f.title} delay={i * 90} className="card-accent bg-paper p-8 sm:p-10">
                 <h3 className="font-serif text-h2 font-light text-signature">{f.title}</h3>
                 <p className="mt-4 text-body text-ink">{f.body}</p>
               </Reveal>

@@ -50,7 +50,7 @@ export default function SpeakingPage() {
           <div className="mt-10 space-y-4">
             {talkTopics.map((t, i) => (
               <Reveal key={t.title} delay={i * 80}>
-                <article className="rounded-2xl border border-ink/[0.14] bg-paper p-8 sm:p-10">
+                <article className="card-accent rounded-2xl border border-ink/[0.14] bg-paper p-8 sm:p-10">
                   <p className="kicker text-blue-lift">{t.audience}</p>
                   <h3 className="mt-4 font-serif text-h2 font-light text-ink">
                     {t.title}
