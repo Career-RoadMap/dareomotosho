@@ -3,6 +3,7 @@ import PageBanner from "@/components/PageBanner";
 import Reveal from "@/components/Reveal";
 import CollectionCard from "@/components/CollectionCard";
 import CommunityQuestionsSidebar from "@/components/CommunityQuestionsSidebar";
+import ToolLinks from "@/components/ToolLinks";
 import AskQuestion from "@/components/AskQuestion";
 import Button from "@/components/Button";
 import { entryTypeMeta, getEntries, type EntryType } from "@/lib/library";
@@ -54,6 +55,14 @@ export default async function ResourcesPage() {
         </div>
       </PageBanner>
 
+      {/* ── The two standalone tools, right under the banner so they are the
+          first thing reachable rather than the last. */}
+      <div className="border-b border-ink/[0.07] bg-ink/[0.02]">
+        <div className="container-content py-4">
+          <ToolLinks />
+        </div>
+      </div>
+
       {/* No Reveal wrapper around the grid: its transform would break the
           sticky Community Questions side banner. */}
       <section className="container-content py-12 sm:py-16">
@@ -89,21 +98,6 @@ export default async function ResourcesPage() {
                 label="Downloads"
                 blurb="Textbooks, slide decks, and short video clips, free to download."
                 count={downloads.length}
-              />
-              <CollectionCard
-                href="/path-finder"
-                kind="path_finder"
-                label="Career Path Finder"
-                blurb="Eight questions, temperament included, turn where you are into an ordered route: the role that fits, what it pays, and what to read first."
-                cta="Find my path"
-              />
-              <CollectionCard
-                href="/tools/career-salary-explorer.html"
-                kind="tool"
-                label="Salary Explorer"
-                blurb="A reference tool covering salary ranges and growth trends across 30 cloud, security, and business roles."
-                external
-                cta="Open the tool"
               />
             </ul>
           </div>
