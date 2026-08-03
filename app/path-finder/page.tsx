@@ -28,10 +28,15 @@ export default function PathFinderPage() {
         }
       />
 
-      <section className="container-content py-12 sm:py-16">
-        <Reveal>
-          <PathFinder />
-        </Reveal>
+      {/* The quiz is a narrow column, so it sits on a tinted band: the Paper
+          option cards lift off it, and the space either side reads as framing
+          rather than an empty page. */}
+      <section className="band">
+        <div className="container-content py-10 sm:py-14">
+          <Reveal>
+            <PathFinder />
+          </Reveal>
+        </div>
       </section>
     </>
   );

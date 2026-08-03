@@ -63,13 +63,7 @@ export const nav: NavItem[] = [
     label: "Learn",
     children: [
       { href: "/start-here", label: "Start Here" },
-      { href: "/path-finder", label: "Career Path Finder" },
       { href: "/ai-tutor", label: "AWS Exam Tutor" },
-      {
-        href: "/tools/career-salary-explorer.html",
-        label: "Salary Explorer",
-        external: true,
-      },
     ],
   },
   {
@@ -80,6 +74,12 @@ export const nav: NavItem[] = [
       { href: "/resources/interview-prep", label: "Interview Prep" },
       { href: "/resources/articles", label: "Articles" },
       { href: "/resources/downloads", label: "Downloads" },
+      { href: "/path-finder", label: "Career Path Finder" },
+      {
+        href: "/tools/career-salary-explorer.html",
+        label: "Salary Explorer",
+        external: true,
+      },
       { href: "/resources#community", label: "Community Questions" },
     ],
   },

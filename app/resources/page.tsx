@@ -90,6 +90,21 @@ export default async function ResourcesPage() {
                 blurb="Textbooks, slide decks, and short video clips, free to download."
                 count={downloads.length}
               />
+              <CollectionCard
+                href="/path-finder"
+                kind="path_finder"
+                label="Career Path Finder"
+                blurb="Eight questions, temperament included, turn where you are into an ordered route: the role that fits, what it pays, and what to read first."
+                cta="Find my path"
+              />
+              <CollectionCard
+                href="/tools/career-salary-explorer.html"
+                kind="tool"
+                label="Salary Explorer"
+                blurb="A reference tool covering salary ranges and growth trends across 30 cloud, security, and business roles."
+                external
+                cta="Open the tool"
+              />
             </ul>
           </div>
 
