@@ -7,7 +7,7 @@ import FlipTile from "@/components/FlipTile";
 import Converge from "@/components/Converge";
 import LogoMarquee from "@/components/LogoMarquee";
 import DiagramGallery from "@/components/DiagramGallery";
-import TierBackdrop from "@/components/TierBackdrop";
+import TierIcon from "@/components/TierIcon";
 import { diagrams, tiers, toolkitNote, workClose } from "@/lib/content";
 import { pageBanners } from "@/lib/site";
 
@@ -45,7 +45,7 @@ export default function WorkPage() {
       </PageBanner>
 
       {/* ── Tiers, each heading flips to its detail; the 2×2 grid converges in.
-          A subtle parallax backdrop fades in per tier to underline its message. */}
+          A small line mark sits beside each heading to say what the tier is. */}
       {tiers.map((tier, ti) => {
         const hero = tier.items.find((i) => i.hero);
         const feature = tier.items.find((i) => i.feature);
@@ -60,13 +60,17 @@ export default function WorkPage() {
               ti % 2 === 1 ? "band" : ""
             }`}
           >
-            <TierBackdrop src={tier.backdrop} align={ti % 2 === 0 ? "right" : "left"} />
             <div className="container-content">
             <Reveal>
-              <h2 className="font-serif text-h1 font-light text-signature">
-                {tier.name}
-              </h2>
-              <p className="mt-3 max-w-2xl text-body text-ink">{tier.tagline}</p>
+              <div className="tier-head flex items-start gap-5">
+                <TierIcon name={tier.icon} className="mt-1" />
+                <div>
+                  <h2 className="font-serif text-h1 font-light text-signature">
+                    {tier.name}
+                  </h2>
+                  <p className="mt-3 max-w-2xl text-body text-ink">{tier.tagline}</p>
+                </div>
+              </div>
             </Reveal>
 
             {/* Lead item, big-number hero card, or a full-width feature tile. */}

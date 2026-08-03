@@ -221,6 +221,52 @@
   }
 }
 
+/* ── Tier icons ─────────────────────────────────────────────────────────
+   The mark beside each Work tier heading. Two quiet gestures only: the
+   strokes draw themselves once on entry, and the badge lifts fractionally
+   on hover. Both are curtailed by the reduced-motion block below. */
+.tier-icon {
+  transition:
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The whole tier heading is the hover target, so the mark responds when the
+   eye is already on the words. */
+.tier-head:hover .tier-icon {
+  transform: translateY(-2px);
+  background-color: rgb(224 169 81 / 0.18);
+  border-color: rgb(224 169 81 / 0.65);
+}
+
+/* Draw-in. The resting state carries no dash at all, so the mark is complete
+   in the SSR HTML, without JavaScript, and under reduced motion. Only when
+   the component decides to animate (mark still below the fold at mount) does
+   `.is-drawing` hide the strokes, and `.is-drawn` run them back in. */
+.tier-icon.is-drawing .tier-stroke {
+  stroke-dasharray: 120;
+  stroke-dashoffset: 120;
+}
+
+.tier-icon.is-drawing.is-drawn .tier-stroke {
+  animation: tier-draw 1100ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.tier-icon .tier-stroke-2 {
+  animation-delay: 160ms;
+}
+
+.tier-icon .tier-stroke-3 {
+  animation-delay: 320ms;
+}
+
+@keyframes tier-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 /* ── Respect prefers-reduced-motion everywhere ─────────────────────────
    Disable/curtail all reveal + transition motion; content shows at rest. */
 @media (prefers-reduced-motion: reduce) {

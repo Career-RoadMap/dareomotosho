@@ -1,3 +1,5 @@
+import type { TierIconName } from "@/components/TierIcon";
+
 /**
  * Sample content scaffolding.
  *
@@ -62,8 +64,8 @@ export type Tier = {
   tagline: string;
   items: TierItem[];
   capabilities: string;
-  /** Subtle parallax backdrop in /public/backgrounds, swap for a real image. */
-  backdrop: string;
+  /** Line mark shown beside the tier heading (see components/TierIcon). */
+  icon: TierIconName;
 };
 
 /** /work, outcome-led, building-first. Two tiers, every metric defensible. */
@@ -99,7 +101,7 @@ export const tiers: Tier[] = [
     ],
     capabilities:
       "Security systems & strict IAM · advisory to 10+ external customers on cost and migration trade-offs · monitoring & logging strategy · led the Cloud & Support team · emerging AI architectures.",
-    backdrop: "/backgrounds/tier-systems.svg",
+    icon: "systems",
   },
   {
     kicker: "Tier 2",
@@ -130,7 +132,7 @@ export const tiers: Tier[] = [
     ],
     capabilities:
       "AWS-certified (Cloud Practitioner + Solutions Architect Associate) · 10% operational-efficiency gain via a single source of truth · 50% retake pass-likelihood lift through targeted unblocking · organizational research contribution (Project Purple, 1,000+ respondents).",
-    backdrop: "/backgrounds/tier-people.svg",
+    icon: "people",
   },
 ];
 
