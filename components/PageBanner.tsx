@@ -30,7 +30,7 @@ export default function PageBanner({
   figure,
 }: PageBannerProps) {
   return (
-    <section className="relative flex min-h-[calc(100svh-4rem)] w-full items-center overflow-hidden bg-ink">
+    <section className="relative flex min-h-[calc(72svh-4rem)] w-full items-center overflow-hidden bg-ink">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={image}
@@ -45,7 +45,7 @@ export default function PageBanner({
 
       <div className="container-content relative z-10 py-14 sm:py-20">
         {figure ? (
-          <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
+          <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
             <div>
               <Copy kicker={kicker} title={title} intro={intro}>
                 {children}
@@ -83,7 +83,7 @@ function Copy({
         {title}
       </h1>
       <span
-        className="mt-10 block h-px w-16 bg-amber animate-fade-up"
+        className="mt-7 block h-px w-16 bg-amber animate-fade-up"
         style={{ animationDelay: "160ms" }}
         aria-hidden
       />

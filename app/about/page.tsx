@@ -59,9 +59,9 @@ export default function AboutPage() {
       {/* ── Page 1: the through-line, one sentence, given a whole page. */}
       <section
         id="seam"
-        className="flex min-h-[60vh] scroll-mt-20 items-center"
+        className="flex min-h-[40vh] scroll-mt-20 items-center"
       >
-        <div className="container-content py-16 sm:py-20">
+        <div className="container-content py-12 sm:py-16">
           <Reveal>
             <p className="kicker text-blue-lift">The through-line</p>
             <span className="mt-6 block h-px w-16 bg-amber" aria-hidden />
@@ -75,16 +75,16 @@ export default function AboutPage() {
       {/* ── Page 2: the story, on a softly tinted band. */}
       <section
         id="story"
-        className="band flex min-h-[70vh] scroll-mt-20 items-center"
+        className="band flex min-h-[44vh] scroll-mt-20 items-center"
       >
-        <div className="container-content py-16 sm:py-24">
+        <div className="container-content py-12 sm:py-16">
           <Reveal>
             <p className="kicker text-blue-lift">The story</p>
             <h2 className="mt-4 max-w-2xl font-serif text-h2 font-light text-signature">
               Technical mentor, cloud engineer, cybersecurity engineer,
               solutions architect, and AI architect
             </h2>
-            <div className="mt-8 max-w-3xl space-y-6">
+            <div className="mt-8 max-w-3xl space-y-4">
               {bioStory.map((para, i) => (
                 <p key={i} className="text-body text-ink">
                   {para}
@@ -98,9 +98,9 @@ export default function AboutPage() {
       {/* ── Page 3: the gap I close, the dark statement band. */}
       <section
         id="gap"
-        className="flex min-h-[70vh] scroll-mt-20 items-center bg-ink"
+        className="flex min-h-[44vh] scroll-mt-20 items-center bg-ink"
       >
-        <div className="container-content py-16 sm:py-24">
+        <div className="container-content py-12 sm:py-16">
           <Reveal>
             <p className="kicker text-amber">The gap I close</p>
             <p className="mt-6 max-w-3xl font-serif text-h2 font-light leading-snug text-paper">
@@ -121,9 +121,9 @@ export default function AboutPage() {
       {/* ── Page 4: off the cloud, the human aside. */}
       <section
         id="human"
-        className="flex min-h-[55vh] scroll-mt-20 items-center"
+        className="flex min-h-[36vh] scroll-mt-20 items-center"
       >
-        <div className="container-content py-16 sm:py-20">
+        <div className="container-content py-12 sm:py-16">
           <Reveal>
             <p className="kicker text-amber">Off the cloud</p>
             <span className="mt-6 block h-px w-16 bg-amber" aria-hidden />
@@ -137,9 +137,9 @@ export default function AboutPage() {
       {/* ── Page 5: the three roles, distilled, on the deep Signature band. */}
       <section
         id="roles"
-        className="flex min-h-[60vh] scroll-mt-20 items-center bg-signature"
+        className="flex min-h-[40vh] scroll-mt-20 items-center bg-signature"
       >
-        <div className="container-content py-16 sm:py-24">
+        <div className="container-content py-12 sm:py-16">
           <Reveal>
             <div className="mx-auto max-w-3xl text-center">
               <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-serif text-h1 font-light leading-none text-paper">
@@ -164,7 +164,7 @@ export default function AboutPage() {
 
       {/* ── Page 6: bios in three lengths. */}
       <section id="bios" className="band scroll-mt-20">
-        <div className="container-content py-16 sm:py-24">
+        <div className="container-content py-12 sm:py-16">
           <Reveal>
             <p className="kicker text-blue-lift">For organisers & press</p>
             <h2 className="mt-4 font-serif text-h2 font-light text-ink">Grab a bio</h2>
@@ -181,14 +181,14 @@ export default function AboutPage() {
       {/* ── Page 7: the invitation. */}
       <section
         id="talk"
-        className="band-warm flex min-h-[50vh] scroll-mt-20 items-center"
+        className="band-warm flex min-h-[34vh] scroll-mt-20 items-center"
       >
-        <div className="container-content py-16 sm:py-24">
+        <div className="container-content py-12 sm:py-16">
           <Reveal className="text-center">
             <h2 className="mx-auto max-w-2xl font-serif text-h1 font-light text-ink">
               If any of this resonates, let's talk.
             </h2>
-            <div className="mt-10 flex flex-wrap justify-center gap-4">
+            <div className="mt-7 flex flex-wrap justify-center gap-4">
               <Button href="/advisory" variant="accent">
                 Work with me
               </Button>

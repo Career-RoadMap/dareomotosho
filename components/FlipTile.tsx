@@ -26,7 +26,7 @@ export default function FlipTile({ title, body }: FlipTileProps) {
         onClick={() => setFlipped((v) => !v)}
         aria-pressed={flipped}
         aria-label={`${title}, ${flipped ? "hide" : "show"} detail`}
-        className="relative block h-full min-h-[15rem] w-full transition-transform duration-700 ease-calm [transform-style:preserve-3d]"
+        className="relative block h-full min-h-[14rem] w-full transition-transform duration-700 ease-calm [transform-style:preserve-3d]"
         style={{ transform: flipped ? "rotateY(180deg)" : undefined }}
       >
         {/* Front, heading only. */}

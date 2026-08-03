@@ -71,7 +71,7 @@ export default function Downloads() {
           {filtered.length === 0 ? (
             <p className="mt-8 text-small text-ink/50">No downloads match your search.</p>
           ) : (
-            <div className="mt-10 space-y-12">
+            <div className="mt-7 space-y-12">
               {downloadKinds.map((k) => {
                 const items = filtered.filter((d) => d.kind === k);
                 if (items.length === 0) return null;

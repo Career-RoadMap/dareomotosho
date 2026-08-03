@@ -59,7 +59,7 @@ export default async function PathResultPage({
         </Button>
       </PageBanner>
 
-      <section className="container-content py-16 sm:py-24">
+      <section className="container-content py-12 sm:py-16">
         <Reveal>
           <PathFinderResult track={track} shared />
         </Reveal>

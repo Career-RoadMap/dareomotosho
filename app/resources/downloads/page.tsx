@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function DownloadsPage() {
   return (
-    <div className="container-content py-20 sm:py-28">
+    <div className="container-content py-12 sm:py-16">
       <Reveal>
         <Link href="/resources" className="link-quiet text-small">
           ← Back to the library

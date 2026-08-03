@@ -27,7 +27,7 @@ export default function LogoMarquee() {
           "linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)",
       }}
     >
-      <ul className="marquee-track flex w-max items-center gap-10 sm:gap-14">
+      <ul className="marquee-track flex w-max items-center gap-8 sm:gap-14">
         {loop.map((tool, i) => (
           <li
             key={`${tool.name}-${i}`}

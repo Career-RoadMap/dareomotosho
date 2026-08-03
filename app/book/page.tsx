@@ -51,15 +51,15 @@ export default function BookPage() {
 
       {/* ── What a call is good for. */}
       <section className="band">
-        <div className="container-content py-16 sm:py-20">
+        <div className="container-content py-12 sm:py-16">
           <Reveal>
             <h2 className="font-serif text-h2 font-light text-ink">
               What we can use it for
             </h2>
           </Reveal>
-          <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink/[0.14] bg-ink/[0.14] sm:grid-cols-3">
+          <div className="mt-7 grid gap-px overflow-hidden rounded-2xl border border-ink/[0.14] bg-ink/[0.14] sm:grid-cols-3">
             {fits.map((f, i) => (
-              <Reveal as="div" key={f.title} delay={i * 90} className="card-accent bg-paper p-8 sm:p-10">
+              <Reveal as="div" key={f.title} delay={i * 90} className="card-accent bg-paper p-7 sm:p-9">
                 <h3 className="font-serif text-h2 font-light text-signature">{f.title}</h3>
                 <p className="mt-4 text-body text-ink">{f.body}</p>
               </Reveal>
@@ -70,7 +70,7 @@ export default function BookPage() {
 
       {/* ── The booking CTA, repeated where the decision lands. */}
       <section className="band-warm">
-        <div className="container-content py-16 sm:py-24">
+        <div className="container-content py-12 sm:py-16">
           <Reveal className="text-center">
             <div className="rounded-3xl bg-ink p-10 text-paper sm:p-16">
               <h2 className="mx-auto max-w-2xl font-serif text-h1 font-light text-paper">
@@ -80,7 +80,7 @@ export default function BookPage() {
                 Scheduling happens on Calendly; pick any open slot and
                 you'll get the invite and the meeting link immediately.
               </p>
-              <div className="mt-10">
+              <div className="mt-7">
                 <a
                   href={bookingUrl}
                   target="_blank"
