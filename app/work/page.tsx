@@ -2,17 +2,11 @@ import type { Metadata } from "next";
 import PageBanner from "@/components/PageBanner";
 import Reveal from "@/components/Reveal";
 import Button from "@/components/Button";
-import FlipCard from "@/components/FlipCard";
-import FlipTile from "@/components/FlipTile";
-import Converge from "@/components/Converge";
 import LogoMarquee from "@/components/LogoMarquee";
 import DiagramGallery from "@/components/DiagramGallery";
-import TierBackdrop from "@/components/TierBackdrop";
+import TierTabs from "@/components/TierTabs";
 import { diagrams, tiers, toolkitNote, workClose } from "@/lib/content";
 import { pageBanners } from "@/lib/site";
-
-/** Corner each grid tile converges from, in 2×2 order. */
-const corners = ["tl", "tr", "bl", "br"] as const;
 
 export const metadata: Metadata = {
   title: "Cloud architecture for business decisions",
@@ -44,85 +38,13 @@ export default function WorkPage() {
         </div>
       </PageBanner>
 
-      {/* ── Tiers, each heading flips to its detail; the 2×2 grid converges in.
-          A subtle parallax backdrop fades in per tier to underline its message. */}
-      {tiers.map((tier, ti) => {
-        const hero = tier.items.find((i) => i.hero);
-        const feature = tier.items.find((i) => i.feature);
-        const grid = tier.items.filter((i) => !i.hero && !i.feature);
-
-        return (
-          <section
-            key={tier.kicker}
-            // Alternating surfaces so each tier reads as its own page on the
-            // way down: even tiers on Paper, odd tiers on the tinted band.
-            className={`relative isolate overflow-hidden py-10 sm:py-14 ${
-              ti % 2 === 1 ? "band" : ""
-            }`}
-          >
-            <TierBackdrop src={tier.backdrop} align={ti % 2 === 0 ? "right" : "left"} />
-            <div className="container-content">
-            <Reveal>
-              <h2 className="font-serif text-h1 font-light text-signature">
-                {tier.name}
-              </h2>
-              <p className="mt-3 max-w-2xl text-body text-ink">{tier.tagline}</p>
-            </Reveal>
-
-            {/* Lead item, big-number hero card, or a full-width feature tile. */}
-            {hero && (
-              <Reveal className="mt-7">
-                <FlipCard
-                  metric={hero.metric ?? ""}
-                  metricLabel={hero.metricLabel ?? ""}
-                  title={hero.title}
-                  body={hero.body}
-                  hero
-                />
-              </Reveal>
-            )}
-            {feature && (
-              <Reveal className="mt-7">
-                <FlipTile title={feature.title} body={feature.body} />
-              </Reveal>
-            )}
-
-            {/* The rest, flip tiles converging from their corners, staggered. */}
-            <div className="mt-6 grid gap-6 sm:grid-cols-2">
-              {grid.map((item, i) => (
-                <Converge
-                  key={item.title}
-                  from={corners[i % corners.length]}
-                  delay={i * 120}
-                >
-                  <FlipTile title={item.title} body={item.body} />
-                </Converge>
-              ))}
-            </div>
-
-            {/* Capabilities, a chip cloud; each pill fades up in sequence. */}
-            <div className="mt-7">
-              <Reveal>
-                <p className="kicker text-blue-lift">Also in the kit</p>
-              </Reveal>
-              <ul className="mt-5 flex flex-wrap gap-2.5">
-                {tier.capabilities
-                  .split("·")
-                  .map((c) => c.trim().replace(/\.$/, ""))
-                  .filter(Boolean)
-                  .map((cap, i) => (
-                    <Reveal as="li" key={cap} delay={i * 90}>
-                      <span className="inline-block rounded-full bg-signature px-4 py-2 text-small text-paper transition-colors duration-300 ease-calm hover:bg-blue-lift">
-                        {cap}
-                      </span>
-                    </Reveal>
-                  ))}
-              </ul>
-            </div>
-            </div>
-          </section>
-        );
-      })}
+      {/* ── The two tiers as side-by-side tabs. Both headings stay on screen,
+          only the selected tier's cards render, which keeps this page short. */}
+      <section className="relative isolate overflow-hidden py-10 sm:py-14">
+        <div className="container-content">
+          <TierTabs tiers={tiers} />
+        </div>
+      </section>
 
       {/* ── Architecture diagrams, a dark Signature band so the work pops off
           the Paper. An in-place gallery; click any one to view it larger. */}
