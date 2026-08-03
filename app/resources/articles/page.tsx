@@ -18,7 +18,7 @@ export default async function ArticlesPage() {
   const items = entries.filter((e) => e.type === "article" && e.published !== false);
 
   return (
-    <div className="container-content py-20 sm:py-28">
+    <div className="container-content py-12 sm:py-16">
       <Reveal>
         <Link href="/resources" className="link-quiet text-small">
           ← Back to the library
@@ -31,7 +31,7 @@ export default async function ArticlesPage() {
         </h1>
         <p className="mt-4 text-body text-ink/70">{entryTypeMeta.article.blurb}</p>
       </Reveal>
-      <div className="mt-10">
+      <div className="mt-7">
         <FilterableCollection items={items} wide />
       </div>
     </div>

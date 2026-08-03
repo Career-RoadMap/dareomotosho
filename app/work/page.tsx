@@ -56,7 +56,7 @@ export default function WorkPage() {
             key={tier.kicker}
             // Alternating surfaces so each tier reads as its own page on the
             // way down: even tiers on Paper, odd tiers on the tinted band.
-            className={`relative isolate overflow-hidden py-12 sm:py-20 ${
+            className={`relative isolate overflow-hidden py-10 sm:py-14 ${
               ti % 2 === 1 ? "band" : ""
             }`}
           >
@@ -71,7 +71,7 @@ export default function WorkPage() {
 
             {/* Lead item, big-number hero card, or a full-width feature tile. */}
             {hero && (
-              <Reveal className="mt-10">
+              <Reveal className="mt-7">
                 <FlipCard
                   metric={hero.metric ?? ""}
                   metricLabel={hero.metricLabel ?? ""}
@@ -82,7 +82,7 @@ export default function WorkPage() {
               </Reveal>
             )}
             {feature && (
-              <Reveal className="mt-10">
+              <Reveal className="mt-7">
                 <FlipTile title={feature.title} body={feature.body} />
               </Reveal>
             )}
@@ -101,7 +101,7 @@ export default function WorkPage() {
             </div>
 
             {/* Capabilities, a chip cloud; each pill fades up in sequence. */}
-            <div className="mt-10">
+            <div className="mt-7">
               <Reveal>
                 <p className="kicker text-blue-lift">Also in the kit</p>
               </Reveal>
@@ -128,7 +128,7 @@ export default function WorkPage() {
           the Paper. An in-place gallery; click any one to view it larger. */}
       <section
         id="architecture"
-        className="scroll-mt-20 bg-ink py-16 sm:py-24"
+        className="scroll-mt-20 bg-ink py-12 sm:py-16"
       >
         <div className="container-content">
           <Reveal>
@@ -141,7 +141,7 @@ export default function WorkPage() {
               end. They switch on their own; click any one to view it larger.
             </p>
           </Reveal>
-          <Reveal className="mt-12">
+          <Reveal className="mt-8">
             <div className="rounded-3xl border border-amber/30 bg-paper p-4 shadow-2xl shadow-ink/40 sm:p-6">
               <DiagramGallery diagrams={diagrams} />
             </div>
@@ -150,14 +150,14 @@ export default function WorkPage() {
       </section>
 
       {/* ── The toolkit, note + a continuously rolling logo marquee. */}
-      <section className="band py-12 sm:py-16">
+      <section className="band py-10 sm:py-12">
         <div className="container-content">
           <Reveal>
             <p className="kicker text-amber">The toolkit</p>
             <p className="mt-5 max-w-2xl text-body text-ink">{toolkitNote}</p>
           </Reveal>
         </div>
-        <Reveal className="mt-12">
+        <Reveal className="mt-8">
           <LogoMarquee />
         </Reveal>
       </section>
@@ -167,7 +167,7 @@ export default function WorkPage() {
           the toolkit band sits directly above, and the dark card carries its
           own contrast. */}
       <section>
-        <div className="container-content py-12 sm:py-16">
+        <div className="container-content py-10 sm:py-12">
           <Reveal>
             <div className="rounded-3xl bg-ink p-10 text-paper sm:p-16">
               <p className="kicker text-amber">Controls that hold</p>
@@ -186,13 +186,13 @@ export default function WorkPage() {
 
       {/* ── Close CTA → Advisory / Contact. */}
       <section className="band-warm">
-        <div className="container-content py-16 sm:py-24">
+        <div className="container-content py-12 sm:py-16">
           <Reveal>
             <div className="rounded-3xl border border-ink/[0.14] bg-paper p-10 text-center sm:p-16">
               <h2 className="mx-auto max-w-2xl font-serif text-h1 font-light text-signature">
                 {workClose}
               </h2>
-              <div className="mt-10 flex flex-wrap justify-center gap-4">
+              <div className="mt-7 flex flex-wrap justify-center gap-4">
                 <Button href="/advisory">Explore advisory</Button>
                 <Button href="/contact" variant="ghost">
                   Get in touch

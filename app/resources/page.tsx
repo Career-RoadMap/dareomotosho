@@ -56,8 +56,8 @@ export default async function ResourcesPage() {
 
       {/* No Reveal wrapper around the grid: its transform would break the
           sticky Community Questions side banner. */}
-      <section className="container-content py-16 sm:py-20">
-        <div className="grid items-start gap-10 lg:grid-cols-[1fr_19rem] xl:grid-cols-[1fr_21rem] xl:gap-14">
+      <section className="container-content py-12 sm:py-16">
+        <div className="grid items-start gap-8 lg:grid-cols-[1fr_19rem] xl:grid-cols-[1fr_21rem] xl:gap-14">
           {/* ── Collections: click through to browse, then click any item to
               open and interact with it. */}
           <div className="min-w-0">
@@ -100,8 +100,8 @@ export default async function ResourcesPage() {
 
       {/* ── Ask a question, submitted to the library, pending review. */}
       <section className="band-warm">
-        <div className="container-content py-16 sm:py-24">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
+        <div className="container-content py-12 sm:py-16">
+          <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
             <Reveal>
               <h2 className="font-serif text-h2 font-light text-ink">
                 Have a question?

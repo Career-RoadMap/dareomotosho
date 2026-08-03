@@ -82,7 +82,7 @@ export default async function EntryPage({
   };
 
   return (
-    <article className="container-content py-20 sm:py-28">
+    <article className="container-content py-12 sm:py-16">
       <script
         type="application/ld+json"
         // Built from the entry's own title/slug, values the page already renders.
@@ -97,7 +97,7 @@ export default async function EntryPage({
         ) : null}
       </Reveal>
 
-      <Reveal className="mt-10 max-w-3xl">
+      <Reveal className="mt-7 max-w-3xl">
         <div className="flex flex-wrap items-center gap-3 text-small text-ink/55">
           <span className="kicker text-blue-lift">
             {entryTypeMeta[entry.type].label}
@@ -119,7 +119,7 @@ export default async function EntryPage({
       </Reveal>
 
       {/* Long-form Markdown body */}
-      <Reveal className="mt-10 max-w-3xl">
+      <Reveal className="mt-7 max-w-3xl">
         {entry.type === "course_qa" ? (
           <CourseQaPage body={entry.body} />
         ) : (

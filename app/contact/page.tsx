@@ -24,8 +24,8 @@ export default function ContactPage() {
         }
       />
 
-      <section className="container-content py-12 sm:py-16">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
+      <section className="container-content py-10 sm:py-12">
+        <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
           <Reveal>
             <h2 className="font-serif text-h2 font-light text-ink">Reach out</h2>
             <p className="mt-5 max-w-prose text-body text-ink">

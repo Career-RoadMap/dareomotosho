@@ -64,6 +64,7 @@ export const nav: NavItem[] = [
     children: [
       { href: "/start-here", label: "Start Here" },
       { href: "/path-finder", label: "Career Path Finder" },
+      { href: "/ai-tutor", label: "AWS Exam Tutor" },
       {
         href: "/tools/career-salary-explorer.html",
         label: "Salary Explorer",

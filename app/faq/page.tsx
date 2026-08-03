@@ -42,7 +42,7 @@ export default function FaqPage() {
       />
 
       {/* FAQ content is content-managed in production (editable without redeploy). */}
-      <section className="container-content py-8 sm:py-12">
+      <section className="container-content py-6 sm:py-10">
         <Reveal>
           <FaqList items={faqs} />
         </Reveal>
@@ -50,8 +50,8 @@ export default function FaqPage() {
 
       {/* ── Optional visitor question submission. */}
       <section className="band-warm">
-        <div className="container-content py-16 sm:py-24">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
+        <div className="container-content py-12 sm:py-16">
+          <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
             <Reveal>
               <h2 className="font-serif text-h2 font-light text-ink">Ask a question</h2>
               <p className="mt-5 max-w-prose text-body text-ink">

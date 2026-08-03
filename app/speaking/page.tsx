@@ -37,7 +37,7 @@ export default function SpeakingPage() {
 
       {/* ── Bookable talk topics, one at a time. */}
       <section className="band">
-        <div className="container-content py-12 sm:py-16">
+        <div className="container-content py-10 sm:py-12">
           <Reveal>
             <h2 className="font-serif text-h2 font-light text-signature">
               Book a technical speaker on cloud engineering and security
@@ -47,10 +47,10 @@ export default function SpeakingPage() {
               Speaking from the floor, not just the stage.
             </p>
           </Reveal>
-          <div className="mt-10 space-y-4">
+          <div className="mt-7 space-y-4">
             {talkTopics.map((t, i) => (
               <Reveal key={t.title} delay={i * 80}>
-                <article className="card-accent rounded-2xl border border-ink/[0.14] bg-paper p-8 sm:p-10">
+                <article className="card-accent rounded-2xl border border-ink/[0.14] bg-paper p-7 sm:p-9">
                   <p className="kicker text-blue-lift">{t.audience}</p>
                   <h3 className="mt-4 font-serif text-h2 font-light text-ink">
                     {t.title}
@@ -64,14 +64,14 @@ export default function SpeakingPage() {
       </section>
 
       {/* ── Proof, built work + podcast + decks. */}
-      <section className="container-content py-16 sm:py-24">
+      <section className="container-content py-12 sm:py-16">
         <Reveal>
           <div className="rounded-3xl bg-signature p-10 text-paper sm:p-16">
             <p className="kicker text-amber">The proof</p>
             <h2 className="mt-6 max-w-2xl font-serif text-h1 font-light text-paper">
               Opinions earned in the build, not the abstract.
             </h2>
-            <div className="mt-12 grid gap-10 sm:grid-cols-3">
+            <div className="mt-8 grid gap-8 sm:grid-cols-3">
               {proofCases.map((c) => (
                 <div key={c.title}>
                   <p className="font-serif text-h1 font-light leading-none text-paper">
@@ -81,7 +81,7 @@ export default function SpeakingPage() {
                 </div>
               ))}
             </div>
-            <p className="mt-12 max-w-2xl text-body text-paper/70">
+            <p className="mt-8 max-w-2xl text-body text-paper/70">
               Plus {episodes.length}+ podcast conversations and designed decks, the
               material is current, lived, and yours to vet before you book.
             </p>
@@ -91,8 +91,8 @@ export default function SpeakingPage() {
 
       {/* ── Book me. */}
       <section id="book" className="band-warm scroll-mt-20">
-        <div className="container-content py-12 sm:py-16">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
+        <div className="container-content py-10 sm:py-12">
+          <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
             <Reveal>
               <h2 className="font-serif text-h1 font-light text-signature">Book me.</h2>
               <p className="mt-6 max-w-prose text-body text-ink">

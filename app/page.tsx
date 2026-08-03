@@ -53,7 +53,7 @@ export default function HomePage() {
       </PageBanner>
 
       {/* ── Three audience doors, gentle staggered fade-in on scroll. */}
-      <section className="container-content py-16 sm:py-20">
+      <section className="container-content py-12 sm:py-16">
         <ul className="grid gap-px overflow-hidden rounded-2xl border border-ink/[0.14] bg-ink/[0.14] sm:grid-cols-3">
           {doors.map((door, i) => (
             <Reveal as="li" key={door.href} delay={i * 120}>
@@ -80,7 +80,7 @@ export default function HomePage() {
       {/* ── POV line, quiet feature, lots of air. On a tinted band so the
           statement reads as its own page while scrolling. */}
       <section className="band">
-        <div className="container-content py-24 sm:py-32">
+        <div className="container-content py-14 sm:py-20">
           <Reveal>
             <p className="kicker text-center text-blue-lift">
               Business-aligned cloud engineering
@@ -95,11 +95,11 @@ export default function HomePage() {
       </section>
 
       {/* ── Latest strip, newest resource · latest video. */}
-      <section className="container-content py-16 sm:py-24">
+      <section className="container-content py-12 sm:py-16">
         <Reveal>
           <h2 className="font-serif text-h2 font-light text-ink">The latest</h2>
         </Reveal>
-        <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink/[0.14] bg-ink/[0.14] md:grid-cols-2">
+        <div className="mt-7 grid gap-px overflow-hidden rounded-2xl border border-ink/[0.14] bg-ink/[0.14] md:grid-cols-2">
           <Reveal as="div" className="bg-paper p-8">
             <p className="kicker text-blue-lift">Newest resource</p>
             <h3 className="mt-5 font-serif text-h2 font-light text-ink">
@@ -133,7 +133,7 @@ export default function HomePage() {
 
       {/* ── Email capture, prominent, repeated. Warm closing band. */}
       <section className="band-warm">
-        <div className="container-content py-20 sm:py-28">
+        <div className="container-content py-12 sm:py-16">
           <Reveal className="flex flex-col items-start gap-4">
             <EmailCapture />
           </Reveal>

@@ -233,7 +233,7 @@ export default function PathFinderResult({
       </div>
 
       {/* Salary reference. */}
-      <div className="mt-6 rounded-2xl border border-ink/[0.14] bg-paper p-8 sm:p-10">
+      <div className="mt-6 rounded-2xl border border-ink/[0.14] bg-paper p-7 sm:p-9">
         <h3 className="font-serif text-h2 font-light text-signature">
           What the role tends to pay
         </h3>
@@ -260,10 +260,10 @@ export default function PathFinderResult({
       </div>
 
       {/* The roadmap. */}
-      <div className="mt-6 rounded-2xl border border-ink/[0.14] bg-paper p-8 sm:p-10">
+      <div className="mt-6 rounded-2xl border border-ink/[0.14] bg-paper p-7 sm:p-9">
         <h3 className="font-serif text-h2 font-light text-signature">Your roadmap, in order</h3>
         {pacing ? <p className="mt-3 max-w-prose text-small text-ink/70">{pacing}</p> : null}
-        <ol className="mt-8 space-y-6">
+        <ol className="mt-8 space-y-4">
           {track.roadmap.map((r, i) => (
             <li key={r.step} className="flex gap-5">
               <span className="font-serif text-h2 font-light leading-none text-amber">
@@ -284,7 +284,7 @@ export default function PathFinderResult({
 
       {/* First project + reading list. */}
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
-        <div className="rounded-2xl border border-amber/40 bg-paper p-8 sm:p-10">
+        <div className="rounded-2xl border border-amber/40 bg-paper p-7 sm:p-9">
           <p className="kicker text-amber">Build this first</p>
           <p className="mt-5 font-serif text-xl font-light leading-snug text-ink">
             {track.firstProject}
@@ -294,7 +294,7 @@ export default function PathFinderResult({
             one, badly if necessary.
           </p>
         </div>
-        <div className="rounded-2xl border border-ink/[0.14] bg-paper p-8 sm:p-10">
+        <div className="rounded-2xl border border-ink/[0.14] bg-paper p-7 sm:p-9">
           <p className="kicker text-blue-lift">Read these, in this order</p>
           <ol className="mt-5 space-y-3">
             {track.resources.map((r, i) => (
@@ -316,7 +316,7 @@ export default function PathFinderResult({
 
       {/* Close: capture + human help. */}
       <div className="mt-6 rounded-3xl bg-signature p-8 text-paper sm:p-12">
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <EmailCapture
             tone="dark"
             label="Keep this path warm."

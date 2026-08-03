@@ -48,16 +48,16 @@ export default function AdvisoryPage() {
 
       {/* ── Outcomes language. */}
       <section className="band">
-        <div className="container-content py-12 sm:py-16">
+        <div className="container-content py-10 sm:py-12">
           <Reveal>
             <h2 className="mx-auto max-w-2xl text-center font-serif text-h2 font-light text-signature">
               Cloud and cybersecurity advisory for teams that want the judgment,
               not just the fix.
             </h2>
           </Reveal>
-          <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink/[0.14] bg-ink/[0.14] sm:grid-cols-3">
+          <div className="mt-7 grid gap-px overflow-hidden rounded-2xl border border-ink/[0.14] bg-ink/[0.14] sm:grid-cols-3">
             {outcomes.map((o, i) => (
-              <Reveal as="div" key={o.title} delay={i * 90} className="card-accent bg-paper p-8 sm:p-10">
+              <Reveal as="div" key={o.title} delay={i * 90} className="card-accent bg-paper p-7 sm:p-9">
                 <h3 className="font-serif text-h2 font-light text-signature">{o.title}</h3>
                 <p className="mt-4 text-body text-ink">{o.body}</p>
               </Reveal>
@@ -67,7 +67,7 @@ export default function AdvisoryPage() {
       </section>
 
       {/* ── Register-setting statement on a deep surface. */}
-      <section className="container-content py-16 sm:py-24">
+      <section className="container-content py-12 sm:py-16">
         <Reveal>
           <div className="rounded-3xl bg-ink p-10 text-paper sm:p-16">
             <p className="kicker text-amber">How I work</p>
@@ -85,8 +85,8 @@ export default function AdvisoryPage() {
 
       {/* ── Inquiry form. */}
       <section id="start" className="band-warm scroll-mt-20">
-        <div className="container-content py-12 sm:py-16">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
+        <div className="container-content py-10 sm:py-12">
+          <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
             <Reveal>
               <h2 className="font-serif text-h1 font-light text-signature">
                 Start a conversation.

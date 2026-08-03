@@ -28,7 +28,7 @@ export default function PathFinderPage() {
         }
       />
 
-      <section className="container-content py-16 sm:py-24">
+      <section className="container-content py-12 sm:py-16">
         <Reveal>
           <PathFinder />
         </Reveal>

@@ -110,7 +110,7 @@ export default function InquiryForm({
   }`;
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-4">
       {/* Honeypot, bots fill this; humans never see it. The API drops it. */}
       <input
         type="text"
