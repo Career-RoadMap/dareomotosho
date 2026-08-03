@@ -74,8 +74,7 @@ export default function TierTabs({ tiers }: { tiers: Tier[] }) {
             >
               <TierIcon name={t.icon} className="mt-0.5" />
               <span className="min-w-0">
-                <span className="kicker block text-blue-lift">{t.kicker}</span>
-                <span className="mt-2 block font-serif text-h2 font-light leading-tight text-signature">
+                <span className="block font-serif text-h2 font-light leading-tight text-signature">
                   {t.name}
                 </span>
                 <span className="mt-2 block text-small text-ink/75">{t.tagline}</span>

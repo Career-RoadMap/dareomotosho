@@ -86,10 +86,10 @@ export default function PathFinder() {
       </p>
 
       <div key={q.id} className="animate-fade-up">
-        <h2 className="mt-6 font-serif text-h2 font-light text-signature">
+        <h2 className="mt-5 font-serif text-h2 font-light text-signature">
           {q.prompt}
         </h2>
-        <ul className="mt-8 space-y-3">
+        <ul className="mt-6 space-y-3">
           {q.options.map((opt, i) => (
             <li key={opt.label}>
               <button
@@ -113,7 +113,7 @@ export default function PathFinder() {
         <button
           type="button"
           onClick={back}
-          className="link-quiet mt-8 text-small"
+          className="link-quiet mt-6 text-small"
         >
           ← Back a question
         </button>
