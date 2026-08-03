@@ -15,6 +15,7 @@ const staticRoutes = [
   "/book",
   "/start-here",
   "/path-finder",
+  "/ai-tutor",
   "/resources",
   "/resources/articles",
   "/resources/case-studies",

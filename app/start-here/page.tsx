@@ -171,6 +171,28 @@ export default function StartHerePage() {
         </div>
       </section>
 
+      {/* ── AWS exam tutor, for learners already aiming at a certification. */}
+      <section className="container-content py-10 sm:py-12">
+        <Reveal>
+          <div className="card-accent flex flex-col gap-6 rounded-2xl border border-ink/[0.14] bg-paper p-7 sm:flex-row sm:items-center sm:justify-between sm:p-9">
+            <div>
+              <p className="kicker text-amber">Going for a certification?</p>
+              <h3 className="mt-3 font-serif text-h2 font-light text-signature">
+                An AWS coach that makes you reason
+              </h3>
+              <p className="mt-3 max-w-prose text-body text-ink">
+                Dharey is a chat-based tutor for the AWS exams. It withholds the
+                answer on purpose, questions you toward it, and tracks the
+                domains you are genuinely strong in.
+              </p>
+            </div>
+            <Button href="/ai-tutor" variant="primary" className="shrink-0">
+              See how it works
+            </Button>
+          </div>
+        </Reveal>
+      </section>
+
       {/* ── Salary explorer, a quiet pointer to the standalone reference tool. */}
       <section className="container-content py-10 sm:py-12">
         <Reveal>
