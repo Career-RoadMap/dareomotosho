@@ -60,6 +60,17 @@ const sharedHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // Episode resources are read from disk at render time (lib/resources.ts).
+  // Make sure the markdown files travel with the serverless output for every
+  // route that reads them, so ISR re-renders and the content API keep
+  // working after deploy — this is what keeps the RESOURCES-CONTRACT
+  // "drop a file in, page exists" guarantee true in production.
+  outputFileTracingIncludes: {
+    "/resources": ["./contents/resources/**/*"],
+    "/resources/[slug]": ["./contents/resources/**/*"],
+    "/api/resources/[slug]": ["./contents/resources/**/*"],
+    "/sitemap.xml": ["./contents/resources/**/*"],
+  },
   async headers() {
     return [
       {
