@@ -140,6 +140,22 @@
   .prose-entry code {
     @apply rounded bg-ink/[0.06] px-1.5 py-0.5 text-[0.9em];
   }
+  /* GFM tables (episode resources are built around fill-in sheets).
+     display:block lets a wide sheet scroll sideways on a phone instead of
+     stretching the page. */
+  .prose-entry table {
+    @apply my-6 w-full border-collapse text-small;
+    display: block;
+    overflow-x: auto;
+  }
+  .prose-entry th,
+  .prose-entry td {
+    @apply border border-ink/15 px-3 py-2 text-left align-top;
+    min-width: 6rem;
+  }
+  .prose-entry th {
+    @apply bg-ink/[0.04] font-medium text-signature;
+  }
 }
 
 /* ── Scroll-reveal motion ──────────────────────────────────────────────
