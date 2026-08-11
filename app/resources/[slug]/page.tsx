@@ -7,7 +7,15 @@ import Reveal from "@/components/Reveal";
 import EntryInteractions from "@/components/EntryInteractions";
 import DownloadPdfButton from "@/components/DownloadPdfButton";
 import CourseQaPage from "@/components/CourseQaPage";
+import ResourceUnlock from "@/components/ResourceUnlock";
 import { entryTypeMeta, getEntry, levelLabels, topicLabel } from "@/lib/library";
+import {
+  audienceLabel,
+  domainLabel,
+  getResource,
+  getResources,
+  type Resource,
+} from "@/lib/resources";
 import { siteUrl } from "@/lib/site";
 
 type Params = { slug: string };
@@ -16,12 +24,44 @@ type Params = { slug: string };
 // re-rendered in the background at most once a minute.
 export const revalidate = 60;
 
+/**
+ * Episode resources (contents/resources/*.md) are known at build time, so
+ * prebuild them. Supabase entries stay on-demand — dynamicParams defaults
+ * to true, so unknown slugs still resolve through getEntry below.
+ */
+export async function generateStaticParams(): Promise<Params[]> {
+  const resources = await getResources();
+  return resources.map((r) => ({ slug: r.slug }));
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { slug } = await params;
+
+  // File-based episode resources take precedence over Supabase entries.
+  const resource = await getResource(slug);
+  if (resource) {
+    const description = `${resource.takeaway} A one-page action tool from the episode "${resource.episode}".`;
+    return {
+      title: resource.title,
+      description,
+      openGraph: {
+        title: resource.title,
+        description,
+        type: "article",
+        publishedTime: resource.date,
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: resource.title,
+        description,
+      },
+    };
+  }
+
   const entry = await getEntry(slug);
   if (!entry) return { title: "Not found" };
   return {
@@ -48,6 +88,12 @@ export default async function EntryPage({
   params: Promise<Params>;
 }) {
   const { slug } = await params;
+
+  // File-based episode resources take precedence over Supabase entries;
+  // anything not in contents/resources/ falls through to the library.
+  const resource = await getResource(slug);
+  if (resource) return <ResourcePage resource={resource} />;
+
   const entry = await getEntry(slug);
   if (!entry) notFound();
 
@@ -132,6 +178,82 @@ export default async function EntryPage({
       {/* Realtime discussion */}
       <div className="max-w-3xl print:hidden">
         <EntryInteractions entryId={entry.id} />
+      </div>
+    </article>
+  );
+}
+
+/**
+ * An episode resource: one action tool per episode, rendered straight from
+ * its markdown file (see RESOURCES-CONTRACT.md). The header, takeaway, and
+ * "When to use it" preview are public and crawlable; the rest of the sheet
+ * arrives through ResourceUnlock after the reader leaves an email — once,
+ * ever, across all resources.
+ */
+function ResourcePage({ resource }: { resource: Resource }) {
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "Resources", item: `${siteUrl}/resources` },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: resource.title,
+        item: `${siteUrl}/resources/${resource.slug}`,
+      },
+    ],
+  };
+
+  return (
+    <article className="container-content py-12 sm:py-16">
+      <script
+        type="application/ld+json"
+        // Built from the resource's own title/slug, values the page already renders.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <Reveal className="print:hidden">
+        <Link href="/resources" className="link-quiet text-small">
+          ← Back to the library
+        </Link>
+      </Reveal>
+
+      <Reveal className="mt-7 max-w-3xl">
+        <div className="flex flex-wrap items-center gap-3 text-small text-ink/55">
+          <span className="kicker text-blue-lift">Episode Resource</span>
+          <span aria-hidden>·</span>
+          <span>{domainLabel(resource.domain)}</span>
+          {resource.audience ? (
+            <>
+              <span aria-hidden>·</span>
+              <span>{audienceLabel(resource.audience)}</span>
+            </>
+          ) : null}
+        </div>
+        <h1 className="mt-6 font-serif text-h1 font-light text-signature">
+          {resource.title}
+        </h1>
+        <p className="mt-4 text-small text-ink/55">
+          From the episode: <em>{resource.episode}</em>
+        </p>
+        <p className="mt-6 font-serif text-h2 font-light leading-snug text-ink">
+          &ldquo;{resource.takeaway}&rdquo;
+        </p>
+      </Reveal>
+
+      {/* The public preview: the intro and when to reach for this tool. */}
+      <Reveal className="mt-7 max-w-3xl">
+        <div className="prose-entry space-y-5 text-body text-ink">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {resource.preview}
+          </ReactMarkdown>
+        </div>
+      </Reveal>
+
+      {/* The rest of the sheet: gated once, open forever after. */}
+      <div className="mt-10 max-w-3xl">
+        <ResourceUnlock slug={resource.slug} />
       </div>
     </article>
   );

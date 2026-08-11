@@ -6,7 +6,9 @@ import CommunityQuestionsSidebar from "@/components/CommunityQuestionsSidebar";
 import ToolLinks from "@/components/ToolLinks";
 import AskQuestion from "@/components/AskQuestion";
 import Button from "@/components/Button";
+import ResourceCard from "@/components/ResourceCard";
 import { entryTypeMeta, getEntries, type EntryType } from "@/lib/library";
+import { getResources } from "@/lib/resources";
 import { downloads } from "@/lib/downloads";
 import { pageBanners } from "@/lib/site";
 
@@ -21,7 +23,7 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function ResourcesPage() {
-  const entries = await getEntries();
+  const [entries, resources] = await Promise.all([getEntries(), getResources()]);
   const countOf = (type: EntryType) =>
     entries.filter((e) => e.type === type && e.published !== false).length;
 
@@ -62,6 +64,31 @@ export default async function ResourcesPage() {
           <ToolLinks />
         </div>
       </div>
+
+      {/* ── Episode resources: one action tool per episode, newest first.
+          Rendered straight from contents/resources/ (see
+          RESOURCES-CONTRACT.md), so a new episode's file appears here with
+          no code change. */}
+      {resources.length > 0 ? (
+        <section className="container-content pt-12 sm:pt-16">
+          <Reveal>
+            <span className="kicker">Episode Resources</span>
+            <h2 className="mt-4 font-serif text-h2 font-light text-ink">
+              One action tool per episode.
+            </h2>
+            <p className="mt-4 max-w-prose text-body text-ink">
+              Every episode ships with a one-page tool you can put to work
+              the same day, a sheet, a review, a log. Leave your email once
+              and all of them open, including every future one.
+            </p>
+          </Reveal>
+          <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {resources.map((resource) => (
+              <ResourceCard key={resource.slug} resource={resource} />
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       {/* No Reveal wrapper around the grid: its transform would break the
           sticky Community Questions side banner. */}
