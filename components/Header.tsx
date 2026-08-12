@@ -11,7 +11,16 @@ import { brand, nav, type NavItem } from "@/lib/site";
  * shift to amber on hover. Items with children (Resources) open a hover/focus
  * dropdown on desktop and expand inline on mobile.
  */
-export default function Header() {
+export default function Header({
+  resourceLinks = [],
+}: {
+  /**
+   * Episode resources for the Resources dropdown, read from the contract
+   * folder by the server layout. Passed in rather than imported because
+   * lib/resources reads the filesystem and this is a client component.
+   */
+  resourceLinks?: NavItem[];
+}) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   // Hides the hover/focus dropdown the moment a child link is clicked, the
@@ -116,7 +125,31 @@ export default function Header() {
                         : "invisible absolute right-0 top-full pt-3 opacity-0 transition-all duration-200 ease-calm group-hover/nav:visible group-hover/nav:opacity-100 group-focus-within/nav:visible group-focus-within/nav:opacity-100"
                     }
                   >
-                    <ul className="w-60 overflow-hidden rounded-2xl border border-ink/[0.14] bg-paper p-2 shadow-xl shadow-ink/10">
+                    <ul
+                      className={`overflow-hidden rounded-2xl border border-ink/[0.14] bg-paper p-2 shadow-xl shadow-ink/10 ${
+                        item.autoResources && resourceLinks.length > 0
+                          ? "w-72"
+                          : "w-60"
+                      }`}
+                    >
+                      {item.autoResources && resourceLinks.length > 0 ? (
+                        <>
+                          <li className="kicker px-3 pb-1 pt-1.5 text-ink/45">
+                            The Field Kit
+                          </li>
+                          {resourceLinks.map((child) => (
+                            <DropdownItem
+                              key={child.href}
+                              item={child}
+                              onNavigate={() => setDropdownSuppressed(true)}
+                            />
+                          ))}
+                          <li
+                            aria-hidden
+                            className="mx-3 my-2 border-t border-ink/[0.10]"
+                          />
+                        </>
+                      ) : null}
                       {item.children.map((child) => (
                         <DropdownItem
                           key={child.href}
@@ -200,6 +233,20 @@ export default function Header() {
                   </Link>
                   {item.children ? (
                     <ul className="ml-3 border-l border-ink/[0.14] pl-3">
+                      {item.autoResources && resourceLinks.length > 0 ? (
+                        <>
+                          <li className="kicker px-3 pb-1 pt-2 text-ink/45">
+                            The Field Kit
+                          </li>
+                          {resourceLinks.map((child) => (
+                            <MobileChild key={child.href} item={child} open={open} />
+                          ))}
+                          <li
+                            aria-hidden
+                            className="mx-3 my-2 border-t border-ink/[0.10]"
+                          />
+                        </>
+                      ) : null}
                       {item.children.map((child) => (
                         <MobileChild
                           key={child.href}
