@@ -2,7 +2,7 @@
   "name": "personal-brand-portfolio",
   "version": "0.1.0",
   "private": true,
-  "description": "Personal brand portfolio — Builder · Mentor · Boardroom Translator",
+  "description": "Personal brand portfolio \u2014 Builder \u00b7 Mentor \u00b7 Boardroom Translator",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -22,12 +22,12 @@
     "@types/node": "^20.17.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "adm-zip": "^0.5.18",
+    "adm-zip": "^0.6.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.18.0",
     "eslint-config-next": "^15.1.6",
     "mammoth": "^1.12.0",
-    "postcss": "^8.5.1",
+    "postcss": "^8.5.23",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.3"
   }

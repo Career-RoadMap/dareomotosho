@@ -32,6 +32,23 @@ export function rateLimit(key: string, limit: number, windowMs: number): boolean
   return true;
 }
 
+/**
+ * Give back one allowance under `key`, for the case where the work the limit
+ * was reserved for did not actually happen.
+ *
+ * Needed because a "once per address per day" cap on a send has to be claimed
+ * BEFORE the send (or two concurrent requests both pass), but must not be kept
+ * if the send then fails — otherwise one transient provider error costs the
+ * reader their email for a day. Never creates a bucket, so releasing a key
+ * that was never claimed is a no-op.
+ */
+export function releaseRateLimit(key: string): void {
+  const bucket = buckets.get(key);
+  if (!bucket || bucket.resetAt <= Date.now()) return;
+  if (bucket.count <= 1) buckets.delete(key);
+  else bucket.count -= 1;
+}
+
 /** Client IP for rate-limit keys (first hop of x-forwarded-for on Vercel). */
 export function clientIp(headers: Headers): string {
   return (

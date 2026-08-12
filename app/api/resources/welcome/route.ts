@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { safeSender } from "@/lib/email";
-import { clientIp, rateLimit } from "@/lib/rate-limit";
+import { clientIp, rateLimit, releaseRateLimit } from "@/lib/rate-limit";
 import { getResource } from "@/lib/resources";
 import { siteUrl } from "@/lib/site";
 
@@ -37,9 +37,29 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 
-  const email = (body.email ?? "").trim();
+  const email = (body.email ?? "").trim().toLowerCase();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
     return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
+  }
+
+  // A second cap, keyed on the ADDRESS rather than the caller. The client
+  // already skips this route for an address that was already on the list, but
+  // this route is unauthenticated — anyone can POST any address — so without a
+  // per-address cap the same person could be mailed repeatedly from rotating
+  // IPs. One note per address per day makes "you are not emailed twice" a
+  // property of the server, not a promise the client keeps.
+  //
+  // The limiter is in-memory, so on serverless this holds per warm instance
+  // rather than globally. That is enough for the realistic case and is why the
+  // client-side skip stays as the first line of defence rather than the only
+  // one.
+  // Claimed before the send, so two concurrent requests cannot both through;
+  // released again below if the send fails, so one transient Resend error does
+  // not cost the reader their email for a day.
+  const perAddress = `kit-welcome-to:${email}`;
+  if (!rateLimit(perAddress, 1, 24 * 60 * 60 * 1000)) {
+    // Not an error from the reader's point of view: they already have it.
+    return NextResponse.json({ success: true, skipped: "already-sent" });
   }
 
   // The kit they just opened, when we can identify it: the mail links
@@ -104,6 +124,8 @@ export async function POST(request: NextRequest) {
   if (!res.ok) {
     const detail = await res.text().catch(() => "");
     console.error("Field Kit welcome email failed:", res.status, detail);
+    // Nothing was delivered, so do not hold the day's allowance for it.
+    releaseRateLimit(perAddress);
     return NextResponse.json(
       { error: "Send failed", detail: detail.slice(0, 300) },
       { status: 502 },

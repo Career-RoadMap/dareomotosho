@@ -9,9 +9,12 @@ export const metadata: Metadata = {
 };
 
 const SITE_URL = "dareomotosho.com";
-const LAST_UPDATED = "15 July 2026";
+const LAST_UPDATED = "12 August 2026";
 
 const linkCls = "text-link underline underline-offset-2";
+/** Inline cookie / storage key names. */
+const codeCls =
+  "rounded bg-ink/[0.06] px-1.5 py-0.5 font-mono text-[0.9em] text-signature";
 
 export default function PrivacyPage() {
   return (
@@ -72,7 +75,19 @@ export default function PrivacyPage() {
                 when you send an advisory, speaking, or contact inquiry, or book a
                 call through the scheduling link.
               </li>
+              <li>
+                Email address &mdash; when you open The Field Kit (the free
+                one-page tool that ships with each episode). This is the{" "}
+                <strong>same list</strong> as the Site&rsquo;s Subscribe form, not
+                a separate one, so unlocking a kit and subscribing put you in
+                exactly one place. Entering an address that is already on the list
+                adds nothing and sends no further confirmation email.
+              </li>
             </ul>
+            <p className="mt-4">
+              The Field Kit unlock records only your email address. It does not
+              record which kits you opened, which you downloaded, or when.
+            </p>
             <p className="mt-4">
               The Career Path Finder is different by design: your answers are
               processed entirely in your browser and are never transmitted to or
@@ -91,8 +106,19 @@ export default function PrivacyPage() {
               </li>
               <li>
                 Cookies &mdash; the Site uses functional cookies necessary for basic
-                operation (e.g., session management by the hosting platform). I do not
-                currently use tracking or advertising cookies.
+                operation. It sets two of its own:{" "}
+                <code className={codeCls}>cookie_consent</code> (your choice on
+                the cookie notice) and{" "}
+                <code className={codeCls}>resources_unlocked</code> (set only
+                after you choose to unlock The Field Kit, so you are not asked
+                again). Neither contains your email address or any other personal
+                detail. I do not currently use tracking or advertising cookies.
+                The{" "}
+                <a href="/cookies" className={linkCls}>
+                  Cookie Policy
+                </a>{" "}
+                lists both in full, along with the two matching local-storage
+                items.
               </li>
             </ul>
           </div>
@@ -104,6 +130,12 @@ export default function PrivacyPage() {
             <p className="mt-4">I use your information only for these purposes:</p>
             <ul className="mt-2 list-disc space-y-2 pl-6">
               <li>To send you updates, resources, or newsletters you signed up for</li>
+              <li>
+                To open The Field Kit for you and keep it open, and to send one
+                confirmation email after your first unlock telling you what you
+                signed up for and how to get back to the kits. That confirmation
+                is sent once per address, not once per kit
+              </li>
               <li>To confirm and manage your registration for live classes or events</li>
               <li>To respond to questions you submit</li>
               <li>
@@ -140,8 +172,8 @@ export default function PrivacyPage() {
                 </a>
               </li>
               <li>
-                Supabase &mdash; database storage for signups and content library
-                entries.{" "}
+                Supabase &mdash; database storage for signups (including Field
+                Kit unlocks) and content library entries.{" "}
                 <a
                   href="https://supabase.com/privacy"
                   target="_blank"
@@ -165,8 +197,9 @@ export default function PrivacyPage() {
               </li>
               <li>
                 Resend &mdash; delivers advisory, speaking, and contact form
-                submissions to my inbox, emailed results you request, and the
-                subscriber list (processes the name, email, and message you
+                submissions to my inbox, emailed results you request, the Field
+                Kit confirmation email, and the subscriber list, which is held as
+                a Resend audience (processes the name, email, and message you
                 send).{" "}
                 <a
                   href="https://resend.com/legal/privacy-policy"
@@ -207,8 +240,10 @@ export default function PrivacyPage() {
             </h2>
             <ul className="mt-4 list-disc space-y-2 pl-6">
               <li>
-                Email and name (signups): kept for as long as you remain subscribed.
-                You may unsubscribe at any time (see Section 8).
+                Email and name (signups, including Field Kit unlocks): kept for as
+                long as you remain subscribed. You may unsubscribe at any time
+                (see Section 8). Unsubscribing removes you from the mailing list;
+                ask me and I will delete the stored record as well.
               </li>
               <li>
                 Class/event registration data: kept for the duration needed to run the

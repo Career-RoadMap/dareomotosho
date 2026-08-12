@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { supabase } from "@/lib/supabase";
+import { submitEmail } from "@/lib/subscribe";
 import { contactEmail } from "@/lib/site";
 
 type EmailCaptureProps = {
@@ -14,14 +14,17 @@ type EmailCaptureProps = {
   className?: string;
 };
 
-type Status = "idle" | "sending" | "done" | "error";
+type Status = "idle" | "sending" | "done" | "already" | "error";
 
 /**
- * Email capture, wired to the Resend audience via /api/subscribe, with the
- * Supabase `subscribers` table kept in sync as a backup list (see
- * supabase/migrations/0001_schema.sql; anon inserts only). A duplicate
- * signup reads as success (the address is on the list either way), and a
- * real failure says so honestly instead of pretending.
+ * Email capture, wired through lib/subscribe to the Resend audience and the
+ * Supabase `subscribers` table as a backup list (see
+ * supabase/migrations/0001_schema.sql; anon inserts only).
+ *
+ * A duplicate signup is still success — the address is on the list either way
+ * — but it says "already on the list" rather than thanking them as if they
+ * were new, which is the difference between reassurance and confusion. A real
+ * failure says so honestly instead of pretending.
  */
 export default function EmailCapture({
   tone = "light",
@@ -39,25 +42,12 @@ export default function EmailCapture({
     if (!address || status === "sending") return;
     setStatus("sending");
 
-    const [resendOk, supabaseOk] = await Promise.all([
-      fetch("/api/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: address }),
-      })
-        .then((res) => res.ok)
-        .catch(() => false),
-      // Backup list; 23505 = unique violation: already subscribed, which is
-      // still success.
-      supabase
-        ? supabase
-            .from("subscribers")
-            .insert({ email: address, source: window.location.pathname })
-            .then(({ error }) => !error || error.code === "23505")
-        : Promise.resolve(false),
-    ]);
+    const { ok, alreadySubscribed } = await submitEmail(
+      address,
+      window.location.pathname,
+    );
 
-    setStatus(resendOk || supabaseOk ? "done" : "error");
+    setStatus(ok ? (alreadySubscribed ? "already" : "done") : "error");
   }
 
   const dark = tone === "dark";
@@ -72,12 +62,14 @@ export default function EmailCapture({
       </label>
       <p className={`${compact ? "mt-2" : "mt-3"} text-small ${dark ? "text-paper/65" : "text-ink/60"}`}>{hint}</p>
 
-      {status === "done" ? (
+      {status === "done" || status === "already" ? (
         <p
           className={`mt-6 text-body ${dark ? "text-amber" : "text-signature"}`}
           role="status"
         >
-          Thank you, you're on the list.
+          {status === "already"
+            ? "You're already on the list, so nothing changed."
+            : "Thank you, you're on the list."}
         </p>
       ) : (
         <>

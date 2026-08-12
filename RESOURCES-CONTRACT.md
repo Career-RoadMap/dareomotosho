@@ -117,3 +117,13 @@ files matching this contract forever, unattended.
 - The first unlock also sends a **confirmation email** naming the kit and
   linking back to it and to the shelf. It is sent best-effort and never
   blocks the unlock: if the mail fails, the reader still gets their kit.
+- The email address is **deduplicated**. Both stores refuse a repeat
+  (`subscribers_email_unique` on `lower(email)`; a Resend contact conflict),
+  and `lib/subscribe.ts` reports it back as `alreadySubscribed`. A returning
+  reader is told they were already on the list, is unlocked anyway, and is
+  **not** sent the confirmation email again. `/api/resources/welcome` also caps
+  itself at one send per address per day, so that holds even if the client is
+  bypassed.
+- The gate is a courtesy, not an authorisation check. The kits are free and
+  nothing private sits behind the cookie; do not add anything that assumes
+  otherwise.
