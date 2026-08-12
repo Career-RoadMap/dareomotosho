@@ -86,7 +86,7 @@ export default function Downloads() {
                     <ul className="mt-5 grid gap-px overflow-hidden rounded-2xl border border-ink/[0.14] bg-ink/[0.14] sm:grid-cols-2">
                       {items.map((d) => (
                         <li key={d.file}>
-                          <div className="group flex h-full flex-col bg-paper p-6 transition-colors duration-300 ease-calm hover:bg-paper/60">
+                          <div className="group flex h-full flex-col bg-paper p-6 transition-colors duration-300 ease-calm hover:bg-hover-surface">
                             <a href={d.file} download className="flex flex-1 items-start gap-4">
                               <KindIcon kind={d.kind} />
                               <span className="min-w-0 flex-1">

@@ -2,16 +2,58 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { brand, nav, type NavItem } from "@/lib/site";
+
+/** The Field Kit shelf. Reserved slug, and a permanently stable URL. */
+const FIELD_KIT_HREF = "/resources/field-kit";
+
+/**
+ * How many kits the dropdown lists before deferring to the shelf page.
+ * The kits arrive already sorted newest-first, so the latest episode's kit
+ * is always the first row; the cap only stops the menu from growing without
+ * bound as the back catalogue does. "The Field Kit" above them is the
+ * see-everything link.
+ */
+const KITS_IN_MENU = 5;
+
+export type NavKit = { slug: string; title: string };
+
+/**
+ * Hang the kits off the Field Kit row as a submenu, so the menu names the
+ * newest episode's tool instead of making the visitor go and look for it.
+ * Returns the nav untouched when there are no kits, which keeps the shelf
+ * link behaving exactly as it did before any kit existed.
+ */
+function navWithKits(items: NavItem[], kits: NavKit[]): NavItem[] {
+  if (!kits.length) return items;
+  const children = kits.slice(0, KITS_IN_MENU).map((k) => ({
+    href: `/resources/${k.slug}`,
+    label: k.title,
+  }));
+  return items.map((item) =>
+    item.children
+      ? {
+          ...item,
+          children: item.children.map((child) =>
+            child.href === FIELD_KIT_HREF ? { ...child, children } : child,
+          ),
+        }
+      : item,
+  );
+}
 
 /**
  * Header: name on the left, the build-first nav inline on the web (desktop),
  * collapsing to a quiet three-line disclosure on mobile. Ink on Paper; links
  * shift to amber on hover. Items with children (Resources) open a hover/focus
  * dropdown on desktop and expand inline on mobile.
+ *
+ * `kits` comes from the layout, which reads contents/resources/ on the
+ * server. The nav therefore picks up a new episode kit with no code edit,
+ * the same contract the rest of the library keeps.
  */
-export default function Header() {
+export default function Header({ kits = [] }: { kits?: NavKit[] }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   // Hides the hover/focus dropdown the moment a child link is clicked, the
@@ -39,6 +81,8 @@ export default function Header() {
     return pathname === base || pathname.startsWith(`${base}/`);
   };
 
+  const items = useMemo(() => navWithKits(nav, kits), [kits]);
+
   return (
     <header className="sticky top-0 z-50 border-b border-ink/5 bg-paper/85 backdrop-blur-md print:hidden">
       <div className="container-content flex items-center justify-between gap-6 py-4">
@@ -52,7 +96,7 @@ export default function Header() {
         {/* Desktop nav, inline titles, with hover/focus dropdowns. */}
         <nav className="hidden lg:block" aria-label="Primary">
           <ul className="flex items-center gap-7">
-            {nav.map((item) => {
+            {items.map((item) => {
               const active = isActive(item.href);
               if (item.cta) {
                 return (
@@ -171,7 +215,7 @@ export default function Header() {
       >
         <div className="overflow-hidden">
           <ul className="container-content flex flex-col gap-1 py-4">
-            {nav.map((item) => {
+            {items.map((item) => {
               const active = isActive(item.href);
               if (item.cta) {
                 return (
@@ -192,7 +236,7 @@ export default function Header() {
                     href={item.href}
                     aria-current={active ? "page" : undefined}
                     tabIndex={open ? undefined : -1}
-                    className={`block rounded-md px-3 py-2.5 text-body transition-colors duration-300 ease-calm hover:bg-ink/[0.03] hover:text-amber ${
+                    className={`block rounded-md px-3 py-2.5 text-body transition-colors duration-300 ease-calm hover:bg-signature hover:text-paper ${
                       active ? "text-signature" : "text-ink"
                     }`}
                   >
@@ -275,7 +319,7 @@ function DropdownItem({
         <NavChildLink
           item={item}
           onNavigate={onNavigate}
-          className="block rounded-xl px-3 py-2.5 text-small text-ink transition-colors duration-200 ease-calm hover:bg-ink/[0.04] hover:text-amber"
+          className="block rounded-xl px-3 py-2.5 text-small text-ink transition-colors duration-200 ease-calm hover:bg-signature hover:text-paper"
         />
       </li>
     );
@@ -298,7 +342,7 @@ function DropdownItem({
             <NavChildLink
               item={child}
               onNavigate={onNavigate}
-              className="block rounded-xl px-3 py-2 text-small text-ink/80 transition-colors duration-200 ease-calm hover:bg-ink/[0.04] hover:text-amber"
+              className="block rounded-xl px-3 py-2 text-small text-ink/80 transition-colors duration-200 ease-calm hover:bg-signature hover:text-paper"
             />
           </li>
         ))}
@@ -314,7 +358,7 @@ function MobileChild({ item, open }: { item: NavItem; open: boolean }) {
       <NavChildLink
         item={item}
         tabIndex={open ? undefined : -1}
-        className="block rounded-md px-3 py-2 text-small text-ink/80 transition-colors duration-300 ease-calm hover:bg-ink/[0.03] hover:text-amber"
+        className="block rounded-md px-3 py-2 text-small text-ink/80 transition-colors duration-300 ease-calm hover:bg-signature hover:text-paper"
       />
       {item.children ? (
         <ul className="ml-3 border-l border-ink/[0.14] pl-3">
@@ -323,7 +367,7 @@ function MobileChild({ item, open }: { item: NavItem; open: boolean }) {
               <NavChildLink
                 item={child}
                 tabIndex={open ? undefined : -1}
-                className="block rounded-md px-3 py-1.5 text-small text-ink/65 transition-colors duration-300 ease-calm hover:bg-ink/[0.03] hover:text-amber"
+                className="block rounded-md px-3 py-1.5 text-small text-ink/65 transition-colors duration-300 ease-calm hover:bg-signature hover:text-paper"
               />
             </li>
           ))}

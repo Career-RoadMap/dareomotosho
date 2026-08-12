@@ -31,7 +31,7 @@ export default function ShareButtons({ path, title }: { path: string; title: str
   }
 
   const btn =
-    "inline-flex h-7 w-7 items-center justify-center rounded-full text-ink/55 transition-colors duration-200 ease-calm hover:bg-ink/[0.06] hover:text-amber";
+    "inline-flex h-7 w-7 items-center justify-center rounded-full text-ink/55 transition-colors duration-200 ease-calm hover:bg-hover-surface hover:text-amber";
 
   return (
     <span

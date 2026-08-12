@@ -34,19 +34,16 @@ const principles = [
 /** The modes a learner works in. */
 const modes = [
   {
-    icon: "📚",
     name: "Learn",
     what: "Socratic conversation. You bring a topic or a confusion, and the coach questions you toward the answer.",
     when: "Daily study, and working through a concept that has not clicked.",
   },
   {
-    icon: "🎯",
     name: "Mock exam",
     what: "Sixty-five exam-standard multiple-choice questions, scored like the real thing, with a domain-by-domain breakdown at the end.",
     when: "Checking readiness, and finding the domains that are still weak.",
   },
   {
-    icon: "📝",
     name: "Grade",
     what: "You write a free-text answer to a scenario, and the coach grades it across several dimensions and explains the gaps.",
     when: "Practising the reasoning the exam actually tests.",
@@ -163,10 +160,7 @@ export default function AiTutorPage() {
         <div className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-ink/[0.14] bg-ink/[0.14] sm:grid-cols-3">
           {modes.map((m, i) => (
             <Reveal as="div" key={m.name} delay={i * 90} className="card-accent bg-paper p-7 sm:p-9">
-              <span className="text-2xl" aria-hidden>
-                {m.icon}
-              </span>
-              <h3 className="mt-3 font-serif text-h2 font-light text-signature">
+              <h3 className="font-serif text-h2 font-light text-signature">
                 {m.name}
               </h3>
               <p className="mt-3 text-body text-ink">{m.what}</p>
@@ -181,7 +175,6 @@ export default function AiTutorPage() {
           <div className="rounded-2xl border border-ink/[0.14] bg-paper p-7 sm:p-9">
             <p className="kicker text-amber">And one quieter mode</p>
             <p className="mt-3 max-w-prose text-body text-ink">
-              <span aria-hidden>🩺</span>{" "}
               <span className="font-medium">Diagnostic</span> runs a short
               survey the first time you meet an exam, placing you at beginner,
               intermediate, or advanced. Every other mode then adjusts its

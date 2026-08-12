@@ -87,7 +87,7 @@ export default function QaAccordion({ items }: { items: Entry[] }) {
                 {pairs.map((qa) => (
                   <li key={qa.n}>
                     <details className="group bg-paper">
-                      <summary className="flex cursor-pointer list-none items-start justify-between gap-4 p-6 transition-colors duration-300 ease-calm hover:bg-paper/60 [&::-webkit-details-marker]:hidden">
+                      <summary className="flex cursor-pointer list-none items-start justify-between gap-4 p-6 transition-colors duration-300 ease-calm hover:bg-hover-surface [&::-webkit-details-marker]:hidden">
                         <span className="min-w-0 flex items-start gap-4">
                           <span className="kicker mt-1 shrink-0 text-amber">Q{qa.n}</span>
                           <span className="font-serif text-lg font-medium text-ink transition-colors duration-300 ease-calm group-hover:text-blue-lift">
@@ -115,7 +115,7 @@ export default function QaAccordion({ items }: { items: Entry[] }) {
             ) : (
               <div className="mt-6 overflow-hidden rounded-2xl border border-ink/[0.14]">
                 <details className="group bg-paper">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-6 transition-colors duration-300 ease-calm hover:bg-paper/60 [&::-webkit-details-marker]:hidden">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-6 transition-colors duration-300 ease-calm hover:bg-hover-surface [&::-webkit-details-marker]:hidden">
                     <span className="font-serif text-lg font-medium text-ink">
                       Read the answers
                     </span>
