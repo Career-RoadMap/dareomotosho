@@ -65,21 +65,23 @@ export default async function ResourcesPage() {
         </div>
       </div>
 
-      {/* ── Episode resources: one action tool per episode, newest first.
-          Rendered straight from contents/resources/ (see
-          RESOURCES-CONTRACT.md), so a new episode's file appears here with
-          no code change. */}
+      {/* ── The Field Kit: one tool per episode, newest first. Rendered
+          straight from contents/resources/ (see RESOURCES-CONTRACT.md), so a
+          new episode's file appears here with no code change. Cards are
+          previews only; the full one-pager lives on its own page. */}
       {resources.length > 0 ? (
-        <section className="container-content pt-12 sm:pt-16">
+        <section id="field-kit" className="container-content scroll-mt-20 pt-12 sm:pt-16">
           <Reveal>
-            <span className="kicker">Episode Resources</span>
+            <span className="kicker">Episode tools</span>
             <h2 className="mt-4 font-serif text-h2 font-light text-ink">
-              One action tool per episode.
+              The Field Kit
             </h2>
             <p className="mt-4 max-w-prose text-body text-ink">
-              Every episode ships with a one-page tool you can put to work
-              the same day, a sheet, a review, a log. Leave your email once
-              and all of them open, including every future one.
+              Every episode ends with a tool. Take it into your next review.
+            </p>
+            <p className="mt-3 max-w-prose text-small text-ink/70">
+              Leave your email once and all of them open, including every
+              future one.
             </p>
           </Reveal>
           <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
