@@ -119,6 +119,14 @@ export default function ResourceUnlock({ slug }: { slug: string }) {
     ]);
 
     if (resendOk || supabaseOk) {
+      // The confirmation note: what they signed up for, plus a way back to
+      // this kit and the shelf. Deliberately not awaited and never fatal —
+      // a mail failure must not cost the reader the unlock they just earned.
+      void fetch("/api/resources/welcome", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: address, slug }),
+      }).catch(() => {});
       void openContent();
     } else {
       setStatus("error");
@@ -148,9 +156,25 @@ export default function ResourceUnlock({ slug }: { slug: string }) {
             .
           </p>
         ) : (
-          <div className="prose-entry space-y-5 text-body text-ink">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{body}</ReactMarkdown>
-          </div>
+          <>
+            <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-ink/[0.14] bg-ink/[0.02] px-5 py-4">
+              <span className="text-small text-ink/70">
+                Take this one with you:
+              </span>
+              <a
+                href={`/api/resources/${encodeURIComponent(slug)}/download`}
+                className="inline-flex items-center gap-2 rounded-lg bg-amber px-5 py-2.5 text-small font-medium text-ink shadow-sm transition-all duration-300 ease-calm hover:brightness-[0.97]"
+              >
+                <svg viewBox="0 0 20 20" className="h-4 w-4 fill-current" aria-hidden>
+                  <path d="M10 2a1 1 0 0 1 1 1v7.586l2.293-2.293a1 1 0 1 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 1 1 1.414-1.414L9 10.586V3a1 1 0 0 1 1-1zM4 15a1 1 0 0 1 1 1h10a1 1 0 1 1 0 2H5a2 2 0 0 1-2-2 1 1 0 0 1 1-1z" />
+                </svg>
+                Download the kit (PDF)
+              </a>
+            </div>
+            <div className="prose-entry mt-8 space-y-5 text-body text-ink">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{body}</ReactMarkdown>
+            </div>
+          </>
         )}
       </div>
     );
@@ -163,9 +187,9 @@ export default function ResourceUnlock({ slug }: { slug: string }) {
         The full sheet is one email away.
       </h2>
       <p className="mt-3 max-w-prose text-body text-ink/70">
-        Leave your email once and every resource on this site opens — this
-        one, and each new episode&apos;s tool after it. You won&apos;t be
-        asked again on this browser.
+        Leave your email once and every kit on this site opens, this one and
+        each new episode&apos;s tool after it, with the sheet yours to
+        download. You won&apos;t be asked again on this browser.
       </p>
       <form
         onSubmit={handleSubmit}

@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { fraunces, inter } from "./fonts";
 import { brand, siteUrl, social } from "@/lib/site";
 import Header from "@/components/Header";
-import { getResources } from "@/lib/resources";
 import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
 import "./globals.css";
@@ -87,28 +86,11 @@ const supabaseOrigin = (() => {
   }
 })();
 
-/**
- * How many episode resources the Resources dropdown lists before it stops
- * growing and offers "View all" instead.
- */
-const NAV_RESOURCE_LIMIT = 5;
-
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // Read straight from contents/resources/ so a new markdown file surfaces
-  // its nav entry with no code edit (RESOURCES-CONTRACT.md). Newest first,
-  // which is the order getResources() already returns.
-  const resources = await getResources();
-  const resourceLinks = resources.slice(0, NAV_RESOURCE_LIMIT).map((r) => ({
-    href: `/resources/${r.slug}`,
-    label: r.title,
-  }));
-  if (resources.length > NAV_RESOURCE_LIMIT) {
-    resourceLinks.push({ href: "/resources", label: "View all" });
-  }
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <head>
@@ -129,7 +111,7 @@ export default async function RootLayout({
         >
           Skip to content
         </a>
-        <Header resourceLinks={resourceLinks} />
+        <Header />
         <main id="main">{children}</main>
         <Footer />
         <CookieConsent />

@@ -50,13 +50,6 @@ export type NavItem = {
   cta?: boolean;
   /** Open in a new tab via a plain anchor (for static tools outside the app router). */
   external?: boolean;
-  /**
-   * Episode resources are injected into this item's dropdown at render time,
-   * read from contents/resources/ (see RESOURCES-CONTRACT.md). The list is
-   * never written out here: adding a markdown file must surface its nav entry
-   * with no code edit, so nothing about it may be hand-maintained.
-   */
-  autoResources?: boolean;
 };
 
 /** External scheduling link (Calendly, 30-minute call). */
@@ -76,8 +69,8 @@ export const nav: NavItem[] = [
   {
     href: "/resources",
     label: "Resources",
-    autoResources: true,
     children: [
+      { href: "/resources/field-kit", label: "The Field Kit" },
       { href: "/resources/case-studies", label: "Case Studies" },
       { href: "/resources/interview-prep", label: "Interview Prep" },
       { href: "/resources/articles", label: "Articles" },
