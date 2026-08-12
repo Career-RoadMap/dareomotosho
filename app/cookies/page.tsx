@@ -9,8 +9,11 @@ export const metadata: Metadata = {
 };
 
 const SITE_URL = "dareomotosho.com";
-const LAST_UPDATED = "1 July 2026";
+const LAST_UPDATED = "12 August 2026";
 const linkCls = "text-link underline underline-offset-2";
+/** Inline cookie / storage key names. */
+const codeCls =
+  "rounded bg-ink/[0.06] px-1.5 py-0.5 font-mono text-[0.9em] text-signature";
 
 export default function CookiesPage() {
   return (
@@ -48,19 +51,61 @@ export default function CookiesPage() {
             </p>
             <ul className="mt-2 list-disc space-y-2 pl-6">
               <li>
+                <code className={codeCls}>cookie_consent</code> (set by this Site) &mdash; records
+                whether you accepted or dismissed this cookie notice, so you are
+                not shown it repeatedly. Expires after one year.
+              </li>
+              <li>
+                <code className={codeCls}>resources_unlocked</code> (set by this Site) &mdash; set
+                only after you choose to enter your email to open The Field Kit.
+                It is what lets every kit open without asking you again, and it
+                records only that an unlock happened. It does <em>not</em>{" "}
+                contain your email address or any other personal detail. Expires
+                after one year.
+              </li>
+              <li>
                 Session cookies (set by Vercel, the Site&rsquo;s hosting platform):
                 used to keep the Site running smoothly, manage traffic, and maintain
                 basic security. These are automatically deleted when you close your
                 browser.
               </li>
-              <li>
-                Preference cookies: remember basic settings such as whether you have
-                dismissed this cookie notice, so you are not shown it repeatedly.
-              </li>
             </ul>
+            <p className="mt-4">
+              Both of the Site&rsquo;s own cookies are first-party, restricted to
+              this Site (<code className={codeCls}>SameSite=Lax</code>), and sent only over a secure
+              connection (<code className={codeCls}>Secure</code>).
+            </p>
             <p className="mt-4">
               These cookies do not track you across other sites, do not build a profile
               of your browsing behavior, and are not used for advertising.
+            </p>
+
+            <p className="mt-6 font-medium text-signature">
+              Local storage used on this Site:
+            </p>
+            <p className="mt-4">
+              Two items are also kept in your browser&rsquo;s local storage. They
+              are not cookies &mdash; they are never sent to a server &mdash; but
+              they are stored on your device, so they are listed here for
+              completeness:
+            </p>
+            <ul className="mt-2 list-disc space-y-2 pl-6">
+              <li>
+                <code className={codeCls}>cookie_consent</code> &mdash; a mirror of the cookie above,
+                so your choice survives a cookie clear.
+              </li>
+              <li>
+                <code className={codeCls}>resources:unlocked</code> &mdash; a mirror of the Field Kit
+                unlock, so the kits stay open if cookies are cleared. Again, it
+                records only that an unlock happened, not your email address.
+              </li>
+            </ul>
+            <p className="mt-4">
+              You can remove both by clearing site data for this Site in your
+              browser. Clearing them means The Field Kit will ask for an email
+              again the next time you open a kit; entering the same address
+              simply unlocks it, and does not add you to the list twice or send
+              you another confirmation email.
             </p>
           </div>
 
@@ -99,7 +144,10 @@ export default function CookiesPage() {
             </ul>
             <p className="mt-4">
               Note that if you block functional cookies, some parts of the Site may not
-              work as expected.
+              work as expected. Specifically: declining or blocking cookies does
+              not restrict any content, but The Field Kit will ask for your email
+              each time rather than remembering that you already unlocked it, and
+              this cookie notice will reappear.
             </p>
             <p className="mt-4 font-medium text-signature">
               Instructions for common browsers:
@@ -154,9 +202,11 @@ export default function CookiesPage() {
             </h2>
             <p className="mt-4">
               The service providers that support this Site (Vercel for hosting,
-              Supabase for the database, GitHub for automation) may set their own
-              cookies as part of delivering their services. These are governed by their
-              own cookie and privacy policies:
+              Supabase for the database, Resend for email, GitHub for automation)
+              may set their own cookies as part of delivering their services.
+              Calendly sets its own cookies on its booking page, which opens
+              separately when you book a call. These are governed by their own
+              cookie and privacy policies:
             </p>
             <ul className="mt-2 list-disc space-y-2 pl-6">
               <li>
@@ -181,12 +231,32 @@ export default function CookiesPage() {
               </li>
               <li>
                 <a
+                  href="https://resend.com/legal/privacy-policy"
+                  target="_blank"
+                  rel="noreferrer"
+                  className={linkCls}
+                >
+                  Resend Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a
                   href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
                   target="_blank"
                   rel="noreferrer"
                   className={linkCls}
                 >
                   GitHub Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://calendly.com/legal/privacy-notice"
+                  target="_blank"
+                  rel="noreferrer"
+                  className={linkCls}
+                >
+                  Calendly Privacy Notice
                 </a>
               </li>
             </ul>

@@ -8,6 +8,13 @@ const KEY = "cookie_consent";
  * Cookie consent banner. Shows once until the visitor accepts or declines; the
  * choice is stored both in a first-party cookie (1 year) and localStorage, so
  * it persists across visits and the banner stays hidden thereafter.
+ *
+ * Nothing on the site is gated on the answer, because the site sets no
+ * tracking or advertising cookies to gate — the two first-party cookies it
+ * writes (this one and the Field Kit unlock token) are functional, and the
+ * Cookie Policy names both. Declining therefore hides the banner and changes
+ * nothing else, which is the honest behaviour to ship rather than a consent
+ * dialog that pretends to switch something off.
  */
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
@@ -26,7 +33,7 @@ export default function CookieConsent() {
   function decide(choice: "accepted" | "declined") {
     try {
       localStorage.setItem(KEY, choice);
-      document.cookie = `${KEY}=${choice}; max-age=${60 * 60 * 24 * 365}; path=/; SameSite=Lax`;
+      document.cookie = `${KEY}=${choice}; max-age=${60 * 60 * 24 * 365}; path=/; SameSite=Lax; Secure`;
     } catch {
       /* storage blocked — just dismiss */
     }

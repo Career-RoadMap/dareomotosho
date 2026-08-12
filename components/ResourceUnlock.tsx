@@ -7,7 +7,7 @@ import { submitEmail } from "@/lib/subscribe";
 import { contactEmail } from "@/lib/site";
 import {
   UNLOCK_COOKIE,
-  UNLOCK_MAX_AGE,
+  UNLOCK_COOKIE_ATTRS,
   UNLOCK_STORAGE_KEY,
 } from "@/lib/resource-gate";
 
@@ -50,7 +50,7 @@ function storeUnlock() {
   } catch {
     // Storage can be unavailable (private mode); the cookie still carries it.
   }
-  document.cookie = `${UNLOCK_COOKIE}=1; path=/; max-age=${UNLOCK_MAX_AGE}; SameSite=Lax`;
+  document.cookie = `${UNLOCK_COOKIE}=1; ${UNLOCK_COOKIE_ATTRS}`;
 }
 
 function hasUnlock(): boolean {

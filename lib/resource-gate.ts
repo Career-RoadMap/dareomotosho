@@ -14,3 +14,18 @@ export const UNLOCK_STORAGE_KEY = "resources:unlocked";
 
 /** One year, in seconds. */
 export const UNLOCK_MAX_AGE = 60 * 60 * 24 * 365;
+
+/**
+ * The cookie as written from the browser. `Secure` keeps it off plaintext
+ * connections, and `SameSite=Lax` keeps it off cross-site requests while still
+ * surviving a normal link into the site.
+ *
+ * This is a convenience token, NOT an authorisation check: the kits are free,
+ * and anyone willing to set a cookie by hand can read them without leaving an
+ * address. The gate exists to ask politely once, so it is deliberately not
+ * built as a security boundary — nothing behind it is private.
+ *
+ * Chrome, Firefox and Safari all treat http://localhost as a secure context,
+ * so `Secure` does not break local development.
+ */
+export const UNLOCK_COOKIE_ATTRS = `path=/; max-age=${UNLOCK_MAX_AGE}; SameSite=Lax; Secure`;

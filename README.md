@@ -52,36 +52,72 @@ felt colors never change.
 
 ```
 app/
-  layout.tsx          Root layout: fonts, header, footer, skip-link
+  layout.tsx          Root layout: fonts, header (reads the Field Kit list), footer
   template.tsx        Page-transition dissolve
-  globals.css         Tokens-in-CSS, reveal + reduced-motion rules
-  page.tsx            / (home — balanced)
-  work/               /work (executive)
-  start-here/         /start-here (warm)
-  resources/          /resources + /resources/[slug]
-  live/               /live
-  speaking/           /speaking (executive)
-  advisory/           /advisory (executive)
-  about/              /about (warmest)
-  faq/                /faq
-  contact/            /contact
-components/           Header, Footer, Reveal, Button, forms, etc.
+  globals.css         Tokens-in-CSS, reveal rules, .prose-entry, reduced-motion
+  page.tsx            / (home)
+  work/               /work — tiers as side-by-side tabs
+  start-here/         /start-here
+  ai-tutor/           /ai-tutor — the AWS exam coach (dharey.com)
+  resources/          /resources, /resources/field-kit, /resources/[slug],
+                      and the four collection pages
+  path-finder/        /path-finder + /path-finder/[track] (+ OG image)
+  speaking/  advisory/  about/  faq/  contact/  book/
+  privacy/  terms/  cookies/
+  api/                subscribe, contact, resources/*, download-image, report
+components/           Header, Footer, Reveal, Button, forms, gates, cards
+contents/
+  resources/          One markdown file per episode kit (RESOURCES-CONTRACT.md)
 lib/
-  site.ts             Nav order, byline, social handles
-  content.ts          Sample content (the integration seam)
+  site.ts             Nav order, byline, social handles, booking URL
+  resources.ts        Reads contents/resources/ — the file-based library
+  resource-pdf.tsx    Markdown to PDF for the kit downloads
+  report-pdf.tsx      The Path Finder result PDF
+  subscribe.ts        The single client path onto the email list
+  resource-gate.ts    Unlock cookie / storage keys
+  rate-limit.ts       In-memory fixed-window limiter for the email routes
+  email.ts            Sender sanitising + HTML escaping
+  supabase.ts         Browser client (anon key only)
+docs/                 Written documentation + the services spreadsheet
+supabase/migrations/  Schema, RLS policies, indexes
 ```
 
-## Integration seams (intentionally not wired)
+## The email list, and the Field Kit gate
 
-The UI is built; the data sources are left as clean seams:
+There is **one** list. The Subscribe form and the Field Kit unlock both go
+through `lib/subscribe.ts`, which writes to the Resend audience (via
+`/api/subscribe`) and to the Supabase `subscribers` table as a backup. Either
+landing counts.
 
-- **Resource downloads** — `Resource.downloadUrl` in `lib/content.ts`
-  (wire to R2 / object-store signed URLs).
-- **Form submissions** — `EmailCapture` and `InquiryForm` validate and reflect
-  state but do not POST; wire the marked `TODO(integration)` handlers to your
-  provider (e.g. Supabase / email / CRM).
-- **Social feeds** — the footer and home "latest" strip reserve space for a
-  live YouTube fetch and cached X / LinkedIn embeds.
-- **FAQ** — `faqs` is a seed; back it with a CMS/Supabase to edit without redeploy.
+Neither store can hold a duplicate: `subscribers_email_unique` is on
+`lower(email)`, and a Resend contact conflict is refused. `submitEmail()`
+returns `alreadySubscribed` so the UI can say so, and so the gate can skip the
+confirmation email for an address that has already had it. Addresses are
+lowercased before either store sees them.
 
-All content lives in `lib/content.ts` — swap the source, keep the components.
+The gate itself is a **courtesy, not a security boundary**. The kits are free;
+the `resources_unlocked` cookie only stops the site asking twice. Nothing
+private sits behind it, so it is deliberately not built to resist someone
+setting a cookie by hand. What *is* defended is the mail: `/api/resources/welcome`
+is rate-limited per IP and capped at one send per address per day, so the route
+cannot be used to mail a stranger repeatedly.
+
+Both first-party cookies are `SameSite=Lax; Secure`. `app/cookies/page.tsx`
+names them and the two matching local-storage keys; keep that page in step with
+any change here, and with `app/privacy/page.tsx`.
+
+## Content sources
+
+- **Episode kits** — markdown in `contents/resources/`. Dropping a file in is
+  sufficient to publish it; see `RESOURCES-CONTRACT.md`, which is a contract, not
+  a suggestion.
+- **Library entries** (case studies, articles, Q&A) — Supabase, seeded by
+  `scripts/seed.js` from `contents/`. See `SUPABASE.md`.
+- **Everything else** — `lib/content.ts` and `lib/site.ts`.
+
+## Environment
+
+See `.env.example`. `RESEND_API_KEY` needs **full** access, not sending-only, or
+audience writes fail — `GET /api/subscribe` is a diagnostic that says so in
+plain words. The Supabase **service-role key is never set in Vercel**; it is used
+only by the CI seed workflow. The browser gets the anon key and RLS.

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 const SITE_URL = "dareomotosho.com";
-const LAST_UPDATED = "15 July 2026";
+const LAST_UPDATED = "12 August 2026";
 
 const linkCls = "text-link underline underline-offset-2";
 
@@ -74,6 +74,12 @@ export default function TermsPage() {
               </li>
               <li>Signup for live classes, events, and email updates</li>
               <li>
+                The Field Kit &mdash; a free one-page working tool for each
+                episode (a checklist, a review, a decision sheet), readable on
+                the Site and downloadable as a PDF, opened by leaving your email
+                once
+              </li>
+              <li>
                 A way to submit questions for possible inclusion in the public content
                 library
               </li>
@@ -121,6 +127,23 @@ export default function TermsPage() {
                 from the Site
               </li>
             </ul>
+            <p className="mt-4 font-medium text-signature">
+              The Field Kit is a deliberate exception:
+            </p>
+            <p className="mt-4">
+              The Field Kit sheets exist to be used at work, so the restrictions
+              above are relaxed for them. You may fill one in, print it, and share
+              your completed copy inside your own organisation &mdash; in a design
+              review, an access review, a budget conversation &mdash; including
+              where that organisation is a commercial one. Anything you write into
+              a sheet is yours, and I never see it.
+            </p>
+            <p className="mt-4">
+              What still needs my written permission: republishing a blank sheet
+              elsewhere, redistributing it outside your organisation, putting it
+              into a paid or public course, presenting it as your own work, or
+              removing the attribution it carries.
+            </p>
             <p className="mt-4">
               If you would like to use content in a way not permitted above, including
               using it in your own teaching, training programs, or business, contact
@@ -182,6 +205,20 @@ export default function TermsPage() {
               <li>
                 You may unsubscribe from emails or withdraw from a class at any time;
                 contact me or use the unsubscribe link in emails
+              </li>
+              <li>
+                The Field Kit is opened by leaving your email once. That address
+                goes onto the same single mailing list as the Subscribe form, and
+                you receive one confirmation email per address. Entering an
+                address that is already on the list simply opens the kits again:
+                it does not add a second record and does not send a second
+                confirmation
+              </li>
+              <li>
+                The unlock is remembered in your own browser. Clearing your
+                cookies and site data, or using a different browser or device,
+                means the kits will ask for your email again &mdash; entering the
+                same address unlocks them, with no further email
               </li>
             </ul>
             <p className="mt-4">
