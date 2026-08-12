@@ -8,7 +8,13 @@ export const runtime = "nodejs";
  * audience is discovered automatically from the account (first audience,
  * i.e. the default "General" one); RESEND_AUDIENCE_ID optionally pins a
  * specific audience, and a wrong value falls back to discovery instead of
- * failing. An already-subscribed address counts as success.
+ * failing.
+ *
+ * An already-subscribed address counts as success, and the response says so
+ * via `alreadySubscribed` so callers can acknowledge a returning subscriber
+ * rather than re-thanking them. Resend is not the authority on that — it may
+ * treat a repeat contact as a plain create — so lib/subscribe.ts combines
+ * this with the Supabase unique-index result.
  */
 
 // Cached across requests within a warm serverless instance.
@@ -125,10 +131,15 @@ export async function POST(request: NextRequest) {
   let lastDetail = "";
   for (const audienceId of candidates) {
     const res = await addContact(apiKey, audienceId, email);
-    // 409 = contact already exists, which is still "you're on the list".
+    // 409 = contact already exists, which is still "you're on the list" —
+    // reported back so the caller can say so instead of thanking a returning
+    // subscriber as if they were new, and can skip the welcome mail.
     if (res.ok || res.status === 409) {
       cachedAudienceId = audienceId;
-      return NextResponse.json({ success: true });
+      return NextResponse.json({
+        success: true,
+        alreadySubscribed: res.status === 409,
+      });
     }
     lastStatus = res.status;
     lastDetail = await res.text().catch(() => "");

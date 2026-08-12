@@ -3,7 +3,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { supabase } from "@/lib/supabase";
+import { submitEmail } from "@/lib/subscribe";
 import { contactEmail } from "@/lib/site";
 import {
   UNLOCK_COOKIE,
@@ -21,10 +21,13 @@ import {
  * so the gated markdown never ships in the crawlable page.
  *
  * The email goes to the SAME Resend audience as the site's Subscribe form,
- * via the existing /api/subscribe route (with the same Supabase
- * `subscribers` backup insert EmailCapture uses) — one list, not two.
- * Already-subscribed reads as success there, so a returning subscriber on
- * a fresh browser just unlocks again quietly.
+ * through lib/subscribe (with the same Supabase `subscribers` backup insert
+ * EmailCapture uses) — one list, not two.
+ *
+ * A returning subscriber on a fresh browser still unlocks, but is told they
+ * were already on the list and is NOT sent the welcome mail again. Neither
+ * store can hold a duplicate, so the risk of entering an address twice was
+ * never a duplicate row — it was silence and a second identical email.
  */
 
 type GateStatus =
@@ -64,6 +67,10 @@ export default function ResourceUnlock({ slug }: { slug: string }) {
   const [email, setEmail] = useState("");
   const [body, setBody] = useState("");
   const [fetchFailed, setFetchFailed] = useState(false);
+  // Set only when this unlock came from a submit whose address was already on
+  // the list, so the note appears once, next to the kit they just opened, and
+  // not on every later auto-unlock.
+  const [alreadySubscribed, setAlreadySubscribed] = useState(false);
 
   async function openContent() {
     // Re-assert the cookie from whichever store survived, then fetch.
@@ -99,38 +106,34 @@ export default function ResourceUnlock({ slug }: { slug: string }) {
     if (!address || status === "sending") return;
     setStatus("sending");
 
-    // Same submission pattern as EmailCapture: the Resend audience via
-    // /api/subscribe, with the Supabase subscribers table as backup.
-    // Either landing counts — the address is on the list.
-    const [resendOk, supabaseOk] = await Promise.all([
-      fetch("/api/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: address }),
-      })
-        .then((res) => res.ok)
-        .catch(() => false),
-      supabase
-        ? supabase
-            .from("subscribers")
-            .insert({ email: address, source: window.location.pathname })
-            .then(({ error }) => !error || error.code === "23505")
-        : Promise.resolve(false),
-    ]);
+    const { ok, alreadySubscribed: already } = await submitEmail(
+      address,
+      window.location.pathname,
+    );
 
-    if (resendOk || supabaseOk) {
-      // The confirmation note: what they signed up for, plus a way back to
-      // this kit and the shelf. Deliberately not awaited and never fatal —
-      // a mail failure must not cost the reader the unlock they just earned.
+    if (!ok) {
+      setStatus("error");
+      return;
+    }
+
+    setAlreadySubscribed(already);
+
+    // The confirmation note: what they signed up for, plus a way back to this
+    // kit and the shelf. Deliberately not awaited and never fatal — a mail
+    // failure must not cost the reader the unlock they just earned.
+    //
+    // Skipped entirely for an address that was already on the list: they have
+    // had this email before, and sending it again is what makes a second
+    // signup feel like a mistake.
+    if (!already) {
       void fetch("/api/resources/welcome", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: address, slug }),
       }).catch(() => {});
-      void openContent();
-    } else {
-      setStatus("error");
     }
+
+    void openContent();
   }
 
   if (status === "checking") {
@@ -157,6 +160,18 @@ export default function ResourceUnlock({ slug }: { slug: string }) {
           </p>
         ) : (
           <>
+            {alreadySubscribed ? (
+              <p
+                className="mb-4 rounded-xl border-l-4 border-amber bg-ink/[0.03] px-5 py-3 text-small text-ink/75"
+                role="status"
+              >
+                <span className="font-medium text-signature">
+                  You were already on the list.
+                </span>{" "}
+                Nothing was added and no new email was sent — everything is
+                open below.
+              </p>
+            ) : null}
             <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-ink/[0.14] bg-ink/[0.02] px-5 py-4">
               <span className="text-small text-ink/70">
                 Take this one with you:
