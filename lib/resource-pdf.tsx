@@ -17,8 +17,9 @@ import { siteUrl } from "@/lib/site";
  * completed during a review — so the download has to reproduce the tables
  * with room to write, not flatten them into prose. This renders the subset
  * of markdown the contract's files actually use: `##`/`###` headings,
- * paragraphs, ordered and unordered lists, GFM tables, and inline bold and
- * italic. Anything unrecognised falls through as a plain paragraph, so an
+ * paragraphs, ordered and unordered lists, GFM tables, blockquotes (the
+ * workbooks use them as fill-in fields), and inline bold and italic.
+ * Anything unrecognised falls through as a plain paragraph, so an
  * unexpected construct degrades to readable text rather than vanishing.
  */
 
@@ -75,6 +76,25 @@ const styles = StyleSheet.create({
     fontSize: 8.5,
   },
   headCell: { backgroundColor: "#f2f4f7", fontFamily: "Helvetica-Bold", color: signature },
+  // Blockquotes are the workbooks' fill-in fields, so they are drawn as
+  // space to write in rather than as quoted prose.
+  quote: {
+    marginTop: 2,
+    marginBottom: 8,
+    paddingLeft: 8,
+    borderLeftWidth: 2,
+    borderLeftColor: amber,
+  },
+  quoteText: { marginBottom: 3 },
+  // A line that is nothing but underscores is a blank waiting for a pen.
+  // Printing the underscores themselves reads as noise, so it becomes a
+  // ruled line of the same height instead.
+  quoteBlank: {
+    height: 17,
+    borderBottomWidth: 0.75,
+    borderBottomColor: rule,
+    marginBottom: 4,
+  },
   footer: {
     position: "absolute",
     bottom: 26,
@@ -115,7 +135,8 @@ type Block =
   | { kind: "h3"; text: string }
   | { kind: "para"; text: string }
   | { kind: "list"; ordered: boolean; items: string[] }
-  | { kind: "table"; rows: string[][] };
+  | { kind: "table"; rows: string[][] }
+  | { kind: "quote"; lines: string[] };
 
 /** Parse a table row, dropping the leading/trailing pipe. */
 function splitRow(line: string): string[] {
@@ -148,6 +169,20 @@ function parseBlocks(md: string): Block[] {
     if (h) {
       flushPara();
       blocks.push({ kind: h[1].length === 2 ? "h2" : "h3", text: h[2].trim() });
+      continue;
+    }
+
+    // A blockquote: consecutive `>` lines, kept one-per-line because each
+    // line is its own field on the sheet.
+    if (/^\s*>/.test(line)) {
+      flushPara();
+      const quoted: string[] = [];
+      while (i < lines.length && /^\s*>/.test(lines[i])) {
+        quoted.push(lines[i].replace(/^\s*>\s?/, "").trimEnd());
+        i++;
+      }
+      i--;
+      blocks.push({ kind: "quote", lines: quoted });
       continue;
     }
 
@@ -218,6 +253,21 @@ function Blocks({ blocks }: { blocks: Block[] }) {
                   <Text style={{ flex: 1 }}>{inlineRuns(item, `l${i}-${j}`)}</Text>
                 </View>
               ))}
+            </View>
+          );
+        }
+        if (b.kind === "quote") {
+          return (
+            <View key={i} style={styles.quote} wrap={false}>
+              {b.lines.map((line, j) =>
+                /^[_\s]*$/.test(line) ? (
+                  <View key={j} style={styles.quoteBlank} />
+                ) : (
+                  <Text key={j} style={styles.quoteText}>
+                    {inlineRuns(line, `q${i}-${j}`)}
+                  </Text>
+                ),
+              )}
             </View>
           );
         }

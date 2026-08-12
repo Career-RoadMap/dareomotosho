@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { fraunces, inter } from "./fonts";
 import { brand, siteUrl, social } from "@/lib/site";
 import Header from "@/components/Header";
+import { getResources } from "@/lib/resources";
 import Footer from "@/components/Footer";
 import CookieConsent from "@/components/CookieConsent";
 import "./globals.css";
@@ -86,11 +87,20 @@ const supabaseOrigin = (() => {
   }
 })();
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // The Resources dropdown lists the newest Field Kit sheets. Read here, in
+  // the one server component every page passes through, so a new markdown
+  // file in contents/resources/ reaches the nav with no code edit.
+  // getResources() already sorts newest-first (date, then title).
+  const kits = (await getResources()).map((r) => ({
+    slug: r.slug,
+    title: r.title,
+  }));
+
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <head>
@@ -111,7 +121,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <Header />
+        <Header kits={kits} />
         <main id="main">{children}</main>
         <Footer />
         <CookieConsent />
