@@ -1,6 +1,11 @@
 import Link from "next/link";
 
-export type CollectionKind = "case_study" | "course_qa" | "article" | "download";
+export type CollectionKind =
+  | "case_study"
+  | "course_qa"
+  | "article"
+  | "download"
+  | "field_kit";
 
 /**
  * A single clickable collection card on the /resources landing page (Case
@@ -76,6 +81,17 @@ function CollectionIcon({ kind }: { kind: CollectionKind }) {
       <svg viewBox="0 0 24 24" className={cls} strokeWidth="1.6" aria-hidden>
         <rect x="3" y="4" width="18" height="16" rx="1.5" />
         <path d="M7 8h6M7 12h10M7 16h10" strokeLinecap="round" />
+      </svg>
+    );
+  }
+  if (kind === "field_kit") {
+    // A field case: the tool you carry into the room.
+    return (
+      <svg viewBox="0 0 24 24" className={cls} strokeWidth="1.6" aria-hidden>
+        <rect x="3" y="7.5" width="18" height="12.5" rx="2" />
+        <path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5" strokeLinecap="round" />
+        <path d="M3 13h18" />
+        <path d="M10.5 13v2.2h3V13" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     );
   }

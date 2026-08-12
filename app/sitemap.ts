@@ -18,6 +18,7 @@ const staticRoutes = [
   "/path-finder",
   "/ai-tutor",
   "/resources",
+  "/resources/field-kit",
   "/resources/articles",
   "/resources/case-studies",
   "/resources/interview-prep",

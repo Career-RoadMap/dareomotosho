@@ -14,6 +14,11 @@ contents/resources/
 One markdown file per episode. The filename should match the slug
 (`<slug>.md`), but the `slug` frontmatter field is canonical.
 
+> **Reserved slug: `field-kit`.** The shelf that lists every kit lives at
+> `/resources/field-kit`, and a static route takes precedence over the
+> dynamic `[slug]` one, so a kit using that exact slug would be shadowed by
+> the shelf and its own page would be unreachable. Any other slug is fine.
+
 > Note: the Supabase seeder (`scripts/seed.js`) only ingests `contents/`
 > subfolders whose names match case studies / articles / Q&A / user
 > questions. `contents/resources/` is deliberately outside that set — these
@@ -69,8 +74,15 @@ append to.**
 Concretely, when a file lands in the folder:
 
 - `/resources/<slug>` renders the resource page,
-- the `/resources` library lists its card (newest first),
-- the sitemap includes its URL.
+- `/resources/field-kit` lists its card (newest first),
+- the sitemap includes its URL,
+- the kit is downloadable as a PDF once the reader has unlocked.
+
+The site's nav is deliberately NOT per-kit: the Resources dropdown carries a
+single fixed "The Field Kit" entry pointing at the shelf. At forty kits a
+per-item dropdown would be unusable, and the shelf already lists everything.
+That single entry needs no maintenance either, so the zero-edit property is
+unaffected.
 
 All three read the folder directly at build/render time. If a future change
 to this site would require touching any code to make a new resource file
@@ -86,3 +98,10 @@ files matching this contract forever, unattended.
   the unlock is stored in the browser (localStorage + cookie), and every
   later resource opens in one click. Emails go to the same Resend audience
   the site's Subscribe form uses; there is no separate list.
+- Once unlocked, the kit is also downloadable as a **PDF**, rendered from
+  the same markdown (`lib/resource-pdf.tsx`) so the fill-in tables survive
+  as tables with room to write. The download is behind the same cookie as
+  the body.
+- The first unlock also sends a **confirmation email** naming the kit and
+  linking back to it and to the shelf. It is sent best-effort and never
+  blocks the unlock: if the mail fails, the reader still gets their kit.
