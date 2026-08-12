@@ -44,7 +44,7 @@ const tools = [
 ];
 
 const pill =
-  "group inline-flex items-center gap-3 rounded-full border border-ink/[0.14] bg-paper px-4 py-2.5 text-small font-medium text-ink shadow-sm transition-all duration-300 ease-calm hover:-translate-y-0.5 hover:border-amber/60 hover:shadow-md hover:shadow-ink/5";
+  "group inline-flex items-center gap-3 rounded-full border border-ink/[0.14] bg-paper px-4 py-2.5 text-small font-medium text-ink shadow-sm transition-all duration-300 ease-calm hover:-translate-y-0.5 hover:border-amber hover:bg-hover-surface hover:shadow-md hover:shadow-ink/5";
 
 export default function ToolLinks({ className = "" }: { className?: string }) {
   return (
@@ -53,7 +53,7 @@ export default function ToolLinks({ className = "" }: { className?: string }) {
       {tools.map((t) => {
         const inner = (
           <>
-            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-blue-lift/10 text-blue-lift transition-colors duration-300 ease-calm group-hover:bg-amber/15 group-hover:text-amber">
+            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-blue-lift/10 text-blue-lift transition-colors duration-300 ease-calm group-hover:bg-hover-amber group-hover:text-amber">
               <svg
                 viewBox="0 0 24 24"
                 className="h-4 w-4 fill-none stroke-current"

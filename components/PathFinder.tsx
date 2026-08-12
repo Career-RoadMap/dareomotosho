@@ -95,7 +95,7 @@ export default function PathFinder() {
               <button
                 type="button"
                 onClick={() => choose(i)}
-                className="group w-full rounded-2xl border border-ink/[0.14] bg-paper p-5 text-left transition-all duration-300 ease-calm hover:-translate-y-0.5 hover:border-amber/60 hover:shadow-md hover:shadow-ink/5 sm:p-6"
+                className="group w-full rounded-2xl border border-ink/[0.14] bg-paper p-5 text-left transition-all duration-300 ease-calm hover:-translate-y-0.5 hover:border-amber hover:bg-hover-surface hover:shadow-md hover:shadow-ink/5 sm:p-6"
               >
                 <span className="block font-serif text-lg font-medium text-ink transition-colors duration-300 ease-calm group-hover:text-blue-lift">
                   {opt.label}

@@ -127,7 +127,7 @@ export default function DiagramGallery({ diagrams }: { diagrams: Diagram[] }) {
                 aria-label={`Show ${d.title}`}
                 onClick={() => setIndex(i)}
                 className={`h-2 rounded-full transition-all duration-300 ease-calm ${
-                  i === index ? "w-6 bg-amber" : "w-2 bg-ink/20 hover:bg-ink/40"
+                  i === index ? "w-6 bg-amber" : "w-2 bg-dot-idle hover:bg-hover-dot"
                 }`}
               />
             ))}

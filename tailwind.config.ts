@@ -22,6 +22,22 @@ const config: Config = {
         paper: "#F7F5F0", // warm off-white — primary background
         amber: "#E0A951", // the ONE warm accent — fresh, muted, never neon
 
+        /**
+         * Hover fills, deliberately SOLID.
+         *
+         * Hover states used to be alpha washes (bg-ink/[0.03] and friends),
+         * which read as see-through and muddy over anything but flat Paper.
+         * These are those exact blends flattened to opaque hex, so the look
+         * is the same but the fill is solid. They are composites of the five
+         * brand tokens, not new brand colors — do not use them as fills for
+         * anything other than an interactive hover/active state.
+         */
+        "hover-surface": "#EBEAE6", // Paper under 5% Ink
+        "hover-amber": "#F4EAD8", // Paper under 15% Amber
+        "hover-ink": "#263141", // Ink under 10% Paper (hovers on dark cards)
+        "hover-dot": "#9A9EA2", // Paper under 40% Ink (gallery dots)
+        "dot-idle": "#C9C9C9", // Paper under 20% Ink
+
         // Semantic aliases
         background: "#F7F5F0",
         foreground: "#0F1B2D",

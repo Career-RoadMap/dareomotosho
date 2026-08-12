@@ -19,6 +19,13 @@ One markdown file per episode. The filename should match the slug
 > dynamic `[slug]` one, so a kit using that exact slug would be shadowed by
 > the shelf and its own page would be unreachable. Any other slug is fine.
 
+> **`https://dareomotosho.com/resources/field-kit` is a permanent URL.**
+> It is printed in every video description, so it is load-bearing off-site
+> and cannot be treated as an internal path. Do not rename, nest, or
+> restructure that route. If it ever has to move, the move is only complete
+> once a permanent redirect from `/resources/field-kit` to the new location
+> ships in the same change (`redirects()` in `next.config.mjs`).
+
 > Note: the Supabase seeder (`scripts/seed.js`) only ingests `contents/`
 > subfolders whose names match case studies / articles / Q&A / user
 > questions. `contents/resources/` is deliberately outside that set — these
@@ -75,16 +82,21 @@ Concretely, when a file lands in the folder:
 
 - `/resources/<slug>` renders the resource page,
 - `/resources/field-kit` lists its card (newest first),
+- the Resources nav dropdown lists it under "The Field Kit" (newest first),
 - the sitemap includes its URL,
 - the kit is downloadable as a PDF once the reader has unlocked.
 
-The site's nav is deliberately NOT per-kit: the Resources dropdown carries a
-single fixed "The Field Kit" entry pointing at the shelf. At forty kits a
-per-item dropdown would be unusable, and the shelf already lists everything.
-That single entry needs no maintenance either, so the zero-edit property is
-unaffected.
+Ordering everywhere is `date` descending, with `title` as a stable tie-break
+so kits sharing a date keep a deterministic order (`getResources()` in
+`lib/resources.ts` is the single sort; nothing re-sorts downstream).
 
-All three read the folder directly at build/render time. If a future change
+The nav submenu is capped at the newest five kits (`KITS_IN_MENU` in
+`components/Header.tsx`) — the latest episode's kit is therefore always the
+first row, while a forty-kit back catalogue never turns the dropdown into a
+scrollable wall. "The Field Kit" above them remains the see-everything link.
+The cap is a constant, not a list: the zero-edit property is unaffected.
+
+All of these read the folder directly at build/render time. If a future change
 to this site would require touching any code to make a new resource file
 appear, that change breaks this contract — do not make it. Forge will write
 files matching this contract forever, unattended.

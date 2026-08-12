@@ -156,6 +156,40 @@
   .prose-entry th {
     @apply bg-ink/[0.04] font-medium text-signature;
   }
+  /* Blockquotes in the Field Kit workbooks are not quotations, they are the
+     fill-in fields ("> ______"). Styled as space to write in, with an amber
+     rule so they read as part of the sheet. The long underscore runs are a
+     single unbroken "word", so they need break-anywhere or they push the
+     page sideways on a phone. */
+  .prose-entry blockquote {
+    @apply my-5 rounded-r-lg border-l-4 border-amber bg-ink/[0.03] py-4 pl-5 pr-4;
+    overflow-wrap: anywhere;
+  }
+  .prose-entry blockquote p {
+    @apply text-body text-ink/70;
+    /* Each `> …` line is its own field, so the soft line breaks between them
+       have to survive — Markdown would otherwise run two blanks together on
+       one line. Generous leading gives the underscore rules room to be
+       written on rather than reading as a collapsed sliver. */
+    white-space: pre-line;
+    line-height: 2.1;
+  }
+  .prose-entry blockquote p + p {
+    @apply mt-2;
+  }
+  /* A field that is nothing but underscores is a thematic break to Markdown,
+     not a paragraph, so it arrives here as an <hr>. That is the right shape
+     — it just has to be spaced like a line you can write on, and two of them
+     in a row have to read as two separate lines. */
+  .prose-entry blockquote hr {
+    @apply my-7 border-0 border-b border-ink/25;
+  }
+  .prose-entry blockquote hr:first-child {
+    @apply mt-3;
+  }
+  .prose-entry blockquote hr:last-child {
+    @apply mb-3;
+  }
 }
 
 /* ── Scroll-reveal motion ──────────────────────────────────────────────

@@ -41,7 +41,7 @@ export default function CollectionList({
         <li key={e.id}>
           <Link
             href={`/resources/${e.slug}`}
-            className="group flex h-full flex-col bg-paper p-6 transition-colors duration-300 ease-calm hover:bg-paper/60"
+            className="group flex h-full flex-col bg-paper p-6 transition-colors duration-300 ease-calm hover:bg-hover-surface"
           >
             <div className="flex items-center gap-3 text-small text-ink/50">
               <span className="kicker text-blue-lift">{topicLabel(e.topic)}</span>

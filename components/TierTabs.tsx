@@ -69,7 +69,7 @@ export default function TierTabs({ tiers }: { tiers: Tier[] }) {
               className={`tier-head group flex items-start gap-4 rounded-2xl border p-5 text-left transition-all duration-300 ease-calm sm:p-6 ${
                 selected
                   ? "card-accent border-ink/[0.14] bg-paper shadow-sm shadow-ink/[0.06]"
-                  : "border-ink/[0.14] bg-transparent hover:bg-paper/70"
+                  : "border-ink/[0.14] bg-transparent hover:bg-hover-surface"
               }`}
             >
               <TierIcon name={t.icon} className="mt-0.5" />
