@@ -1,0 +1,99 @@
+# FORGE SYNC — pull the Field Kits from the content system.
+#
+# THIS FILE BELONGS IN THE WEBSITE REPO, not in Forge. Install it at
+# .github/workflows/website-sync.yml in Career-RoadMap/dareomotosho.
+# Setup and the reasoning are in Forge's delivery/README.md.
+#
+# Why the website pulls rather than Forge pushing: the two repos are in different
+# GitHub organisations and the boundary is one-way. Forge can read this repo
+# anonymously (it is public) but cannot be granted push access to it — tested
+# 2026-08-13, `add_repo` refuses the cross-org attach. The side that CAN write is
+# this one, so this is the side that moves the files.
+#
+# Before this existed, delivery was a person copying files between two chats.
+# On 2026-08-13 three kits were written, published, reported finished — and never
+# reached the site, because nothing was carrying them and nothing was watching.
+
+name: forge-sync
+
+on:
+  schedule:
+    - cron: "0 6,12,18 * * *"    # three times a day; a kit is never more than ~6h late
+  workflow_dispatch:
+
+permissions:
+  contents: write                # commits new kits into contents/resources/
+
+concurrency:
+  group: forge-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out this site
+        uses: actions/checkout@v4
+
+      # actions/checkout handles the token rather than a URL with credentials in
+      # it — the token never reaches a log line, and never reaches the git config
+      # of a directory this job later commits from.
+      - name: Check out Forge (read-only token, contents only)
+        uses: actions/checkout@v4
+        with:
+          repository: DareOmotosho-Com/Dare-s-Forge
+          token: ${{ secrets.FORGE_READ_TOKEN }}
+          path: .forge-src
+          sparse-checkout: |
+            content
+            scripts
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # The copying rules live in Forge, next to their tests, and are called from
+      # here. Reimplementing them in YAML is how the two repos would drift.
+      #
+      # Exit 2 means a kit would render wrong on this site: NOTHING is written and
+      # the job fails. Add-and-update only — a kit removed upstream never takes a
+      # live /resources/<slug> page down, because that URL is printed in video
+      # descriptions and is load-bearing off-site.
+      - name: Copy the kits in
+        run: |
+          set -euo pipefail
+          python .forge-src/scripts/deliver_kits.py --export contents/resources
+
+      - name: Commit anything new
+        run: |
+          set -euo pipefail
+          rm -rf .forge-src
+          git config user.name  "forge-sync[bot]"
+          git config user.email "forge-sync@users.noreply.github.com"
+          git add contents/resources
+          if git diff --cached --quiet; then
+            echo "no new or changed kits"; exit 0
+          fi
+          git commit -m "resources: sync Field Kits from Forge"
+          git push
+
+      # A red job in a repo nobody is watching is a silent failure with extra
+      # steps, and the likeliest cause is the read token expiring. This says so in
+      # the run summary — and separately, Forge reads this site every evening and
+      # comments on Notion when kits are owed, so the failure surfaces on a phone
+      # even if nobody opens Actions. Neither half can fail quietly on its own.
+      - name: Say what broke
+        if: ${{ always() && job.status != 'success' }}
+        run: |
+          {
+            echo "### forge-sync failed"
+            echo
+            echo "Status: \`${{ job.status }}\`."
+            echo "Most likely cause: \`FORGE_READ_TOKEN\` has expired or lost access"
+            echo "to DareOmotosho-Com/Dare-s-Forge. Regenerate it (fine-grained,"
+            echo "Contents: Read-only, that repo only) and update the secret."
+            echo
+            echo "Field Kits will stop appearing on the site until this is fixed."
+          } >> "$GITHUB_STEP_SUMMARY"
