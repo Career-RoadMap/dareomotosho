@@ -120,7 +120,7 @@ export default function StartHerePage() {
               </p>
             </div>
             <Button href="/path-finder" variant="primary" className="shrink-0">
-              Find my path
+              Find your path
             </Button>
           </div>
         </Reveal>

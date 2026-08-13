@@ -27,13 +27,24 @@ const config: Config = {
          *
          * Hover states used to be alpha washes (bg-ink/[0.03] and friends),
          * which read as see-through and muddy over anything but flat Paper.
-         * These are those exact blends flattened to opaque hex, so the look
-         * is the same but the fill is solid. They are composites of the five
-         * brand tokens, not new brand colors — do not use them as fills for
-         * anything other than an interactive hover/active state.
+         * These are those exact blends flattened to opaque hex, so the fill is
+         * solid. They are composites of the five brand tokens, not new brand
+         * colors — do not use them as fills for anything other than an
+         * interactive hover/active state.
+         *
+         * The first pass flattened the washes at their original strengths,
+         * which made them technically solid and practically invisible:
+         * hover-surface sat at a 1.10 contrast ratio against Paper, so tiles
+         * "did not highlight" even though the rule was firing. Both are now
+         * pitched to be seen — roughly a 1.2-1.3 ratio against Paper, which
+         * reads as a highlight without shouting. Ink text stays above 12:1 on
+         * either, so nothing is at risk of failing contrast.
+         *
+         * If you weaken these again, check them on a real screen rather than
+         * in the hex: the failure mode is silent, because the CSS is correct.
          */
-        "hover-surface": "#EBEAE6", // Paper under 5% Ink
-        "hover-amber": "#F4EAD8", // Paper under 15% Amber
+        "hover-surface": "#DCDBD7", // Paper under 12% Ink
+        "hover-amber": "#EFDFC4", // Paper under 22% Amber
         "hover-ink": "#263141", // Ink under 10% Paper (hovers on dark cards)
         "hover-dot": "#9A9EA2", // Paper under 40% Ink (gallery dots)
         "dot-idle": "#C9C9C9", // Paper under 20% Ink

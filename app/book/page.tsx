@@ -6,7 +6,7 @@ import { bookingUrl, contactEmail, pageBanners } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Book a call",
   description:
-    "Pick a time that works and let's talk: mentorship, advisory, speaking, or a question about your cloud and security posture.",
+    "Pick a time that works: mentorship, advisory, speaking, or a question about cloud and security posture.",
 };
 
 const fits = [
@@ -91,7 +91,7 @@ export default function BookPage() {
                 </a>
               </div>
               <p className="mt-8 text-small text-paper/55">
-                No slot that fits? Write me instead:{" "}
+                No slot that fits? Write instead:{" "}
                 <a href={`mailto:${contactEmail}`} className="link-quiet !text-paper">
                   {contactEmail}
                 </a>

@@ -114,7 +114,7 @@ export const seedEntries: Entry[] = [
     id: "seed-2",
     slug: "right-sizing-security-to-real-risk",
     type: "course_qa",
-    title: "How do I right-size security to real risk?",
+    title: "How is security right-sized to real risk?",
     summary:
       "A way to pick controls that fit the threat you actually face, not the one a vendor slide says you should fear.",
     body: "Start from the asset and the adversary, not the checklist. Ask: what would it cost the business if this were breached, and who realistically would try?\n\nThen match controls to that answer, strict IAM and least privilege first, because identity is where most real incidents begin.",
@@ -173,7 +173,7 @@ export const seedEntries: Entry[] = [
     id: "seed-6",
     slug: "where-should-a-newcomer-start",
     type: "user_question",
-    title: "I'm new to cloud, where should I start?",
+    title: "New to cloud, where to start?",
     summary: "A route, not a pile of links.",
     body: "Start with one real thing, end to end: stand up a small service, read its bill, and add the smallest sensible security. Confidence comes from shipping, not from reading.\n\nThe Start Here path lays out the order.",
     topic: "cloud",

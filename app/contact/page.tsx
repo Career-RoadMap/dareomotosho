@@ -15,11 +15,11 @@ export default function ContactPage() {
       <PageHero
         kicker="Contact"
         tone="cool"
-        title="Let's talk."
+        title="Get in touch."
         intro={
           <p>
             General questions, advisory and consulting inquiries, or just a hello, it
-            all arrives in the same place, and I read it personally.
+            all arrives in the same place, and every note is read personally.
           </p>
         }
       />
@@ -29,7 +29,7 @@ export default function ContactPage() {
           <Reveal>
             <h2 className="font-serif text-h2 font-light text-ink">Reach out</h2>
             <p className="mt-5 max-w-prose text-body text-ink">
-              Tell me a little about what you're after. For advisory and consulting,
+              A little about what you are after helps. For advisory and consulting,
               a sentence on the situation and the outcome is the most helpful start.
             </p>
             <div className="mt-8 space-y-3 text-body">
@@ -59,7 +59,7 @@ export default function ContactPage() {
                 { name: "name", label: "Your name", required: true, placeholder: "Jane Doe" },
                 { name: "email", label: "Email", type: "email", required: true, placeholder: "you@example.com" },
                 { name: "topic", label: "Topic", placeholder: "General · Advisory · Consulting · Speaking" },
-                { name: "message", label: "Your message", type: "textarea", required: true, placeholder: "How can I help?" },
+                { name: "message", label: "Your message", type: "textarea", required: true, placeholder: "What would be useful?" },
               ]}
             />
           </Reveal>

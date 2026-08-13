@@ -19,11 +19,11 @@ export default function WorkPage() {
     <>
       <PageBanner
         image={pageBanners.work}
-        kicker="What I build"
+        kicker="The work"
         title="Systems for the business, not just the stack."
         intro={
           <p>
-            I build systems for businesses: cloud architecture for business
+            Systems built for businesses: cloud architecture for business
             decisions, security matched to real risk, and delivery at the speed
             the business needs. Every system below started as a decision, not
             just a technical one.
@@ -33,7 +33,7 @@ export default function WorkPage() {
         <div className="flex flex-wrap gap-4">
           <Button href="#architecture">See the architecture</Button>
           <Button href="/advisory" variant="accent">
-            Work with me
+            The advisory view
           </Button>
         </div>
       </PageBanner>
@@ -97,7 +97,7 @@ export default function WorkPage() {
                 Controls that only hold until the next deadline aren't controls.
               </p>
               <p className="mt-6 max-w-2xl text-body text-paper/70">
-                I translate regulatory obligations into defaults engineers can
+                Regulatory obligations translated into defaults engineers can
                 act on without it costing them the release, so the audit holds
                 and the business keeps shipping.
               </p>

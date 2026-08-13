@@ -55,7 +55,7 @@ export default function FaqPage() {
             <Reveal>
               <h2 className="font-serif text-h2 font-light text-ink">Ask a question</h2>
               <p className="mt-5 max-w-prose text-body text-ink">
-                If something's missing, ask it here. I can't promise a personal reply to
+                If something is missing, ask it here. A personal reply is not promised to
                 every one, but the most common ones get added above.
               </p>
             </Reveal>

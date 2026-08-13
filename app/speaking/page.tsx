@@ -9,7 +9,7 @@ import { pageBanners } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Technical speaker on cloud engineering and security governance",
   description:
-    "A technical speaker on cloud engineering and security governance: a solutions architect's talks for career starters and boardrooms alike, rooted in systems I've actually built.",
+    "A technical speaker on cloud engineering and security governance: a solutions architect's talks for career starters and boardrooms alike, rooted in systems actually built.",
 };
 
 export default function SpeakingPage() {
@@ -20,15 +20,14 @@ export default function SpeakingPage() {
       <PageBanner
         image={pageBanners.speaking}
         kicker="Speaking Engagement"
-        title="Talks rooted in systems I've actually built."
+        title="Talks rooted in systems actually built."
         intro={
           <p>
-            As a technical speaker on cloud engineering and security
-            governance, here's the opinion I keep bringing to the stage,
-            whether the room is career starters or a boardroom of solutions
-            architects: every system an engineer builds is a business decision
-            in disguise, and the industry trains almost no one to see it.
-            That's the talk under all the talks.
+            One opinion runs through every talk on cloud engineering and
+            security governance, whether the room is career starters or a
+            boardroom of solutions architects: every system an engineer builds
+            is a business decision in disguise, and the industry trains almost
+            no one to see it. That is the talk under all the talks.
           </p>
         }
       >
@@ -89,15 +88,15 @@ export default function SpeakingPage() {
         </Reveal>
       </section>
 
-      {/* ── Book me. */}
+      {/* ── Event inquiries. */}
       <section id="book" className="band-warm scroll-mt-20">
         <div className="container-content py-10 sm:py-12">
           <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
             <Reveal>
-              <h2 className="font-serif text-h1 font-light text-signature">Book me.</h2>
+              <h2 className="font-serif text-h1 font-light text-signature">Event inquiries.</h2>
               <p className="mt-6 max-w-prose text-body text-ink">
-                Tell me about the event and the audience. I'll reply with fit, a tailored
-                angle, and logistics.
+                Details of the event and the audience are enough to start. A reply
+                follows with fit, a tailored angle, and logistics.
               </p>
             </Reveal>
             <Reveal>

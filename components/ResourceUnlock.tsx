@@ -149,7 +149,7 @@ export default function ResourceUnlock({ slug }: { slug: string }) {
         ) : fetchFailed ? (
           <p className="text-body text-ink/70" role="alert">
             You&apos;re unlocked, but the content didn&apos;t load. Refresh the
-            page to try again, or write me at{" "}
+            page to try again, or write to{" "}
             <a
               href={`mailto:${contactEmail}`}
               className="underline underline-offset-2 text-link"
@@ -236,7 +236,7 @@ export default function ResourceUnlock({ slug }: { slug: string }) {
       </p>
       {status === "error" ? (
         <p className="mt-3 text-small text-ink/60" role="alert">
-          That didn&apos;t go through. Try again in a moment, or write me at{" "}
+          That didn&apos;t go through. Try again in a moment, or write to{" "}
           <a
             href={`mailto:${contactEmail}`}
             className="underline underline-offset-2"
