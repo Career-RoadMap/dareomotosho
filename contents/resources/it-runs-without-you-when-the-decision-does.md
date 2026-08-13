@@ -16,7 +16,8 @@ Your process documents say how the work is done. They cannot say what to do when
 the situation is not the one in the document — and that is every situation that
 waits for you. This page writes down the missing layer, three lines at a time.
 
-- **What it is:** three lines you write for one recurring decision.
+- **What it is:** the three lines from the episode, for one recurring decision —
+  with the decision itself at the top and what would change your mind at the bottom.
 - **Who fills it in:** you, first. Then the person who would have to make the call.
 - **When:** now, for whatever stopped last time you were away. Again whenever a new
   decision starts routing through you.

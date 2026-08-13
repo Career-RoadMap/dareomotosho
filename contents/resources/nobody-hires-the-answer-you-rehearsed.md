@@ -16,7 +16,8 @@ You do not need a better script. You need one real choice you can talk through
 when somebody asks. This page builds it — once, tonight, and it works for every
 interview after this one.
 
-- **What it is:** four short answers about one decision you have already made.
+- **What it is:** the three questions from the episode, about one decision you have
+  already made — plus a line for the bit you are still unsure about.
 - **Who fills it in:** you, alone. Nobody has to see this.
 - **When:** tonight, not the night before the interview. It needs to settle.
 - **Time:** about twenty minutes. Longer if you pick a good one, which is fine.

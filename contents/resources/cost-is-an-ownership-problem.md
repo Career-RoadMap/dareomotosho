@@ -44,13 +44,17 @@ decision is made, not in next month's report.
 
 ## The sheet
 
-| | Option A | Option B | Option C |
-|---|---|---|---|
-| What it is, one line | | | |
-| Monthly cost at today's scale | | | |
-| Monthly cost at ten times the scale | | | |
-| Who answers for this line item | | | |
-| What we give up by choosing it | | | |
+| | *(example — replace it)* | Option A | Option B | Option C |
+|---|---|---|---|---|
+| What it is, one line | *the managed queue the vendor hosts for us* | | | |
+| Monthly cost at today's scale | *figure from the vendor's calculator* | | | |
+| Monthly cost at ten times the scale | *unknown — pricing tier changes, flag it* | | | |
+| Who answers for this line item | *a name, not a team* | | | |
+| What we give up by choosing it | *we stop being able to move this in a weekend* | | | |
+
+**Then stop. Do not rank the options.** The moment you rank them you have made the
+business decision for the room, and that decision belongs to whoever answers for the
+budget. Making the trade-off visible is the job; winning it is not.
 
 ## The question this sheet forces
 
