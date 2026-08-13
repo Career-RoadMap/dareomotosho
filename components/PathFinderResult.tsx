@@ -171,7 +171,7 @@ export default function PathFinderResult({
             <span className="[&_button]:text-paper/80 [&_button:hover]:bg-signature [&_button:hover]:text-amber">
               <ShareButtons
                 path={resultPath}
-                title={`My cloud career path: ${track.title}. Find yours in 2 minutes.`}
+                title={`Cloud career path: ${track.title}. Find yours in 2 minutes.`}
               />
             </span>
           </span>
@@ -223,7 +223,7 @@ export default function PathFinderResult({
                   disabled={emailStatus === "sending"}
                   className="shrink-0 rounded-lg bg-paper/15 px-5 py-2.5 text-small font-medium text-paper transition-colors duration-300 ease-calm hover:bg-amber hover:text-ink disabled:opacity-50"
                 >
-                  {emailStatus === "sending" ? "Sending…" : "Email me this"}
+                  {emailStatus === "sending" ? "Sending…" : "Email this result"}
                 </button>
               </form>
               {emailStatus === "error" ? (

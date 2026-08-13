@@ -17,11 +17,11 @@ export const metadata: Metadata = {
 const sections = [
   { id: "seam", label: "The through-line" },
   { id: "story", label: "The story" },
-  { id: "gap", label: "The gap I close" },
+  { id: "gap", label: "The gap" },
   { id: "human", label: "Off the cloud" },
   { id: "roles", label: "Three roles" },
   { id: "bios", label: "Grab a bio" },
-  { id: "talk", label: "Let's talk" },
+  { id: "talk", label: "Where to next" },
 ];
 
 export default function AboutPage() {
@@ -33,11 +33,11 @@ export default function AboutPage() {
       <PageBanner
         image={pageBanners.about}
         kicker="About"
-        title="I work at the seam between engineering and the business."
+        title="Dare Omotosho works at the seam between engineering and the business."
         intro={
           <p>
             Two rooms rarely speak the same language: the technical floor and the
-            boardroom. I've spent my career in the doorway between them, a
+            boardroom. His career has been spent in the doorway between them, as a
             technical mentor, cloud engineer, cybersecurity engineer, solutions
             architect, and AI architect building business-aligned systems, and
             translating each room to the other.
@@ -95,24 +95,24 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Page 3: the gap I close, the dark statement band. */}
+      {/* ── Page 3: the gap, the dark statement band. */}
       <section
         id="gap"
         className="flex min-h-[44vh] scroll-mt-20 items-center bg-ink"
       >
         <div className="container-content py-12 sm:py-16">
           <Reveal>
-            <p className="kicker text-amber">The gap I close</p>
+            <p className="kicker text-amber">The gap</p>
             <p className="mt-6 max-w-3xl font-serif text-h2 font-light leading-snug text-paper">
               Your controls get switched off under delivery pressure, and you
               find out at audit.
             </p>
             <p className="mt-6 max-w-2xl text-body text-paper/70">
-              The problem isn't that your engineers are careless, it's that
-              nobody has ever translated your regulatory obligations into
-              something they can act on without it costing them the release. I
-              close that gap, and I make it hold while the business keeps
-              shipping.
+              The problem is not that the engineers are careless, it is that
+              nobody has ever translated the regulatory obligations into
+              something they can act on without it costing them the release.
+              Closing that gap, and making it hold while the business keeps
+              shipping, is the work.
             </p>
           </Reveal>
         </div>
@@ -186,14 +186,14 @@ export default function AboutPage() {
         <div className="container-content py-12 sm:py-16">
           <Reveal className="text-center">
             <h2 className="mx-auto max-w-2xl font-serif text-h1 font-light text-ink">
-              If any of this resonates, let's talk.
+              Where to next.
             </h2>
             <div className="mt-7 flex flex-wrap justify-center gap-4">
-              <Button href="/advisory" variant="accent">
-                Work with me
+              <Button href="/work" variant="accent">
+                See the work
               </Button>
               <Button href="/start-here" variant="ghost">
-                Just getting started
+                New to cloud
               </Button>
             </div>
           </Reveal>

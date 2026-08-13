@@ -32,12 +32,12 @@ export default function PrivacyPage() {
               1. Who this policy is from
             </h2>
             <p className="mt-4">
-              This Privacy Policy explains how {SITE_URL} (&ldquo;I,&rdquo;
-              &ldquo;me,&rdquo; &ldquo;we&rdquo;) collects, uses, and protects your
-              personal information when you visit {SITE_URL} (the &ldquo;Site&rdquo;).
+              This Privacy Policy explains how {SITE_URL} (the &ldquo;Site&rdquo;, and
+              &ldquo;the Site operator&rdquo;) collects, uses, and protects your
+              personal information when you visit it.
             </p>
             <p className="mt-4">
-              I am based in Nigeria. This policy is written to reflect the Nigeria
+              The Site operator is based in Nigeria. This policy is written to reflect the Nigeria
               Data Protection Regulation (NDPR) and, where applicable, the EU General
               Data Protection Regulation (GDPR) for visitors from the European Union
               and United Kingdom.
@@ -46,14 +46,14 @@ export default function PrivacyPage() {
 
           <div>
             <h2 className="font-serif text-h2 font-light text-signature">
-              2. What information I collect
+              2. What information the Site collects
             </h2>
             <p className="mt-4">
-              I collect only what&rsquo;s needed to run the Site and communicate with
+              Only what&rsquo;s needed to run the Site and communicate with
               people who choose to engage with it.
             </p>
             <p className="mt-4 font-medium text-signature">
-              Information you give me directly:
+              Information you provide directly:
             </p>
             <ul className="mt-2 list-disc space-y-2 pl-6">
               <li>
@@ -71,9 +71,9 @@ export default function PrivacyPage() {
                 they appear publicly.
               </li>
               <li>
-                Inquiry and booking details &mdash; name, email, and message content
-                when you send an advisory, speaking, or contact inquiry, or book a
-                call through the scheduling link.
+                Contact and scheduling details &mdash; name, email, and message content
+                when you send a message through the Site, or pick a time through
+                the scheduling link.
               </li>
               <li>
                 Email address &mdash; when you open The Field Kit (the free
@@ -91,7 +91,7 @@ export default function PrivacyPage() {
             <p className="mt-4">
               The Career Path Finder is different by design: your answers are
               processed entirely in your browser and are never transmitted to or
-              stored on my systems. Sharing or downloading a result shares only the
+              stored on the Site&rsquo;s systems. Sharing or downloading a result shares only the
               resulting role page, not your answers.
             </p>
             <p className="mt-4 font-medium text-signature">
@@ -112,7 +112,7 @@ export default function PrivacyPage() {
                 <code className={codeCls}>resources_unlocked</code> (set only
                 after you choose to unlock The Field Kit, so you are not asked
                 again). Neither contains your email address or any other personal
-                detail. I do not currently use tracking or advertising cookies.
+                detail. The Site does not currently use tracking or advertising cookies.
                 The{" "}
                 <a href="/cookies" className={linkCls}>
                   Cookie Policy
@@ -125,9 +125,9 @@ export default function PrivacyPage() {
 
           <div>
             <h2 className="font-serif text-h2 font-light text-signature">
-              3. How I use your information
+              3. How your information is used
             </h2>
-            <p className="mt-4">I use your information only for these purposes:</p>
+            <p className="mt-4">Your information is used only for these purposes:</p>
             <ul className="mt-2 list-disc space-y-2 pl-6">
               <li>To send you updates, resources, or newsletters you signed up for</li>
               <li>
@@ -146,7 +146,7 @@ export default function PrivacyPage() {
               <li>To comply with legal obligations</li>
             </ul>
             <p className="mt-4">
-              I do not sell your personal information. I do not share it with third
+              Personal information is never sold, and never shared with third
               parties for marketing purposes.
             </p>
           </div>
@@ -156,8 +156,8 @@ export default function PrivacyPage() {
               4. Third parties that process your data
             </h2>
             <p className="mt-4">
-              To operate the Site, I use these service providers, who process data on
-              my behalf:
+              To operate the Site, these service providers process data on the Site
+              operator&rsquo;s behalf:
             </p>
             <ul className="mt-2 list-disc space-y-2 pl-6">
               <li>
@@ -197,7 +197,7 @@ export default function PrivacyPage() {
               </li>
               <li>
                 Resend &mdash; delivers advisory, speaking, and contact form
-                submissions to my inbox, emailed results you request, the Field
+                submissions to the Site operator&rsquo;s inbox, emailed results you request, the Field
                 Kit confirmation email, and the subscriber list, which is held as
                 a Resend audience (processes the name, email, and message you
                 send).{" "}
@@ -211,8 +211,8 @@ export default function PrivacyPage() {
                 </a>
               </li>
               <li>
-                Calendly &mdash; appointment scheduling when you book a call
-                (processes the details you enter on Calendly&rsquo;s booking page).{" "}
+                Calendly &mdash; appointment scheduling when you pick a time
+                (processes the details you enter on Calendly&rsquo;s scheduling page).{" "}
                 <a
                   href="https://calendly.com/legal/privacy-notice"
                   target="_blank"
@@ -228,22 +228,22 @@ export default function PrivacyPage() {
               it only for the services they provide to the Site.
             </p>
             <p className="mt-4">
-              I may add additional providers in the future &mdash; for example, an
-              email newsletter service or a website analytics service. When I do, I
-              will update this policy and list them here before beginning to use them.
+              Additional providers may be added in future &mdash; for example, an
+              email newsletter service or a website analytics service. This policy
+              will be updated to list them before they begin to be used.
             </p>
           </div>
 
           <div>
             <h2 className="font-serif text-h2 font-light text-signature">
-              5. How long I keep your information
+              5. How long information is kept
             </h2>
             <ul className="mt-4 list-disc space-y-2 pl-6">
               <li>
                 Email and name (signups, including Field Kit unlocks): kept for as
                 long as you remain subscribed. You may unsubscribe at any time
                 (see Section 8). Unsubscribing removes you from the mailing list;
-                ask me and I will delete the stored record as well.
+                on request the stored record is deleted as well.
               </li>
               <li>
                 Class/event registration data: kept for the duration needed to run the
@@ -263,18 +263,18 @@ export default function PrivacyPage() {
 
           <div>
             <h2 className="font-serif text-h2 font-light text-signature">
-              6. How I protect your information
+              6. How your information is protected
             </h2>
             <p className="mt-4">
               Your data is stored with reputable service providers (Vercel, Supabase)
               who apply industry-standard security measures, including encryption in
-              transit and at rest. Access to your data is restricted to me and to the
+              transit and at rest. Access to your data is restricted to the Site operator and to the
               automated systems required to operate the Site.
             </p>
             <p className="mt-4">
               No system is 100% secure. If a data breach occurs that affects your
-              personal information, I will notify affected users and relevant
-              authorities as required by applicable law.
+              personal information, affected users and the relevant
+              authorities will be notified as required by applicable law.
             </p>
           </div>
 
@@ -299,9 +299,9 @@ export default function PrivacyPage() {
               personal data:
             </p>
             <ul className="mt-2 list-disc space-y-2 pl-6">
-              <li>Access &mdash; request a copy of the personal information I hold about you</li>
-              <li>Correction &mdash; ask me to correct inaccurate information</li>
-              <li>Deletion &mdash; ask me to delete your personal information</li>
+              <li>Access &mdash; request a copy of the personal information held about you</li>
+              <li>Correction &mdash; request that inaccurate information be corrected</li>
+              <li>Deletion &mdash; request deletion of your personal information</li>
               <li>
                 Withdraw consent &mdash; unsubscribe from emails or withdraw consent
                 for optional processing at any time
@@ -318,12 +318,12 @@ export default function PrivacyPage() {
               </li>
             </ul>
             <p className="mt-4">
-              To exercise any of these rights, contact me using the details in Section
+              To exercise any of these rights, get in touch using the details in Section
               11.
             </p>
             <p className="mt-4">
-              To unsubscribe from emails, use the unsubscribe link in any email I send
-              you, or contact me directly.
+              To unsubscribe from emails, use the unsubscribe link in any email sent
+              from the Site, or use the contact details in Section 11.
             </p>
           </div>
 
@@ -332,10 +332,10 @@ export default function PrivacyPage() {
               9. Children
             </h2>
             <p className="mt-4">
-              The Site is not directed at children under 13, and I do not knowingly
+              The Site is not directed at children under 13, and does not knowingly
               collect personal information from children under 13. If you believe a
-              child has provided personal information through the Site, contact me and I
-              will delete it.
+              child has provided personal information through the Site, get in touch
+              using Section 11 and it will be deleted.
             </p>
           </div>
 
@@ -344,8 +344,8 @@ export default function PrivacyPage() {
               10. Changes to this policy
             </h2>
             <p className="mt-4">
-              I may update this Privacy Policy from time to time &mdash; for example,
-              when I add a new service provider or a new Site feature that affects data
+              This Privacy Policy may be updated from time to time &mdash; for example,
+              when a new service provider or a new Site feature affects data
               handling. The &ldquo;Last updated&rdquo; date at the top will reflect the
               most recent change. Material changes will be communicated through the Site
               or by email where appropriate.

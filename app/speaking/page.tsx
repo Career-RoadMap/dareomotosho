@@ -2,14 +2,13 @@ import type { Metadata } from "next";
 import PageBanner from "@/components/PageBanner";
 import Reveal from "@/components/Reveal";
 import Button from "@/components/Button";
-import InquiryForm from "@/components/InquiryForm";
 import { talkTopics, episodes, outcomes } from "@/lib/content";
 import { pageBanners } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Technical speaker on cloud engineering and security governance",
+  title: "Speaking",
   description:
-    "A technical speaker on cloud engineering and security governance: a solutions architect's talks for career starters and boardrooms alike, rooted in systems I've actually built.",
+    "Talks on cloud engineering and security governance, for career starters and boardrooms alike, rooted in systems actually built.",
 };
 
 export default function SpeakingPage() {
@@ -19,29 +18,28 @@ export default function SpeakingPage() {
     <>
       <PageBanner
         image={pageBanners.speaking}
-        kicker="Speaking Engagement"
-        title="Talks rooted in systems I've actually built."
+        kicker="Speaking"
+        title="Talks rooted in systems actually built."
         intro={
           <p>
-            As a technical speaker on cloud engineering and security
-            governance, here's the opinion I keep bringing to the stage,
-            whether the room is career starters or a boardroom of solutions
-            architects: every system an engineer builds is a business decision
-            in disguise, and the industry trains almost no one to see it.
-            That's the talk under all the talks.
+            One opinion runs through every talk on cloud engineering and
+            security governance, whether the room is career starters or a
+            boardroom of solutions architects: every system an engineer builds
+            is a business decision in disguise, and the industry trains almost
+            no one to see it. That is the talk under all the talks.
           </p>
         }
       >
-        <Button href="#book" variant="accent">Book a talk</Button>
+        <Button href="#topics" variant="accent">The talks</Button>
       </PageBanner>
 
-      {/* ── Bookable talk topics, one at a time. */}
-      <section className="band">
+      {/* ── The talks themselves, one at a time. */}
+      <section id="topics" className="band scroll-mt-20">
         <div className="container-content py-10 sm:py-12">
           <Reveal>
             <h2 className="font-serif text-h2 font-light text-signature">
-              Book a technical speaker on cloud engineering and security
-              governance for your stage
+              Talks on cloud engineering and security governance, for career
+              starters and boardrooms alike
             </h2>
             <p className="mt-3 max-w-prose text-body text-ink/70">
               Speaking from the floor, not just the stage.
@@ -82,38 +80,35 @@ export default function SpeakingPage() {
               ))}
             </div>
             <p className="mt-8 max-w-2xl text-body text-paper/70">
-              Plus {episodes.length}+ podcast conversations and designed decks, the
-              material is current, lived, and yours to vet before you book.
+              Plus {episodes.length}+ podcast conversations and designed decks. The
+              material is current and lived, and all of it is open to read.
             </p>
           </div>
         </Reveal>
       </section>
 
-      {/* ── Book me. */}
-      <section id="book" className="band-warm scroll-mt-20">
+      {/* ── Closes on the material rather than a booking form: this page is a
+          record of the talks and the thinking behind them. */}
+      <section className="band-warm">
         <div className="container-content py-10 sm:py-12">
-          <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
-            <Reveal>
-              <h2 className="font-serif text-h1 font-light text-signature">Book me.</h2>
-              <p className="mt-6 max-w-prose text-body text-ink">
-                Tell me about the event and the audience. I'll reply with fit, a tailored
-                angle, and logistics.
-              </p>
-            </Reveal>
-            <Reveal>
-              <InquiryForm
-                submitLabel="Send booking inquiry"
-                subject="New speaking booking, dareomotosho.com"
-                fields={[
-                  { name: "name", label: "Your name", required: true, placeholder: "Jane Doe" },
-                  { name: "email", label: "Email", type: "email", required: true, placeholder: "you@event.com" },
-                  { name: "event", label: "Event / conference", required: true, placeholder: "QCon, internal summit…" },
-                  { name: "date", label: "Date or window", placeholder: "Q4 2026" },
-                  { name: "message", label: "Audience & what you're hoping for", type: "textarea", required: true, placeholder: "Who's in the room, and the talk you have in mind." },
-                ]}
-              />
-            </Reveal>
-          </div>
+          <Reveal className="text-center">
+            <h2 className="mx-auto max-w-2xl font-serif text-h1 font-light text-signature">
+              The same thinking, written down.
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl text-body text-ink">
+              Every talk above comes out of a system that was actually built.
+              The case studies and the episode kits carry the same reasoning in
+              full.
+            </p>
+            <div className="mt-7 flex flex-wrap justify-center gap-4">
+              <Button href="/resources/case-studies" variant="accent">
+                Read the case studies
+              </Button>
+              <Button href="/resources/field-kit" variant="ghost">
+                Open The Field Kit
+              </Button>
+            </div>
+          </Reveal>
         </div>
       </section>
     </>

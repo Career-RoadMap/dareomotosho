@@ -104,7 +104,7 @@ export default function EmailCapture({
               className={`mt-3 text-small ${dark ? "text-paper/70" : "text-ink/60"}`}
               role="alert"
             >
-              That didn't go through. Try again in a moment, or write me at{" "}
+              That didn't go through. Try again in a moment, or write to{" "}
               <a href={`mailto:${contactEmail}`} className="underline underline-offset-2">
                 {contactEmail}
               </a>

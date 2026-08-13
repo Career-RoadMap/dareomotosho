@@ -82,7 +82,6 @@ Concretely, when a file lands in the folder:
 
 - `/resources/<slug>` renders the resource page,
 - `/resources/field-kit` lists its card (newest first),
-- the Resources nav dropdown lists it under "The Field Kit" (newest first),
 - the sitemap includes its URL,
 - the kit is downloadable as a PDF once the reader has unlocked.
 
@@ -90,11 +89,11 @@ Ordering everywhere is `date` descending, with `title` as a stable tie-break
 so kits sharing a date keep a deterministic order (`getResources()` in
 `lib/resources.ts` is the single sort; nothing re-sorts downstream).
 
-The nav submenu is capped at the newest five kits (`KITS_IN_MENU` in
-`components/Header.tsx`) — the latest episode's kit is therefore always the
-first row, while a forty-kit back catalogue never turns the dropdown into a
-scrollable wall. "The Field Kit" above them remains the see-everything link.
-The cap is a constant, not a list: the zero-edit property is unaffected.
+The nav is deliberately NOT per-kit. The Resources dropdown carries a single
+"The Field Kit" entry pointing at the shelf, and the shelf is where a reader
+picks one. A per-kit submenu was built and then removed: it nested hover inside
+a dropdown, and it grows without bound as the catalogue does. That single entry
+needs no maintenance either, so the zero-edit property is unaffected.
 
 All of these read the folder directly at build/render time. If a future change
 to this site would require touching any code to make a new resource file

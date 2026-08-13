@@ -4,23 +4,27 @@ import Reveal from "@/components/Reveal";
 import { bookingUrl, contactEmail, pageBanners } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Book a call",
+  title: "Talk to Dare",
   description:
-    "Pick a time that works and let's talk: mentorship, advisory, speaking, or a question about your cloud and security posture.",
+    "Thirty minutes for a mentoring question, a career decision, or a conversation about the writing on this site. Not a sales call.",
 };
 
+/**
+ * What the call is actually for. Deliberately not commercial: this is a
+ * mentoring and conversation slot, not a route into paid work.
+ */
 const fits = [
   {
-    title: "Mentorship & career",
+    title: "Mentoring & career",
     body: "Where you are, where you're headed, and the next deliberate step in cloud or cybersecurity.",
   },
   {
-    title: "Advisory & architecture",
-    body: "A specific decision on your table: architecture, spend, security posture, or compliance that has to hold.",
+    title: "A question from the writing",
+    body: "Something on this site that did not land, or a Field Kit sheet you want to think through out loud.",
   },
   {
-    title: "Speaking & collaboration",
-    body: "An event, a podcast, a workshop, or something we should build together.",
+    title: "Community & the podcast",
+    body: "A guest suggestion, a topic worth an episode, or a student community that could use a session.",
   },
 ];
 
@@ -29,13 +33,15 @@ export default function BookPage() {
     <>
       <PageBanner
         image={pageBanners.advisory}
-        kicker="Booking"
-        title="Pick a time. Bring the real question."
+        kicker="Talk to Dare"
+        title="Thirty minutes. Bring the real question."
         intro={
           <p>
-            Thirty minutes, no ceremony. Choose a slot on the calendar and
-            come with the decision, the blocker, or the ambition you actually
-            care about.
+            Thirty minutes, no ceremony. Choose a slot and come with the
+            question you actually care about: a career step, something on this
+            site that did not land, or an idea worth an episode. This is a
+            mentoring and conversation slot, not a sales call, and nothing is
+            being sold on it.
           </p>
         }
       >
@@ -54,7 +60,7 @@ export default function BookPage() {
         <div className="container-content py-12 sm:py-16">
           <Reveal>
             <h2 className="font-serif text-h2 font-light text-ink">
-              What we can use it for
+              What the time is good for
             </h2>
           </Reveal>
           <div className="mt-7 grid gap-px overflow-hidden rounded-2xl border border-ink/[0.14] bg-ink/[0.14] sm:grid-cols-3">
@@ -87,11 +93,11 @@ export default function BookPage() {
                   rel="noreferrer"
                   className="inline-flex items-center justify-center rounded-lg bg-amber px-7 py-3.5 text-small font-medium tracking-wide text-ink shadow-sm transition-all duration-300 ease-calm hover:brightness-[0.97] active:brightness-95"
                 >
-                  Book a call
+                  Pick a time
                 </a>
               </div>
               <p className="mt-8 text-small text-paper/55">
-                No slot that fits? Write me instead:{" "}
+                No slot that fits? Write instead:{" "}
                 <a href={`mailto:${contactEmail}`} className="link-quiet !text-paper">
                   {contactEmail}
                 </a>

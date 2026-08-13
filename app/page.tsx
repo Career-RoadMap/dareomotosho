@@ -27,8 +27,8 @@ const doors = [
   },
   {
     href: "/speaking",
-    label: "Speaking engagements",
-    body: "Opinions worth booking, and advisory at the decision table.",
+    label: "Speaking",
+    body: "Talks on cloud engineering and security governance, and the thinking behind them.",
   },
 ];
 
@@ -49,7 +49,7 @@ export default function HomePage() {
         }
         intro={<p>{brand.oneLine}</p>}
       >
-        <Button href="/work" variant="accent">See what I build</Button>
+        <Button href="/work" variant="accent">See the work</Button>
       </PageBanner>
 
       {/* ── Three audience doors, gentle staggered fade-in on scroll. */}

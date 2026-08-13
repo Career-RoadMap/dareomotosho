@@ -87,7 +87,7 @@ export const nav: NavItem[] = [
   { href: "/speaking", label: "Speaking" },
   { href: "/advisory", label: "Advisory" },
   { href: "/about", label: "About" },
-  { href: "/book", label: "Book a Call", cta: true },
+  { href: "/book", label: "Talk to Dare", cta: true },
 ];
 
 /** Primary contact email, shown for general inquiries and booking. */

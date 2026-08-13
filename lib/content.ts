@@ -106,7 +106,7 @@ export const tiers: Tier[] = [
   {
     kicker: "Tier 2",
     name: "People and delivery built at scale",
-    tagline: "Because building taught me, I teach. Technical mentorship and delivery leadership.",
+    tagline: "Built first, taught second. Technical mentorship and delivery leadership.",
     items: [
       {
         feature: true,
@@ -138,7 +138,7 @@ export const tiers: Tier[] = [
 
 /** Closing line for /work. */
 export const workClose =
-  "These systems started as business questions. If you have one, let's talk.";
+  "Every one of these systems started as a business question, not a technical one.";
 
 export type Capability = {
   title: string;
@@ -149,19 +149,19 @@ export type Capability = {
 export const capabilities: Capability[] = [
   {
     title: "Security & access, by design.",
-    body: "I improve the security of products, cloud services, and infrastructure through well-designed security systems built on industry-standard tools and best practices, including strict identity and access management across all services and infrastructure. The outcome isn't just safety; it's customer trust and higher product value.",
+    body: "Improving the security of products, cloud services, and infrastructure through well-designed security systems built on industry-standard tools and best practices, including strict identity and access management across all services and infrastructure. The outcome is not just safety; it is customer trust and higher product value.",
   },
   {
     title: "Advisory at the decision table.",
-    body: "I provide expert guidance in stakeholder meetings on solution implementation and migration, for internal projects and 10+ external customers, focused on the same question every time: how does this maximize profit or reduce cost?",
+    body: "Guidance in stakeholder meetings on solution implementation and migration, across internal projects and 10+ external customers, focused on the same question every time: how does this maximize profit or reduce cost?",
   },
   {
     title: "Monitoring, logging, and strategic infrastructure.",
-    body: "I implement infrastructure, monitoring, and logging strategically, not as afterthoughts, but as the things that maximize a product's value to its customers.",
+    body: "Infrastructure, monitoring, and logging implemented strategically, not as afterthoughts, but as the things that maximize a product's value to its customers.",
   },
   {
     title: "Leadership through mentorship.",
-    body: "I led the Cloud and Support team, mentoring engineers and steering the department toward service delivery aligned with company goals.",
+    body: "Led the Cloud and Support team, mentoring engineers and steering the department toward service delivery aligned with company goals.",
   },
 ];
 
@@ -369,7 +369,7 @@ export type FaqItem = {
 /** FAQ is content-managed in production (editable without redeploy). Sample seed below. */
 export const faqs: FaqItem[] = [
   {
-    question: "I'm completely new to cloud. Where do I actually start?",
+    question: "Completely new to cloud. Where does someone actually start?",
     answer:
       "Start Here is built for exactly this. It's an ordered path, not a pile of links, and the first resources are free. You don't need a background to begin; you need a route.",
   },
@@ -379,9 +379,9 @@ export const faqs: FaqItem[] = [
       "AI is very good at the tool. It's far weaker at the judgment, knowing which system to build, and why, given the business you're in. That judgment is the part worth building, and it's the part that lasts.",
   },
   {
-    question: "Do you work with teams as well as individuals?",
+    question: "Is the material written for teams as well as individuals?",
     answer:
-      "Yes. Advisory is focused on helping teams and leaders build business-aligned judgment. Start with an inquiry and we'll find the right shape.",
+      "Yes. The case studies and Field Kit sheets are written to be taken into a team's own review, and several of them are designed to be filled in by a group rather than one person.",
   },
   {
     question: "How do the live classes work?",
@@ -398,30 +398,30 @@ export type BioLength = {
 export const bios: BioLength[] = [
   {
     label: "Short (embed)",
-    text: "Builder, mentor, and boardroom translator, I build the systems that connect the technical floor to the boardroom, and grow the people who'll stand in both.",
+    text: "Builder, mentor, and boardroom translator. Dare Omotosho builds the systems that connect the technical floor to the boardroom, and grows the people who will stand in both.",
   },
   {
     label: "Medium",
-    text: "I work at the seam between engineering and the business, over five years across cloud and cybersecurity, as both an engineer and a technical mentor. I build business-aligned systems, restructure delivery to cut cost, and teach engineers to think like the business from the first system they build.",
+    text: "Dare Omotosho works at the seam between engineering and the business, over five years across cloud and cybersecurity, as both an engineer and a technical mentor: building business-aligned systems, restructuring delivery to cut cost, and teaching engineers to think like the business from the first system they build.",
   },
   {
     label: "Press (long)",
-    text: "I work at the seam between engineering and the business, building business-aligned systems and translating the technical floor to the boardroom and back. For more than five years I've worked across cloud and cybersecurity as both an engineer and a technical mentor, staying AWS-certified in Cloud Practitioner and Solutions Architect Associate because credibility in the room depends on still being able to do the work. As a technical mentor for Udacity's Cloud Developer program, the ALX AWS program, and currently ALX Cybersecurity, I've supported thousands of engineers across large global cohorts, sustaining live-session satisfaction above 90%, and I've helped shape how these programs run, co-authoring operational playbooks and a technical-mentor blueprint and integrating AI into core delivery. As AI makes running the tools easy, the durable edge becomes judgment, knowing which trade-off, which system, serves the business. I build the systems that connect the technical floor to the boardroom, and I grow the people who'll stand in both.",
+    text: "Dare Omotosho works at the seam between engineering and the business, building business-aligned systems and translating the technical floor to the boardroom and back. More than five years across cloud and cybersecurity as both an engineer and a technical mentor, AWS-certified in Cloud Practitioner and Solutions Architect Associate because credibility in the room depends on still being able to do the work. As a technical mentor for Udacity's Cloud Developer program, the ALX AWS program, and currently ALX Cybersecurity, he has supported thousands of engineers across large global cohorts, sustaining live-session satisfaction above 90%, and has helped shape how those programs run, co-authoring operational playbooks and a technical-mentor blueprint and integrating AI into core delivery. As AI makes running the tools easy, the durable edge becomes judgment: knowing which trade-off, which system, serves the business. He builds the systems that connect the technical floor to the boardroom, and grows the people who will stand in both.",
   },
 ];
 
 /** Long-form bio for /about, paragraph by paragraph (author's own copy). */
 export const bioStory: string[] = [
-  "For more than five years I've worked across cloud and cybersecurity, as both an engineer and a technical mentor. I stay AWS-certified in Cloud Practitioner and Solutions Architect Associate not for the badge, but because credibility in the room depends on still being able to do the work. I've designed hands-on projects that simulate real business challenges, restructured delivery to cut organizational cost, and resolved the kind of IAM and architecture issues that only surface under real load.",
-  "But the lesson that drives me came from teaching. As a technical mentor, for Udacity's Cloud Developer program, the ALX AWS program, and currently ALX Cybersecurity, I've supported thousands of engineers across large global cohorts, sustaining live-session satisfaction above 90% and helping learners reach certification and career readiness. Mentoring at every level isn't a side project; it's the conviction that engineers should think like the business from the first system they build.",
-  "I've also helped shape how these programs work: co-authoring operational playbooks and a technical-mentor blueprint, and contributing to organization-wide initiatives, including research, female-activation strategy, and the integration of AI into core delivery. That last thread matters to me most. As AI makes running the tools easy, the durable edge becomes judgment, knowing which trade-off, which system, serves the business. So I build AI into how I work and teach, while keeping the human judgment at the center.",
+  "For more than five years Dare Omotosho has worked across cloud and cybersecurity, as both an engineer and a technical mentor. He stays AWS-certified in Cloud Practitioner and Solutions Architect Associate not for the badge, but because credibility in the room depends on still being able to do the work. He has designed hands-on projects that simulate real business challenges, restructured delivery to cut organizational cost, and resolved the kind of IAM and architecture issues that only surface under real load.",
+  "The lesson that drives the work came from teaching. As a technical mentor for Udacity's Cloud Developer program, the ALX AWS program, and currently ALX Cybersecurity, he has supported thousands of engineers across large global cohorts, sustaining live-session satisfaction above 90% and helping learners reach certification and career readiness. Mentoring at every level is not a side project; it is the conviction that engineers should think like the business from the first system they build.",
+  "He has also helped shape how those programs work: co-authoring operational playbooks and a technical-mentor blueprint, and contributing to organization-wide initiatives, including research, female-activation strategy, and the integration of AI into core delivery. That last thread is the one that matters most. As AI makes running the tools easy, the durable edge becomes judgment: knowing which trade-off, which system, serves the business. So AI is built into how the work and the teaching happen, with human judgment kept at the centre.",
 ];
 
 /** A warm, human aside for /about. */
 export const bioPersonal =
-  "Off the cloud, you'll find me behind a drum kit, or deep in a business or psychology book chasing an idea worth building on.";
+  "Off the cloud, usually behind a drum kit, or deep in a business or psychology book chasing an idea worth building on.";
 
 /** The closing for /about, three roles set apart from the statement. */
 export const bioRoles = ["Builder", "Mentor", "Boardroom translator"];
 export const bioCloseText =
-  "I build the systems that connect the technical floor to the boardroom, and I grow the people who'll stand in both.";
+  "Building the systems that connect the technical floor to the boardroom, and growing the people who will stand in both.";

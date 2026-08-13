@@ -97,7 +97,7 @@ export default function InquiryForm({
         className={`text-body ${dark ? "text-amber" : "text-signature"}`}
         role="status"
       >
-        Thank you, your note is in. I read these personally and will reply soon.
+        Thank you, your note is in. These are read personally, and a reply follows soon.
       </p>
     );
   }
@@ -165,7 +165,7 @@ export default function InquiryForm({
           className={`text-small ${dark ? "text-amber" : "text-signature"}`}
           role="alert"
         >
-          Something went wrong sending that. Please try again, or email me directly
+          Something went wrong sending that. Please try again, or email directly at
           at{" "}
           <a href={`mailto:${contactEmail}`} className="underline">
             {contactEmail}

@@ -2,27 +2,27 @@ import type { Metadata } from "next";
 import PageBanner from "@/components/PageBanner";
 import Reveal from "@/components/Reveal";
 import Button from "@/components/Button";
-import InquiryForm from "@/components/InquiryForm";
 import { pageBanners } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Cloud and cybersecurity advisory",
+  title: "Advisory work",
   description:
-    "Cloud and cybersecurity advisory that builds business-aligned judgment into your team, outcomes, not hours.",
+    "A record of cloud and cybersecurity advisory work: what the engagements were for, how they ran, and what they left behind.",
 };
 
+/** What past advisory engagements were measured by, stated as outcomes. */
 const outcomes = [
   {
-    title: "Decisions that hold up",
-    body: "Architecture and spend choices your team can defend at the table, and live with a year later.",
+    title: "Decisions that held up",
+    body: "Architecture and spend choices the team could defend at the table, and live with a year later.",
   },
   {
-    title: "Judgment that compounds",
-    body: "Not a dependency on me, but a team that thinks in business terms after I've gone.",
+    title: "Judgment that compounded",
+    body: "Not a dependency on any one adviser, but a team that thought in business terms afterwards.",
   },
   {
     title: "Risk sized to reality",
-    body: "Security and resilience matched to the threat you actually face, not the one that sells fear.",
+    body: "Security and resilience matched to the threat actually faced, not the one that sells fear.",
   },
 ];
 
@@ -31,19 +31,20 @@ export default function AdvisoryPage() {
     <>
       <PageBanner
         image={pageBanners.advisory}
-        kicker="Advisory"
+        kicker="Advisory work"
         title="Judgment, built into the team."
         intro={
           <p>
-            Real cloud and cybersecurity advisory doesn't just fix the system,
-            it leaves your team able to make the next call themselves. I help
-            teams and leaders build business-aligned judgment, the ability to
-            see the decision inside the system, and to make it well. The goal
-            isn't to be needed twice. It's to leave the judgment behind.
+            A record of the advisory work, and the approach behind it. Real
+            cloud and cybersecurity advisory does not just fix the system, it
+            leaves the team able to make the next call themselves. These
+            engagements were built around business-aligned judgment: the ability
+            to see the decision inside the system, and to make it well. The
+            measure was never being needed twice.
           </p>
         }
       >
-        <Button href="#start" variant="accent">Start a conversation</Button>
+        <Button href="/work" variant="accent">See the systems</Button>
       </PageBanner>
 
       {/* ── Outcomes language. */}
@@ -51,8 +52,8 @@ export default function AdvisoryPage() {
         <div className="container-content py-10 sm:py-12">
           <Reveal>
             <h2 className="mx-auto max-w-2xl text-center font-serif text-h2 font-light text-signature">
-              Cloud and cybersecurity advisory for teams that want the judgment,
-              not just the fix.
+              Cloud and cybersecurity advisory for teams that wanted the
+              judgment, not just the fix.
             </h2>
           </Reveal>
           <div className="mt-7 grid gap-px overflow-hidden rounded-2xl border border-ink/[0.14] bg-ink/[0.14] sm:grid-cols-3">
@@ -70,39 +71,38 @@ export default function AdvisoryPage() {
       <section className="container-content py-12 sm:py-16">
         <Reveal>
           <div className="rounded-3xl bg-ink p-10 text-paper sm:p-16">
-            <p className="kicker text-amber">How I work</p>
+            <p className="kicker text-amber">How the work ran</p>
             <p className="mt-6 max-w-3xl font-serif text-h1 font-light leading-tight text-paper">
-              Engaged where the trade-offs are made, quietly, and with the people who
-              have to own the call.
+              Engaged where the trade-offs were made, quietly, and with the people who
+              had to own the call.
             </p>
             <p className="mt-8 max-w-2xl text-body text-paper/70">
               A small number of engagements at a time, sized to the decision rather than
-              the calendar. Premium, deliberate, and accountable to outcomes.
+              the calendar. Deliberate, and accountable to outcomes.
             </p>
           </div>
         </Reveal>
       </section>
 
-      {/* ── Inquiry form. */}
-      <section id="start" className="band-warm scroll-mt-20">
+      {/* ── Where to read more. This page is a record of work, not an offer,
+          so it closes by pointing at the work rather than at a form. */}
+      <section className="band-warm">
         <div className="container-content py-10 sm:py-12">
-          <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
-            <Reveal>
-              <h2 className="font-serif text-h1 font-light text-signature">
-                Start a conversation.
-              </h2>
-              <p className="mt-6 max-w-prose text-body text-ink">
-                A few lines on your situation and the outcome you're after is plenty. I
-                read every inquiry personally.
-              </p>
-            </Reveal>
-            <Reveal>
-              <InquiryForm
-                submitLabel="Send advisory inquiry"
-                subject="New advisory inquiry, dareomotosho.com"
-              />
-            </Reveal>
-          </div>
+          <Reveal className="text-center">
+            <h2 className="mx-auto max-w-2xl font-serif text-h1 font-light text-signature">
+              The systems behind the advice.
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl text-body text-ink">
+              The case studies set out the same decisions in full: what was
+              chosen, what it cost, and what it closed off.
+            </p>
+            <div className="mt-7 flex flex-wrap justify-center gap-4">
+              <Button href="/work" variant="accent">See the work</Button>
+              <Button href="/resources/case-studies" variant="ghost">
+                Read the case studies
+              </Button>
+            </div>
+          </Reveal>
         </div>
       </section>
     </>

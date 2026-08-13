@@ -32,14 +32,14 @@ export default function TermsPage() {
               Welcome. These Terms and Conditions (&ldquo;Terms&rdquo;) govern your
               access to and use of {SITE_URL} (the &ldquo;Site&rdquo;), operated by
               {" "}
-              {SITE_URL} (&ldquo;I,&rdquo; &ldquo;me,&rdquo; &ldquo;we&rdquo;).
+              {SITE_URL} (the &ldquo;Site&rdquo;, and &ldquo;the Site operator&rdquo;).
             </p>
             <p className="mt-4">
               By accessing or using the Site, you agree to be bound by these Terms. If
               you do not agree, please do not use the Site.
             </p>
             <p className="mt-4">
-              I may update these Terms from time to time. The &ldquo;Last updated&rdquo;
+              These Terms may be updated from time to time. The &ldquo;Last updated&rdquo;
               date at the top will reflect the most recent change. Continued use of the
               Site after changes means you accept the updated Terms.
             </p>
@@ -69,7 +69,7 @@ export default function TermsPage() {
                 resources
               </li>
               <li>
-                Information about my professional work, speaking engagements, and
+                Information about professional work, speaking engagements, and
                 advisory services
               </li>
               <li>Signup for live classes, events, and email updates</li>
@@ -92,12 +92,12 @@ export default function TermsPage() {
 
           <div>
             <h2 className="font-serif text-h2 font-light text-signature">
-              4. My content: what you can and can&rsquo;t do
+              4. Site content: what you can and can&rsquo;t do
             </h2>
             <p className="mt-4">
               The content on this Site, including case studies, written explanations,
               question-and-answer material, articles, images, and design, is owned by
-              me or licensed to me, and is protected by copyright and other
+              the Site operator or licensed to it, and is protected by copyright and other
               intellectual property laws.
             </p>
             <p className="mt-4 font-medium text-signature">You may:</p>
@@ -113,14 +113,14 @@ export default function TermsPage() {
             <ul className="mt-2 list-disc space-y-2 pl-6">
               <li>
                 Republish, redistribute, or repost substantial portions of the content
-                on other sites, in publications, in courses, or elsewhere without my
+                on other sites, in publications, in courses, or elsewhere without
                 written permission
               </li>
               <li>Sell, license, or commercialize any of the content</li>
               <li>Modify the content and present it as your own</li>
               <li>
                 Use the content to train machine learning models or AI systems without
-                my written permission
+                written permission
               </li>
               <li>
                 Use automated tools (scrapers, bots) to systematically extract content
@@ -136,10 +136,10 @@ export default function TermsPage() {
               your completed copy inside your own organisation &mdash; in a design
               review, an access review, a budget conversation &mdash; including
               where that organisation is a commercial one. Anything you write into
-              a sheet is yours, and I never see it.
+              a sheet is yours, and the Site never sees it.
             </p>
             <p className="mt-4">
-              What still needs my written permission: republishing a blank sheet
+              What still needs written permission: republishing a blank sheet
               elsewhere, redistributing it outside your organisation, putting it
               into a paid or public course, presenting it as your own work, or
               removing the attribution it carries.
@@ -147,7 +147,7 @@ export default function TermsPage() {
             <p className="mt-4">
               If you would like to use content in a way not permitted above, including
               using it in your own teaching, training programs, or business, contact
-              me. Most reasonable requests receive a &ldquo;yes.&rdquo;
+              the Site. Most reasonable requests receive a &ldquo;yes.&rdquo;
             </p>
           </div>
 
@@ -165,23 +165,23 @@ export default function TermsPage() {
                 anyone else&rsquo;s rights
               </li>
               <li>
-                You grant me a non-exclusive, worldwide, royalty-free license to
+                You grant the Site operator a non-exclusive, worldwide, royalty-free license to
                 display, edit for clarity or length, categorize, and keep your
                 submission available on the Site as part of the content library
               </li>
               <li>
-                You may request removal of your submission at any time by contacting me
+                You may request removal of your submission at any time by getting in touch
               </li>
               <li>
                 If you provided your name with the submission, it may be displayed
                 publicly alongside your question. If you did not provide a name, your
                 submission will remain anonymous
               </li>
-              <li>I may decline to publish any submission, at my discretion</li>
+              <li>Any submission may be declined for publication, at the Site operator&rsquo;s discretion</li>
             </ul>
             <p className="mt-4">
               You retain ownership of the underlying content you submit; the license
-              above is what allows me to publish and maintain it on the Site.
+              above is what allows it to be published and maintained on the Site.
             </p>
           </div>
 
@@ -196,7 +196,7 @@ export default function TermsPage() {
               <li>You are responsible for the accuracy of the information you provide</li>
               <li>
                 Details of live classes and events (schedule, format, availability) may
-                change; I will make reasonable effort to communicate changes in advance
+                change; reasonable effort will be made to communicate changes in advance
               </li>
               <li>
                 Free classes and resources are provided as-is, with no guarantee of
@@ -204,7 +204,7 @@ export default function TermsPage() {
               </li>
               <li>
                 You may unsubscribe from emails or withdraw from a class at any time;
-                contact me or use the unsubscribe link in emails
+                get in touch or use the unsubscribe link in emails
               </li>
               <li>
                 The Field Kit is opened by leaving your email once. That address
@@ -246,7 +246,7 @@ export default function TermsPage() {
               </li>
             </ul>
             <p className="mt-4">
-              I reserve the right to remove content, block access, or take other action
+              The Site operator reserves the right to remove content, block access, or take other action
               against users who violate these Terms.
             </p>
           </div>
@@ -284,9 +284,9 @@ export default function TermsPage() {
               specific situation.
             </p>
             <p className="mt-4">
-              If you are interested in direct professional advice, my advisory services
-              are separate from the Site&rsquo;s content and are governed by their own
-              engagement terms.
+              Where direct professional advice is needed, consult a qualified
+              professional. The Site describes past work; it does not offer
+              professional services, and nothing on it forms an engagement.
             </p>
           </div>
 
@@ -301,16 +301,16 @@ export default function TermsPage() {
                 available,&rdquo; without warranties of any kind, express or implied
               </li>
               <li>
-                I do not warrant that the Site will be uninterrupted, error-free, or
+                There is no warranty that the Site will be uninterrupted, error-free, or
                 free of harmful components
               </li>
               <li>
-                I am not liable for any indirect, incidental, special, consequential, or
+                The Site operator is not liable for any indirect, incidental, special, consequential, or
                 punitive damages arising out of your use of, or inability to use, the
                 Site or its content
               </li>
               <li>
-                I am not liable for any losses resulting from your reliance on Site
+                The Site operator is not liable for any losses resulting from your reliance on Site
                 content, including but not limited to system misconfiguration, security
                 incidents, financial loss, or business impact
               </li>
@@ -328,7 +328,7 @@ export default function TermsPage() {
             </h2>
             <p className="mt-4">
               The Site may link to third-party websites or services (for example,
-              external articles, tools, or platforms referenced in content). I am not
+              external articles, tools, or platforms referenced in content). The Site operator is not
               responsible for the content, policies, or practices of any third-party
               site. Following such links is at your own risk.
             </p>
@@ -339,8 +339,8 @@ export default function TermsPage() {
               11. Suspension and termination
             </h2>
             <p className="mt-4">
-              I may suspend or terminate your access to the Site at any time, with or
-              without notice, if you violate these Terms or if I discontinue any part of
+              Your access to the Site may be suspended or terminated at any time, with or
+              without notice, if you violate these Terms or if the Site operator discontinues any part of
               the Site.
             </p>
             <p className="mt-4">
