@@ -16,12 +16,12 @@ Half of what you are about to learn has an expiry date and nobody tells you whic
 half. This page sorts it before you spend the evening, and gives you three lines to
 leave behind so the next engineer inherits the reasoning instead of the steps.
 
-**What it is:** a sorting pass over your learning list, plus three lines you paste
-into anything you write down.
-**Who fills it in:** you, on your own. Nobody needs to approve this.
-**When:** before you start the next course, doc or tutorial — and again whenever you
-finish writing something someone else will read.
-**Time:** ten minutes for the list. Two minutes for the three lines.
+- **What it is:** a sorting pass over your learning list, plus three lines you paste
+  into anything you write down.
+- **Who fills it in:** you, on your own. Nobody needs to approve this.
+- **When:** before you start the next course, doc or tutorial — and again whenever you
+  finish writing something someone else will read.
+- **Time:** ten minutes for the list. Two minutes for the three lines.
 
 ## How to fill it in
 

@@ -16,10 +16,10 @@ Every design review makes at least one choice the business will still be paying 
 years from now, and nothing in a normal review asks which one. This page is the
 missing field — four lines, filled in while the decision is still being made.
 
-**What it is:** four lines you fill in for one decision, in the room, at the time.
-**Who fills it in:** whoever is running the review. Not finance — they are not there.
-**When:** during the design review, before it ends. Not written up afterwards.
-**Time:** three minutes per decision. Fewer decisions need it than you think.
+- **What it is:** four lines you fill in for one decision, in the room, at the time.
+- **Who fills it in:** whoever is running the review. Not finance — they are not there.
+- **When:** during the design review, before it ends. Not written up afterwards.
+- **Time:** three minutes per decision. Fewer decisions need it than you think.
 
 ## How to fill it in
 

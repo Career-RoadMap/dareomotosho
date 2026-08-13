@@ -16,12 +16,12 @@ Your access review wrote down what the agent can reach. This page writes down th
 other half: every place its words come from, and who is allowed to put words there.
 One agent, one page, about twenty minutes.
 
-**What it is:** a table of every input channel your agent has, and who can write to it.
-**Who fills it in:** whoever configured the agent. You will not need anyone else for
-the first pass.
-**When:** now, for the agent you already have — and again every time it is given a new
-source to read.
-**Time:** about twenty minutes for the first agent. Ten for the next one.
+- **What it is:** a table of every input channel your agent has, and who can write to it.
+- **Who fills it in:** whoever configured the agent. You will not need anyone else for
+  the first pass.
+- **When:** now, for the agent you already have — and again every time it is given a new
+  source to read.
+- **Time:** about twenty minutes for the first agent. Ten for the next one.
 
 ## How to fill it in
 
