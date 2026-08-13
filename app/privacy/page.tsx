@@ -71,9 +71,9 @@ export default function PrivacyPage() {
                 they appear publicly.
               </li>
               <li>
-                Inquiry and booking details &mdash; name, email, and message content
-                when you send an advisory, speaking, or contact inquiry, or book a
-                call through the scheduling link.
+                Contact and scheduling details &mdash; name, email, and message content
+                when you send a message through the Site, or pick a time through
+                the scheduling link.
               </li>
               <li>
                 Email address &mdash; when you open The Field Kit (the free
@@ -211,8 +211,8 @@ export default function PrivacyPage() {
                 </a>
               </li>
               <li>
-                Calendly &mdash; appointment scheduling when you book a call
-                (processes the details you enter on Calendly&rsquo;s booking page).{" "}
+                Calendly &mdash; appointment scheduling when you pick a time
+                (processes the details you enter on Calendly&rsquo;s scheduling page).{" "}
                 <a
                   href="https://calendly.com/legal/privacy-notice"
                   target="_blank"

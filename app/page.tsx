@@ -27,8 +27,8 @@ const doors = [
   },
   {
     href: "/speaking",
-    label: "Speaking engagements",
-    body: "Opinions worth booking, and advisory at the decision table.",
+    label: "Speaking",
+    body: "Talks on cloud engineering and security governance, and the thinking behind them.",
   },
 ];
 

@@ -284,9 +284,9 @@ export default function TermsPage() {
               specific situation.
             </p>
             <p className="mt-4">
-              Where direct professional advice is needed, the advisory pages
-              are separate from the Site&rsquo;s content and are governed by their own
-              engagement terms.
+              Where direct professional advice is needed, consult a qualified
+              professional. The Site describes past work; it does not offer
+              professional services, and nothing on it forms an engagement.
             </p>
           </div>
 

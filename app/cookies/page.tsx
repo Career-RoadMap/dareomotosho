@@ -204,8 +204,8 @@ export default function CookiesPage() {
               The service providers that support this Site (Vercel for hosting,
               Supabase for the database, Resend for email, GitHub for automation)
               may set their own cookies as part of delivering their services.
-              Calendly sets its own cookies on its booking page, which opens
-              separately when you book a call. These are governed by their own
+              Calendly sets its own cookies on its scheduling page, which opens
+              separately when you pick a time. These are governed by their own
               cookie and privacy policies:
             </p>
             <ul className="mt-2 list-disc space-y-2 pl-6">

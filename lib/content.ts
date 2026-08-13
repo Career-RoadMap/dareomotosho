@@ -379,9 +379,9 @@ export const faqs: FaqItem[] = [
       "AI is very good at the tool. It's far weaker at the judgment, knowing which system to build, and why, given the business you're in. That judgment is the part worth building, and it's the part that lasts.",
   },
   {
-    question: "Do you work with teams as well as individuals?",
+    question: "Is the material written for teams as well as individuals?",
     answer:
-      "Yes. Advisory is focused on helping teams and leaders build business-aligned judgment. Start with an inquiry and we'll find the right shape.",
+      "Yes. The case studies and Field Kit sheets are written to be taken into a team's own review, and several of them are designed to be filled in by a group rather than one person.",
   },
   {
     question: "How do the live classes work?",
