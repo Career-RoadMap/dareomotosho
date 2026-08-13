@@ -13,6 +13,24 @@
 # Before this existed, delivery was a person copying files between two chats.
 # On 2026-08-13 three kits were written, published, reported finished — and never
 # reached the site, because nothing was carrying them and nothing was watching.
+#
+# WHY THERE ARE TWO CHECKOUTS OF THE SAME REPO. The first version of this file
+# used one, and the website's own review made the right catch: it executed a
+# script fetched at run time, unattended, with `contents: write` on this repo.
+# Anyone who could push to Forge could run code in this CI and commit to main.
+#
+# That review concluded a SHA pin would not help, because pinning the checkout
+# would freeze the kit content along with the script. True of ONE checkout —
+# which is why there are two. `scripts/` comes from a pinned commit, so the code
+# that runs here is fixed and reviewable. `content/` comes from the head, so the
+# kits stay live. The coupling was an artefact of the single checkout, not a
+# property of the design.
+#
+# The cost, stated honestly: when deliver_kits.py changes, FORGE_SCRIPTS_REF has
+# to be bumped here, by hand. That is rare — the script reads frontmatter and
+# writes a file — and it is self-detecting: Forge reads this site every evening
+# and comments on Notion when the kits here stop matching what it has written.
+# A stale pin shows up as "kits owed" on a phone, not as silence.
 
 name: forge-sync
 
@@ -23,6 +41,12 @@ on:
 
 permissions:
   contents: write                # commits new kits into contents/resources/
+
+env:
+  # The Forge commit whose scripts/ this job is allowed to execute. Bump it
+  # deliberately, after reading the diff — that review IS the control this pin
+  # buys. A branch name here would hand the property straight back.
+  FORGE_SCRIPTS_REF: "5d293f00985c0c8acef2af6192636f7bf6954106"
 
 concurrency:
   group: forge-sync
@@ -40,15 +64,26 @@ jobs:
       # actions/checkout handles the token rather than a URL with credentials in
       # it — the token never reaches a log line, and never reaches the git config
       # of a directory this job later commits from.
-      - name: Check out Forge (read-only token, contents only)
+      #
+      # THE CODE: pinned. This is the only Forge content this job executes.
+      - name: Check out the Forge scripts at a pinned commit
+        uses: actions/checkout@v4
+        with:
+          repository: DareOmotosho-Com/Dare-s-Forge
+          ref: ${{ env.FORGE_SCRIPTS_REF }}
+          token: ${{ secrets.FORGE_READ_TOKEN }}
+          path: .forge-code
+          sparse-checkout: scripts
+
+      # THE KITS: live. Data, never executed — so it does not need pinning, and
+      # pinning it would defeat the entire point of a sync.
+      - name: Check out the Forge content at its head
         uses: actions/checkout@v4
         with:
           repository: DareOmotosho-Com/Dare-s-Forge
           token: ${{ secrets.FORGE_READ_TOKEN }}
-          path: .forge-src
-          sparse-checkout: |
-            content
-            scripts
+          path: .forge-content
+          sparse-checkout: content
 
       - uses: actions/setup-python@v5
         with:
@@ -64,12 +99,14 @@ jobs:
       - name: Copy the kits in
         run: |
           set -euo pipefail
-          python .forge-src/scripts/deliver_kits.py --export contents/resources
+          python .forge-code/scripts/deliver_kits.py \
+            --content .forge-content/content \
+            --export contents/resources
 
       - name: Commit anything new
         run: |
           set -euo pipefail
-          rm -rf .forge-src
+          rm -rf .forge-code .forge-content
           git config user.name  "forge-sync[bot]"
           git config user.email "forge-sync@users.noreply.github.com"
           git add contents/resources
