@@ -106,6 +106,35 @@ Both first-party cookies are `SameSite=Lax; Secure`. `app/cookies/page.tsx`
 names them and the two matching local-storage keys; keep that page in step with
 any change here, and with `app/privacy/page.tsx`.
 
+## Short share links
+
+A tracked URL is unreadable when it is shared, so `/go/<code>` carries the UTM
+parameters instead of the shared string:
+
+```
+dareomotosho.com/go/w33
+  → /resources/field-kit?utm_source=youtube&utm_medium=short
+     &utm_campaign=cost-own-2026w33&utm_content=spark-the-wrong-question
+```
+
+147 characters becomes 31, and analytics still sees every parameter, because
+they are attached on arrival rather than removed.
+
+Add one by appending an entry to `shortLinks` in `lib/links.ts`; the defaults
+(YouTube short → the Field Kit shelf) make most entries two lines. Codes match
+case-insensitively, because they get retyped by hand out of video descriptions.
+
+Two deliberate choices worth keeping:
+
+- **They live on this domain, not a shortener.** bit.ly or lnkd.in would put a
+  third party between the viewer and the site, can be blocked or rate-limited,
+  dies with that company, and hands them the click.
+- **`307`, and an unknown code never 404s.** The redirect is temporary so a
+  destination can be repointed without a permanently cached 301 fighting it,
+  and a mistyped code lands on the shelf, tagged `utm_campaign=unknown-code` so
+  it is visible in analytics. Codes in a published video description are
+  effectively permanent: add a new one, never repurpose an old one.
+
 ## Content sources
 
 - **Episode kits** — markdown in `contents/resources/`. Dropping a file in is

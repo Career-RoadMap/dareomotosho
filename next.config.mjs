@@ -94,6 +94,12 @@ const nextConfig = {
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },
       {
+        // Short share links are redirects, not content. robots.txt already
+        // disallows them; this covers a crawler that fetches the URL anyway.
+        source: "/go/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+      {
         // Static artwork changes rarely; let browsers keep it for a day and
         // serve stale for a week while revalidating in the background.
         source: "/:dir(banners|portraits)/:path*",
