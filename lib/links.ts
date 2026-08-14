@@ -60,9 +60,27 @@ export const shortLinks: ShortLink[] = [
     code: "w33",
     campaign: "cost-own-2026w33",
     content: "spark-the-wrong-question",
-    note: "Cloud cost is an org chart problem — the short that opens on the wrong question.",
+    note: "Cloud cost is an org chart problem — the YouTube short.",
+  },
+  {
+    code: "w33li",
+    campaign: "cost-own-2026w33",
+    content: "empathy",
+    source: "linkedin",
+    medium: "post",
+    note: "Same campaign, the LinkedIn post. Replaces a buff.ly link that Buffer generated automatically and that times out on some networks.",
   },
 ];
+
+/**
+ * Naming: <episode-tag> for the YouTube short, plus a platform suffix for
+ * anything else in the same campaign (w33 → w33li). Keep them lowercase and
+ * short enough to retype from a description without a typo.
+ *
+ * If a scheduler is in the loop — Buffer, Hootsuite, Later — turn its own
+ * link shortening OFF before posting. Otherwise it rewrites these into its
+ * own domain, and the whole point of owning the redirect is lost.
+ */
 
 /** Look-up table, lowercased once at module load. */
 const byCode = new Map(shortLinks.map((l) => [l.code.toLowerCase(), l]));
