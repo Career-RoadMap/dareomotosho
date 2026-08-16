@@ -46,7 +46,7 @@ decision is made, not in next month's report.
 
 | | *(example — replace it)* | Option A | Option B | Option C |
 |---|---|---|---|---|
-| What it is, one line | *the managed queue the vendor hosts for us* | | | |
+| What it is, one line | *the message tray the vendor runs for us* | | | |
 | Monthly cost at today's scale | *figure from the vendor's calculator* | | | |
 | Monthly cost at ten times the scale | *unknown — pricing tier changes, flag it* | | | |
 | Who answers for this line item | *a name, not a team* | | | |

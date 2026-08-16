@@ -27,8 +27,7 @@ One agent, one page, about twenty minutes.
 
 1. **Open the agent's configuration and work top to bottom.** Do not do this from
    memory. Memory produces the channels you meant to give it, not the ones it has.
-2. **Write one row for every place text comes from.** Start with the obvious ones —
-   the system prompt, the ticket queue, the inbox, the documents. Then keep going to
+2. **Write one row for every place text comes from.** Start with the obvious ones — the instructions you wrote for it, the tickets waiting to be handled, the inbox, the documents. Then keep going to
    the ones that do not feel like inputs: file names, page titles, calendar invites,
    code comments, log lines, anything it fetches from the open web. If text from it
    reaches the model, it is a row.

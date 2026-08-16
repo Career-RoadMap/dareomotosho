@@ -12,7 +12,9 @@ date: 2026-08-13
 
 **From the episode:** *A cheaper model is not a cheaper system.*
 
-Somebody is asking you to approve a switch on the strength of a per-unit price.
+Somebody is asking you to approve a switch on the strength of a per-unit price. The unit
+is a chunk of text the tool reads or writes — the industry word for that chunk is a
+**token** — and the price of one says nothing about how many the system will use.
 This page fills in the two numbers that decide it and are not on the slide — what
 the system will do differently, and what leaving would cost.
 

@@ -22,8 +22,7 @@ is a reading exercise instead of an excavation.
 
 ## How to use it
 
-1. **Catch the moment.** Your team just accepted a vendor's default — the built-in
-   queue, the identity system, the storage format. That moment is the trigger.
+1. **Catch the moment.** Your team just accepted a vendor's default — their way of holding work until it is picked up, their way of handling logins, their file format. That moment is the trigger.
 2. **Add one line to the table below.** What you took, what you passed on, why, and
    who decided. Write it the way you would say it out loud.
 3. **Keep the log where your design docs already live.** Not a new tool — a page

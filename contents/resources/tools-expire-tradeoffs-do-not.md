@@ -55,8 +55,7 @@ The first row is an example. Replace it.
 
 **What goes in each column:**
 
-- **What I am about to learn** — name the actual thing. "Kubernetes" is too big to
-  sort; "how our ingress routes traffic" is a row.
+- **What I am about to learn** — name the actual thing. "Kubernetes" — or whatever the big platform word is where you work — is too big to sort; "how traffic arriving from outside gets routed to the right part of our system" is a row.
 - **Product fact or problem fact** — product, problem, or both. If you cannot tell,
   write **cannot tell** and move on. That answer is honest and it is common; a row
   you cannot sort is worth noticing, not worth guessing at.
@@ -67,8 +66,7 @@ The first row is an example. Replace it.
 
 ## Part 2 — the three lines
 
-Paste these into the bottom of the next design doc, runbook or handover note you
-write. Answer them in your own words. This is the whole of *write down what it cost
+Paste these into the bottom of the next design document, written procedure or handover note you write. Answer them in your own words. This is the whole of *write down what it cost
 you*:
 
 **What we chose:**
@@ -99,4 +97,4 @@ If you can only manage one, make it the second.
 Two things. Your learning hours stop leaking into material that will not be true by
 the time you need it — and the next person to open your document gets the reasoning,
 not a list of steps that stopped working. That document is still worth opening in two
-years. The runbook beside it is not.
+years. The step-by-step procedure beside it is not.

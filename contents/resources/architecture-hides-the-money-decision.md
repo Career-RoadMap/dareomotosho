@@ -27,8 +27,7 @@ missing field — four lines, filled in while the decision is still being made.
 1. **Pick the decisions that are hard to undo.** Not every choice needs this page. Ask
    one thing: if we wanted out of this in two years, would that be an afternoon or a
    project? Afternoon, skip it. Project, fill this in.
-2. **Write the decision in one sentence, in plain words.** "We are using the managed
-   queue" — not a diagram reference, not a ticket number. Somebody who was not in the
+2. **Write the decision in one sentence, in plain words.** "We are paying the vendor to run the part that holds work until something is ready to process it" — not a diagram reference, not a ticket number. Somebody who was not in the
    room has to be able to read it.
 3. **Then answer the commitment line: what does this commit us to paying for, and for
    how long?** This is the whole point of the page. Money, licences, headcount,

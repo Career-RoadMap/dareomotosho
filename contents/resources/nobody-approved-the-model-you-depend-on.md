@@ -27,9 +27,7 @@ procurement would have asked if anyone had shown it the door.
 1. **Find them by reading the config, not by remembering.** Model names live in
    environment variables, config files, SDK calls and someone's notebook. Memory
    gives you the ones you chose deliberately, which are not the problem.
-2. **Include the hosted ones.** A model you call over an API is still a supplier —
-   more obviously so, in fact, because there are terms and an invoice. If your
-   product stops working when that endpoint stops, it is a row.
+2. **Include the hosted ones.** A model your software talks to over the internet, rather than one you run yourself, is still a supplier — more obviously so, in fact, because there are terms and an invoice. If your product stops working when theirs does, it is a row.
 3. **Answer column two with a place, not a brand.** "From the vendor's own API" and
    "from a public registry, uploaded by an account we know nothing about" are very
    different answers, and only one of them needs a conversation.

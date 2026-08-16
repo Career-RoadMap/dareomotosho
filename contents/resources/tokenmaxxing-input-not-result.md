@@ -12,7 +12,8 @@ date: 2026-08-11
 
 **From the episode:** *Tokenmaxxing is measuring the input.*
 
-Token spend is an input. Spending more of it is not evidence anything improved —
+These tools are billed by the chunk of text they read and write — the industry word for
+that chunk is a **token**. Token spend is an input. Spending more of it is not evidence anything improved —
 any more than a rising cloud bill was. This audit asks the one question that
 separates spend from result: what decision changed because the tool was there?
 

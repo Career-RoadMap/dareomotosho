@@ -53,23 +53,23 @@ almost everybody leaves out.
 
 | # | The pair | Your sentence |
 |---|---|---|
-| 1 | One database for everything, or one per service | |
-| 2 | Synchronous call, or a queue | |
-| 3 | Cache it, or make the query faster | |
-| 4 | Split the service now, or wait until it hurts | |
-| 5 | Retry automatically, or fail loudly | |
-| 6 | Managed service, or run it yourself | |
-| 7 | Strong consistency, or availability | |
-| 8 | Schema now, or schema later | |
-| 9 | Batch it nightly, or stream it | |
-| 10 | Build the admin tool, or do it by hand for now | |
+| 1 | One store for all the data, or one per part of the system | |
+| 2 | Handle the work there and then, or leave it in a tray for later — that tray is called a queue | |
+| 3 | Keep a nearby copy of the answer — that is a cache — or make the original lookup faster | |
+| 4 | Break one big piece of software into smaller ones now, or wait until it hurts | |
+| 5 | Quietly try again when something fails, or stop and tell somebody | |
+| 6 | Pay a vendor to run it, or run it yourself | |
+| 7 | Everyone always sees the same answer, or the system stays up even when parts of it cannot agree | |
+| 8 | Decide the shape of the data now, or leave it loose and decide later | |
+| 9 | Do it all once a night, or handle each thing as it arrives | |
+| 10 | Build the internal tool for it, or do it by hand for now | |
 
 ### One worked example
 
 *This is an example, not a model answer. There is no model answer — that is the
 point of the round.*
 
-> **Pair 5 — retry automatically, or fail loudly.**
+> **Pair 5 — quietly try again, or stop and tell somebody.**
 >
 > "I would go with failing loudly, because a retry hides the failure from whoever
 > needs to know about it, and the second time it happens I want a human to have

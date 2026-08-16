@@ -26,8 +26,7 @@ working when nothing is finishing.
 
 1. **Write down one thing that beat you recently.** A task you could not finish, an
    error you could not read, a concept that would not go in. Be specific enough
-   that you could try it again — "networking" is not it, "could not work out why
-   the container could not reach the database" is.
+   that you could try it again — "networking" is not it, "could not work out why one part of the app could not reach the database" is.
 2. **Write what you will be able to do in a few months that you cannot do today.**
    **It must have a verb in it.** *Do*, not *know*. "Read a stack trace and say
    where to start looking" is checkable. "Understand debugging" is not, and an
@@ -67,8 +66,7 @@ working when nothing is finishing.
 
 *(example — replace all of it)*
 
-> *Something that beat me: could not work out why the container could not reach the
-> database. By November I will be able to: work through a connection failure and say
+> *Something that beat me: could not work out why one part of the app could not reach the > database. By November I will be able to: work through a connection failure and say
 > which layer it is in, without looking up the order. How I will check: rebuild that
 > same broken setup and try again, with a timer. If the answer is no: ask the person
 > in the study group who does networking, and give it another two months — one no

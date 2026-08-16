@@ -34,8 +34,7 @@ outside your company asks you a fair question you cannot answer.
    sent to a person outside the building. If it does not reach outside, it stays in
    the ordinary trace and off this page.
 3. **For each marked action, name who would ask.** A customer, an auditor, a
-   regulator, your board, a journalist. If nobody would ever ask, unmark it — you
-   have just saved the latency.
+   regulator, your board, a journalist. If nobody would ever ask, unmark it — you have just saved the system the time it takes to write that down.
 4. **Write the sentence the agent should produce.** One line, plain language,
    readable by the person in column three. It has to say what it was trying to
    achieve and what it chose not to do. If you cannot write the template yourself,
