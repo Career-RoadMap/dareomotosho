@@ -30,7 +30,7 @@ One agent, one page, about twenty minutes.
 2. **Write one row for every place text comes from.** Start with the obvious ones — the instructions you wrote for it, the tickets waiting to be handled, the inbox, the documents. Then keep going to
    the ones that do not feel like inputs: file names, page titles, calendar invites,
    code comments, log lines, anything it fetches from the open web. If text from it
-   reaches the model, it is a row.
+   reaches the AI model driving the agent, it is a row.
 3. **Fill in the "who can write here" column, honestly and specifically.** This is the
    column the page exists for. "The team" is not an answer. "Anyone who can email
    support@" is an answer, and so is "any customer, through the feedback form".

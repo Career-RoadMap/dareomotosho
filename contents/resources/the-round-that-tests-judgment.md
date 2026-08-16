@@ -1,8 +1,8 @@
 ---
 title: The Trade-off Drill
 slug: the-round-that-tests-judgment
-episode: The one interview that tests judgment
-takeaway: "Say the cost of the option you chose."
+episode: What the system design interview is actually testing
+takeaway: "Say the cost of the tool you chose."
 domain: career
 audience: practitioner
 date: 2026-08-15
@@ -10,13 +10,14 @@ date: 2026-08-15
 
 # The Trade-off Drill
 
-**From the episode:** *The one interview that tests judgment.*
+**From the episode:** *What the system design interview is actually testing.*
 
-The design round is not listening for whether you know the components. It is
-listening for whether you can choose between two costly options out loud. This
-page is the drill for that, and it works on a walk.
+The system design interview — the one where somebody asks you to design a whole
+system at a whiteboard — is not listening for whether you can name the tools. It is
+listening for whether you can choose between two of them out loud and say what the
+choice cost. This page is the drill for that, and it works on a walk.
 
-- **What it is:** ten pairs, and one sentence to say about each.
+- **What it is:** ten pairs of tools, and one sentence to say about each.
 - **Who fills it in:** you, out loud first and on paper second. The sentence has to
   survive being said.
 - **When:** ten minutes a day for the week before. Not the night before.
@@ -34,13 +35,15 @@ almost everybody leaves out.
 
 ## How to do it
 
-1. **Pick a pair.** Any two options that both cost something. Ten are listed below;
-   your own are better, because they come from work you have actually touched.
+1. **Pick a pair.** Any two tools that do roughly the same job and cost different
+   things. Ten are listed below; your own are better, because they come from work you
+   have actually touched.
 2. **Choose before you are ready.** Out loud, within about fifteen seconds. Being
-   unsure is the condition the round is testing, not a reason to wait.
-3. **Say the cost of what you chose.** Not the benefit — the benefit is why you
+   unsure is the condition the system design interview is testing, not a reason to
+   wait.
+3. **Say the cost of the tool you chose.** Not the benefit — the benefit is why you
    chose it and it says nothing. The cost is the evidence that you understood the
-   other option.
+   other tool.
 4. **Name what you would check.** One thing that would change your mind. This is
    what separates a decision from an opinion, and it is the part that makes an
    interviewer relax.
@@ -67,7 +70,7 @@ almost everybody leaves out.
 ### One worked example
 
 *This is an example, not a model answer. There is no model answer — that is the
-point of the round.*
+point of the system design interview.*
 
 > **Pair 5 — quietly try again, or stop and tell somebody.**
 >
@@ -97,5 +100,6 @@ the table and the thing that would change it named.
 
 ## What this protects you from
 
-Walking into the one round that tests judgment having practised recall. The concept
-list is the entry fee and you probably already have it. This is the other thing.
+Walking into the system design interview having practised recall. Being able to name
+the tools is the part you probably already have. Choosing between two of them out
+loud is the thing actually being listened for.

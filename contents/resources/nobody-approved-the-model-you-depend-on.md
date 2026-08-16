@@ -1,8 +1,8 @@
 ---
 title: The Unsigned Inventory
 slug: nobody-approved-the-model-you-depend-on
-episode: Nobody approved the model you depend on
-takeaway: "Send the model through procurement."
+episode: Nobody approved the AI model you depend on
+takeaway: "Send the AI model through procurement."
 domain: security
 audience: practitioner
 date: 2026-08-13
@@ -10,7 +10,7 @@ date: 2026-08-13
 
 # The Unsigned Inventory
 
-**From the episode:** *Nobody approved the model you depend on.*
+**From the episode:** *Nobody approved the AI model you depend on.*
 
 Every third-party thing in your building was signed for except the ones that
 arrived as a download. This page lists them and answers the four questions
