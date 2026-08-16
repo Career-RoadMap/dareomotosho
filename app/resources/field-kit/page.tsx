@@ -45,10 +45,12 @@ export default async function FieldKitPage() {
         <p className="mt-4 text-body text-ink">
           Every episode ends with a tool. Take it into your next review.
         </p>
-        <p className="mt-3 text-small text-ink/70">
-          Leave your email once and all of them open, including every future
-          one, each with the sheet yours to download.
-        </p>
+        {resources.length > 0 && (
+          <p className="mt-3 text-small text-ink/70">
+            Leave your email once and all of them open, including every future
+            one, each with the sheet yours to download.
+          </p>
+        )}
       </Reveal>
 
       {resources.length > 0 ? (
@@ -58,9 +60,24 @@ export default async function FieldKitPage() {
           ))}
         </ul>
       ) : (
-        <p className="mt-10 text-body text-ink/70">
-          The first kit lands with the next episode.
-        </p>
+        /* Empty shelf. Each kit is published alongside the episode it belongs
+           to, so this state is normal between episodes rather than an error —
+           say what the reader is waiting for, and promise no date we would
+           then have to keep. */
+        <div className="mt-10 max-w-xl rounded-lg border border-ink/[0.09] bg-ink/[0.02] p-6 sm:p-8">
+          <p className="text-body text-ink">
+            No kits on the shelf yet.
+          </p>
+          <p className="mt-3 text-small text-ink/70">
+            Each kit is published alongside the episode it belongs to — the
+            episode walks through the thinking, and the kit is the page you
+            fill in straight afterwards. They appear here as the episodes go
+            out.
+          </p>
+          <Link href="/resources" className="link-quiet mt-5 inline-block text-small">
+            Browse the rest of the library →
+          </Link>
+        </div>
       )}
     </div>
   );

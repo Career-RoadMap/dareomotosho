@@ -1,0 +1,12 @@
+Keeps contents/resources/ in the repo while no kit is published.
+
+A Field Kit is the second half of an episode, not a standalone page: the
+video's closing lines point at it. So a kit's file lands here on the day its
+video publishes, one at a time, and never before — a kit on the shelf ahead
+of its video is a worksheet for a lesson nobody can take yet.
+
+The folder itself is load-bearing and must not be deleted. It is the drop
+target RESOURCES-CONTRACT.md guarantees ("adding a file here MUST be
+sufficient to make the page exist"), and next.config.mjs traces it into the
+serverless output. lib/resources.ts ignores every file that is not .md, so
+this one is invisible to the site.
