@@ -35,8 +35,11 @@
 name: forge-sync
 
 on:
-  schedule:
-    - cron: "0 6,12,18 * * *"    # three times a day; a kit is never more than ~6h late
+  # SCHEDULE SUSPENDED 2026-08-17. Re-enable by uncommenting, but not before
+  # FORGE_SCRIPTS_REF below is bumped — read the next comment block first.
+  #
+  # schedule:
+  #   - cron: "0 6,12,18 * * *"  # three times a day; a kit is never more than ~6h late
   workflow_dispatch:
 
 permissions:
@@ -46,6 +49,29 @@ env:
   # The Forge commit whose scripts/ this job is allowed to execute. Bump it
   # deliberately, after reading the diff — that review IS the control this pin
   # buys. A branch name here would hand the property straight back.
+  #
+  # WHY THE SCHEDULE ABOVE IS OFF. This pin is from 2026-08-13 and the
+  # deliver_kits.py it names has NO publication gate: its export() writes every
+  # kit it finds, published or not. That is what re-created all 20 kits in
+  # de6553a after they were withdrawn in c75fab1 (#65), and it would have done
+  # it again at the next 18:00 run.
+  #
+  # Forge added the gate on their main at 4f8d52a on 2026-08-17 — but a fix on
+  # their main does not reach this job, because this job runs the PINNED script,
+  # not their head. The pin and the fix are the whole problem: the gate cannot
+  # take effect until the pin moves to a commit that contains it.
+  #
+  # TO RESTORE AUTOMATIC DELIVERY, in this order:
+  #   1. Read the diff 5d293f0..4f8d52a in DareOmotosho-Com/Dare-s-Forge —
+  #      specifically that export() refuses any kit whose asset is not
+  #      `published` or later, or whose ship_receipt.json moment has not passed.
+  #   2. Set FORGE_SCRIPTS_REF to 4f8d52a (or a later reviewed commit).
+  #   3. Uncomment the schedule.
+  # Doing 3 without 2 puts the site straight back into the loop. Doing 2 without
+  # 1 gives away the only thing the pin buys.
+  #
+  # Until then kits arrive by `workflow_dispatch` only, and Forge's evening
+  # checker will report kits as owed — so this surfaces as a nudge, not silence.
   FORGE_SCRIPTS_REF: "5d293f00985c0c8acef2af6192636f7bf6954106"
 
 concurrency:
