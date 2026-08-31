@@ -355,7 +355,7 @@ function normalizeDashes(str) {
 }
 
 // ── BUILD ─────────────────────────────────────────────────────────
-function buildEntry({ fileName, type, body }) {
+function buildEntry({ fileName, relPath = "", type, body }) {
   const title = normalizeDashes(deriveTitle(fileName, body));
   body = normalizeDashes(stripLeadingTitleHeading(body, deriveTitle(fileName, body)));
   const topic = classifyTopic(body);
@@ -371,6 +371,18 @@ function buildEntry({ fileName, type, body }) {
   // Articles are repurposed from another channel (e.g. LinkedIn) and default
   // to unpublished so they can be reviewed individually before going live.
   const isArticle = type === "article";
+  // ...but not all of them are. Anything filed under a `newsletters/`
+  // sub-folder was written as this site's newsletter, not lifted from
+  // LinkedIn, so it must not carry that provenance line: source_note renders
+  // on the page, and a false note is worse than no note. Nothing is asserted
+  // in its place — the seeder knows where a file did NOT come from, not where
+  // it did.
+  const isNewsletter =
+    isArticle &&
+    relPath
+      .split(path.sep)
+      .slice(0, -1)
+      .some((seg) => /newsletter/i.test(seg));
   return {
     slug: slugify(title),
     type,
@@ -380,9 +392,10 @@ function buildEntry({ fileName, type, body }) {
     topic,
     level,
     asker,
-    source_note: isArticle
-      ? "Originally published on LinkedIn; substantially rewritten for site"
-      : null,
+    source_note:
+      isArticle && !isNewsletter
+        ? "Originally published on LinkedIn; substantially rewritten for site"
+        : null,
     published: isArticle ? false : PUBLISHED,
     created_at: nowIso,
     updated_at: nowIso,
@@ -476,7 +489,14 @@ async function main() {
         continue;
       }
 
-      const entry = buildEntry({ fileName: path.basename(file), type: folder.type, body });
+      const entry = buildEntry({
+        fileName: path.basename(file),
+        // Relative to the type folder, so buildEntry can see which
+        // sub-collection a file came from (e.g. articles/newsletters/).
+        relPath: path.relative(dir, file),
+        type: folder.type,
+        body,
+      });
 
       if (usedSlugs.has(entry.slug)) {
         console.log(`   ↺ ${entry.title}  [duplicate within this run — skipped]`);
