@@ -354,6 +354,33 @@ function normalizeDashes(str) {
     .replace(/[ \t]*—[ \t]*/g, ", ");
 }
 
+/** The provenance line for an article, or null.
+ *
+ *  Only ONE thing is actually known about where these files came from: the
+ *  ones under a `rewritten/` folder were lifted from LinkedIn and reworked.
+ *  So that is the only case that gets a note. Everything else returns null,
+ *  and that is the answer — not a gap for a later guess to fill.
+ *
+ *  This used to be a denylist ("an article, unless it's a newsletter"), which
+ *  got the two folders we have today right and would have stamped LinkedIn on
+ *  any third one. `contents/articles/batch-1/` already exists.
+ *
+ *  Newsletters in particular must stay null on both counts: they were never on
+ *  LinkedIn, and they have never been sent to a mailing list either — no ESP is
+ *  wired up and no send receipt has ever existed — so "originally sent to
+ *  subscribers" would just be the same false claim in a different coat.
+ *
+ *  `relPath` is the file's path relative to CONTENT_DIR, so the SUBfolder is
+ *  visible here; `path.basename` would lose exactly the segment that decides
+ *  this. */
+function sourceNoteFor(relPath, type) {
+  if (type !== "article") return null;
+  const folders = (relPath || "").split(path.sep).slice(0, -1);
+  return folders.some((seg) => /rewrit/i.test(seg))
+    ? "Originally published on LinkedIn; substantially rewritten for site"
+    : null;
+}
+
 // ── BUILD ─────────────────────────────────────────────────────────
 function buildEntry({ fileName, relPath = "", type, body }) {
   const title = normalizeDashes(deriveTitle(fileName, body));
@@ -368,21 +395,10 @@ function buildEntry({ fileName, relPath = "", type, body }) {
         : summariseFirstParagraph(body);
   const asker = extractAsker(body);
   const nowIso = new Date().toISOString();
-  // Articles are repurposed from another channel (e.g. LinkedIn) and default
-  // to unpublished so they can be reviewed individually before going live.
+  // Articles default to unpublished so they can be reviewed individually
+  // before going live. Where each one came from is a separate question, and
+  // sourceNoteFor is the only thing that answers it.
   const isArticle = type === "article";
-  // ...but not all of them are. Anything filed under a `newsletters/`
-  // sub-folder was written as this site's newsletter, not lifted from
-  // LinkedIn, so it must not carry that provenance line: source_note renders
-  // on the page, and a false note is worse than no note. Nothing is asserted
-  // in its place — the seeder knows where a file did NOT come from, not where
-  // it did.
-  const isNewsletter =
-    isArticle &&
-    relPath
-      .split(path.sep)
-      .slice(0, -1)
-      .some((seg) => /newsletter/i.test(seg));
   return {
     slug: slugify(title),
     type,
@@ -392,10 +408,7 @@ function buildEntry({ fileName, relPath = "", type, body }) {
     topic,
     level,
     asker,
-    source_note:
-      isArticle && !isNewsletter
-        ? "Originally published on LinkedIn; substantially rewritten for site"
-        : null,
+    source_note: sourceNoteFor(relPath, type),
     published: isArticle ? false : PUBLISHED,
     created_at: nowIso,
     updated_at: nowIso,
@@ -491,9 +504,11 @@ async function main() {
 
       const entry = buildEntry({
         fileName: path.basename(file),
-        // Relative to the type folder, so buildEntry can see which
-        // sub-collection a file came from (e.g. articles/newsletters/).
-        relPath: path.relative(dir, file),
+        // Relative to CONTENT_DIR, because walk() recurses and the SUBfolder
+        // is what tells a rewritten LinkedIn piece from a newsletter
+        // (e.g. articles/rewritten/ vs articles/newsletters/).
+        // path.basename would lose exactly that segment.
+        relPath: path.relative(CONTENT_DIR, file),
         type: folder.type,
         body,
       });
