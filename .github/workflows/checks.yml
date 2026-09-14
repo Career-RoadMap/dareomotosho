@@ -1,0 +1,49 @@
+# Repo checks that must hold before a change reaches main.
+#
+# Today that is one check, and it earns its place: outputFileTracingIncludes in
+# next.config.mjs is a hand-maintained list of every route that reads
+# contents/resources/ at runtime, and on 2026-09-13 it was found three routes
+# short — /resources/field-kit among them, which is the shelf URL printed in
+# every video description.
+#
+# WHY A CHECK RATHER THAN CARE. That drift cannot be caught by looking at a
+# deploy. The build goes green and the pages render, because the prerendered
+# output is correct; the kits only disappear when a route re-renders against a
+# bundle with no markdown in it. /resources/field-kit sets revalidate = 60, so
+# in production that is a minute after the deploy everyone already signed off.
+# A failure that arrives after you stop watching needs a machine watching.
+#
+# No secrets and no network beyond npm, so this is safe to run on any PR.
+
+name: checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tracing:
+    name: Resource tracing is complete
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # The check only reads next.config.mjs and walks source files, so it does
+      # not need the dependency tree. Skipping the install keeps it a few
+      # seconds rather than a minute, which is what makes it cheap enough to
+      # run on every PR.
+      - name: Check outputFileTracingIncludes covers every reader
+        run: node scripts/check-resource-tracing.mjs
