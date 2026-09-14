@@ -65,10 +65,23 @@ const nextConfig = {
   // route that reads them, so ISR re-renders and the content API keep
   // working after deploy — this is what keeps the RESOURCES-CONTRACT
   // "drop a file in, page exists" guarantee true in production.
+  // Every entry here is a route that calls into lib/resources.ts. That module
+  // reads the folder through a path built from process.cwd() at runtime, which
+  // static analysis cannot follow — so a route missing from this list ships
+  // without the markdown and starts 404ing its kits the first time it
+  // re-renders, not at deploy time.
   outputFileTracingIncludes: {
     "/resources": ["./contents/resources/**/*"],
     "/resources/[slug]": ["./contents/resources/**/*"],
+    // The shelf. revalidate = 60, so it re-reads the folder in production
+    // rather than serving build-time output forever, and /resources/field-kit
+    // is printed in every video description.
+    "/resources/field-kit": ["./contents/resources/**/*"],
     "/api/resources/[slug]": ["./contents/resources/**/*"],
+    // The gated PDF and the first-unlock confirmation email both resolve the
+    // kit by slug, so both need the file the kit is rendered from.
+    "/api/resources/[slug]/download": ["./contents/resources/**/*"],
+    "/api/resources/welcome": ["./contents/resources/**/*"],
     "/sitemap.xml": ["./contents/resources/**/*"],
   },
   async headers() {
