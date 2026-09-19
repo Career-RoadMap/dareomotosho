@@ -56,4 +56,4 @@ And here is what the question cannot do for you: it will not tell you whether to
 
 Write out the last three occasions it changed: who, what and why. If that comes easily, you know precisely what you are setting, and you can set it deliberately. If you cannot manage one, you have turned up something worth more than an automation candidate.
 
-It is three columns and four rows, and the row about what changing it would cost afterwards takes most of the page, which is where the real argument lives. The page carries blanks rather than worked examples, because a number sitting in a template is a number somebody inherits:
+It is three columns and four rows, and the row about what changing it would cost afterwards takes most of the page, which is where the real argument lives. [The page itself is here](https://dareomotosho.com/resources/field-kit), carrying blanks rather than worked examples, because a number sitting in a template is a number somebody inherits.
