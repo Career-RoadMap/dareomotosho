@@ -1,0 +1,102 @@
+# Publish (or unpublish) entries that are already seeded.
+#
+# WHY THIS EXISTS. Seeding is not publishing. seed.yml runs on every push to
+# main and inserts articles with `published = false`, and /resources/articles
+# and /resources/[slug] both read `published = true` only — so a newsletter can
+# be merged, seeded and reported finished while its URL still 404s. That has
+# happened: #80 landed two newsletters and both stayed dark, because the seeder
+# cannot publish them. By design it copies a row's existing `published` value
+# back over the computed one, so re-running it never helps.
+#
+# The flip needs the service-role key, which lives here as a secret. Before
+# this workflow the only other place it could happen was somebody's Supabase
+# dashboard session: no record of which slug moved or when, and a step easy to
+# skip. This makes it a dated run log instead, and the key never leaves CI.
+#
+# Manual only. Nothing about a push tells you an article has been read and is
+# ready to be seen, which is the entire reason articles seed unpublished.
+
+name: publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      slugs:
+        description: >-
+          Slugs to flip, space- or comma-separated. This is the /resources/<slug>
+          URL segment, which comes from the file's H1 and NOT its filename —
+          take it from the seed run's log.
+        required: true
+        type: string
+      unpublish:
+        description: "Take these pages back down instead of publishing them."
+        required: false
+        default: false
+        type: boolean
+      dry_run:
+        description: "Report what would change and write nothing."
+        required: false
+        default: false
+        type: boolean
+
+# No commits, no PR writes — this job only talks to Supabase.
+permissions:
+  contents: read
+
+# A second run flipping the same slug while the first is mid-flight buys
+# nothing but a confusing pair of logs.
+concurrency:
+  group: publish-entries
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        # Matches seed.yml: Node 22+ for the global WebSocket that
+        # @supabase/supabase-js constructs its realtime client against.
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Flip the published switch
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          # Service-role key bypasses RLS so the update is allowed. CI only —
+          # never expose it to the browser.
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SLUGS: ${{ inputs.slugs }}
+        # SLUGS goes through the environment rather than being interpolated into
+        # the command, so a slug containing shell metacharacters is data and not
+        # something the runner executes.
+        run: |
+          set -euo pipefail
+          node scripts/publish.js \
+            ${{ inputs.unpublish && '--unpublish' || '' }} \
+            ${{ inputs.dry_run && '--dry-run' || '' }} \
+            -- $SLUGS
+
+      # The script prints the outcome, but a run summary is what somebody sees
+      # on a phone without opening the log.
+      - name: Say what happened
+        if: ${{ always() }}
+        run: |
+          {
+            echo "### publish: ${{ job.status }}"
+            echo
+            echo "Slugs: \`${{ inputs.slugs }}\`"
+            echo "Mode: ${{ inputs.unpublish && 'unpublish' || 'publish' }}${{ inputs.dry_run && ' (dry run)' || '' }}"
+            echo
+            echo "A published page appears within a minute (\`revalidate = 60\`)."
+            echo "The receipt is a 200 on the URL, not a green tick here."
+          } >> "$GITHUB_STEP_SUMMARY"
